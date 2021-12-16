@@ -1,0 +1,41 @@
+/* pages/examine/examine.wxss */
+.examine {
+  width: 100%;
+  min-height: 100vh;
+}
+.step-desc {
+  color: blueviolet !important;
+}
+.step {
+  /* height: 200rpx; */
+  margin: 20px 0;
+}
+.submit-btn {
+  /* margin: 0 auto; */
+  position: absolute!important;
+  width: 80%!important;
+  left: 10%;
+  /* bottom: 20px; */
+  background: rgba(236, 25, 58, 1)!important;
+  color: white!important;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.img {
+  margin: auto;
+  display: block;
+  width: 200px;
+  height: 210px;
+  position: relative;
+  left: -10px;
+}
+.content{
+  /* height: 76vh; */
+  position: relative;
+}
+.p{
+  font-size: 12px;
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+}

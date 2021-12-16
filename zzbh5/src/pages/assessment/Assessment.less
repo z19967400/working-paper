@@ -1,0 +1,48 @@
+.Assessment{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  background: #f5f5f5;
+  & > .content{
+    // margin-top: 125px;
+    padding-bottom: 60px;
+    & > .text{
+      color: #515151;
+      font-size: 14px;
+      // padding: 10px;
+      letter-spacing: 2px;
+      padding: 20px;
+    }
+    & > .box{
+      background: white;
+      // padding-bottom: 60px;
+    }
+    &>.confirm{
+      margin: 10px 0 0px 20px;
+      & > .checkBox{
+        margin-top: 4px;
+        height: 16px;
+        width: 16px;
+        border:1px solid #909399;
+        line-height: 16px;
+        text-align: center;
+        color: #909399;
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        & > .icon{
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+        }
+      }
+      & > .checkTitle{
+        color: #909399;
+        font-size: 13px;
+        margin-left: 5px;
+      }
+    }
+  }
+}

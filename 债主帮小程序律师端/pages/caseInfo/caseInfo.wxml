@@ -1,0 +1,81 @@
+<view class="container">
+  <view class="caseInfo">
+    <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+      <view class="title">
+        <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+        <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+          src="http://file.debteehelper.com/logo/logo_zzbang_03.png">
+        </image> -->
+        <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+          <van-icon bindtap="goBack" name="arrow-left" />
+          <view class="shu"></view>
+          <van-icon bindtap="goHome" name="wap-home" />
+        </view>
+      </view>
+      <view class="text">
+        <text>案件详情</text>
+        <text class="number">{{debtor_number}}</text>
+      </view>
+      <!-- <text style="margin-left:70rpx;font-size:28rpx;">案件编号: {{debtor_number}}</text> -->
+    </view>
+    <scroll-view scroll-y style="height:{{height}}px">
+      <view class="info">
+        <view class="info-title">
+          <text>案件基本信息</text>
+        </view>
+        <view class="cell-box"> 
+          <view class="cell" wx:for="{{info.basic}}"  wx:key="index" wx:if="{{item.type}}">
+            <text class="label">{{item.name}}</text>
+            <text class="value">{{item.value}}</text>
+          </view>
+        </view>
+        <view class="info-title">
+          <text>委托人信息</text>
+        </view>
+        <view class="cell-box"> 
+          <view class="cell" wx:for="{{info.creditor}}"  wx:key="index" >
+            <text class="label">{{item.name}}</text>
+            <text class="value">{{item.value}}</text>
+          </view>
+        </view>
+        <view class="info-title">
+          <text>债务人信息</text>
+        </view>
+        <view class="cell-box"> 
+          <view class="cell" wx:for="{{info.obligor}}"  wx:key="index" >
+            <text class="label">{{item.name}}</text>
+            <text class="value">{{item.value || ''}}</text>
+          </view>
+        </view>
+          <!--<van-cell-group title="债务详情">
+          <van-cell wx:for="{{info.debt}}" wx:key="index" title="{{item.name}}" value="{{item.value}}" />
+        </van-cell-group> -->
+        <van-button wx:if="{{!case_received}}" custom-class="meet-case" loading="{{btnLoad}}" disabled="{{btnDisabled}}"
+          bind:click="meetCase" loading-text="接案提交中..." type="primary" block color="rgba(236, 25, 58, 1)">立即接案
+        </van-button>
+        <van-button wx:elif="{{is_allocated}}" custom-class="meet-case caseType1" data-debtor_number="{{debtor_number}}"
+          bind:click="goProcess" type="primary" block color="rgba(236, 25, 58, 1)">办案进程</van-button>
+        <van-button wx:else custom-class="meet-case caseType2" data-debtor_number="{{debtor_number}}" type="primary"
+          block color="rgba(236, 25, 58, 1)">接案中</van-button>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 弹出层 -->
+  <van-popup show="{{ show }}" custom-class="reason-box" closeable bind:close="onClose">
+    <van-icon name="cross" custom-class="reason-cross" bindtap="onClose" />
+    <view class="reason">
+      <view class="title">请选择抢单理由</view>
+      <view class="item-box">
+        <view wx:for="{{reason}}" bindtap="selectReason" data-index="{{index}}" wx:key="index"
+          class="item {{item.status?'act':''}}">
+          {{item.name}}</view>
+      </view>
+      <text class="title2">其他理由</text>
+      <textarea placeholder-class="reason-placeholder" class="reason-text" placeholder-style="font-size:12px;"
+        placeholder="" bindinput="otheReason"></textarea>
+    </view>
+    <button class="reason-btn" bindtap="reasonSubmit">提交</button>
+  </van-popup>
+  <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
+</view>

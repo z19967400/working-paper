@@ -1,0 +1,187 @@
+@import "@/assets/scss/variables.scss";
+html,
+body {
+  height: 100%;
+  margin: 0;
+  & > #app {
+    height: 100%;
+    & > .debtFeedback-wrap {
+      width: 100%;
+      height: 100%;
+      background-color: $main-body-bgColor;
+      & > .debtFeedback-box {
+        height: 100%;
+        & .cc {
+          display: none;
+        }
+        & .el-upload-list--picture-card .el-upload-list__item {
+          height: 100px;
+          width: 100px;
+        }
+        & .el-upload--picture-card {
+          height: 100px;
+          width: 100px;
+          line-height: 102px;
+        }
+        & .el-textarea__inner {
+          height: 100px;
+        }
+        & > .header {
+          position: relative;
+          height: 135px;
+          overflow: hidden;
+          & > img {
+            width: 100%;
+          }
+          & > .header-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            color: white;
+            & > div {
+              padding: 40px 20px;
+              position: relative;
+              & > p {
+                font-size: 18px;
+                margin: 0;
+              }
+              & > span {
+                font-size: 12px;
+                margin: 0;
+              }
+              & > .log {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 29px;
+                height: 32px;
+              }
+            }
+          }
+        }
+        & > .text {
+          padding: 0 15px;
+          & .panel {
+            margin-bottom: 40px;
+            & > .panel-shu {
+              display: inline-block;
+              height: 15px;
+              width: 3px;
+              background-color: #e01f3c;
+              margin-right: 10px;
+              position: relative;
+              top: 3px;
+            }
+            & > .paner-title {
+              font-size: 13px;
+              color: #515151;
+              font-weight: bold;
+            }
+
+            & > div {
+              & > .el-divider--horizontal {
+                margin: 15px 0;
+              }
+              & > .label {
+                font-weight: bold;
+                font-size: 12px;
+                color: #515151;
+                display: inline-block;
+                width: 135px;
+                text-indent: 15px;
+              }
+              & > .value {
+                font-size: 13px;
+                color: $General-colors;
+              }
+            }
+          }
+          & .feedback {
+            & > .cell {
+              margin-bottom: 40px;
+              & > .title {
+                margin: 0;
+                font-size: 13px;
+                color: #515151;
+                font-weight: bold;
+                & > .feedback-shu {
+                  display: inline-block;
+                  height: 15px;
+                  width: 3px;
+                  background-color: #e01f3c;
+                  margin-right: 10px;
+                  position: relative;
+                  top: 3px;
+                }
+              }
+              & > .el-divider--horizontal {
+                margin: 15px 0;
+              }
+              & > .radio {
+                display: flex;
+                justify-content: space-around;
+              }
+              & > .el-checkbox-group {
+                margin-top: 20px;
+                & > .el-checkbox {
+                  display: block;
+                  line-height: 2.5;
+                }
+              }
+              & .el-dialog {
+                width: 90%;
+              }
+            }
+          }
+          & .Payment {
+            & > .el-row {
+              & > .el-divider--horizontal {
+                margin: 15px 0;
+              }
+              & > .lebel {
+                font-weight: bold;
+                font-size: 12px;
+                color: #515151;
+                display: inline-block;
+                width: 120px;
+                text-indent: 15px;
+              }
+              & > .value {
+                font-size: 13px;
+                color: $General-colors;
+              }
+            }
+          }
+        }
+        & > .el-dialog__wrapper {
+          & > .el-dialog {
+            width: 90%;
+            margin-top: 25vh !important;
+            border-radius: 10px;
+            & > .el-dialog__header {
+              text-align: center;
+              & > .el-dialog__title {
+                font-size: 16px;
+              }
+            }
+            & > .el-dialog__body {
+              padding: 10px 20px 0 20px;
+            }
+            & > .el-dialog__footer {
+              padding-top: 0;
+              & > .dialog-footer {
+                text-align: center;
+              }
+            }
+            & .el-button {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

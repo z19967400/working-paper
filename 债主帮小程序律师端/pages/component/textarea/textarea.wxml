@@ -1,0 +1,3 @@
+<view class="textarea-box">
+  <textarea class="textarea" value="{{value}}" bindinput="textareaInput"></textarea>
+</view>

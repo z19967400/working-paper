@@ -1,0 +1,93 @@
+<!--pages/caseProgress/caseProgress.wxml-->
+<view class="container">
+  <view class="caseProgress">
+    <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+      <view class="title">
+        <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+        <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+          src="http://file.debteehelper.com/logo/logo_zzbang_03.png"> </image>-->
+        <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+          <van-icon bindtap="goBack" name="arrow-left" />
+          <view class="shu"></view>
+          <van-icon bindtap="goHome" name="wap-home" />
+        </view>
+      </view>
+      <view class="text">
+        <text>办案进展</text>
+        <text class="number">{{debtor_number}}</text>
+      </view>
+    </view>
+    <view style="top:{{isIPhoneX?'150px':'135px'}} ;" class="tabs">
+      <van-row custom-class="row">
+        <van-col wx:for="{{caseTabs}}" wx:key="index" custom-class="col" span="8">
+          <text bindtap="tab" class="tab-text" data-index="{{index}}">{{item}}</text>
+        </van-col>
+      </van-row>
+    </view>
+    <view class="content">
+      <view class="cases-list">
+        <view wx:for="{{List}}" wx:key="index" bindtap="goInfo" data-name="{{item.from_name}}"
+          data-status="{{item.execution_status}}" data-index="{{index}}" data-type="{{item.type}}" data-id="{{item.id}}"
+          class="progress-item">
+          <view class="progress-item-left">
+            <view>
+              <text>step</text>
+              <text class="{{item.execution_status == -1?'':'act-text'}}">{{index>=9?index+1:"0"+(index+1)}}</text>
+            </view>
+            <view class="step">
+              <image class="step-img" src="{{item.execution_status == 1 ? img : img2}}"></image>
+              <view class="step-xian {{item.execution_status == -1? '' : 'act-xian'}}"></view>
+            </view>
+          </view>
+          <view class="progress-item-right">
+            <view class="right-top">
+              <view>
+                <text style="margin-right: 20px;font-size: 14px;font-weight: bold;">{{item.matters_name}}</text>
+                <text>{{item.execution_status == -1 ? item.estimated_time:item.completion_time}}</text>
+              </view>
+              <text wx:if="{{item.type != 0 && item.type != 1 && item.type != 2 }}" bindtap="info"
+                data-id="{{item.id}}">查看详情</text>
+            </view>
+            <view class="right-bottom">
+              <text>{{item.from_name}}</text>
+
+              <text wx:if="{{item.from_name == '签订律师代理合同'}}"
+                class="type {{item.execution_status == -1?'':'act-btn'}}">{{item.execution_status ==
+                1?'已签署':item.execution_status==0?'待签署':'未生成'}}</text>
+              <text wx:if="{{item.from_name != '签订律师代理合同'}}"
+                class="type {{item.execution_status == -1?'':'act-btn'}}">{{item.execution_status ==
+                1?'已完成':item.execution_status==0?'进行中':'未开始'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{show}}" class="overlay" bindtap="onClickHide" catchtouchmove='true'></view>
+    <view wx:if="{{show}}" class="overlay-content" catchtouchmove="preventD">
+      <view class="overlay-title">{{overlayTitle}}</view>
+      <view wx:if="{{infoType==2}}" wx:for="{{info.court}}" wx:key="index" class="overlay-text">
+        <view wx:for="{{item.children}}" wx:key="index2" class="court-item" wx:for-index="index2" wx:for-item="twodata">
+          <text>{{twodata.name}}:</text>
+          <!-- <text>{{item.value}}</text> -->
+          <input type="text" class="court-input" bindinput="courtInput" data-index="{{index}}"
+            data-name="{{twodata.prop}}" value="{{twodata.value}}" />
+        </view>
+      </view>
+      <button wx:if="{{infoType==2}}" class="courtSubmit" bindtap="courtSubmit">提交</button>
+      <view wx:if="{{infoType==1}}" wx:for="{{info.customer}}" wx:key="index" class="overlay-text">
+        <view>
+          <text>{{item.name||'待分配'}}:</text>
+          <text>{{item.value||'待分配'}}</text>
+        </view>
+      </view>
+      <view wx:if="{{infoType==0}}" wx:for="{{info.creditor}}" wx:key="index" class="overlay-text">
+        <view>
+          <text>{{item.name}}:</text>
+          <text>{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 文本提示节点 -->
+    <van-toast id="van-toast" />
+  </view>
+</view>

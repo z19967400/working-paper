@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="index">
+    <view class="home">
+      <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+        <view class="title">
+          <!-- <van-icon  bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+          <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+            src="http://file.debteehelper.com/logo/logo_zzbang_03.png"></image> -->
+          <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+            <van-icon bindtap="goBack" name="arrow-left" />
+            <view class="shu"></view>
+            <van-icon bindtap="goHome" name="wap-home" />
+          </view>
+        </view>
+        <view class="text">
+          <text>案件列表</text>
+        </view>
+      </view>
+
+      <view class="neirong">
+        <view class="tabs">
+          <van-row custom-class="row">
+            <van-col wx:for="{{caseTabs}}" wx:key="index" custom-class="col" span="8">
+              <text class="tab-text {{caseTabIndex == index?'tab-active':''}}" bindtap="tab"
+                data-index="{{index}}">{{item}}</text>
+            </van-col>
+          </van-row>
+        </view>
+        <scroll-view class="cases-list" scroll-y lower-threshold="100" bindscrolltolower="scrollToLower"
+          style="height: {{height}}px">
+          <view class="cases-item" wx:for="{{list}}" wx:key="index" bindtap="caseInfo"
+            data-debtor_number="{{item.debtor_number}}">
+            <view class="cases-item-title">
+              <text class="cases-item-shu"></text>
+              <text>对{{item.debtor_name }}的案件</text>
+            </view>
+            <view class="cases-item-content">
+              <view class="cases-tiem-content-left">
+                <view>
+                  <text>{{item.release_time}}</text><text
+                    class="cases-item-shu2"></text><text>{{item.collection_scene}}</text>
+                </view>
+                <view>
+                  <text class="cases-item-b">{{item.case_rating}}级</text><text
+                    class="cases-item-shu2"></text><text>模式：{{item.service_fee_mode}}</text>
+                </view>
+              </view>
+              <view class="cases-tiem-content-right">
+                <text>{{item.exhibition_lawyer_fee}}</text>
+                <text>万元</text>
+                <text>预估律师费</text>
+              </view>
+            </view>
+            <view class="cases-item-bottom">
+              <view class="location">
+                <van-icon name="location-o" custom-class="location-icon" />
+                <text>{{item.case_area}}</text>
+              </view>
+
+              <van-button custom-class="cases-item-bottom-info" open-type="getUserInfo" plain hairline round
+                type="danger">
+                查看详情</van-button>
+            </view>
+          </view>
+          <view wx:if="{{list.length == 0}}" class="nodeData">
+            <image class="nodeImg" src="http://www.zzbang.vip/static/img/nothing.3bd9216.png"></image>
+            <text class="nodeData-text">案件列表空空如也,快去<text style="display: inline-block;" bindtap="tab"
+                data-index="{{'0'}}">接单</text>吧~</text>
+          </view>
+          <text class="bottom-text">债主帮-律师端</text>
+        </scroll-view>
+      </view>
+      <!-- <view class="footer"></view> -->
+      <!-- 侧边栏 -->
+      <van-popup show="{{ show }}" position="left" custom-class="right-popup" bind:close="onClose">
+        <text class="navLeft-item" wx:for="{{navLeft}}" wx:key="index" bindtap="navTo"
+          data-path="{{item.path}}">{{item.name}}</text>
+      </van-popup>
+    </view>
+  </view>
+  <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
+</view>

@@ -1,0 +1,5 @@
+<view class="TimePicker">
+  <picker mode="date" bindchange="bindPickerChange">
+    <view class="picker TimePicker-input">{{value}}</view>
+  </picker>
+</view>

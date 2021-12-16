@@ -1,0 +1,50 @@
+@import '@/assets/scss/variables.scss';
+
+.lawyerLetteList-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  & .nav {
+    margin-bottom: 20px;
+    // display: flex;
+    // justify-content: space-between;
+    & .nav-left {
+      display: flex;
+      width: 100%;
+      // justify-content: space-around;
+      & .option {
+        display: inline-block;
+        width: 135px;
+        margin-right: 10px;
+        & .el-date-editor {
+          width: 100%;
+        }
+      }
+      & .option:nth-child(4) {
+        width: 145px;
+      }
+      & .bigW {
+        width: 160px;
+      }
+    }
+    & > .nav-right {
+      width: 30%;
+      display: flex;
+      justify-content: space-around;
+      float: right;
+      margin: 20px 0;
+    }
+  }
+  & .letteDialog {
+    border-radius: 20px;
+    width: 880px;
+  }
+  & .letteDialog2 {
+    width: 1080px;
+  }
+  & .el-table__body tr.current-row > td {
+    background-color: #f2f6fc !important;
+    // color: white;
+  }
+}

@@ -1,0 +1,116 @@
+.Alert{
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 100%;
+  left: 0;
+  z-index: 2021;
+  transition: top 0.5s ease;
+  & > .box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    border-radius: 10px;
+    width: 80%;
+    padding: 20px 0;
+
+    & > .title{
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    & > .html{  
+        font-size: 14px;
+        color: #313133;
+        line-height: 1.5;
+        overflow-y: auto;
+        padding: 0 20px;
+      & > p{
+        text-indent: 32px;
+        margin-bottom: 5px;
+        margin-top: 0;
+        font-size: 14px;
+        color: #313133;
+        line-height: 1.5;
+      }
+      & >.blod{
+        font-weight: bold;
+      }
+      & > .top{
+        margin-top: 20px;
+      }
+      & > .right{
+        text-align: right;
+      }
+      & > .title{
+        margin-bottom: 10px;
+        display: block;
+      }
+    }
+    & > .buttom{
+      height: 40px;
+      width: 120px;
+      text-align: center;
+      color: white;
+      background:rgb(235, 25, 58);
+      line-height: 40px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 20px auto 0 auto;
+    }
+  }
+}
+.Top{
+  top: 0;
+}
+.Alert2{
+  &  .Alert2Box{
+    margin-top: 20px;
+    margin-left: 20px;
+    & > p{
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+}
+
+.Alert3{
+  & .Alert3-step{
+    margin-top: 20px;
+    & > .title{
+      font-size: 14px;
+      color: #303133;
+    }
+    & > .value{
+      padding-left: 20px;
+      margin-top: 20px;
+      & > .img{
+        max-width: 100px;
+      }
+      & > span{
+        font-size: #606366;
+      }
+    }
+  }
+}
+
+.Alert4{
+  & .btn-box{
+    display: flex;
+    &  .buttom{
+      height: 35px;
+      width: 100px;
+      text-align: center;
+      color: white;
+      background:rgb(235, 25, 58);
+      line-height: 35px;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: 20px auto 0 auto;
+    }
+  }
+ 
+}

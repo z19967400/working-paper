@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="examine">
+    <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+      <view class="title">
+        <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+        <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+          src="http://file.debteehelper.com/logo/logo_zzbang_03.png"> </image> -->
+        <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+          <van-icon bindtap="goBack" name="arrow-left" />
+          <view class="shu"></view>
+          <van-icon bindtap="goHome" name="wap-home" />
+        </view>
+
+      </view>
+      <view class="text">
+        <text>律师认证审核</text>
+      </view>
+    </view>
+    <view class="content">
+      <van-steps steps="{{ steps }}" custom-class="step" desc-class="step-desc" active-icon="{{setpType}}"
+        active-color="{{stepColor}}" active="{{ active }}" />
+      <view style="text-align: center;">
+        <view wx:if="{{active == 1}}">
+          <image class="img" mode="widthFix" src="http://www.debteehelper.com/assets/imgs/option/编组10@2x.png"></image>
+          <text style="margin-top: 20px;" class="p">我们将于一个工作日内审核资料</text>
+          <text style="margin-top: 10px;" class="p">请耐心等待~</text>
+        </view>
+        <view wx:if="{{active == 2}}">
+          <image style="left: 0;" class="img" mode="widthFix"
+            src="http://www.debteehelper.com/assets/imgs/cases/it_support (1)@2x.png">
+          </image>
+          <text style="margin-top: 10px;" class="p">很抱歉,您的审核未通过,原因如下</text>
+          <text style="margin-top: 10px;" class="p">{{audit_feedback}}</text>
+        </view>
+        <van-button wx:if="{{active == 2}}" custom-class="submit-btn" bind:click="reSubmit">重新认证</van-button>
+        <!-- <van-button custom-class="submit-btn"  bind:click="reSubmit">返回首页</van-button> -->
+      </view>
+    </view>
+  </view>
+</view>

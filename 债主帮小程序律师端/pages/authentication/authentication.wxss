@@ -1,0 +1,105 @@
+.authentication {
+  width: 100%;
+  height: 100%;
+}
+.Submit {
+  background-color: rgba(236, 25, 58, 1) !important;
+  border: none !important;
+  z-index: 99 !important;
+  margin-top: 40rpx;
+}
+.laber {
+  min-width: 75px;
+  max-width: 75px;
+  padding-right: 15px;
+}
+.value {
+  text-align: left;
+}
+.value2 {
+  color: #333;
+}
+.updata-cell {
+  display: flex !important;
+  justify-content: space-between;
+}
+.content {
+  padding: 0 12px 30px 12px;
+}
+.row {
+  height: 100%;
+  width: 100%;
+}
+.field-input {
+  z-index: 1 !important;
+}
+.textarea {
+  height: 200rpx !important;
+  padding-top: 20rpx !important;
+}
+.zc-title {
+  display: flex;
+  padding: 20rpx 30rpx;
+  justify-content: space-between;
+}
+.zc-title text:first-child {
+  color: #999;
+}
+.zc-title text:last-child {
+  color: #44bc43;
+}
+.right-item {
+  font-size: 28rpx !important;
+  font-weight: normal !important;
+}
+.left-item {
+  font-size: 30rpx !important;
+}
+.uploadImg {
+  height: 80px;
+  width: 80px;
+  background: #f7f8fa;
+  position: relative;
+}
+.label-padding{
+  padding: 15px 0;
+}
+.authenticationTips{
+  font-size: 14px;
+  margin-left: 20px;
+}
+.edit{
+  font-size: 14px;
+  float: right;
+  line-height: 26px;
+  margin-right: 20px;
+  position: relative;
+  top: 1px;
+}
+.textxxx{
+ border-radius: 5px;
+ width: 100%;
+ color: #333;
+ font-size: 14px;
+ padding: 10px;
+}
+.xieyi{
+  font-size: 14px;
+  color: #606366;
+  display: flex;
+  margin-top: 10px;
+}
+.xieyi text{
+  margin-left: 5px;
+}
+.color{
+  color:rgba(236, 25, 58, 1) ;
+}
+.dialog-content{
+  max-height: 750rpx;
+  overflow-y: auto;
+  padding: 20px;
+}
+/* .dialog-box{
+  background: red;
+} */

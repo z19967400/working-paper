@@ -1,0 +1,17 @@
+@import "@/assets/scss/variables.scss";
+.menuSetting-warp {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: $main-body-bgColor;
+  display: flex;
+  justify-content: space-around;
+  .block {
+    .el-button--mini {
+      padding: 2px 4px;
+    }
+    .text {
+      margin-right: 150px;
+    }
+  }
+}

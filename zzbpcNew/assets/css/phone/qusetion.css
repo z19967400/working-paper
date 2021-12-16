@@ -1,0 +1,34 @@
+#phone {
+  background-color: #fbfbfb;
+}
+#phone .pcfirst {
+  background-image: url(/assets/imgs/question/多边形@2x.png);
+}
+#phone .panel-heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+#phone .panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+}
+#phone .question {
+  padding: 24px;
+}
+#phone .wechart {
+  width: 327px;
+  height: 227px;
+  background-color: #fff;
+  margin: auto;
+}
+#phone .wechart div {
+  width: 100%;
+  height: 169px;
+  background-color: pink;
+}
+#phone .wechart p {
+  background-color: #ccc;
+}

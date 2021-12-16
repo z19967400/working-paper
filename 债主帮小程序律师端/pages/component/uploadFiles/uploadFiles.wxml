@@ -1,0 +1,12 @@
+<view class="uploadFiles">
+  <view class="fileList-box">
+    <view wx:for="{{fileList}}" wx:key="index" class="fileList">
+      <van-icon name="column" />
+      <text>{{item.name}}</text>
+      <van-icon name="clear" />
+    </view>
+  </view>
+  <van-uploader accept="file" bind:after-read="afterRead">
+    <van-button icon="add-square" custom-class="uploadFiles-btn" type="primary">上传文件</van-button>
+  </van-uploader>
+</view>

@@ -1,0 +1,185 @@
+<template>
+  <div class="emailEdit-wrap">
+    <span class="title">邮件模板新增/编辑</span>
+    <el-divider></el-divider>
+    <div :style="{ height: height + 'px' }" class="emailEdit-box">
+      <el-form
+        ref="form"
+        :rules="data.rules"
+        :model="data.edit"
+        label-width="80px"
+      >
+        <el-form-item label="标题" prop="title">
+          <el-col :span="12">
+            <el-input v-model="data.edit.title"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="调用码" prop="use_code">
+          <el-col :span="12">
+            <el-input v-model="data.edit.use_code"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="参数" prop="parameter">
+          <el-col :span="18">
+            <el-input type="textarea" v-model="data.edit.parameter"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="内容" prop="template_content">
+          <el-col :span="24">
+            <ueditor
+              @getVal="ueditorVal"
+              :value="data.edit.template_content"
+            ></ueditor>
+          </el-col>
+        </el-form-item>
+        <el-form-item style="bottom:0;" class="edit-bottom-bin">
+          <el-button
+            type="primary"
+            :loading="data.submitType"
+            @click="submitForm('form')"
+            >确定</el-button
+          >
+          <el-button @click="resetForm('form')">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { Getter, Action } from 'vuex-class'
+import * as Api from '../../../api/template'
+import { ueditor } from '../../../components/index'
+@Component({
+  components: {
+    ueditor
+  }
+})
+export default class About extends Vue {
+  // data
+  data: any = {
+    edit: {
+      id: 0,
+      title: '',
+      use_code: '',
+      parameter: '',
+      template_content: `<p></p><p><br></p><ol></ol>` // 富文本编辑器默认内容
+    },
+    submitType: false,
+    rules: {
+      title: [
+        { required: true, message: '请输入标题', trigger: 'blur' },
+        { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
+      ],
+      use_code: [
+        { required: true, message: '请输入使用码', trigger: 'blur' },
+        { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
+      ],
+      template_content: [
+        { required: true, message: '请输入内容', trigger: 'blur' }
+      ],
+      parameter: [{ required: true, message: '请输入参数', trigger: 'blur' }]
+    }
+  }
+  height: number = 0
+  created() {
+    this.height = document.body.offsetHeight - 220
+  }
+
+  activated() {
+    let self: any = this
+    if (self.$route.query.data == null) {
+      self.data.edit.id = 0
+      self.resetForm('form')
+    } else {
+      let data: any = JSON.parse(self.$route.query.data)
+      let editData: any = this.data.edit
+      editData.id = data.id
+      editData.title = data.title
+      editData.parameter = data.parameter
+      editData.template_content = data.template_content
+      editData.use_code = data.use_code
+    }
+  }
+
+  mounted() {
+    //
+  }
+
+  beforeDestroy() {
+    //
+  }
+
+  //编辑器内容
+  ueditorVal(val: any) {
+    this.data.edit.template_content = val
+  }
+
+  //表单提交
+  submitForm(formName: string) {
+    let from: any = this.$refs[formName]
+    let self: any = this
+    from.validate((valid: Boolean) => {
+      if (valid) {
+        this.data.submitType = true
+        Api.emailModelEdit(self.data.edit).then((res: any) => {
+          if (res.data == 1) {
+            self.resetForm('form')
+            self.$message.success(res.msg)
+            setTimeout(() => {
+              this.data.submitType = false
+              self.$router.push({
+                path: '/Template/email'
+              })
+            }, 1000)
+          } else {
+            self.$message.warning(res.msg)
+            this.data.submitType = false
+          }
+        })
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+  //重置表单
+  resetForm(formName: string) {
+    let from: any = this.$refs[formName]
+    from.resetFields()
+  }
+}
+</script>
+
+<style lang="scss">
+@import '@/assets/scss/variables';
+
+.emailEdit-wrap {
+  width: 100%;
+  min-height: 100%;
+  background-color: $main-body-bgColor;
+  & .title {
+    font-size: $Text-font;
+    color: $Secondary-text;
+    height: 32px;
+    line-height: 32px;
+  }
+  & .el-divider--horizontal {
+    margin: 5px 0 20px 0;
+  }
+  .emailEdit-box {
+    overflow-y: auto;
+    .el-form {
+      width: 800px;
+      .el-form-item__content {
+        line-height: normal;
+      }
+      .ql-container {
+        height: 300px;
+      }
+    }
+  }
+}
+</style>

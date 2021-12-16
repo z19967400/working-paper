@@ -1,0 +1,67 @@
+/* pages/contract/contract.wxss */
+/* pages/caseProgressInfo/caseProgressInfo.wxss */
+.contract {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.home {
+  width: 100%;
+  overflow-x: hidden;
+}
+.nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+}
+.neiron {
+  min-height: 75vh;
+  position: relative;
+  padding-bottom: 50px;
+}
+.neiron-box {
+  background: #f9f9f9;
+  margin-top: 135px;
+}
+.bottom-box {
+  position: absolute;
+  bottom: 0;
+  width: 100% !important;
+  display: flex;
+}
+.bottom-box-btn {
+  width: 50%;
+  background: #ec193a;
+  color: white;
+  font-size: 28rpx !important;
+  border-radius: 0 !important;
+  line-height: 40px;
+}
+
+.item-box {
+  background: white;
+  margin-bottom: 20rpx;
+  padding: 10px 12px;
+}
+.bottom-box-shu {
+  width: 1px;
+  height: 30px;
+  margin-top: 10px;
+}
+.item-title {
+  display: flex;
+  height: 30px;
+  font-size: 28rpx;
+  line-height: 30px;
+  font-weight: bold;
+}
+.shu {
+  width: 3px;
+  height: 16px;
+  background: #ec193a;
+  margin: 7px 10px 7px 0;
+}

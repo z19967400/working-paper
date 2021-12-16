@@ -1,0 +1,19 @@
+@import "@/assets/scss/variables.scss";
+
+.entrustList-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  & .cell {
+    & > .el-button:nth-child(2) {
+      display: none;
+    }
+    // & > .el-button:nth-child(3) {
+    //   display: none;
+    // }
+  }
+  & .input-box button {
+    display: none;
+  }
+}

@@ -1,0 +1,134 @@
+.incrementInfo{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  & > .content{
+    padding-top: 20px;
+    padding-bottom: 60px;
+    & > .footer{
+      display: flex;
+      height: 50px;
+      color: white;
+      justify-content: space-around;
+      font-size: 14px;
+      background:rgb(235, 25, 58);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      line-height: 50px;
+      & > .xian{
+        height: 30px;
+        width: 1px;
+        background:white;
+        position: relative;
+        top: 10px;
+      }
+      & > div{
+        width: 50%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.incrementInfoPenle{
+  & >.content{
+    margin-bottom: 60px;
+    & > .cell{
+      background: white;
+      margin-top: 20px;
+      box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+      & > .title{
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #303033;
+        & > .icon{
+          position: relative;
+          top: 2px;
+        }
+      }
+      & > .item{
+        min-height: 50px;
+        line-height: 50px;
+        padding: 0 25px;
+        border-bottom: 1px solid #e5e5e5;
+        display: flex;
+        & > .lebel{
+          font-size: 12px;
+          display: inline-block;
+          min-width: 120px;
+          color: #303033;
+        }
+        & > .value{
+          font-size: 12px;
+          color: #606366;
+          max-height: 100%;
+          overflow: hidden;
+          display: flex;
+          width: 100%;
+          flex-wrap: wrap;
+          & > .img{
+            max-width: 100px;
+            max-height: 100px;
+            margin: 5px;
+          }
+        }
+      }
+      & > .confirm{
+        background: rgb(235, 25, 58);
+        color: white;
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+        margin: auto;
+        border-radius: 5px;
+        margin-top: 20px;
+        position: relative;
+        top: -10px;
+      }
+    }
+  }
+  & > .footer{
+    display: flex;
+    height: 50px;
+    color: white;
+    justify-content: space-around;
+    font-size: 14px;
+    background:rgb(235, 25, 58);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    line-height: 50px;
+    & > .xian{
+      height: 30px;
+      width: 1px;
+      background:white;
+      position: relative;
+      top: 10px;
+    }
+    & > div{
+      width: 50%;
+      text-align: center;
+    }
+  }
+  & .RadioItem-lebel{
+    font-size: 12px;
+    display: inline-block;
+    width: 130px;
+    color: #303033;
+    padding-left: 10px;
+  }
+  & .RadioItem-value{
+    font-size: 12px;
+    color: #606366;
+    max-height: 100%;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,22 @@
+<view class="section">
+  <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+    <view class="title">
+      <!-- <van-icon  bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+      <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+        src="http://file.debteehelper.com/logo/logo_zzbang_03.png"></image> -->
+      <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+        <van-icon bindtap="goBack" name="arrow-left" />
+        <view class="shu"></view>
+        <van-icon bindtap="goHome" name="wap-home" />
+      </view>
+    </view>
+    <view class="text">
+      <text>授权登录</text>
+    </view>
+  </view>
+  <view class="content">
+    <image mode="widthFix" class="logo" src="http://file.debteehelper.com/logo/logo_zzbang_02.png"></image>
+    <text class="text">您尚未获取微信授权，将无法正常使用小程序需要的功能~如需正常使用，请点击“授权登录”按钮打开头像，昵称等信息的授权</text>
+    <button class="login" bindgetuserinfo='bindGetUserInfo' open-type="getUserInfo">授权登录</button>
+  </view>
+</view>

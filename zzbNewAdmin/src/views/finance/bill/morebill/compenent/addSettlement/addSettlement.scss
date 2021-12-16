@@ -1,0 +1,34 @@
+.addSettlement {
+  & .scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 0 20px;
+  }
+  & .table-cell {
+    & > span {
+      border-left: 5px solid #ec193a;
+      padding-left: 10px;
+      display: block;
+      font-size: 14px;
+    }
+    & .el-table {
+      width: 100%;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  & .footer-btn {
+    margin-top: 20px;
+    text-align: center;
+  }
+  & .el-form {
+    width: 90% !important;
+    & .el-input {
+      max-width: 220px;
+    }
+  }
+  & .el-icon-close-tip {
+    display: none !important;
+  }
+}

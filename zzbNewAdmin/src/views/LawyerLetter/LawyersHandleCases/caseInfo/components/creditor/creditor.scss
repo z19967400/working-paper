@@ -1,0 +1,109 @@
+@import '@/assets/scss/variables.scss';
+.creditor-wrap {
+  overflow-y: auto;
+  max-height: 800px;
+  & > .cell {
+    width: 80%;
+    margin: auto;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 2px 5px #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    & > .marke {
+      border: 1px solid #ec193a;
+      color: #ec193a;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 14px;
+    }
+    & > .marke2 {
+      font-size: 12px;
+      margin-left: 20px;
+      position: relative;
+      top: -5px;
+    }
+    & > .cell-delect {
+      float: right;
+      font-size: 14px;
+      color: #ec193a;
+      cursor: pointer;
+      margin-top: -10px;
+    }
+    & > .cell-top {
+      display: flex;
+      margin-bottom: 50px;
+      justify-content: space-around;
+      & > .cell-top-left {
+        width: 25%;
+        & > img {
+          height: 120px;
+          cursor: pointer;
+          display: block;
+          margin: auto;
+          margin-top: 10px;
+          border-radius: 10px;
+        }
+        & > .qiye {
+          height: auto !important;
+          width: 200px !important;
+        }
+      }
+      & > .cell-top-right {
+        width: 75%;
+        & > .cell-top-right-row {
+          margin: 0;
+          font-size: 14px;
+          display: flex;
+          margin-bottom: 10px;
+          min-height: 35px;
+          line-height: 35px;
+          & > .label {
+            min-width: 120px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 20px;
+            color: #303133;
+          }
+          & > .value {
+            color: #606366;
+            display: inline-block;
+          }
+        }
+      }
+    }
+    & > .cell-buttom {
+      & > .addButtom {
+        float: right;
+        margin-bottom: 20px;
+      }
+      & .check {
+        color: #409eff;
+      }
+      & .edit {
+        color: #e6a23c;
+      }
+    }
+  }
+  & .creditorDialog {
+    border-radius: 10px;
+    width: 580px !important;
+    & .el-dialog__body {
+      padding: 0 30px 30px 30px;
+    }
+  }
+  & .lable {
+    text-align: right;
+    padding-right: 10px;
+    color: #606266;
+    margin-right: 10px;
+  }
+  & .img {
+    width: 100px;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,32 @@
+@import "@/assets/scss/variables.scss";
+
+.detailed-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: $main-body-bgColor;
+  & .operation-wrap {
+    & .input-box {
+      button {
+        display: none;
+      }
+    }
+  }
+  // & .el-tabs__item {
+  //   color: $General-colors;
+  // }
+  & .cell {
+    & button:nth-child(1),
+    & button:nth-child(3) {
+      display: none;
+    }
+  }
+  & .text {
+    color: $Main-characters;
+  }
+  & .laber {
+    color: $Secondary-text;
+  }
+  & .editData {
+    width: 680px;
+  }
+}

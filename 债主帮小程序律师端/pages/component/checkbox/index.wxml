@@ -1,0 +1,4 @@
+<veiw class="checkbox">
+  <view bindtap="checkboxTap" data-index="{{index}}" wx:for="{{list}}" wx:key="index"
+    class="checkbox-item;{{item.status?'act':''}}">{{item.name}}</view>
+</veiw>

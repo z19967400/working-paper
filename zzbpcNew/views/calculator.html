@@ -1,0 +1,477 @@
+】】、】、】】、】、
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <title>债主帮-实用计算器</title>
+  <link rel="icon" href="../image/log3.png">
+  <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/normailze.css">
+  <link rel="stylesheet" href="/assets/css/publick.css">
+  <link rel="stylesheet" href="/assets/css/viewcss/index.css">
+  <link rel="stylesheet" href="/assets/swiper-5.2.1/css/swiper.min.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1768920_7uttn1m7115.css">
+  <link rel="stylesheet" href="/assets/css/phonepublick.css">
+  <link rel="stylesheet" href="/css/head.css" />
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/slick.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/jquery.fullPage.css" />
+  <link rel="stylesheet" href="/css/msgbox.css">
+  <link rel="stylesheet" href="/css/zrnStyle.css?v=20211105">
+  <link rel="stylesheet" href="/css/calculator.css">
+</head>
+<style>
+
+</style>
+
+<body>
+  <!-- 首页 -->
+  <!-- 头部导航 -->
+  <header class="header on">
+    <div class="container clearfix">
+      <div class="fl left">
+        <a href="javascript:void(0)"><img src="http://file.debteehelper.com/logo/logo_zzbang_01.svg" alt="诚收法催LOGO"
+            class="img1" /></a>
+        <a href="javascript:void(0)"><img src="https://file.debteehelper.com/logo/logo.svg" alt="诚收法催LOGO"
+            class="img2" /></a>
+      </div>
+      <div class="fr navRight">
+        <ul style="margin-top: 1rem;">
+          <li class="loginBtn"><a>登录/注册</a></li>
+        </ul>
+      </div>
+      <div class="fr nav">
+        <ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
+          <li>
+            <a href="/index.html">首页</a>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              产品
+            </a>
+            <div class="dropdown_menu">
+              <a href="/views/aicase.html">AI律师函</a>
+              <a href="/views/lawcase.html">律师办案</a>
+              <a href="/views/assess.html">免费案件评估</a>
+              <a href="/views/addvalue.html">增值服务</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="/views/solution.html">解决方案</a>
+          </li>
+          <li>
+            <a href="/views/demo.html">免费试用</a>
+          </li>
+          <li class="active">
+            <a href="/views/calculator.html">实用计算器</a>
+          </li>
+          <li>
+            <a href="/views/aboutus.html">关于我们</a>
+          </li>
+        </ul>
+      </div>
+      <a href="javascript:void(0)" id="navToggle">
+        <span></span>
+      </a>
+    </div>
+  </header>
+  <!-- 头部导航 -->
+  <div class="m_nav">
+    <div class="top clearfix">
+      <img src="/image/closed.png" alt="" class="closed" />
+    </div>
+    <div class="logo">
+      <img src="https://file.debteehelper.com/logo/logo_zzbang_02.png" alt="" />
+    </div>
+    <ul class="ul" data-in="fadeInDown" data-out="fadeOutUp">
+      <li class="active">
+        <a href="/index.html">首页</a>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)">
+          产品
+        </a>
+        <div class="dropdown_menu">
+          <a href="/views/aicase.html">AI律师函</a>
+          <a href="/views/lawcase.html">律师办案</a>
+          <a href="/views/assess.html">案件评估</a>
+          <a href="/views/addvalue.html">增值服务</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="/views/solution.html">解决方案</a>
+      </li>
+      <li>
+        <a href="/views/demo.html">免费试用</a>
+      </li>
+      <li>
+        <a href="/views/calculator.html">实用计算器</a>
+      </li>
+      <li>
+        <a href="/views/aboutus.html">关于我们</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div class="box">
+      <div class="left">
+        <p class="act fenlei">诉讼费计算器</p>
+        <p class="fenlei">律师费计算器</p>
+        <!-- <p class="fenlei">利息计算器</p> -->
+        <div class="xian">
+          <div class="xian"></div>
+        </div>
+      </div>
+      <div class="right">
+        <div>
+          <!-- 诉讼费计算器 -->
+          <div id="first">
+            <p class="title"><span class="shu"></span>诉讼费计算器:</p>
+            <div class="row">
+              <div class="label"><span>类型：</span></div>
+              <div class="value">
+                <select id="litigationType" class="select" placeholder="请选择">
+                  <option value="财产案件">财产案件</option>
+                  <option value="普通非财产案件">普通非财产案件</option>
+                  <option value="离婚案件">离婚案件</option>
+                  <option value="人格人权案件">人格人权案件</option>
+                  <option value="知识产权案件">知识产权案件</option>
+                  <option value="劳动争议案件">劳动争议案件</option>
+                  <option value="商标、专利、海事行政案件">商标、专利、海事行政案件</option>
+                  <option value="其他行政案件">其他行政案件</option>
+                  <option value="管辖权异议不成立案件">管辖权异议不成立案件</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>法条：</span></div>
+              <div class="value">
+                <p>本诉讼费计算器的计算方法按照现行<a href="https://www.gov.cn/zwgk/2006-12/29/content_483407.htm"
+                    target="_blank">《诉讼费用交纳办法》</a>(2007年4月1日起施行)编制</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>标的：</span></div>
+              <div class="value">
+                <input id="Subject" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 律师费计算器 -->
+          <div id="second" class="yinchang">
+            <p class="title"><span class="shu"></span>律师费计算器:</p>
+            <div class="row">
+              <div class="label"><span>类型：</span></div>
+              <div class="value">
+                <select id="litigationType2" class="select" onchange="GetVal(this)" placeholder="请选择">
+                  <option value="民事案件">民事案件</option>
+                  <option value="行政案件">行政案件</option>
+                  <option value="刑事案件">刑事案件</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>省份：</span></div>
+              <div class="value">
+                <select id="province" class="select" placeholder="请选择">
+                  <!-- <option value="北京">北京</option> -->
+                  <option value="上海">上海</option>
+                  <!-- <option value="广东">广东</option>
+                  <option value="广西">广西</option>
+                  <option value="安徽">安徽</option>
+                  <option value="福建">福建</option>
+                  <option value="甘肃">甘肃</option>
+                  <option value="贵州">贵州</option>
+                  <option value="海南">海南</option>
+                  <option value="河北">河北</option>
+                  <option value="河南">河南</option>
+                  <option value="黑龙江">黑龙江</option>
+                  <option value="湖北">湖北</option>
+                  <option value="湖南">湖南</option>
+                  <option value="吉林">吉林</option>
+                  <option value="江苏">江苏</option>
+                  <option value="江西">江西</option>
+                  <option value="辽宁">辽宁</option>
+                  <option value="内蒙古">内蒙古</option>
+                  <option value="宁夏">宁夏</option>
+                  <option value="青海">青海</option>
+                  <option value="山东">山东</option>
+                  <option value="山西">山西</option>
+                  <option value="四川">四川</option>
+                  <option value="天津">天津</option>
+                  <option value="西藏">西藏</option>
+                  <option value="新疆">新疆</option>
+                  <option value="云南">云南</option>
+                  <option value="浙江">浙江</option>
+                  <option value="重庆">重庆</option>
+                  <option value="西安">西安</option>
+                  <option value="福州市">福州市</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>法条：</span></div>
+              <div class="value">
+                <p>本诉讼费计算器的计算方法按照现行<a
+                    href="http://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=REPORT_NDOC_002818"
+                    target="_blank">《上海市律师服务收费管理办法》</a>(20017年4月1日起施行)施行</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>标的：</span></div>
+              <div class="value">
+                <input id="Subject2" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 利息计算器 -->
+          <div id="third" class="yinchang">
+            <p class="title"><span class="shu"></span>利息计算器:</p>
+            <div class="row">
+              <div class="label"><span>本金：</span></div>
+              <div class="value">
+                <input id="principal" class="input" type="text" value="">
+                <span style="margin-left: 10px;">元</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>利息方式：</span></div>
+              <div class="value">
+                <select class="select" id="Interest" placeholder="请选择">
+                  <option value="LPR">银行同期利率/LPR</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>利率倍数：</span></div>
+              <div class="value">
+                <input id="Magnification" class="input" type="text" value="1">
+                <span style="margin-left: 10px;">倍倍率</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>起息日期：</span></div>
+              <div class="value">
+                <input id="startTime" class="input date" type="date" value="">
+                <span style="margin: 0 7px;">~</span>
+                <input id="startTime2" class="input date" type="date" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>延迟日期：</span></div>
+              <div class="value">
+                <input id="endTime" class="input date" type="date" value="">
+                <span style="margin: 0 7px;">~</span>
+                <input id="endTime2" class="input date" type="date" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>其他：</span></div>
+              <div class="value">
+                <input id="other" class="input" placeholder="违约金或诉讼费等其他费用" type="text" value="">
+                <span style="margin-left: 10px;">元</span>
+              </div>
+            </div>
+          </div>
+          <!-- 计算 -->
+          <div class="buttons">
+            <button id="start">开始计算</button>
+            <button id="reset">重置</button>
+          </div>
+        </div>
+        <div class="fenge"></div>
+        <div>
+          <p class="title"><span class="shu"></span>计算结果:</p>
+          <!-- 诉讼费计算结果 -->
+          <table id="first1" class="table table-bordered">
+            <tr>
+              <th>费用类别</th>
+              <th>金额</th>
+            </tr>
+            <tr>
+              <td>受理费</td>
+              <td id="Acceptance">0元</td>
+            </tr>
+            <tr>
+              <td>保全费</td>
+              <td id="Preservation">0元</td>
+            </tr>
+            <tr>
+              <td>执行费</td>
+              <td id="implement">50-500元</td>
+            </tr>
+          </table>
+          <!-- 律师费计算结果 -->
+          <table id="second2" class="table table-bordered yinchang">
+            <tr class="Criminal">
+              <th>费用类别</th>
+              <th>金额</th>
+            </tr>
+            <tr class="Criminal">
+              <td>律师费</td>
+              <td id="Acceptance2">0元</td>
+            </tr>
+            <tr class="Crimina2">
+              <th>费用类别</th>
+              <th>金额</th>
+            </tr>
+            <tr class="Crimina2">
+              <td>侦查阶段</td>
+              <td id="Acceptance2">1500-10000元</td>
+            </tr>
+            <tr class="Crimina2">
+              <td>审查起诉阶段</td>
+              <td id="Acceptance2">2000-10000元</td>
+            </tr>
+            <tr class="Crimina2">
+              <td>审判阶段</td>
+              <td id="Acceptance2">3000-30000元</td>
+            </tr>
+          </table>
+          <!-- 利息计算结果 -->
+          <div id="third3" class="yinchang">
+            <table class="table table-bordered">
+              <tr>
+                <th>费用类别</th>
+                <th>金额</th>
+              </tr>
+              <tr>
+                <td>利息</td>
+                <td id="lixi">0元</td>
+              </tr>
+              <tr>
+                <td>延迟履行金</td>
+                <td id="yanchi">0元</td>
+              </tr>
+              <tr>
+                <td>总金额</td>
+                <td id="zong">0元</td>
+              </tr>
+            </table>
+            <p class="title"><span class="shu"></span>计算过程:</p>
+            <div id="process" class="process">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section footer bgcolor-2">
+    <div class="container">
+      <div class="maxwidthbox5">
+        <div id="gotop" class="footertop"><i class="glyphicon glyphicon-arrow-up"></i></div>
+        <div class="footer-box">
+          <div class="logo">
+            <img src="https://file.debteehelper.com/logo/logo_zzbang_01.png" alt="诚收法催LOGO">
+          </div>
+          <div class="footer-text" style="margin: 0;">
+            <!-- <h2>诚收法催</h2> -->
+            <div class="footer-text-contont">
+              <div class="first">
+                <h4>站内导航</h4>
+                <div class="border"></div>
+                <p><a href="/index.html">首页</a></p>
+                <p><a href="/views/solution.html">解决方案</a></p>
+                <p><a href="/views/aboutus.html">关于我们</a></p>
+                <!-- <p><a href="/views/help.html">新闻公告</a></p> -->
+                <p><a href="/views/demo.html">免费试用</a></p>
+              </div>
+              <div class="two">
+                <h4>热点产品</h4>
+                <div class="border"></div>
+                <p><a href="/views/aicase.html">AI律师函</a></p>
+                <p><a href="/views/lawcase.html">律师办案</a></p>
+                <p><a href="/views/assess.html">案件评估</a></p>
+                <p><a href="/views/addvalue.html">增值服务</a></p>
+              </div>
+              <!-- <div class="three">
+                <h4>其他内容</h4>
+                <div class="border"></div>
+                <p><a href="/views/help.html">帮助中心</a></p>
+                <p><a href="/views/help.html">隐私政策</a></p>
+              </div> -->
+              <div class="mail">
+                <p style="margin: 0;color: #7f7f7f;font-size: 14px;white-space: nowrap;"><span
+                    style="color: #e1e1e1;">邮箱：</span>service@debteehelper.com</p><br>
+                <p style="margin: 0;color: #ec193a;font-weight: bold;font-size: 14px;"><span style="color: #e1e1e1;">电话：
+                  </span>4006
+                  321 918</p>
+                <div class="erweima">
+                  <!-- <img src="https://www.zzbang.vip/CDN/img/pc/zzb.png" alt=""> -->
+                  <img src="https://file.debteehelper.com/webimg/zzb.jpg" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="erwema">
+            <img src="https://file.debteehelper.com/webimg/zzb.jpg" alt="债主帮公众号二维码">
+          </div>
+          <div class="bottom-text">
+            <p style="margin: 0;color: #7f7f7f;font-size: 14px;"><span
+                style="color: #e1e1e1;"></span>service@debteehelper.com</p><br>
+            <p style="margin: 0;color: #7f7f7f;"><span style="color: #e1e1e1;"></span><a style="color: #ec193a;font-size:18px;text-decoration: revert;
+              font-weight: bold;" href="tel:4006 321 918">4006 321 918</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bgbottom">Copyrights Reserved 2021 ©债主帮<br> 版权所有<a target="_blank" style="color: #ff6a00;"
+        href="https://beian.miit.gov.cn/#/Integrated/index">沪ICP备18012241号-2</a></div>
+  </div>
+  <!-- 弹窗提示 -->
+  <div class="toast">
+    <div class="toast-box">
+      <div>
+        <img class="toast-icon" src="">
+        <div class="toast-text"></div>
+      </div>
+    </div>
+  </div>
+  <div class="customer">
+    <div class="left">
+      <div id="phone-text">咨询电话：4006 321 918</div>
+      <div id="weChat-img"><img src="https://file.debteehelper.com/webimg/zzb.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div onclick="qimoChatClick()">
+        <img src="../../image/customer.41128af4.png" alt="">
+        <span>在线咨询</span>
+      </div>
+      <div id="phone-right">
+        <img src="../../image/phone.92474518.svg" alt="">
+        <span>电话咨询</span>
+      </div>
+      <div id="weChat">
+        <img src="../../image/WeChat.svg" alt="">
+        <span>微信公众号</span>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script> -->
+<script src="../js/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.0/js/bootstrap.min.js"></script>
+<script src="/js/jquery.fullPage.min.js"></script>
+<script src="/js/index_slick.js"></script>
+<script src="/assets/js/jquery.running.min.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/msgbox.js"></script>
+<script src="/assets/js/js.js"></script>
+<script src="../js/calculator.js"></script>
+<script type='text/javascript'
+  src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=9284ed30-cb74-11e8-b094-ffcbf0de5a60&autoShow=false&language=ZHCN'
+  async='async'>
+  </script>
+
+</html>

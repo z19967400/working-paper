@@ -1,0 +1,343 @@
+#pc .maxwidthbox {
+  max-width: 1080px;
+  height: 100%;
+  margin: auto;
+}
+/* html,
+body {
+  min-width: 1080px;
+} */
+html,
+body,
+.row,
+p {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+#pc .project {
+  cursor: pointer;
+}
+#pc .projectactive {
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: 0 15px 0 15px;
+  position: relative;
+  left: 365px;
+  top: 65px !important;
+}
+ul,
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+#pc .swtext {
+  width: 100% !important;
+}
+/* 第一屏静止页面 */
+#pc .swtext-wrapper {
+  width: 1020px;
+  margin: auto;
+}
+#pc .swtext-slide {
+  display: flex;
+  justify-content: space-between;
+}
+#pc .swtext-left {
+  margin-top: 172px;
+}
+#pc .swtext-right {
+  margin-top: 130px;
+}
+/* 头部导航菜单 */
+#pc .head {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+#pc .logopos {
+  position: relative;
+  top: -10px;
+}
+#pc .headclass {
+  width: 100%;
+  height: 90px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#pc header {
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+#pc header > ul,
+#pc header > ul > li {
+  height: 50px;
+  line-height: 50px;
+  display: inline-block;
+  font-size: 14px;
+}
+#pc header > ul > li {
+  margin-right: 44px;
+}
+#pc .nav {
+  margin-left: 1.5rem;
+}
+#pc .operation {
+  color: #ec193a;
+}
+#pc header {
+  z-index: 99;
+}
+#pc header .navbar-default {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+#pc a {
+  /* padding-top: 0 !important; */
+  /* padding-bottom: 0 !important; */
+  color: #e7e7e7;
+}
+#pc header {
+  padding-top: 22px;
+  max-width: 1080px;
+  margin: auto;
+  height: 50px;
+}
+#pc .language > a {
+  color: #ec193a;
+}
+#pc .navbar {
+  padding-top: 0.201389rem;
+  display: flex;
+  justify-content: flex-end;
+}
+#pc .login {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ec193a;
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  color: #ec193a;
+  line-height: 1;
+}
+#pc .login a {
+  color: #ec193a !important;
+  height: 30px;
+  line-height: 30px !important;
+  height: 14px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: rgba(236, 25, 58, 1);
+  line-height: 17px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+#pc .first .bg {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/assets/imgs/background/背景.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+#pc .slide-left p {
+  color: #fff;
+}
+/* .first .bgr {
+  width: 2.048611rem;
+  height: 100%;
+  background-image: url("/assets/imgs/index/粉碎@2x.png");
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: -10px;
+  z-index: -1;
+} */
+#pc .section.footer {
+  position: relative;
+}
+#pc .section.footer > .maxwidthbox {
+  position: relative;
+}
+#pc .section.footer > .maxwidthbox > .logo {
+  width: 128px;
+  height: 36px;
+  position: absolute;
+  left: 0;
+  top: -9px;
+}
+#pc .section.footer > .maxwidthbox > .logo > img {
+  width: 128px;
+  height: 36px;
+}
+#pc .section {
+  width: 100%;
+  position: relative;
+  padding: 100px 0;
+}
+#pc .section.footer {
+  width: 100%;
+  height: 505px;
+  background-color: rgba(0, 0, 0, 1);
+  background-image: url(/assets/imgs/index/2055f02f4b0d99724b0f3ff9dbd11804@2x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* overflow: hidden; */
+  background-position: center;
+}
+#pc .section.footer .container .contont {
+  display: flex;
+  justify-content: space-evenly;
+  width: 709px;
+  position: relative;
+  left: 249px;
+}
+#pc .section.footer .container .contont div {
+  padding: 0;
+  width: 95px;
+  height: 100%;
+}
+#pc .section.footer .container .contont div h4 {
+  width: 65px;
+  height: 14px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: #e1e1e1;
+  line-height: 17px;
+  margin-top: 0;
+  margin-bottom: 28px;
+}
+#pc .section.footer .container .contont > div .border {
+  width: 22px;
+  height: 1px;
+  background-color: #fff;
+  margin-bottom: 30px;
+}
+#pc .section.footer .container .contont div a:hover {
+  color: #fff;
+}
+#pc .section.footer .container .contont div a {
+  width: 98px;
+  height: 14px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: #7f7f7f;
+  line-height: 17px;
+}
+#pc .section.footer .container .contont div p {
+  width: 400px;
+  margin-bottom: 20px;
+  height: 14px;
+}
+#pc .bgbottom {
+  width: 100%;
+  height: 74px;
+  line-height: 74px;
+  text-align: center;
+  color: #727272;
+  background-color: rgba(0, 0, 0, 0.61);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+#pc .start {
+  width: 100%;
+  height: 268px;
+  position: relative;
+}
+#pc .start .button {
+  width: 207px;
+  height: 42px;
+  background-color: #ec193a;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+}
+#pc .start .button {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#pc .start .button .text {
+  width: 70px;
+  margin-right: 48px;
+}
+#pc .start .button .arrow {
+  width: 26px;
+  height: 1px;
+  background-color: #fff;
+}
+#pc .start .button .arrow::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 1px;
+  background-color: #fff;
+  transform: translate(16px, -2px) rotateZ(30deg);
+}
+#pc .footer .footertop {
+  z-index: 99;
+  width: 30px;
+  height: 30px;
+  background-color: #ec193a;
+  position: absolute;
+  top: 10px;
+  right: 150px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+@font-face {
+  font-family: "iconfont"; /* project id 1768920 */
+  src: url("//at.alicdn.com/t/font_1768920_7uttn1m7115.eot");
+  src: url("//at.alicdn.com/t/font_1768920_7uttn1m7115.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/font_1768920_7uttn1m7115.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1768920_7uttn1m7115.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1768920_7uttn1m7115.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1768920_7uttn1m7115.svg#iconfont") format("svg");
+}
+
+#pc .iconfont {
+  font-family: "iconfont" !important;
+  font-size: 0.111111rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+#phone {
+  display: none;
+}
+@media screen and (max-width: 750px) {
+  #pc {
+    display: none;
+  }
+  #pc .maxwidthbox {
+    max-width: 768px;
+  }
+  #phone {
+    display: block;
+  }
+}

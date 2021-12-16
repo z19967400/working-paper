@@ -1,0 +1,52 @@
+@import '@/assets/scss/variables.scss';
+
+.caseInfo-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  & .el-tabs {
+    // box-shadow: 0px 0px 5px #ccc;
+  }
+  & .el-tabs__content {
+    padding: 20px 0 0 20px;
+  }
+  & .el-divider--horizontal {
+    margin: 12px 0;
+  }
+  & .el-dialog {
+    width: 680px;
+    border-radius: 10px;
+    .el-dialog__header {
+      .el-dialog__title {
+        color: #303133;
+        font-size: 16px;
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+    }
+    .dialog-footer {
+      text-align: center;
+    }
+  }
+  & .el-textarea {
+    .el-textarea__inner {
+      height: 100px;
+    }
+  }
+  .bottom-box {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .el-button {
+      margin: 0 10px;
+    }
+  }
+  & .section {
+    & > span:first-child {
+      font-size: 12px;
+    }
+  }
+}

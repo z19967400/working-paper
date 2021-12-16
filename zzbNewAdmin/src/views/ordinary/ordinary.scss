@@ -1,0 +1,14 @@
+@import "@/assets/scss/variables.scss";
+
+.ordinary-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  .cell button:nth-child(2){
+    display: none;
+  }
+  // .cell button:nth-child(3){
+  //   display: none;
+  // }
+}

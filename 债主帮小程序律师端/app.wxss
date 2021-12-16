@@ -1,0 +1,129 @@
+@import "/miniprogram/miniprogram_npm/vant-weapp/common/index.wxss";
+/**app.wxss**/
+page {
+  min-height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Segoe UI, Arial, Roboto, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft Yahei", sans-serif;
+}
+.container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 200rpx 0; */
+  box-sizing: border-box;
+}
+/* .nav {
+  background: rgba(39, 39, 39, 1) !important;
+  color: white !important;
+  height: 100rpx !important;
+  line-height: 100rpx !important;
+} */
+.nav {
+  min-height: 135px;
+  background: url("http://file.debteehelper.com/weapp-img/bg_01.png") no-repeat;
+  background-size: cover;
+  color: white;
+  position: relative;
+}
+.nav .title {
+  padding-top: 25px;
+  height: 35px;
+  line-height: 35px;
+}
+.nav .title .left{
+  margin-left: 10rpx;
+  position: relative;
+  top: 17rpx;
+}
+.nav .title text {
+  position: relative;
+  top: -7px;
+  left: 25px;
+  font-size: 20px;
+}
+.nav .logo {
+  width: 150px;
+  position: relative;
+  top: 20rpx;
+  left: 10px;
+}
+.nav-left {
+  height: 100%;
+}
+.nav .text {
+  font-size: 20px;
+  margin: 20px 0 0 70rpx;
+}
+.nav .text .number{
+  font-size: 12px;
+  float: right;
+  position: relative;
+  top: 10px;
+  left: -20px;
+}
+.nav-left-item {
+  height: 40px !important;
+  width: 100% !important;
+}
+.nav-title {
+  font-size: 14px !important;
+}
+.right-popup {
+  width: 50%;
+  height: 100%;
+  padding-top: 64px;
+  z-index: 1000 !important;
+}
+.nav-left-icon {
+  font-size: 32rpx !important;
+  position: relative;
+  top: 8rpx;
+}
+.header {
+  height: 100px;
+  width: 100%;
+  background: #ec193a;
+  position: relative;
+}
+.footer {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.nav .user,
+.header .user{
+  position: absolute;
+  right: 40rpx;
+  bottom: 50rpx;
+}
+.bottom-text{
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  bottom: 30px;
+  color: #c8c8c8;
+}
+.nav-left{
+  background: rgb(0,0,0,0.2);
+  border-radius: 20px;
+  width: 85px;
+  height: 30px;
+  left: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  border: 1rpx solid rgb(255,255,255,0.3);
+}
+.nav-left .shu{
+  width: 2rpx;
+  height: 18px;
+  background:rgb(255, 255, 255,0.2) ;
+  margin-top: 6px;
+}

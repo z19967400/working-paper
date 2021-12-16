@@ -1,0 +1,127 @@
+{
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": false,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.0.4",
+  "appid": "wxa8d6fc52d7cdd694",
+  "projectname": "%E5%80%BA%E4%B8%BB%E5%B8%AE%E5%BE%8B%E5%B8%88%E7%AB%AF",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "scripts": {},
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "律师认证",
+          "pathName": "pages/authentication/authentication",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "案件列表",
+          "pathName": "pages/cases/cases",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "案件详情",
+          "pathName": "pages/caseInfo/caseInfo",
+          "query": "debtor_number=WTB0000196_1",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "审核进度",
+          "pathName": "pages/examine/examine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "案件进展",
+          "pathName": "pages/caseProgress/caseProgress",
+          "query": "debtor_number=WTB0000063_1",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "测试模板",
+          "pathName": "pages/text/text",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "进程详情",
+          "pathName": "pages/caseProgressInfo/caseProgressInfo",
+          "query": "id=67666a0de06542b2969c0fcab6c41081&name=法院立案",
+          "scene": null
+        },
+        {
+          "name": "用户中心",
+          "pathName": "pages/user/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "合同签署",
+          "pathName": "pages/contract/contract",
+          "query": "caseId=5",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

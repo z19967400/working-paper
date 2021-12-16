@@ -1,0 +1,4 @@
+<view class="imgsUpload">
+  <van-uploader max-count="5" multiple file-list="{{ fileList }}" bind:after-read="afterRead"
+    bind:delete="updataDelet" />
+</view>

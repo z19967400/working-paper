@@ -1,0 +1,20 @@
+/* pages/text/text.wxss */
+.content .logo{
+  width: 150px;
+  display: block;
+  margin: 100px auto 0 auto;
+}
+.text{
+  font-size: 14px;
+  padding: 0 20px;
+  display: block;
+  margin-top: 50px;
+}
+.login{
+  margin-top: 40px;
+  border: 1px solid #E01F3C!important;
+  color: white!important;
+  background-color: #E01F3C!important;
+  width: 80%!important;
+  border-radius: 20px!important;
+}

@@ -1,0 +1,6 @@
+<view class="uploadFile">
+  <van-uploader accept="file" bind:after-read="afterRead" max-count="1">
+    <van-button icon="add-square" custom-class="uploadFile-btn" type="primary">
+      {{value == ''?'上传文件':'上传成功'}}</van-button>
+  </van-uploader>
+</view>

@@ -1,0 +1,104 @@
+@import "../../../assets/scss/variables.scss";
+.launchCase {
+  height: 100%;
+  width: 100%;
+  & > .theFirstStep {
+    .el-row {
+      font-size: 14px;
+      color: $General-colors;
+      margin-bottom: 40px;
+    }
+    & .nextpox {
+      margin-left: 135px;
+    }
+  }
+  & > .stepTwo {
+    //
+  }
+  & .el-dialog {
+    width: 780px;
+    border-radius: 10px;
+    padding: 20px;
+    & .el-dialog__title {
+      font-size: 16px;
+    }
+    .el-dialog__header {
+      padding: 0 !important;
+    }
+    & .el-dialog__body {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 20px 0 0 0 !important;
+      & .el-divider {
+        margin: 20px 0 0 0 !important;
+      }
+    }
+    & .el-dialog__footer {
+      text-align: center;
+      padding: 20px 0 0 0 !important;
+    }
+    & .avatar-uploader-icon {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+  & .addCreditor {
+    margin-top: 15vh !important;
+    padding: 20px !important;
+    width: 780px !important;
+    .el-dialog__body {
+      max-height: none;
+      padding: 20px 0 0 0 !important;
+      & .el-divider {
+        margin: 0 0 20px 0 !important;
+      }
+    }
+    & .el-dialog__footer {
+      text-align: center;
+      padding: 20px 0 0 0 !important;
+    }
+    // .edit-bottom-bin {
+    //   position: relative !important;
+    // }
+  }
+  & .CreditorBox {
+    height: 250px;
+    margin-top: 20px;
+    & .el-row {
+      margin-bottom: 20px;
+    }
+    & .lable {
+      display: inline-block;
+      width: 150px;
+      color: #606366;
+    }
+    & .value {
+      color: #303033;
+      position: relative;
+      display: inline-block;
+      width: 500px;
+    }
+
+    & .text {
+      position: absolute;
+      width: 50%;
+    }
+    & .el-icon-close-tip {
+      display: none !important;
+    }
+  }
+  .shenhe {
+    color: #e6a23c;
+  }
+  .tongguo {
+    color: #67c23a;
+  }
+
+  // & .multipleSelect{
+  //   height: 280px;
+  //    .el-scrollbar{
+  //     height: 280px!important;
+  //   }
+  // }
+}

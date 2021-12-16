@@ -1,0 +1,140 @@
+<view class="container">
+  <view class="authentication">
+    <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+      <view class="title">
+        <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+        <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+          src="http://file.debteehelper.com/logo/logo_zzbang_03.png">
+        </image> -->
+        <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+          <van-icon bindtap="goBack" name="arrow-left" />
+          <view class="shu"></view>
+          <van-icon bindtap="goHome" name="wap-home" />
+        </view>
+      </view>
+      <view class="text">
+        <text>律师认证</text>
+        <text class="authenticationTips">{{authenticationTypeNmaes[authenticationType]}}</text>
+        <text wx:if="{{authenticationType != 0 && authenticationType != 2 }}" class="edit" bindtap="edit">{{editType?'取消':'编辑'}}</text>
+      </view>
+    </view>
+    <scroll-view scroll-y style="height:{{height}}px">
+      <view class="content" style="{{show3?'position:fixed;':''}}">
+        <view style="height: 10px;width: 100%;"></view>
+        <van-cell-group>
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.name }}" label="律师姓名" required placeholder="请输入真实姓名"
+            error-message="{{authenticationCheck.nameMsg}}" data-value="name" bind:blur="onChange" />
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.IdCard }}" label="身份证号" required placeholder="请输入身份证号码"
+            error-message="{{authenticationCheck.IdCardMsg}}" data-value="IdCard" bind:blur="onChange" />
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.phoneNumber }}" label="手机号码" required placeholder="请输入手机号码"
+            error-message="{{authenticationCheck.phoneNumberMsg}}" data-value="phoneNumber" bind:blur="onChange" />
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.email }}" label="电子邮箱" required placeholder="请输入电子邮箱"
+            error-message="{{authenticationCheck.emailMsg}}" data-value="email" bind:blur="onChange" />
+          <!-- <van-cell required title-class="laber" title="所在地区" custom-class="updata-cell">
+            <picker mode="multiSelector" bindchange="bindMultiPickerChange"
+              bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range-key="name"
+              range="{{multiArray}}">
+              <view class="value {{authenticationData.region != ''?'value2':''}}">
+                {{authenticationData.region||"请选择地区"}}
+              </view>
+            </picker>
+          </van-cell> -->
+          <!-- <van-field value="{{ authenticationData.address }}" label="详细地址" required placeholder="请输入详细邮寄地址"
+            error-message="{{authenticationCheck.addressMsg}}" data-value="address" bind:blur="onChange" /> -->
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.LawFirm }}" label="律所全称" required placeholder="请输入所在律所全称"
+            error-message="{{authenticationCheck.LawFirmMsg}}" data-value="LawFirm" bind:blur="onChange" />
+          <van-cell required title-class="laber" title="律所地区" custom-class="updata-cell">
+            <picker wx:if="{{editType}}" mode="multiSelector" bindchange="bindMultiPickerChange2"
+              bindcolumnchange="bindMultiPickerColumnChange2" value="{{multiIndex2}}" range-key="name"
+              range="{{multiArray2}}">
+              <view class="value {{authenticationData.LawFregion != ''?'value2':''}}">
+                {{authenticationData.LawFregion||"请选择地区"}}
+              </view>
+            </picker>
+            <view style="text-align: left;" wx:else>{{authenticationData.LawFregion}}</view>
+          </van-cell>
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.LawAddress }}" label="律所地址" required placeholder="请输入律所详细地址"
+            error-message="{{authenticationCheck.LawAddressMsg}}" data-value="LawAddress" bind:blur="onChange" />
+          <van-field disabled="{{!editType}}" value="{{ authenticationData.PracticeId }}" label="执业证号" required placeholder="请输入律师执业证号"
+            error-message="{{authenticationCheck.PracticeIdMsg}}" data-value="PracticeId" bind:blur="onChange" />
+          <van-cell  required title-class="laber" title="执业证照" custom-class="updata-cell">
+            <view class="value">
+              <van-uploader  max-count="1" file-list="{{ authenticationData.fileList }}" deletable="{{ editType }}" bind:after-read="afterRead"
+                bind:delete="updataDelet" />
+            </view>
+          </van-cell>
+          <van-cell  required title-class="laber" title="年检页照" custom-class="updata-cell">
+            <view class="value">
+              <van-uploader max-count="1" file-list="{{ authenticationData.fileList2 }}" deletable="{{ editType }}" bind:after-read="afterRead2"
+                bind:delete="updataDelet2" />
+            </view>
+          </van-cell>
+          <van-cell  required title-class="laber" title="专长类型" custom-class="updata-cell">
+            <view wx:if="{{editType}}" class="value {{authenticationData.expertiseType != ''?'value2':''}}" bindtap="expertiseTypeSelect">
+              {{authenticationData.expertiseType||"请选择专长类型"}}
+            </view>
+             <view style="text-align: left;" wx:else>{{authenticationData.expertiseType}}</view>
+          </van-cell>
+          <view style="min-height:100px;">
+            <view style="font-size:14px;color:#000;padding:10px;">简介</view>
+            <textarea cursor-spacing='160' wx:if="{{editType}}" style="border: 1px solid #f2f2f2;border-radius: 5px;width: 100%;color: #333;font-size: 14px;"
+              bindinput="onChange" value="{{ authenticationData.introduce }}" data-value="introduce"></textarea>
+            <span class="textxxx" wx:else>{{ authenticationData.introduce }}</span>
+          </view>
+        </van-cell-group>
+        <view  wx:if="{{authenticationType == 0 || authenticationType == 2}}">
+          <view wx:if="{{authenticationType == 0}}"  class="xieyi">
+            <van-checkbox icon-size="12px" value="{{ checked1 }}"  checked-color="#ec193a" shape="square" bind:change="onChange1">
+            </van-checkbox>
+            <text bindtap="Agreement" data-id="1010"  data-title="平台服务协议" class="{{checked1?'color':''}}">请阅读并同意《平台服务协议》</text>
+          </view>
+          <view wx:if="{{authenticationType == 0}}" class="xieyi">
+            <van-checkbox value="{{ checked2 }}"  checked-color="#ec193a" shape="square" bind:change="onChange2">
+            </van-checkbox>
+            <text bindtap="Agreement" data-id="1013"  data-title="隐私声明" class="{{checked2?'color':''}}">请阅读并同意《隐私声明》</text>
+          </view>
+          <van-button custom-class="Submit" block bindtap="Submit" type="primary">立即提交
+          </van-button>
+        </view>
+        <view wx:if="{{editType && authenticationType != 0 && authenticationType != 2 }}" >
+          <van-button custom-class="Submit" block bindtap="Submit"
+          type="primary">提交资料</van-button>
+        </view>
+        
+      </view>
+    </scroll-view>
+    <!-- 专长类型选择 -->
+    <van-popup show="{{ show3 }}" position="bottom" bind:close="expertiseTypeClose">
+      <view class="popup zhunchang">
+        <view class="zc-title"><text bindtap="expertiseTypeClose">取消</text><text
+            bindtap="expertiseTypeConfirm">确定</text></view>
+        <van-tree-select items="{{ expertiseTypes }}" main-active-index="{{ mainActiveIndex }}"
+          active-id="{{ activeId }}" max="{{ max }}" bind:click-nav="onClickNav" bind:click-item="onClickItem"
+          content-item-class="right-item" main-item-class="left-item" />
+      </view>
+    </van-popup>
+  </view>
+  <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
+  <!-- 确认提示节点 -->
+  <van-dialog id="van-dialog" />
+  <!--协议弹窗 -->
+  <van-dialog
+    class-name="dialog-box"
+    use-slot
+    title="{{agreement.title}}"
+    show="{{ agreement.show }}"
+    show-cancel-button
+    confirm-button-open-type="getUserInfo"
+    bind:close="onClose"
+    bind:getuserinfo="getUserInfo"
+    confirmButtonText="同意"
+    cancelButtonText="取消"
+    bind:confirm="dialogConfirm"
+    data-title="{{agreement.title}}"
+  >
+  <view class="dialog-content">
+    <rich-text nodes="{{agreement.content}}"></rich-text>
+  </view>
+</van-dialog>
+</view>

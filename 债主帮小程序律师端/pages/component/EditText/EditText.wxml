@@ -1,0 +1,3 @@
+<view class="EditText">
+  <input class="input" value="{{value}}" bindinput="inputburl" />
+</view>

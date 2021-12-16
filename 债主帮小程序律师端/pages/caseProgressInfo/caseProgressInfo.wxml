@@ -1,0 +1,89 @@
+<!--pages/caseProgressInfo/caseProgressInfo.wxml-->
+<view class="container">
+  <view class="caseProgressInfo">
+    <view class="home">
+      <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+        <view class="title">
+          <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+          <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+            src="http://file.debteehelper.com/logo/logo_zzbang_03.png"></image> -->
+          <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+            <van-icon bindtap="goBack" name="arrow-left" />
+            <view class="shu"></view>
+            <van-icon bindtap="goHome" name="wap-home" />
+          </view>
+        </view>
+        <view class="text">
+          <text>{{name}}</text>
+        </view>
+      </view>
+      <view style="margin-top:{{isIPhoneX?'150px':'135px'}} ;" class="neiron-box">
+        <view class="neiron">
+          <view wx:for="{{list}}" wx:key="index" class="item-box">
+            <view class="item-title">
+              <view class="shu"></view>
+              <vew>{{item.name}}</vew>
+            </view>
+            <view class="item-text">
+              <!-- 单选按钮 -->
+              <select style="width: 100%;" wx:if="{{item.control_type == 'Control_type_2'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></select>
+              <!-- 多选按钮 -->
+              <checkbox style="width: 100%;" wx:if="{{item.control_type == 'Control_type_3'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></checkbox>
+              <!-- 多行文本 -->
+              <textarea style="width: 100%;height: 160px;" wx:if="{{item.control_type == 'Control_type_1'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></textarea>
+              <!-- 多行文本 -->
+              <EditText style="width: 100%;" wx:if="{{item.control_type == 'Control_type_0'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></EditText>
+              <!-- 下拉列表 -->
+              <dropdown style="width: 100%;" wx:if="{{item.control_type == 'Control_type_4'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></dropdown>
+              <!-- 时间选择 -->
+              <TimePicker style="width: 100%;" wx:if="{{item.control_type == 'Control_type_5'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></TimePicker>
+              <!-- 时间段选择 -->
+              <TimeQuantum style="width: 100%;" wx:if="{{item.control_type == 'Control_type_6'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></TimeQuantum>
+              <!-- 地址选择 -->
+              <AddRegion style="width: 100%;" wx:if="{{item.control_type == 'Control_type_7'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></AddRegion>
+              <!-- 单图上传 -->
+              <imgUpload style="width: 100%;" wx:if="{{item.control_type == 'Control_type_8'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></imgUpload>
+              <!-- 多图上传 -->
+              <imgsUpload style="width: 100%;" wx:if="{{item.control_type == 'Control_type_9'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></imgsUpload>
+              <!-- 单文件上传 -->
+              <upLoadFile tyle="width: 100%;" wx:if="{{item.control_type == 'Control_type_10'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></upLoadFile>
+              <!-- 多文件上传 -->
+              <uploadFiles tyle="width: 100%;" wx:if="{{item.control_type == 'Control_type_11'}}"
+                content="{{item.option_content}}" form_value="{{item.form_value}}" fromId="{{item.id}}"
+                bind:up="children_up"></uploadFiles>
+            </view>
+          </view>
+        </view>
+        <view class="bottom-box">
+          <button class="bottom-box-btn" bindtap="submit"> 提交</button>
+          <view class="bottom-box-shu"></view>
+          <button class="bottom-box-btn" bindtap="next"> 下一步</button>
+        </view>
+      </view>
+    </view>
+    <!-- 文本提示节点 -->
+    <van-toast id="van-toast" />
+  </view>
+</view>

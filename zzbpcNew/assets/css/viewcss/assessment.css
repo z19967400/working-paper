@@ -1,0 +1,89 @@
+#pc .slide-left {
+  margin-right: 0;
+}
+#pc .section.first {
+  width: 100%;
+  height: 1054px !important;
+  padding-bottom: 0;
+  position: relative;
+}
+#pc section.first > .bg {
+  background-image: url("/assets/imgs/background/背景3.png");
+}
+#pc .even {
+  width: 100%;
+  height: 616px;
+  background: #ffffff;
+}
+#pc .even .img-div,
+#pc .left {
+  display: inline-block;
+  width: 476px;
+  height: 380px;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#pc section .num-img {
+  width: 79px;
+  height: 88px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 22px;
+  background-image: url(/assets/imgs/option/椭圆形备份@2x.png);
+  background-size: cover;
+}
+#pc .even .img-div.two {
+  width: 489px;
+  height: 377px;
+  background-image: url(/assets/imgs/assessment/编组4@2x.png);
+}
+#pc .odd {
+  width: 100%;
+  height: 616px;
+  background: rgba(255, 255, 255, 1);
+}
+#pc h3 {
+  display: inline-block;
+  height: 30px;
+  font-size: 30px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 1.2;
+}
+#pc p {
+  width: 400px;
+  height: 52px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: #c5c5c5;
+  line-height: 1.5;
+}
+#pc section div:nth-child(2) > h3 {
+  margin-bottom: 36px;
+}
+#pc .odd .img-div,
+#pc .right {
+  width: 476px;
+  height: 380px;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+  float: right;
+}
+#pc .odd .img-div.one {
+  width: 392px;
+  height: 382px;
+  background-image: url(/assets/imgs/assessment/Programming-pana@2x.png);
+}
+#pc .odd .img-div.three {
+  width: 482px;
+  height: 358px;
+  background-image: url(/assets/imgs/assessment/编组8@2x.png);
+}

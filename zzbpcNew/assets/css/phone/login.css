@@ -1,0 +1,113 @@
+#phone {
+  background-color: #fdfdfd;
+}
+#phone .section.first {
+  width: 100%;
+  height: calc(100% - 56px);
+}
+#phone .show {
+  display: block;
+}
+#phone .box > div {
+  display: none;
+}
+#phone .first {
+  position: absolute;
+  height: 100%;
+  overflow: hidden;
+}
+#phone .loginfrom {
+  width: 300px;
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+}
+#phone .container {
+  position: relative;
+  height: 100%;
+}
+#phone .loginfrom .headerimg {
+  width: 152px;
+  height: 40px;
+  margin: 38px auto 0;
+}
+#pc .loginfrom .headerimg img {
+  width: 152px;
+  height: 40px;
+}
+#phone .loginfrom {
+  width: 300px;
+  height: 400px;
+  padding: 24px;
+  display: inline-block;
+}
+#phone .changelogin {
+  width: 100%;
+  display: flex;
+}
+#phone .changelogin {
+  width: 100%;
+  border-bottom: 1px solid #d8d8d8;
+  margin-top: 34px;
+  margin-bottom: 45px;
+  height: 42px;
+}
+#phone .changelogin li {
+  height: 42px;
+  margin-right: 36px;
+  cursor: pointer;
+  color: #999999;
+}
+#phone .changelogin li.action {
+  border-bottom: 1px solid #282828;
+  color: #282828;
+}
+#phone .loginfrom input {
+  height: 42px;
+  margin-bottom: 20px;
+}
+#phone .btn.btn-primary {
+  width: 100%;
+  height: 42px;
+  background-color: #ec193a;
+  border: none;
+}
+#phone .loginfoot {
+  width: 100%;
+  height: 14px;
+  color: #999999;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+#phone .loginfoot div:nth-child(1) {
+  margin-right: 13px;
+  line-height: 14px;
+  cursor: pointer;
+}
+#phone .xian {
+  width: 1px;
+  height: 14px;
+  line-height: 14px;
+  background-color: #999999;
+}
+#phone .loginfoot div:nth-child(3) {
+  margin-left: 13px;
+  line-height: 14px;
+  cursor: pointer;
+}
+#phone .zhuce{
+  display: none;
+}
+@media screen and (max-width:720px)and (min-width:320px){
+  .tostBox{
+    width: 80%;
+  }
+  .text{
+    padding: 20px!important;
+    max-height: 400px!important;
+  }
+}

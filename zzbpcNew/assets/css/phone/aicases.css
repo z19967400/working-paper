@@ -1,0 +1,69 @@
+#phone {
+  background-color: #fbfbfb;
+}
+#phone .pcfirst {
+  background-image: url(/assets/imgs/ailetter/多边形@2x.png);
+}
+#phone .session {
+  padding: 20px;
+}
+#phone .context {
+  width: 100%;
+  height: 845px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fbfbfb;
+}
+#phone .context > div:nth-child(1) {
+  margin-top: 30px;
+}
+#phone .context > div {
+  width: 347px;
+  height: 175px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 24px;
+}
+#phone .context > div .xian {
+  width: 16px;
+  height: 1px;
+  background-color: #ec193a;
+  margin-bottom: 12px;
+}
+#phone .context > div h3 {
+  font-size: 14px;
+  color: black;
+}
+#phone .context > div p {
+  font-size: 13px;
+  color: #999999;
+}
+#phone .session p {
+  font-size: 13px;
+  color: #999999;
+  line-height: 22px;
+}
+#phone .session .imgss {
+  margin: 20px 0;
+}
+#phone .session.first {
+  height: 510px;
+}
+#phone .session.two {
+  height: 509px;
+}
+#phone .session.three {
+  height: 524px;
+  background-color: #fff;
+}
+#phone .session.four {
+  height: 446px;
+}
+#phone .session.five {
+  height: 449px;
+  background-color: #fff;
+}
+#phone .demo {
+  padding-top: 30px;
+}

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta https-equiv="Cache-Control" content="no-siteapp" />
+  <meta https-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <title>债主帮-债务反馈</title>
+  <link rel="icon" href="../image/log3.png">
+  <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/normailze.css">
+  <link rel="stylesheet" href="/assets/css/publick.css">
+  <link rel="stylesheet" href="/assets/css/viewcss/index.css">
+  <link rel="stylesheet" href="/assets/swiper-5.2.1/css/swiper.min.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1768920_7uttn1m7115.css">
+  <link rel="stylesheet" href="/assets/css/viewcss/demo.css">
+  <link rel="stylesheet" href="/assets/css/phonepublick.css">
+  <link rel="stylesheet" href="/assets/css/phone/demo.css">
+  <link rel="stylesheet" href="/css/head.css" />
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/slick.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/jquery.fullPage.css" />
+  <link rel="stylesheet" href="/css/msgbox.css">
+  <link rel="stylesheet" href="/css/zrnStyle.css">
+</head>
+<style>
+  .footer {
+    height: 600px;
+  }
+
+  .header #navToggle span,
+  .header #navToggle span:before,
+  .header #navToggle span:after {
+    background: #4f4f4f;
+  }
+
+  .content {
+    margin-top: 70px;
+    background: #f5f5f5;
+    height: 100%;
+    padding-bottom: 10px;
+  }
+
+  .header {
+    background: #fff;
+    /* border-bottom: 1px solid #ccc; */
+    box-shadow: 0 2px 5px #ccc;
+  }
+
+  .header .left .img2 {
+    display: block;
+  }
+
+  .header .left .img1 {
+    display: none !important;
+  }
+
+  .header .navbar_nav li a {
+    color: #333;
+  }
+
+  .cell {
+    box-shadow: 2px 4px 6px #ccc;
+    margin: 0 20px 20px 20px;
+    background: #fff;
+    padding: 20px 20px 10px 20px;
+    border-radius: 5px;
+  }
+
+  /* .row {
+    display: flex;
+  } */
+
+  .row span {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .row span:nth-child(1) {
+    text-align: right;
+    width: 30%;
+  }
+
+  .row span:nth-child(2) {
+    width: 50%;
+    text-align: left;
+    float: right;
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  .fenge {
+    padding-left: 20px;
+    color: #666;
+  }
+
+  .select p {
+    font-size: 14px;
+  }
+
+  .select label {
+    font-size: 14px;
+    font-weight: normal;
+    position: relative;
+  }
+
+  .select input[type='radio'] {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+  }
+
+  .select input[type='radio'] {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ec193a;
+    border-radius: 50%;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+  }
+
+  .select input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ec193a;
+    margin-right: 5px;
+    position: relative;
+    border-radius: 50%;
+    top: 3px;
+  }
+
+  .select input[type='radio']:checked {
+    background: #ec193a;
+  }
+
+  .select input[type='checkbox']:checked+.gou {
+    display: block;
+  }
+
+  .gou {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -2px;
+    top: 5px;
+    display: none;
+  }
+
+  .textarea {
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    padding: 8px;
+  }
+
+  .submit {
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    color: #fff;
+    background: #ec193a;
+    margin: 20px auto;
+    display: block;
+  }
+</style>
+
+<body>
+  <!-- 首页 -->
+  <!-- 头部导航 -->
+  <header class="header">
+    <div class="container clearfix">
+      <div class="fl left">
+        <a href="javascript:void(0)"><img src="http://file.debteehelper.com/logo/logo_zzbang_01.svg" alt="诚收法催LOGO"
+            class="img1" /></a>
+        <a href="javascript:void(0)"><img src="https://file.debteehelper.com/logo/logo.svg" alt="诚收法催LOGO"
+            class="img2" /></a>
+      </div>
+      <div class="fr navRight">
+        <ul>
+          <li class="loginBtn"><a>登录/注册</a></li>
+        </ul>
+      </div>
+      <div class="fr nav">
+        <ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
+          <li>
+            <a href="/index.html">首页</a>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              产品
+            </a>
+            <div class="dropdown_menu">
+              <a href="/views/aicase.html">AI律师函</a>
+              <a href="/views/lawcase.html">律师办案</a>
+              <a href="/views/assess.html">免费案件评估</a>
+              <a href="/views/addvalue.html">增值服务</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="/views/solution.html">解决方案</a>
+          </li>
+          <li class="active">
+            <a href="/views/demo.html">免费试用</a>
+          </li>
+          <li>
+            <a href="/views/calculator.html">实用计算器</a>
+          </li>
+          <li>
+            <a href="/views/aboutus.html">关于我们</a>
+          </li>
+        </ul>
+      </div>
+      <a href="javascript:void(0)" id="navToggle">
+        <span></span>
+      </a>
+    </div>
+  </header>
+  <!-- 头部导航 -->
+  <div class="m_nav">
+    <div class="top clearfix">
+      <img src="/image/closed.png" alt="" class="closed" />
+    </div>
+    <div class="logo">
+      <img src="https://file.debteehelper.com/logo/logo_zzbang_02.png" alt="" />
+    </div>
+    <ul class="ul" data-in="fadeInDown" data-out="fadeOutUp">
+      <li class="active">
+        <a href="/index.html">首页</a>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)">
+          产品
+        </a>
+        <div class="dropdown_menu">
+          <a href="/views/aicase.html">AI律师函</a>
+          <a href="/views/lawcase.html">律师办案</a>
+          <a href="/views/assess.html">案件评估</a>
+          <a href="/views/addvalue.html">增值服务</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="/views/solution.html">解决方案</a>
+      </li>
+      <li>
+        <a href="/views/demo.html">免费试用</a>
+      </li>
+      <li>
+        <a href="/views/calculator.html">实用计算器</a>
+      </li>
+      <li>
+        <a href="/views/aboutus.html">关于我们</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content" id="phone">
+    <div class="cell">
+      <div class="row">
+        <span style="padding-right: 4px;">委托编号</span>
+        <span id="debtor_number">加载中...</span>
+      </div>
+    </div>
+    <p class="fenge">债权人联系人信息</p>
+    <div class="cell">
+      <div class="row">
+        <span>债权人名称</span>
+        <span id="creditor_name">加载中...</span>
+      </div>
+      <div class="row">
+        <span>联系人姓名</span>
+        <span id="creditor_contacts_name">加载中...</span>
+      </div>
+      <div class="row">
+        <span>联系人电话</span>
+        <span id="creditor_contacts_telphone">加载中...</span>
+      </div>
+      <div class="row">
+        <span>联系人邮箱</span>
+        <span id="creditor_contacts_email">加载中...</span>
+      </div>
+    </div>
+    <p class="fenge">债务人信息</p>
+    <div class="cell">
+      <div class="row">
+        <span>债务人名称</span>
+        <span id="debtor_name">加载中...</span>
+      </div>
+      <div class="row">
+        <span>负责人姓名</span>
+        <span id="contact_person">加载中...</span>
+      </div>
+      <div class="row">
+        <span>债务人电话</span>
+        <span id="phone_number">加载中...</span>
+      </div>
+    </div>
+    <p class="fenge">债务详情</p>
+    <div class="cell">
+      <div class="row">
+        <span>债务类型</span>
+        <span id="entrust_type">加载中...</span>
+      </div>
+      <div class="row">
+        <span>欠款本金</span>
+        <span id="arrears_principal">加载中...</span>
+      </div>
+      <div class="row">
+        <span>违约金/利息/滞纳金</span>
+        <span id="arrears_interest">加载中...</span>
+      </div>
+    </div>
+    <p class="fenge">债务反馈</p>
+    <div class="cell select">
+      <p style="margin-bottom: 10px;">你对以上债务信息</p>
+      <div class="row">
+        <label style="margin-right: 50px;"><input type="radio" name="is_dissent" checked="checked" value="1">有异议</label>
+        <label><input type="radio" name="is_dissent" value="0">无异议</label>
+      </div>
+      <div id="select1" style="margin-top: 10px;">
+        <p><label><input type="checkbox" name="dissent_content" value="债务不存在"><img class="gou"
+              src="../image/gou.png" />债务不存在</label>
+        </p>
+        <p><label><input type="checkbox" name="dissent_content" value="债务本身存有争议"><img class="gou"
+              src="../image/gou.png" />债务本身存有争议</label></p>
+        <p><label><input type="checkbox" name="dissent_content" value="金额有异议"><img class="gou"
+              src="../image/gou.png" />金额有异议</label>
+        </p>
+      </div>
+      <div id="select2" style="margin-top: 10px;display: none;padding-left: 120px;">
+        <p><label><input type="checkbox" name="dissent_content" value="将尽快支付"><img class="gou"
+              src="../image/gou.png" />将尽快支付</label>
+        </p>
+        <p><label><input type="checkbox" name="dissent_content" value="请求分期付/还款"><img class="gou"
+              src="../image/gou.png" />请求分期付/还款</label></p>
+        <p><label><input type="checkbox" name="dissent_content" value="请求减免利息违约金"><img class="gou"
+              src="../image/gou.png" />请求减免利息违约金</label>
+        </p>
+      </div>
+      <p style="margin: 10px 0;">备注</p>
+      <textarea class="textarea" name="member_remarks" id="member_remarks"></textarea>
+    </div>
+    <button id="submit" class="submit">提交</button>
+  </div>
+  <!-- 弹窗提示 -->
+  <div class="toast">
+    <div class="toast-box">
+      <div>
+        <img class="toast-icon" src="">
+        <div class="toast-text"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.0/js/bootstrap.min.js"></script>
+<script src="/js/jquery.fullPage.min.js"></script>
+<script src="/js/index_slick.js"></script>
+<script src="/assets/js/jquery.running.min.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/msgbox.js"></script>
+<script src="/assets/js/js.js"></script>
+<script>
+  $(function () {
+    let isOk = true
+    getUrlParam = function (name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]); return null;
+    }
+    const debtor_number = getUrlParam('debtor_number')
+    let debtor_type = "" //债务类型
+    $('input[name="is_dissent"]').click(function () {
+      let val = $(this).val()
+      if (val == 0) { //无异议
+        $('#select2').show()
+        $('#select1').hide()
+      } else { //有异议
+        $('#select2').hide()
+        $('#select1').show()
+      }
+      $('input[name="dissent_content"]').prop('checked', false)
+    })
+
+    $('#submit').click(function () {
+      if (!isOk) {
+        // openToast('请勿重复提交', 'warn')
+        return false
+      }
+      isOk = false
+      let dissent_content = ""
+      $('input[name="dissent_content"]').each(function (index) {
+        if ($(this).is(':checked')) {
+          dissent_content += $(this).val() + ','
+        }
+      })
+      $.ajax({
+        url: "https://api2.debteehelper.com/api/DebtorFeedback/AddFeedback",
+        type: "POST",
+        dataType: 'json',
+        data: {
+          debtor_number: debtor_number,
+          member_remarks: $('#member_remarks').val(),
+          member_phone: $('#creditor_contacts_telphone').text(),
+          is_dissent: $('input[name="is_dissent"]').val(),
+          dissent_content: dissent_content.substring(0, dissent_content.length - 1)
+        },
+        success: function (res) {
+          if (res.state) {
+            openToast(res.msg, 'success')
+
+            $('#submit').text('已提交').css('background', '#ccc')
+            $('input').attr('disabled', 'disabled')
+            $('textarea').attr('disabled', 'disabled')
+          } else {
+            openToast(res.msg, 'warn')
+          }
+        }
+      })
+    })
+    function getFeedback() {
+      $.ajax({
+        url: "https://api2.debteehelper.com/api/AILawyerLetter/GetFeedbackAILawyerDetails",
+        type: "GET",
+        data: { debtor_number: debtor_number },
+        headers: { 'Content-Type': 'application/json;charset=utf8' },
+        success: function (res) {
+          debtor_type = res.data.debtor_type
+          Object.keys(res.data).forEach(key => {
+            $(`#${key}`).text(res.data[key])
+          })
+          console.log(debtor_type);
+          if (debtor_type == 'Creditor_states_1') {
+            $('#contact_person').parent().hide()
+          }
+          if (res.data.arrears_interest == '') {
+            $('#arrears_interest').parent().hide()
+          }
+        }
+      })
+    }
+    getFeedback()
+  })
+</script>
+
+</html>

@@ -1,0 +1,22 @@
+.ticket {
+  & .header {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  & .el-table {
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+  }
+  & .footer-btn {
+    margin-top: 20px;
+    text-align: center;
+  }
+  & .addForm {
+    width: 90% !important;
+    & .el-input {
+      width: 220px;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/cases/cases",
+    "pages/authentication/authentication",
+    "pages/caseInfo/caseInfo",
+    "pages/examine/examine",
+    "pages/caseProgress/caseProgress",
+    "pages/text/text",
+    "pages/caseProgressInfo/caseProgressInfo",
+    "pages/user/user",
+    "pages/contract/contract"
+  ],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-nav-bar": "/miniprogram/miniprogram_npm/vant-weapp/nav-bar/index",
+    "van-icon": "/miniprogram/miniprogram_npm/vant-weapp/icon/index",
+    "van-popup": "/miniprogram/miniprogram_npm/vant-weapp/popup/index",
+    "van-sidebar": "/miniprogram/miniprogram_npm/vant-weapp/slider/index",
+    "van-sidebar-item": "/miniprogram/miniprogram_npm/vant-weapp/sidebar-item/index",
+    "van-toast": "/miniprogram/miniprogram_npm/vant-weapp/toast/index"
+  }
+}

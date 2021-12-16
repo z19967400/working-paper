@@ -1,0 +1,11 @@
+.EditText {
+  width: 100%;
+}
+.input {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  margin: 10px auto;
+  color: #313131;
+  font-size: 24rpx;
+  margin: 0 25px;
+}

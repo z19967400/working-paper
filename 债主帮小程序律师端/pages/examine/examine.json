@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-steps": "/miniprogram/miniprogram_npm/vant-weapp/steps/index",
+    "van-button": "/miniprogram/miniprogram_npm/vant-weapp/button/index"
+  },
+  "styleIsolation": "shared"
+}

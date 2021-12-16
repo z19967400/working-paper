@@ -1,0 +1,5 @@
+<view class="Dropdown">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{list}}">
+    <view class="picker Dropdown-input">{{list[index]}}</view>
+  </picker>
+</view>

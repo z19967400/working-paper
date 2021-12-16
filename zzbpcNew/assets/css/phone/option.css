@@ -1,0 +1,50 @@
+#phone {
+  background-color: #fbfbfb;
+}
+#phone .session {
+  width: 100%;
+  padding-top: 60px;
+}
+#phone .session.first {
+  height: 533px;
+}
+#phone .session.two {
+  width: 100%;
+  height: 564px;
+  background-color: #fff;
+}
+#phone .session.three {
+  height: 560px;
+}
+#phone .session.four {
+  height: 536px;
+  background-color: #fff;
+}
+#phone .session.five {
+  height: 612px;
+}
+#phone .session.six {
+  height: 588px;
+  background-color: #fff;
+}
+#phone .session {
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+#phone .session .imgss {
+  width: 100%;
+}
+#phone .session .imgss img {
+  display: block;
+  margin: auto;
+}
+#phone .session p {
+  margin: auto;
+  width: 327px;
+  letter-spacing: normal;
+  color: #9b9b9b;
+  font-size: 13px;
+  line-height: 21px;
+  margin-top: 28px;
+}

@@ -1,0 +1,114 @@
+#pc .section.first > .swtext {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 90%;
+  height: 954px;
+}
+#pc .section.first .bgl {
+  height: 100%;
+}
+#pc a:hover {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+#pc section.first > .bg {
+  background-image: url("/assets/imgs/background/背景.png");
+}
+#pc .section.first {
+  height: 954px;
+}
+#pc .center .contont {
+  width: 1061px;
+  height: 373px;
+  display: flex;
+  justify-content: start;
+  margin: auto;
+}
+#pc .center .better {
+  width: 100%;
+  height: 616px;
+  position: relative;
+  margin: auto;
+}
+#pc .center section:nth-child(odd) {
+  background-color: #fff;
+}
+#pc .center > section .contont {
+  width: 1061px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
+  /* margin: auto; */
+}
+#pc .center section:nth-child(odd) .contont > .contont-img > img {
+  width: 500px;
+  height: 373px;
+}
+#pc .center section:nth-child(even) {
+  background-color: #f9f9f9;
+}
+#pc .center section:nth-child(even) > .contont > .contont-img,
+#pc .center section:nth-child(even) > .contont > .contont-img > img {
+  width: 500px;
+  height: 373px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+#pc .center section > .contont > .contont-text {
+  width: 400px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: #b6b6b6;
+  line-height: 1.5;
+}
+#pc .center section .contont .contont-text h3 {
+  margin-top: 128px;
+  margin-bottom: 36px;
+  font-size: 30px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 36px;
+}
+#pc .start {
+  width: 100%;
+  height: 268px;
+  position: relative;
+}
+#pc .start .button {
+  width: 207px;
+  height: 42px;
+  background-color: #ec193a;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+}
+#pc .start .button {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#pc .start .button .text {
+  width: 70px;
+  margin-right: 48px;
+}
+#pc .start .button .arrow {
+  width: 26px;
+  height: 1px;
+  background-color: #fff;
+}
+#pc .start .button .arrow::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 1px;
+  background-color: #fff;
+  transform: translate(16px, -2px) rotateZ(30deg);
+}

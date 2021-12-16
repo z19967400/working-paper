@@ -1,0 +1,24 @@
+@import "../../assets/scss/variables.scss";
+.services {
+  position: relative;
+  height: 100%;
+  // top: -30px;
+  .el-row:nth-child(1) {
+    margin-bottom: 20px;
+  }
+  & .first {
+    font-size: $Text-font;
+    color: $General-colors;
+  }
+  & .first {
+    & span {
+      cursor: pointer;
+    }
+    & span:hover {
+      color: #409eff;
+    }
+    & .act {
+      color: #409eff;
+    }
+  }
+}

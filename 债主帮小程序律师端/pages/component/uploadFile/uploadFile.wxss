@@ -1,0 +1,8 @@
+.uploadFile {
+  margin: 20px;
+}
+.uploadFile-btn {
+  color: #ec193a;
+  background: none;
+  border: 1px solid #ec193a;
+}

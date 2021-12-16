@@ -1,0 +1,89 @@
+#phone .choice {
+  width: 100%;
+  height: 156px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+}
+#phone .pcfirst {
+  background-image: url(/assets/imgs/help/多边形@2x.png);
+}
+#phone .choice h4 {
+  height: 30px;
+  font-size: 16px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 36px;
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 31px;
+}
+#phone .choice p {
+  text-align: center;
+  width: 100%;
+  color: #9b9b9b;
+  margin-bottom: 16px;
+}
+#phone .choice ul {
+  width: 320px;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+#phone .choice ul li {
+  font-size: 14px;
+  height: 18px;
+  padding-bottom: 30px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+#phone .choice ul li.action {
+  border-bottom: 2px solid #ec193a;
+  color: #ec193a;
+}
+#phone .box > div {
+  display: none;
+}
+#phone .show {
+  display: block !important;
+}
+#phone {
+  background-color: #fbfbfb;
+}
+#phone .session {
+  width: 100%;
+  padding-top: 60px;
+}
+#phone .session.first {
+  height: 411px;
+}
+#phone .session.two {
+  height: 446px;
+  background-color: #fff;
+}
+#phone .session.three {
+  height: 463px;
+}
+#phone .session {
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+#phone .session .imgss {
+  width: 100%;
+}
+#phone .session .imgss img {
+  display: block;
+  margin: auto;
+}
+#phone .session p {
+  margin: auto;
+  width: 327px;
+  letter-spacing: normal;
+  color: #9b9b9b;
+  font-size: 13px;
+  line-height: 21px;
+  margin-top: 28px;
+}

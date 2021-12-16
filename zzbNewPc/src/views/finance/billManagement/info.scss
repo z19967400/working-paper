@@ -1,0 +1,109 @@
+@import "@/assets/scss/variables";
+
+.bilInfo-wrap {
+  width: 100%;
+  min-height: 100%;
+  background-color: $main-body-bgColor;
+  position: relative;
+  .bilInfo-box {
+    display: flex;
+    .left {
+      width: 9%;
+      display: flex;
+      & > .text {
+        div {
+          color: $Main-characters;
+          font-size: $Text-font;
+          height: 40px;
+          line-height: 40px;
+          padding: 0 25px 0 0;
+          text-align: center;
+          cursor: pointer;
+        }
+        .act {
+          color: #ec193a;
+        }
+      }
+      & > .shuxian-box {
+        height: 100%;
+        width: 2px;
+        background-color: #e4e7ed;
+        position: relative;
+        & > .shuxian {
+          width: 100%;
+          height: 40px;
+          background-color: #ec193a;
+          transition: transform 0.5s ease;
+          transform: translateY(0);
+        }
+      }
+    }
+    .right {
+      width: 90%;
+      overflow-y: auto;
+      padding-right: 20px;
+      .act {
+        color: #ec193a !important;
+      }
+      .section {
+        & > span:first-child {
+          font-size: 14px;
+          color: $Secondary-text;
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+          line-height: 32px;
+        }
+        & .el-textarea {
+          width: 600px;
+        }
+        .box {
+          display: flex;
+          margin-bottom: 20px;
+          .text {
+            width: 33.33%;
+            p {
+              color: $General-colors;
+              font-size: 14px;
+              margin: 0;
+              margin-bottom: 10px;
+              line-height: 32px;
+              & > span:first-child {
+                margin-right: 10px;
+              }
+              & > span:last-child {
+                color: $Main-characters;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .el-divider--horizontal {
+    margin: 5px 0 20px 0;
+  }
+  .info {
+    color: #67c23a;
+  }
+  .edit {
+    color: #e6a23c;
+  }
+  .el-tabs--left .el-tabs__header.is-left {
+    margin-right: 20px;
+  }
+  .el-checkbox-group {
+    margin-bottom: 20px;
+  }
+  .el-textarea textarea {
+    height: 100px;
+  }
+  .addNewUser,
+  .selectUser {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

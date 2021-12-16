@@ -1,0 +1,70 @@
+@import "@/assets/scss/variables.scss";
+
+.memberCollectionEdit-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  .memberCollectionEdit-box {
+    overflow-y: auto;
+    padding-left: 10px;
+    & .cell {
+      & > .el-button:nth-child(2) {
+        display: none;
+      }
+    }
+    & .title {
+      font-size: $Text-font;
+      color: $Secondary-text;
+      height: 32px;
+      line-height: 32px;
+    }
+    & .el-divider--horizontal {
+      margin: 5px 0 20px 0;
+    }
+    & .demo-ruleForm {
+      width: 800px;
+    }
+    .el-textarea__inner {
+      height: 150px;
+    }
+  }
+  .selectAdmin-wrap .selectAdmin-box .label {
+    width: 80px;
+    display: inline-block;
+  }
+  .el-form-item__label {
+    position: relative;
+  }
+  .el-form-item__label:before {
+    position: absolute;
+    left: -10px;
+  }
+  .inline-box {
+    display: flex;
+    justify-content: space-between;
+  }
+  .adminInfo {
+    display: inline-block;
+    & > div {
+      margin-right: 40px;
+      display: inline-block;
+    }
+    label {
+      width: 100px;
+      font-size: 14px;
+      color: $General-colors;
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      margin-bottom: 20px;
+    }
+    span {
+      font-size: 14px;
+      color: $General-colors;
+    }
+  }
+  .el-textarea {
+    width: 690px;
+  }
+}

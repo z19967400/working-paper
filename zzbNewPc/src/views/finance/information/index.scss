@@ -1,0 +1,12 @@
+@import "@/assets/scss/variables.scss";
+
+.information-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: $main-body-bgColor;
+  & .table-wrap {
+    & > button {
+      display: none;
+    }
+  }
+}

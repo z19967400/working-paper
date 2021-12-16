@@ -1,0 +1,32 @@
+#phone {
+  background-color: #fbfbfb;
+}
+#phone .pcfirst {
+  background-image: url(/assets/imgs/cases/多边形@2x.png);
+}
+#phone .session {
+  width: 100%;
+  padding-top: 60px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#phone .session div {
+  margin: 20px 20px;
+}
+#phone .session h4 {
+  width: 100%;
+}
+#phone .session.first {
+  height: 533px;
+}
+#phone .session.two {
+  width: 100%;
+  height: 564px;
+  background-color: #fff;
+}
+#phone .session.three {
+  height: 560px;
+}

@@ -1,0 +1,116 @@
+#pc .slide-left {
+  margin-right: 0;
+}
+#pc .section.first {
+  width: 100%;
+  height: 1054px !important;
+  padding-bottom: 0;
+  position: relative;
+}
+#pc .section.first .contont-box {
+  width: 960px;
+  height: 285px;
+  background-color: #fff;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  transform: translate(-50%, -100px);
+  box-shadow: 6px 6px 6px #eee;
+}
+#pc .section.first .contont-box h2 {
+  margin-top: 90px;
+  margin-left: 120px;
+}
+#pc .section.first .contont-box p {
+  margin-top: 30px;
+  margin-left: 120px;
+  font-size: 16px;
+  font-family: Helvetica;
+  color: rgba(137, 137, 137, 1);
+  line-height: 30px;
+}
+#pc .even {
+  width: 100%;
+  height: 616px;
+  background: rgba(248, 248, 248, 1);
+}
+#pc .even .img-div,
+#pc .left {
+  display: inline-block;
+  width: 476px;
+  height: 380px;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+#pc section .num-img {
+  width: 79px;
+  height: 88px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 22px;
+  background-image: url(/assets/imgs/option/椭圆形备份@2x.png);
+  background-size: cover;
+}
+#pc .even .img-div.two {
+  background-image: url(/assets/imgs/option/ethereum备份@2x.png);
+}
+#pc .even .img-div.four {
+  background-image: url(/assets/imgs/option/information_carousel备份@2x.png);
+}
+#pc .even .img-div.six {
+  background-image: url(/assets/imgs/option/编组10@2x.png);
+}
+#pc .odd {
+  width: 100%;
+  height: 616px;
+  background: rgba(255, 255, 255, 1);
+}
+#pc h3 {
+  display: inline-block;
+  height: 30px;
+  font-size: 30px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 36px;
+}
+#pc p {
+  width: 400px;
+  height: 52px;
+  font-size: 14px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 20px;
+}
+#pc section div:nth-child(2) > h3 {
+  margin-bottom: 36px;
+}
+#pc .maxwidthbox {
+  position: relative;
+}
+#pc .odd .img-div,
+#pc .right {
+  width: 476px;
+  height: 380px;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+  float: right;
+}
+#pc .odd .img-div.three {
+  background-image: url(/assets/imgs/option/lawyer备份@2x.png);
+}
+#pc .odd .img-div.five {
+  background-image: url(/assets/imgs/option/cpu备份2@2x.png);
+}
+#pc .odd .img-div.seven {
+  background-image: url(/assets/imgs/option/data_center备份@2x.png);
+}

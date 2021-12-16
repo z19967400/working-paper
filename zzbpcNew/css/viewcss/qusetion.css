@@ -1,0 +1,50 @@
+#pc section.first > .bg {
+  background-size: cover;
+}
+#pc .choice {
+  position: absolute;
+  left: 50%;
+  top: 850px;
+  transform: translateX(-50%);
+  width: 1080px;
+  height: 600px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+#pc .panel-default {
+  border-color: #ddd;
+  background-color: #fff;
+  width: 70%;
+}
+#pc .swtext-right {
+  margin-top: 130px;
+  position: relative;
+  top: -114px;
+}
+#pc .panel-body {
+  display: none;
+}
+#pc .panel-default > .panel-heading {
+  color: #333;
+  background-color: #fff;
+  border-color: #ddd;
+}
+#pc .panel-default > .panel-heading span {
+  color: #ec193a;
+}
+#pc .panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+  width: 95%;
+}
+#pc .section.first {
+  height: 1500px !important;
+}
+#pc .wechart {
+  width: 270px;
+  height: 100%;
+  background-color: aqua;
+}

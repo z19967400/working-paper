@@ -1,0 +1,20 @@
+@import "@/assets/scss/variables.scss";
+
+.billManagement-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: $main-body-bgColor;
+  & .operation-wrap {
+    & .input-box {
+      button {
+        display: none;
+      }
+    }
+  }
+  & .cell {
+    & button:nth-child(2),
+    & button:nth-child(3) {
+      display: none;
+    }
+  }
+}

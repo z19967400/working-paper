@@ -1,0 +1,20 @@
+@import "@/assets/scss/variables.scss";
+
+.admin-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+}
+.admin-wrap .edit .avatar-uploader .el-upload {
+  border-radius: 50%;
+}
+.el-upload .el-upload--text {
+  border-radius: 50%;
+}
+.el-popover__title {
+  margin-bottom: 20px;
+}
+.el-upload-dragger {
+  width: auto;
+}

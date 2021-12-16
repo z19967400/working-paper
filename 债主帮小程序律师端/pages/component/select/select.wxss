@@ -1,0 +1,19 @@
+.select {
+  width: 100%;
+  display: block;
+}
+.select-item {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 24rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 600rpx;
+  margin: 10px auto;
+}
+.act {
+  border: 1px solid #ec193a;
+  background: #ec193a;
+  color: white;
+}

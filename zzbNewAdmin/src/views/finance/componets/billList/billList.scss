@@ -1,0 +1,40 @@
+.billList {
+  width: 100%;
+  & .header {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  & .table-cell {
+    position: relative;
+    & > span {
+      border-left: 5px solid #ec193a;
+      padding-left: 10px;
+      display: block;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    & > .time {
+      position: absolute;
+      right: 0;
+      top: 0;
+      & > .btn {
+        position: relative;
+        top: -3px;
+        margin-left: 20px;
+      }
+    }
+    & .el-table {
+      // width: 1000px;
+      display: block;
+      margin-top: 20px;
+    }
+  }
+  & .remarks {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

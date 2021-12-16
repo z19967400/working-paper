@@ -1,0 +1,403 @@
+body {
+  background: #fafafa;
+}
+a {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  color: #e7e7e7;
+}
+
+#pc .textmenu a {
+  color: #e7e7e7 !important;
+}
+#pc section.first > .bg {
+  background-image: url("/assets/imgs/background/背景4.png");
+  position: static;
+  background-position: center;
+}
+#pc .menu .nav.navbar-nav:first-child > li {
+  padding-right: 44px;
+}
+#pc .menu .nav.navbar-nav:last-child {
+  position: relative;
+  right: 150px;
+}
+#pc .threeimg > div {
+  background-position: center;
+  background-size: contain;
+  z-index: -5;
+  color: #fff;
+  position: relative;
+}
+#pc .threeimg > div > .titletext {
+  padding: 0 36px;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+}
+#pc .threeimg > div > .titletext > h4 {
+  font-size: 30px;
+}
+#pc .threeimg > div > .titletext > div {
+  width: 13px;
+  height: 2px;
+  background: #ff0000;
+  margin-bottom: 15px;
+}
+#pc .threeimg > div:nth-child(1) {
+  background-image: url(/assets/imgs/background/愿景.png);
+}
+#pc .threeimg > div:nth-child(2) {
+  background-image: url(/assets/imgs/background/使命0.png);
+}
+#pc .threeimg > div:nth-child(3) {
+  background-image: url(/assets/imgs/background/价值0.png);
+}
+#pc a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+#pc .section.first {
+  width: 100%;
+  height: 1500px;
+  position: relative;
+  top: 0;
+  padding-top: 0;
+}
+#pc .scction-two {
+  width: 100%;
+  height: 539px;
+  background-color: #282828;
+  position: relative;
+}
+#pc .scction-two .data {
+  width: 950px;
+  height: 197px;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+#pc .scction-two .data > div {
+  width: 263px;
+  height: 100%;
+  border-bottom: 2px solid #525252;
+}
+#pc .scction-two .data > div > img {
+  width: 38px;
+  height: 39px;
+}
+#pc .scction-two .data > div > div {
+  width: 79px;
+  height: 44px;
+  font-size: 36px;
+  font-family: Helvetica;
+  color: rgba(255, 255, 255, 1);
+  line-height: 43px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+#pc .scction-two .data > div > p {
+  height: 34px;
+  font-size: 15px;
+  font-family: Helvetica;
+  color: rgba(255, 255, 255, 1);
+  line-height: 34px;
+}
+#pc .section-three {
+  width: 100%;
+  /* height: 1900px; */
+  padding-bottom: 80px;
+  background-color: #f3f3f3;
+}
+#pc .section-three > .contont {
+  width: 1106px;
+  margin: auto;
+}
+#pc .section-three > .contont > .card {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#pc .section-three > .contont > .card > .dlabel {
+  width: 338px;
+  height: 450px;
+  margin-bottom: 40px;
+  box-shadow: 8px 8px 8px #eee;
+  background-color: #fff;
+}
+#pc .section-three > .contont > .card > .dlabel > .photoimg,
+#pc .section-three > .contont > .card > .dlabel > .photoimg > img {
+  width: 100%;
+  height: 352px;
+  background-color: antiquewhite;
+}
+#pc .section-three > .contont > .card > .dlabel > .leadername {
+  width: 100%;
+  height: 98px;
+}
+#pc .section-three > .contont > .card > .dlabel > .idcard {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  margin-top: 12px;
+  color: #4f4f4f;
+}
+#pc .section-three > .contont .xian {
+  width: 32px;
+  height: 3px;
+  background-color: #ec193a;
+}
+#pc .section-three > .contont > .card > .dlabel .xian {
+  width: 30px;
+  height: 3px;
+  background-color: #ec193a;
+  margin: auto;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+#pc .section-three > .contont > .card > .dlabel .jianjie {
+  font-size: 14px;
+  font-family: Helvetica;
+  color: #969696;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+#pc .section-three > .contont > .card > .dlabel > .leadername h4 {
+  margin-top: 28px;
+}
+#pc .section-three > .contont > .card > .dlabel > .leadername p {
+  color: #ec193a;
+}
+#pc .section-three > .contont > .card > .dlabel > .leadername h4,
+#pc .section-three > .contont > .card > .dlabel > .leadername p {
+  text-align: center;
+}
+#pc .better {
+  width: 100%;
+  height: 616px;
+  background-color: aqua;
+}
+#pc .lastcontont {
+  width: 796px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+#pc .lastcontont .box {
+  width: 378px;
+  height: 520px;
+  position: relative;
+  cursor: pointer;
+  /* 3D变形 */
+  transform-style: preserve-3d;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  transform: rotateY(0deg);
+  transition: transform 1s ease;
+}
+#pc .lastcontont > div:hover > .box {
+  transform: rotateY(180deg);
+  box-shadow: 8px 8px 8px #eee;
+}
+#pc .lastcontont .box .box-text {
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+#pc .lastcontont > div:first-child .box .box-img {
+  height: 100%;
+  width: 100%;
+  background: url("/assets/imgs/about/patent_left.jpg") no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transform: rotateY(180deg);
+}
+#pc .lastcontont > div:last-child .box .box-img {
+  height: 100%;
+  width: 100%;
+  background: url("/assets/imgs/about/patent_right.jpg") no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transform: rotateY(180deg);
+}
+#pc .lastcontont .box img {
+  width: 94px;
+  height: 124px;
+}
+#pc .lastcontont .box .box-text div {
+  text-align: center;
+  width: 140px;
+  height: 140px;
+  margin: auto;
+  margin-top: 90px;
+  display: block;
+  justify-content: center;
+}
+#pc .lastcontont .box .box-text h5 {
+  text-align: center;
+  font-size: 18px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 1);
+  line-height: 25px;
+}
+#pc .lastcontont .box .box-text p {
+  text-align: center;
+  height: 96px;
+  font-size: 16px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 32px;
+  margin-top: 20px;
+}
+
+#pc .swiper-container {
+  width: 100%;
+  height: 100%;
+}
+#pc .section.first > .swtext {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 954px;
+}
+#pc .section.first > .swtext .swiper-slide {
+  display: flex;
+  justify-items: auto;
+}
+#pc .threeimg {
+  width: 1080px;
+  height: 424px;
+  display: flex;
+  background-color: #31497f;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80%;
+  z-index: 10;
+}
+#pc .threeimg > div {
+  width: 360px;
+  height: 424px;
+}
+#pc .slide-left {
+  color: white;
+  width: 50%;
+  /* margin-left: 1.180556rem; */
+  margin-top: 243px;
+}
+#pc .twocontext {
+  width: 1080px;
+  height: 432px;
+  margin: auto;
+  position: absolute;
+  top: 650px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#pc .building {
+  position: relative;
+}
+/* #pc .building div {
+  width: 506px;
+  height: 204px;
+  padding: 46px 50px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 54%;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.05);
+} */
+/* #pc .building div p {
+  font-size: 16px;
+  font-family: Helvetica;
+  color: #545454;
+  line-height: 28px;
+  letter-spacing: 2px;
+} */
+#pc .twocontext div {
+  width: 85%;
+  padding: 70px 40px 40px 40px;
+  background-color: #fff;
+  /* position: absolute; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  /* left: 54%; */
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.05);
+  margin: auto;
+  margin-top: 25px;
+  border-radius: 5px;
+}
+#pc .twocontext div  p {
+  font-size: 16px;
+  font-family: Helvetica;
+  color: #545454;
+  line-height: 28px;
+  letter-spacing: 2px;
+  /* margin-top: 20px; */
+}
+#pc .building img {
+  width: 750px;
+  height: 432px;
+}
+#pc .slide-left h3 {
+  width: 212px;
+  height: 48px;
+  font-size: 48px;
+  font-family: Helvetica;
+  color: rgba(255, 255, 255, 1);
+  line-height: 58px;
+  letter-spacing: 5p;
+  margin-bottom: 20px;
+}
+#pc .slide-left p {
+  width: 462px;
+  height: 30px;
+  font-size: 22px;
+  font-family: Helvetica;
+  color: rgba(255, 255, 255, 1);
+  line-height: 28px;
+  letter-spacing: 2px;
+}
+#pc .slide-right {
+  width: 50%;
+  margin-top: 129px;
+}
+#pc .slide-right img {
+  width: 465px;
+  height: 457px;
+}
+.erweima {
+  display: flex;
+  margin-top: 20px;
+}
+.erweima img {
+  width: 100px;
+  margin-right: 20px;
+}

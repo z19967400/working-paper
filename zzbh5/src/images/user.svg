@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>资料</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="页面" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的" transform="translate(-31.000000, -284.000000)">
+            <rect fill="#F9F9F9" x="0" y="0" width="375" height="667"></rect>
+            <g id="用户资料" transform="translate(31.000000, 284.000000)" fill="#EC193A">
+                <g id="资料">
+                    <g id="Group-15" transform="translate(5.000000, 1.000000)" fill-rule="nonzero">
+                        <path d="M9.75,4.5 C9.75,3.25719534 8.74280466,2.25 7.5,2.25 C6.25719534,2.25 5.25,3.25719534 5.25,4.5 C5.25,5.74280466 6.25719534,6.75 7.5,6.75 C8.74280466,6.75 9.75,5.74280466 9.75,4.5 Z M12,4.5 C12,6.98544534 9.98544534,9 7.5,9 C5.01455466,9 3,6.98544534 3,4.5 C3,2.01455466 5.01455466,0 7.5,0 C9.98544534,0 12,2.01455466 12,4.5 Z" id="Stroke-103"></path>
+                        <path d="M8.57142857,12 L6.42857143,12 C4.43142595,12 2.75358977,13.2747987 2.27786699,15 L12.722133,15 C12.2464102,13.2747987 10.568574,12 8.57142857,12 Z M13.9285714,17 L1.07142857,17 C0.479694911,17 0,16.5522847 0,16 C0,12.6864008 2.87788894,10 6.42857143,10 L8.57142857,10 C12.1221111,10 15,12.6864008 15,16 C15,16.5522847 14.5203051,17 13.9285714,17 Z" id="Stroke-104"></path>
+                    </g>
+                    <circle id="Oval-2-Copy" opacity="0.200000003" cx="6" cy="6" r="6"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

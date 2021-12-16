@@ -1,0 +1,29 @@
+<svg width="122.00000000000001" height="122.00000000000001" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <!-- Generator: Sketch 54 (76480) - https://sketchapp.com -->
+
+ <title>11</title>
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="763" width="1662" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g fill-rule="evenodd" fill="none" id="Page-1">
+   <g id="3.0-发起催债-选择类型">
+    <g id="11">
+     <rect rx="30" height="120" width="120" y="1" x="1" fill="#737373" fill-opacity="0.15" stroke-width="2" stroke="#FFFFFF" stroke-opacity="0.5" id="Rectangle-26-Copy"/>
+     <g fill="#FFFFFF" id="分组-7">
+      <text x="33" y="24" line-spacing="14" font-weight="400" font-size="14" font-family="PingFangSC-Medium, PingFang SC" opacity="0.8" id="个人催收">
+       <tspan id="svg_1" y="300" x="0">个人催收</tspan>
+      </text>
+      <g fill-rule="nonzero" opacity="0.49" id="Group-8">
+       <path id="Stroke-103" d="m68.61585,35.5c0,-4.14268 -3.58114,-7.5 -8,-7.5c-4.41886,0 -8,3.35732 -8,7.5c0,4.14268 3.58114,7.5 8,7.5c4.41886,0 8,-3.35732 8,-7.5zm3.78049,0c0,6.35169 -5.27387,11.5 -11.78049,11.5c-6.50661,0 -11.78048,-5.14831 -11.78048,-11.5c0,-6.35169 5.27387,-11.5 11.78048,-11.5c6.50662,0 11.78049,5.14831 11.78049,11.5z"/>
+       <path opacity="0.5" id="Stroke-104" d="m64.4879,54l-6.9758,0c-6.50146,0 -11.96344,5.0992 -13.5121,12l34,0c-1.54866,-6.9008 -7.01064,-12 -13.5121,-12zm14.5121,16l-36,0c-1.65685,0 -3,-1.27919 -3,-2.85714c0,-9.46743 8.05809,-17.14286 18,-17.14286l6,0c9.94191,0 18,7.67543 18,17.14286c0,1.57795 -1.34315,2.85714 -3,2.85714z"/>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

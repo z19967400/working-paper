@@ -1,0 +1,4 @@
+<veiw class="select">
+  <view bindtap="selecTap" data-index="{{index}}" wx:for="{{list}}" wx:key="index"
+    class="select-item;{{item.status?'act':''}}">{{item.name}}</view>
+</veiw>

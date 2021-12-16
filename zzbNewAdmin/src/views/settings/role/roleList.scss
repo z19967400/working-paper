@@ -1,0 +1,18 @@
+@import "@/assets/scss/variables.scss";
+
+.roleList-wrap {
+  width: 100%;
+  .input-box {
+    display: flex;
+    justify-content: space-between;
+    .total {
+      font-size: $Auxiliary-font;
+      color: $Secondary-text;
+      line-height: 32px;
+      .totalSpan {
+        color: #ec193a;
+        padding: 0 4px;
+      }
+    }
+  }
+}

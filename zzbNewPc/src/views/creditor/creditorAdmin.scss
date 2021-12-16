@@ -1,0 +1,140 @@
+@import "@/assets/scss/variables.scss";
+.creditorAdmin {
+  width: 100%;
+  height: 100%;
+  background-color: $main-body-bgColor;
+  & > .serch {
+    width: 380px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  & > .creditorAdmin-list {
+    height: 90%;
+    width: 100%;
+    overflow-y: auto;
+    & > .cell {
+      margin: auto;
+      width: 95%;
+      border: 1px solid #f5f5f5;
+      box-shadow: 0 2px 5px #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      & > .icon {
+        border-radius: 50%;
+        display: inline-block;
+        color: #ec193a;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ec193a;
+        text-align: center;
+        line-height: 20px;
+        font-size: 14px;
+      }
+      & > .cell-delect {
+        float: right;
+        font-size: 14px;
+        color: #ec193a;
+        cursor: pointer;
+        margin-top: -10px;
+      }
+      & > .cell-top {
+        display: flex;
+        margin-bottom: 50px;
+        margin-top: 10px;
+        & > .cell-top-left {
+          width: 25%;
+          text-align: center;
+          & > img {
+            width: 80%;
+            cursor: pointer;
+          }
+        }
+        & > .cell-top-right {
+          width: 75%;
+          & > .cell-top-right-row {
+            margin: 0;
+            font-size: 14px;
+            display: flex;
+            margin-bottom: 10px;
+            min-height: 35px;
+            line-height: 35px;
+            & > .label {
+              min-width: 120px;
+              display: inline-block;
+              text-align: right;
+              margin-right: 20px;
+              color: #303133;
+            }
+            & > .value {
+              color: #606366;
+              display: inline-block;
+            }
+          }
+        }
+      }
+      & > .cell-buttom {
+        & > .addButtom {
+          float: right;
+          margin-bottom: 20px;
+        }
+        & .check {
+          color: #409eff;
+        }
+        & .edit {
+          color: #e6a23c;
+        }
+      }
+    }
+  }
+  & > .footer {
+    box-shadow: 0 2px 5px #ccc;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 2px;
+    background: white;
+    z-index: 2;
+    & > .addButtom {
+      margin-left: 240px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  & .addCreditor {
+    width: 780px;
+    border-radius: 10px;
+    padding: 20px 20px;
+    // max-height: 700px;
+    & .el-dialog__body {
+      max-height: none;
+      padding: 0px;
+    }
+    & .el-dialog__header {
+      padding: 0;
+      & .el-dialog__title {
+        font-size: 16px;
+      }
+    }
+  }
+  & .editAdmin {
+    // & .el-upload-list {
+    //   padding-left: 100px;
+    // }
+    & .el-icon-close-tip {
+      display: none !important;
+    }
+  }
+  & .addAdmin-xx {
+    & .xinghao {
+      position: relative;
+    }
+    & .xinghao:after {
+      content: "*";
+      color: #f56c6c;
+      // margin-right: 4px;
+      position: absolute;
+      right: -6px;
+    }
+  }
+}

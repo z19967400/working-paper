@@ -1,0 +1,183 @@
+@import "@/assets/scss/variables";
+
+.LegalCollection-wrap {
+  width: 100%;
+  min-height: 100%;
+  background-color: $main-body-bgColor;
+  position: relative;
+  .LegalCollection-box {
+    display: flex;
+    .el-table th,
+    .el-table td {
+      // text-align: center;
+    }
+    & .left {
+      width: 120px;
+      display: flex;
+      & > .text {
+        & > div > span {
+          color: $Main-characters;
+          font-size: $Text-font;
+          height: 40px;
+          line-height: 40px;
+          padding: 0 25px 0 0;
+          text-align: center;
+          cursor: pointer;
+        }
+        .act > span {
+          color: #ec193a;
+        }
+        .act {
+          .children {
+            display: block;
+            padding: 0;
+          }
+          & .act2 {
+            color: #ec193a;
+          }
+        }
+        & > div {
+          .children {
+            display: none;
+            span {
+              display: block;
+              color: $Secondary-text;
+              font-size: $fuzhu-font;
+              height: 40px;
+              line-height: 40px;
+              padding: 0 25px 0 0;
+              text-align: center;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      & > .shuxian-box {
+        height: 100%;
+        width: 2px;
+        background-color: #e4e7ed;
+        position: relative;
+        & > .shuxian {
+          width: 100%;
+          height: 40px;
+          background-color: #ec193a;
+          transition: transform 0.5s ease;
+          transform: translateY(0);
+        }
+      }
+    }
+    & .right {
+      width: 90%;
+      overflow-y: auto;
+      padding-right: 20px;
+      .act {
+        color: #ec193a !important;
+      }
+      & .section {
+        margin-bottom: 20px;
+        & > span:first-child {
+          font-size: 14px;
+          color: #606266;
+          font-weight: bold;
+          margin-top: 10px;
+          display: block;
+          border-left: 3px solid #e01f3c;
+          height: 15px;
+          line-height: 15px;
+          padding-left: 10px;
+        }
+        .box {
+          display: flex;
+          flex-wrap: wrap;
+          .text {
+            width: 33.33%;
+            p {
+              color: $General-colors;
+              font-size: 14px;
+              margin: 0;
+              margin-bottom: 10px;
+              line-height: 32px;
+              & > span:first-child {
+                margin-right: 20px;
+                font-size: 12px;
+                color: $Secondary-text;
+              }
+            }
+          }
+        }
+        .customerTag {
+          color: #606266;
+          font-size: 14px;
+        }
+        & > .el-descriptions {
+          width: 100%;
+          min-width: 1000px;
+          margin: auto;
+          & .descriptions-label {
+            width: 250px;
+            & > .is-required::before {
+              content: "*";
+              color: #f56c6c;
+              margin-right: 4px;
+            }
+            & > .padding-left {
+              padding-left: 10px;
+            }
+          }
+          & .descriptions-value {
+            min-width: 250px;
+
+            & .el-tag {
+              font-size: 14px;
+              color: #606266;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .el-form {
+    width: 600px;
+  }
+  .el-divider--horizontal {
+    margin: 5px 0 20px 0;
+  }
+  .info {
+    color: #409eff;
+  }
+  .btn-box {
+    position: absolute;
+    bottom: 0;
+    left: 120px;
+  }
+  & .table1-wrap .el-table th > .cell {
+    text-align: left !important;
+  }
+  & .el-dialog {
+    width: 680px;
+    border-radius: 10px;
+    padding: 20px;
+    & .el-dialog__title {
+      font-size: 16px;
+    }
+    & .el-dialog__body {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    & .el-dialog__footer {
+      text-align: center;
+    }
+    & .avatar-uploader-icon {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+  & .el-tag {
+    height: auto;
+    & p {
+      margin: 0;
+    }
+  }
+}

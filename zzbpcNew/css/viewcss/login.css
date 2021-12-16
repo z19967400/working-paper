@@ -1,0 +1,106 @@
+#pc section.first > .bg {
+  background-image: url("/assets/imgs/background/背景1.png");
+}
+#pc .show {
+  display: block;
+}
+#pc .box > div {
+  display: none;
+}
+#pc .first {
+  position: absolute;
+  height: 100%;
+  overflow: hidden;
+}
+#pc .loginimg {
+  width: 604px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#pc .loginfrom {
+  width: 400px;
+  height: 443px;
+  background-color: rgba(255, 255, 255, 0.93);
+  box-shadow: 6px 6px 6px #eee;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#pc .container {
+  position: relative;
+  max-width: 1080px;
+  height: 100%;
+}
+/* #pc .loginfrom .headerimg {
+  width: 152px;
+  height: 40px;
+  margin: 38px auto 0;
+}
+#pc .loginfrom .headerimg img {
+  /* width: 152px; */
+  /* height: 40px;
+} */ */
+#pc .loginfrom {
+  padding: 0 38px;
+  display: inline-block;
+}
+#pc .changelogin {
+  width: 100%;
+  display: flex;
+}
+#pc .changelogin {
+  width: 100%;
+  border-bottom: 1px solid #d8d8d8;
+  margin-top: 34px;
+  margin-bottom: 25px;
+  height: 34px;
+}
+#pc .changelogin li {
+  height: 42px;
+  margin-right: 36px;
+  cursor: pointer;
+  color: #999999;
+}
+#pc .changelogin li.action {
+  border-bottom: 1px solid #282828;
+  color: #282828;
+}
+#pc .loginfrom input {
+  height: 42px;
+  margin-bottom: 20px;
+}
+#pc .btn.btn-primary {
+  width: 100%;
+  height: 42px;
+  background-color: #ec193a;
+  border: none;
+}
+#pc .loginfoot {
+  width: 100%;
+  height: 14px;
+  color: #999999!important;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+#pc .loginfoot div {
+  margin-right: 13px;
+  line-height: 14px;
+  color: #999;
+  cursor: pointer;
+}
+#pc .xian {
+  width: 1px;
+  height: 14px;
+  line-height: 14px;
+  background-color: #999999;
+}
+#pc .loginfoot div:nth-child(3) {
+  margin-left: 13px;
+  line-height: 14px;
+  cursor: pointer;
+}

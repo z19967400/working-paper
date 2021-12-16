@@ -1,0 +1,165 @@
+@import '@/assets/scss/variables.scss';
+.lawyer-wrap {
+  width: 100%;
+  min-height: 100%;
+  background-color: $main-body-bgColor;
+  .ordinaryAdmin-box {
+    display: flex;
+    margin-bottom: 50px;
+    & > .left {
+      width: 7%;
+      div {
+        font-size: $Text-font;
+        color: $Main-characters;
+        height: 32px;
+        line-height: 32px;
+        cursor: pointer;
+      }
+    }
+    & > .center {
+      width: 4%;
+      .shuxian {
+        position: relative;
+        width: 4px;
+        height: 100%;
+        background-color: $border-color1;
+        .actXian {
+          position: absolute;
+          top: 0;
+          background-color: #f04761;
+          width: 100%;
+          height: 32px;
+        }
+      }
+    }
+    & > .right {
+      width: 100%;
+      // overflow-y: auto;
+      .section {
+        margin-bottom: 20px;
+        & .el-row {
+          min-height: 32px;
+          line-height: 32px;
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+        & .lable,
+        & .el-form-item__label {
+          color: #606266;
+          font-size: 12px;
+          width: 90px;
+        }
+        & > span:first-child {
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+          height: 20px;
+        }
+        & .el-textarea {
+          width: 80%;
+        }
+        .box {
+          display: flex;
+          .text {
+            width: 33.33%;
+            p {
+              margin: 0;
+              margin-bottom: 10px;
+              line-height: 32px;
+              & > span:first-child {
+                color: $General-colors;
+                font-size: 12px;
+                margin-right: 10px;
+              }
+              & > span:last-child {
+                color: $Main-characters;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .el-divider--horizontal {
+    margin: 5px 0 20px 0;
+  }
+  .examine {
+    color: #e6a23c;
+  }
+  .edit,
+  .info {
+    color: #62d493;
+  }
+  .add {
+    color: #ec193a;
+  }
+  .head_img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    position: relative;
+  }
+  .el-tabs--left .el-tabs__header.is-left {
+    margin-right: 20px;
+  }
+  .editData {
+    width: 670px;
+    padding: 20px 40px 80px 40px;
+  }
+  .text-input {
+    display: inline-block;
+    width: 50%;
+  }
+  .text-lable {
+    display: inline-block;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+  }
+  .text-value {
+    height: 40px;
+    line-height: 40px;
+  }
+  .title {
+    font-size: 14px;
+    color: #606266;
+    font-weight: bold;
+    display: inline-block;
+    border-left: 3px solid #e01f3c;
+    height: 15px;
+    line-height: 15px;
+    padding-left: 10px;
+  }
+  & .footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: white;
+    padding: 20px 0;
+    z-index: 1080;
+  }
+  & .lawyerBox {
+    & .img {
+      width: 100px;
+      cursor: pointer;
+    }
+    & .el-input {
+      width: 280px;
+    }
+  }
+  & .upBox {
+    position: relative;
+    width: 100px;
+    .avatar {
+      max-width: 100%;
+      max-height: 100%;
+      // max-height: 100%;
+      margin: auto;
+      object-fit: contain;
+    }
+    .el-upload-dragger {
+      width: 100px;
+    }
+  }
+}

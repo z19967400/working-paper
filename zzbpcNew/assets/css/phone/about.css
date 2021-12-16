@@ -1,0 +1,174 @@
+#phone {
+  background-color: #fbfbfb;
+  position: relative;
+}
+#phone .pcfirst {
+  background-image: url(/assets/imgs/about/多边形@2x.png);
+}
+#phone .session {
+  width: 100%;
+}
+#phone .session.first {
+  height: 376px;
+}
+#phone .session.first p {
+  width: 100%;
+  height: 136px;
+  background-color: #fff;
+  padding: 20px 38px;
+  font-size: 13px;
+  line-height: 23px;
+}
+#phone .session.two {
+  width: 100%;
+  height: 500px;
+}
+#phone .session.two .swiper-container {
+  width: 100%;
+  height: 100%;
+}
+#phone .session.two .swiper-wrapper {
+  width: 300px;
+  height: 460px;
+}
+#phone .session.two .swiper-slide {
+  width: 312px !important;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+#phone .session.two .swiper-slide .titletext {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  width: 100%;
+  height: 170px;
+  padding-left: 24px;
+}
+#phone .session.two .swiper-slide .titletext h4 {
+  width: 100%;
+  text-align: left;
+  font-size: 24px;
+}
+#phone .session.two .swiper-slide .titletext .xian {
+  width: 24px;
+  height: 2px;
+  background-color: #ec193a;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+#phone .session.two .swiper-slide .titletext p {
+  width: 100%;
+  text-align: left;
+}
+#phone .session.three {
+  padding: 0 24px;
+}
+#phone .session.three .title h4 {
+  font-size: 16px;
+  text-align: left;
+}
+#phone .session.three .title .xian {
+  width: 24px;
+  height: 1px;
+  background-color: #ec193a;
+  margin: 14px 0 40px;
+}
+#phone .session.three .imgss {
+  width: 327px;
+  height: 400px;
+  background-color: pink;
+  margin: auto;
+}
+#phone .session.three h3 {
+  width: 100%;
+  text-align: center;
+}
+#phone .session.three p {
+  color: #ec193a;
+  width: 100%;
+  text-align: center;
+}
+#phone .session.three .medal {
+  width: 100%;
+}
+#phone .session.three .medal img {
+  display: block;
+  margin: auto;
+}
+#phone .session.three .tenchange {
+  width: 327px;
+  height: 377px;
+  background-color: #fff;
+  margin: auto;
+  position: relative;
+}
+#phone .session.three .tenchange p {
+  color: #999;
+}
+#phone .session.three.five {
+  width: 100%;
+  /* height: 500px; */
+  overflow: hidden;
+}
+#phone .session.three.five .tenchange {
+  margin: 20px 0;
+  padding-top: 60px;
+}
+/* #phone .tenchange  .box-img {
+  height: 100%;
+  width: 100%;
+  background: url("/assets/imgs/about/patent_left.jpg") no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: none;
+  /* transform: rotateY(180deg); */
+/* }  */
+#phone .imgBoxbg{
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2021;
+  display: none;
+}
+#phone .imgBoxbg .imgbox >span >img{
+  width: 15px;
+}
+#phone .imgBoxbg .imgbox>img{
+  width: 80%;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+}
+@media only screen and (max-width: 780px) {
+.erwema {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 0px!important;
+}
+}

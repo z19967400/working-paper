@@ -1,0 +1,14 @@
+@import "@/assets/scss/variables.scss";
+
+.index-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: $main-body-bgColor;
+  .index-box{
+    height: 100%;
+    .chart{
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

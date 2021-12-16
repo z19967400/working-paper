@@ -1,0 +1,10 @@
+#pc .section.first {
+  height: 100% !important;
+  position: absolute;
+}
+#pc .section.first .bg {
+  height: 100%;
+}
+#pc section.first > .bg {
+  background-image: url("/assets/imgs/background/背景6.png");
+}

@@ -1,0 +1,69 @@
+.multiple{
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  & > span{
+    max-height: 100%;
+    padding-left: 14px;
+    color: #888;
+    display: inline-block;
+  }
+  & > .box{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    z-index: 1000;
+    transform: translateZ(1px);
+    & > .Top2{
+      transform: translateY(0) !important;
+    }
+    & .box-cell{
+      left: 0;
+      bottom: 0;
+      position: fixed;
+      max-height: 260px;
+      width: 100%;
+      background-color: #fff;
+      padding-bottom: env(safe-area-inset-bottom);
+      transform: translateY(100%);
+      transition: transform 0.2s ease;
+      z-index: 1001;
+      & > .box-header{
+        background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
+        background-position: bottom;
+        background-size: 100% 1PX;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 1PX solid #ddd;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        & > .btn{
+          color: #108ee9;
+        }
+        & > .title{
+          color: #000;
+        }
+      }
+      & > .options{
+        max-height: 250px;
+        overflow-y: auto;
+        & > .option{
+          display: block;
+          text-align: center;
+          position: relative;
+          & > .am-icon{
+            position: absolute;
+            top: 13px;
+          }
+        }
+      }
+    }
+  }
+}

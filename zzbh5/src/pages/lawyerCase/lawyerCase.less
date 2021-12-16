@@ -1,0 +1,46 @@
+.lawyerCase{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  & > .nav{
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+    background: white;
+    & > span{
+      width: 33.33%;
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+  & > .content{
+    padding-top: 20px;
+    padding-bottom: 60px;
+    & > .footer{
+      display: flex;
+      height: 50px;
+      color: white;
+      justify-content: space-around;
+      font-size: 14px;
+      background:rgb(235, 25, 58);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      line-height: 50px;
+      & > .xian{
+        height: 30px;
+        width: 1px;
+        background:white;
+        position: relative;
+        top: 10px;
+      }
+      & > div{
+        width: 50%;
+        text-align: center;
+      }
+    }
+  }
+}

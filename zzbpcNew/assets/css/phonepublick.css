@@ -1,0 +1,142 @@
+#phone {
+  min-width: 320px;
+}
+#phone .pcheader h1 img {
+  width: 121px;
+}
+#phone .btn {
+  background-color: #fff;
+}
+#phone .slide-right {
+  display: block;
+}
+#phone .imgss img {
+  display: block;
+  margin: auto;
+}
+#phone .slide-right img {
+  display: block;
+  margin: auto;
+}
+
+#phone .pcfirst {
+  width: 100%;
+  height: 626px;
+  background-image: url(/assets/imgs/index/多边形@2x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -92px 0;
+}
+#phone .num {
+  position: relative;
+}
+#phone .num span {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+}
+#phone .swiper-container {
+  height: 100%;
+}
+#phone .slide-left {
+  color: #fff;
+  margin-top: 60px;
+  margin-left: 24px;
+}
+#phone .slide-left .xian {
+  display: inline-block;
+  width: 39px;
+  height: 1px;
+  background-color: #fff;
+}
+#phone .slide-left p:nth-child(1) {
+  font-size: 24px;
+  color: #fff;
+}
+#phone .slide-left p:nth-child(2) {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* 立即试用按钮 */
+#phone .demo {
+  width: 100%;
+  height: 132px;
+}
+#phone .demo a {
+  margin: auto;
+  display: block;
+  width: 207px;
+  height: 42px;
+  background-color: #ec193a;
+  color: #fff;
+  font-size: 14px;
+  padding-left: 32px;
+}
+#phone .demo a .text {
+  height: 42px;
+  line-height: 42px;
+  letter-spacing: 3px;
+  display: inline-block;
+}
+#phone .dropdown,
+#phone .dropup {
+  position: absolute !important;
+  right: 0;
+  z-index: 9999;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#phone .dropdown-menu {
+  left: auto;
+  right: 0 !important;
+}
+#phone .demo a i {
+  display: inline-block;
+  margin-left: 42px;
+}
+/* 标题按钮 */
+#phone .pcheader h1 {
+  width: 121px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+#phone .pcheader {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 999;
+}
+#phone .bottom {
+  width: 100%;
+  height: 434px;
+  background-color: #292929;
+  overflow: hidden;
+  position: relative;
+}
+#phone .logo {
+  width: 171px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 48px;
+}
+#phone .bottom .mask {
+  width: 100%;
+  height: 76px;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+#phone .bottom .mask p {
+  text-align: center;
+  height: 100%;
+  padding-top: 12px;
+  line-height: 26px;
+  color: #999999;
+}

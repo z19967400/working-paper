@@ -1,0 +1,52 @@
+<!--pages/user/user.wxml-->
+<view class="user">
+  <view class="hd">
+    <image mode="widthFix" class="bg" src="http://file.debteehelper.com/weapp-img/bg_01.png"></image>
+    <view class="hd-content">
+      <image style="top:{{isIPhoneX?'55px':'40px'}};" mode="widthFix" bindtap="goHome" class="logo"
+        src="http://file.debteehelper.com/logo/logo_zzbang_03.png">
+      </image>
+      <view class="headerimg">
+        <image mode="widthFix" style="width:100%;border-radius: 50px;" src="{{user.head_img}}"></image>
+        <!-- <view class="upload">
+          <van-icon custom-class="icon" name="photo" />
+        </view> -->
+        <view style="width: {{lawInfo.code == 2?'65px':'50px'}};" bindtap="authentication" data-code="{{lawInfo.code}}"
+          class="attestation" open-type="getUserInfo">律师认证
+          <!-- {{lawInfo.code == -1?'未提交':lawInfo.code == 0?'待审核':lawInfo.code == 1?"未通过":"已通过"}} -->
+          <van-icon wx:if="{{lawInfo.code == 2}}" custom-class="icon" name="success" />
+        </view>
+        <!-- <button open-type="getUserInfo">点击授权按钮，测试用</button> -->
+      </view>
+      <view class="text">
+        <text>{{user.name}}</text>
+        <!-- <text>{{lawInfo.data.lawyer_phone_number}}</text> -->
+      </view>
+    </view>
+  </view>
+  <view class="content">
+    <view wx:for="{{cells}}" wx:key="index" class="cell" bindtap="toInfo" data-path="{{item.path}}">
+      <image mode="widthFix" src="{{item.icon}}"></image>
+      <text>{{item.name}}</text>
+      <van-icon custom-class="icon" name="arrow" />
+    </view>
+  </view>
+  <text class="bottom-text">债主帮-律师端</text>
+  <view wx:if="{{isPhone}}" class="toast-bg">
+    <view class="toast-form">
+      <view class="title">请绑定手机号码，当平台有案件与您匹配时，我们会及时联系您</view>
+      <view class="row">
+        <text>手机号码</text>
+        <input bindinput="outInput" data-name="phone" placeholder="请输入手机号码" />
+        <view bindtap="getPhoneCode" class="getCode {{codeType?'codeFalse':''}}">{{textval}}</view>
+      </view>
+      <view class="row">
+        <text>验证码</text>
+        <input bindinput="outInput" maxlength="10" data-name="code" placeholder="请输入验证码" />
+      </view>
+      <view bindtap="saveUserPhone" class="submit">绑定</view>
+    </view>
+  </view>
+  <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
+</view>

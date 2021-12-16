@@ -1,0 +1,103 @@
+@import "../../../assets/scss/variables.scss";
+.manage {
+  position: relative;
+  height: 100%;
+  top: -30px;
+  .el-row:nth-child(1) {
+    margin-bottom: 20px;
+  }
+  .cell > button:nth-child(2) {
+    display: none;
+  }
+  #operation > div > button {
+    display: none;
+  }
+  & .first {
+    font-size: $Text-font;
+    color: $General-colors;
+  }
+  & .first {
+    & span {
+      cursor: pointer;
+    }
+    & span:hover {
+      color: #409eff;
+    }
+    & .act {
+      color: #409eff;
+    }
+  }
+  .openPays {
+    position: relative;
+    top: 32px;
+    left: 230px;
+  }
+  .el-dialog {
+    border-radius: 10px !important;
+    padding: 20px 40px;
+    width: 730px;
+    margin-top: 0 !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .el-dialog__header {
+      display: flex;
+      justify-content: flex-start;
+      padding: 0;
+    }
+    .el-dialog__title {
+      font-size: 14px;
+    }
+    .el-dialog__footer {
+      padding: 0;
+    }
+    .dialog-footer {
+      display: flex;
+      justify-content: center;
+
+      .el-button--primary {
+        color: #fff;
+        background-color: #ec193a;
+        border-color: #ec193a;
+      }
+    }
+    & .el-upload--picture-card {
+      width: 100px;
+      height: 100px;
+      line-height: 110px;
+    }
+    & .el-dialog__body {
+      padding: 30px 0px 0 0;
+      // max-height: 400px;
+      // overflow-y: auto;
+    }
+    & .el-form-item {
+      height: 40px;
+    }
+    .edit-bottom-bin {
+      position: static;
+      bottom: 20px;
+    }
+    & .el-table .cell {
+      font-weight: normal;
+    }
+    .zhifu {
+      color: #67c23a;
+    }
+    .shanchu {
+      color: #ec193a;
+      display: inline-block !important;
+    }
+  }
+  & .right-table {
+    & .el-table__body {
+      & .el-table__row {
+        & td:nth-child(5),
+        & td:nth-child(6) {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

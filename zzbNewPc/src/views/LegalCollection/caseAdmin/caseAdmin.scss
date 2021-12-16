@@ -1,0 +1,27 @@
+@import "../../../assets/scss/variables.scss";
+.caseAdmin {
+  position: relative;
+  .el-row:nth-child(1) {
+    margin-bottom: 20px;
+  }
+  .input-box {
+    button {
+      display: none;
+    }
+  }
+  .cell {
+    button:nth-child(2) {
+      display: none;
+    }
+  }
+  & .right-table {
+    & .el-table__body {
+      & .el-table__row {
+        & td:nth-child(5),
+        & td:nth-child(6) {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

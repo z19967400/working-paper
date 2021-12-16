@@ -1,0 +1,26 @@
+@keyframes move {
+  0%{ left:0%; }
+  100%{ left: -1011px; }
+}
+.Marquee{
+  overflow: hidden;
+  height: 20px;
+  width: 90%;
+  white-space: nowrap;
+  color: white;
+  position: absolute;
+  top: 0;
+  line-height: 20px;
+  left: 5%;
+  z-index: 2;
+  & .text{
+    font-size: 12px;
+    position: absolute;
+    left: 0%;
+    animation: move linear 12s infinite;
+    animation-delay:3s;
+    // & span:first-child{
+    //   margin-right: 50px;
+    // }
+  }
+}

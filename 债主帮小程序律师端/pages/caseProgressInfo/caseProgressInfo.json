@@ -1,0 +1,17 @@
+{
+  "component": true,
+  "usingComponents": {
+    "select":"/pages/component/select/select",
+    "checkbox":"/pages/component/checkbox/index",
+    "textarea":"/pages/component/textarea/textarea",
+    "EditText":"/pages/component/EditText/EditText",
+    "dropdown":"/pages/component/Dropdown/dropdown",
+    "TimePicker":"/pages/component/TimePicker/TimePicker",
+    "TimeQuantum":"/pages/component/TimeQuantum/TimeQuantum",
+    "AddRegion":"/pages/component/AddRegion/AddRegion",
+    "imgUpload":"/pages/component/imgUpload/imgUpload",
+    "imgsUpload":"/pages/component/imgsUpload/imgsUpload",
+    "upLoadFile":"/pages/component/uploadFile/uploadFile",
+    "uploadFiles":"/pages/component/uploadFiles/uploadFiles"
+  }
+}

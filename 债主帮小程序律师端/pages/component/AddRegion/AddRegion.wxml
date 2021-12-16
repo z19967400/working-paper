@@ -1,0 +1,5 @@
+<view class="address">
+  <picker mode="region" bindchange="bindPickerChange">
+    <view class="picker address-input">{{value}}</view>
+  </picker>
+</view>

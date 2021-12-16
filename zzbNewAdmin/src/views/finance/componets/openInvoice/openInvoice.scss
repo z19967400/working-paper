@@ -1,0 +1,20 @@
+.openInvoice {
+  & .footer-btn {
+    margin-top: 20px;
+    text-align: center;
+  }
+  & .el-form {
+    width: 90% !important;
+    & .el-input {
+      max-width: 220px;
+    }
+  }
+  & .el-icon-close-tip {
+    display: none !important;
+  }
+  & .el-upload-list {
+    width: 100%;
+    // position: absolute;
+    // z-index: 2;
+  }
+}

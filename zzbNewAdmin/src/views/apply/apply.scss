@@ -1,0 +1,27 @@
+@import "@/assets/scss/variables.scss";
+
+.apply-wrap {
+  height: 100%;
+  background-color: $main-body-bgColor;
+  width: 100%;
+  position: relative;
+  // .cell button:nth-child(2){
+  //   display: none;
+  // }
+  // .cell button:nth-child(3){
+  //   display: none;
+  // }
+  & .remarks{
+    width: 680px;
+    border-radius: 10px;
+    & .lable{
+      display: inline-block;
+      width: 80px;
+      text-align: right;
+    }
+    & .footer{
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+}

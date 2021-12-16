@@ -1,0 +1,166 @@
+#pc .choice {
+  /* position: absolute; */
+  margin-left: 50%;
+  margin-top: 50px;
+  transform: translateX(-50%);
+  z-index: 99;
+}
+#pc .choice h4 {
+  height: 30px;
+  font-size: 30px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 36px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 31px;
+}
+#pc .choice p {
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+#pc .choice ul {
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  margin-top: 20px;
+}
+#pc .choice ul li {
+  height: 18px;
+  padding-bottom: 30px;
+  margin-right: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#pc .choice ul li.action {
+  border-bottom: 2px solid #ec193a;
+  color: #ec193a;
+}
+#pc .problemone{
+  height: 500px!important;
+}
+#pc .box > div {
+  display: none;
+}
+#pc .show {
+  display: block;
+}
+#pc .box section {
+  width: 100%;
+  height: 616px;
+}
+#pc .box > .problem > section:nth-child(even) {
+  background-color: #fff;
+}
+#pc .box > .problem > section:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+#pc .box > .problem > section:nth-child(even) .rightimg {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 50%;
+}
+#pc .box > .problem > section:nth-child(even) .rightimg img {
+  width: 519px;
+  height: 381px;
+}
+#pc .box > .problem .contont {
+  max-width: 1018px;
+  height: 100%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#pc .box > .problem .contont .usmore{
+  color: white;
+  margin-top: 20px;
+  background-color: #ec193a;
+}
+#pc .box > .problem .contont .leftImg,
+#pc .box > .problem .contont .leftImg img {
+  width: 366px;
+  height: 340px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+#pc .box > .problem section:nth-child(odd) .contont .rights {
+  width: 326px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  right: 0;
+  position: absolute;
+  font-size: 16px;
+  color: #212529;
+}
+#pc .box > .problem section:nth-child(odd) .contont .rights.baoquan {
+  justify-content: center;
+  flex-direction: column;
+}
+#pc .lefts {
+  position: absolute;
+  top: 50%;
+  width: 50%;
+}
+#pc .problemtow h5,
+#pc .box > .problem section:nth-child(odd) .contont .rights.baoquan h5 {
+  width: 100%;
+  font-weight: 550;
+  height: 30px;
+  font-size: 30px;
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 1);
+  line-height: 36px;
+  margin-bottom: 36px;
+}
+#pc .problemtow .lefts p{
+  font-size: 16px;
+  color: #212529;
+}
+#pc .start {
+  width: 100%;
+  height: 268px;
+  position: relative;
+}
+#pc .start .button {
+  width: 207px;
+  height: 50px;
+  background-color: #ec193a;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+#pc .start .button {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#pc .start .button .text {
+  width: 70px;
+  margin-right: 48px;
+}
+#pc .start .button .arrow {
+  width: 26px;
+  height: 1px;
+  background-color: #fff;
+}
+#pc .start .button .arrow::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 1px;
+  background-color: #fff;
+  transform: translate(16px, -2px) rotateZ(30deg);
+}

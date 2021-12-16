@@ -1,0 +1,36 @@
+@import "@/assets/scss/variables.scss";
+
+.processEdit-box {
+  & .title {
+    font-size: $Text-font;
+    color: $Secondary-text;
+    height: 32px;
+    line-height: 32px;
+  }
+  & .el-divider--horizontal {
+    margin: 5px 0 20px 0;
+  }
+  .processEdit-warp {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .el-form {
+      overflow-y: auto;
+    }
+  }
+  .demo-form-inline {
+    display: flex;
+  }
+  .step-item {
+    display: flex;
+    height: 100px;
+    line-height: 0;
+    .el-button {
+      height: 40px;
+      margin-left: 10px;
+    }
+  }
+  .el-step.is-vertical {
+    flex-basis: 10% !important;
+  }
+}
