@@ -57,6 +57,7 @@ router.beforeEach((to, from, next) => {
       name: "index" // 跳转到 index 页
     });
   } else {
+    // eslint-disable-next-line no-console
     if (token) {
       const state: any = store.state;
       const url: string = window.location.href;

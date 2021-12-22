@@ -94,7 +94,7 @@ const requestFail = (res: AxiosResponse) => {
   // token失效重新登陆
   if (res.data.status === 401) {
     removeToken("token");
-    ElementUI.Message.warning(res.data.msg);
+    ElementUI.Message.warning("token失效重新登陆");
     return router.replace({ name: "login" });
   } else {
     ElementUI.Message.warning(res.data.msg);
@@ -149,11 +149,11 @@ const Api = (() => {
   const requestList: any = requestConfig;
   const fun = (opts: AxiosRequestConfig | string) => {
     return async (data = {}, method: Methods = "GET") => {
-      // if (!token) {
-      // eslint-disable-next-line no-console
-      // console.error("No Token");
-      // return router.replace({ name: "login" });
-      // }
+      if (!token) {
+        // eslint-disable-next-line no-console
+        console.error("No Token");
+        return router.replace({ name: "login" });
+      }
       const newOpts = conbineOptions(opts, data, method);
       // eslint-disable-next-line no-console
       const res = await HTTP.request(newOpts);

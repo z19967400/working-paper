@@ -24,6 +24,7 @@ export default class About extends Vue {
     rightIndex: 0,
     infoTitle: "",
     case_report_file: "",
+    operation_authority: false,
     labers: [
       {
         // label: "案件概览",
@@ -277,6 +278,7 @@ export default class About extends Vue {
       .then((res: any) => {
         this.case_status = res.data.case_daetails.case_status_code; //案件状态
         this.data.case_report_file = res.data.case_daetails.case_report_file;
+        this.data.operation_authority = res.data.operation_authority;
         //委托信息赋值
         this.data.BasicInfo.forEach((item: any) => {
           item.forEach((item2: any) => {
@@ -542,9 +544,6 @@ export default class About extends Vue {
     arr.forEach((item: any) => {
       item.value = res[item.prop] || "-";
     });
-    // eslint-disable-next-line no-console
-    console.log(arr);
-
     return arr;
   }
   //千位符

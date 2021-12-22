@@ -249,7 +249,8 @@ export default class About extends Vue {
     this.data.feedbackType = true
     Object.keys(this.editData).forEach((key: string) => {
       if (key == 'is_dissent') {
-        this.editData[key] = data[key] == '有' ? 1 : 0
+        this.editData[key] =
+          data[key] == '有' ? 1 : data[key] == '未选择' ? -1 : 0
       } else if (key == 'dissent_content') {
         this.editData[key] = data[key].split(',')
       } else if (key == 'feedback_source') {
@@ -308,7 +309,7 @@ export default class About extends Vue {
       debtor_number: '', //债务人编号 委托编号
       feedback_source: 2, //反馈来源 1：债务人提交  2：管理员添加
       member_remarks: '', //用户备注
-      is_dissent: 0, //是否有异议  0：无 1：有
+      is_dissent: -1, //是否有异议  0：无 1：有
       dissent_content: [], //异议内容 逗号分隔
       back_remarks: '' //后台备注
     }

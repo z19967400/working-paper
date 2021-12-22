@@ -166,8 +166,6 @@ export default class About extends Vue {
       });
       this.data.casePross.matters.push(item);
     });
-    // eslint-disable-next-line no-console
-    console.log(this.data.casePross.matters);
     // this.data.casePross.matters_from = newVal.matters_from
   }
   data: any = {

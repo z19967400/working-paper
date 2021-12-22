@@ -627,6 +627,13 @@ export default class About extends Vue {
     let self: any = this;
     from.validate((valid: Boolean) => {
       if (valid) {
+        if (
+          self.data.type == "选择已有管理员" &&
+          self.data.edit.admin.admin_id == ""
+        ) {
+          self.$message.warning("请先选择管理员", 4000);
+          return false;
+        }
         if (self.data.edit.admin.authorization_file == "") {
           self.$message.warning("请上传授权委托书", 4000);
           return false;

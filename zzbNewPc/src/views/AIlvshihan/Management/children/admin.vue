@@ -176,14 +176,14 @@
       </el-button>
       <el-button
         size="small"
-        :disabled="execution_progress != '待审核'"
+        :disabled="execution_progress != '待审核' || !data.operation_authority"
         plain
         @click="revoke"
         type="primary"
         >撤销执行
       </el-button>
       <el-button
-        :disabled="execution_progress != '执行中'"
+        :disabled="execution_progress != '执行中' || !data.operation_authority"
         size="small"
         plain
         @click="termination"
@@ -269,6 +269,7 @@ export default class About extends Vue {
     visible: false,
     actIndex: 0,
     infoTitle: "",
+    operation_authority: false,
     labers: [
       { name: "委托概况" },
       // { name: '支付信息' },
@@ -416,6 +417,7 @@ export default class About extends Vue {
     this.data.obligorList = [];
     Api.getAdmin(id)
       .then((res: any) => {
+        this.data.operation_authority = res.data.operation_authority;
         // 执行进度(集合)
         this.data.implementList = res.data.task_list;
         this.execution_progress = res.data.overview.execution_progress;

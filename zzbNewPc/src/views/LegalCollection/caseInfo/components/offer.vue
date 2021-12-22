@@ -79,6 +79,7 @@ import * as Api from "../../../../api/AIlvshihan";
 @Component({})
 export default class offer extends Vue {
   @Prop() debtor_number!: string;
+  @Prop() operation_authority!: boolean;
   data: any = {
     service_fee_mode: -1,
     case_report_file: "",
@@ -152,17 +153,22 @@ export default class offer extends Vue {
   }
   //选择报价模式
   patternsConfirm() {
+    const self: any = this;
+    if (this.operation_authority == false) {
+      self.$message.warning("抱歉,未授权管理员无法确认报价哦！");
+      return false;
+    }
     const parmas: any = {
       debtor_number: this.debtor_number,
       customer_select: this.data.service_fee_mode
     };
     Api.CustomerSelectQuotedPrice(parmas).then((res: any) => {
       if (res.state) {
-        this.$message.success(res.msg);
-        this.data.confirm = false;
-        this.getOfferInfo();
+        self.$message.success(res.msg);
+        self.data.confirm = false;
+        self.getOfferInfo();
       } else {
-        this.$message.warning(res.msg);
+        self.$message.warning(res.msg);
       }
     });
   }

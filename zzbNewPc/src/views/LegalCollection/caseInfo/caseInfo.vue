@@ -142,7 +142,10 @@
           <span :class="{ act: data.rightIndex == 4 }">律师费报价</span>
           <el-divider></el-divider>
           <div class="box">
-            <offer :debtor_number="this.$route.params.id"></offer>
+            <offer
+              :operation_authority="data.operation_authority"
+              :debtor_number="this.$route.params.id"
+            ></offer>
           </div>
         </div>
         <!-- 签署合同 -->
