@@ -1,11 +1,11 @@
 @import '@/assets/scss/variables.scss';
 
-.invoice-wrap {
+.adminList-wrap {
   height: 100%;
   background-color: $main-body-bgColor;
   width: 100%;
   position: relative;
-  & .invoice-box {
+  & .adminList-box {
     & .search-box {
       & > .el-input {
         display: inline-block;
@@ -13,5 +13,9 @@
         margin-right: 20px;
       }
     }
+  }
+  & .creditorDialog {
+    border-radius: 10px;
+    width: 680px !important;
   }
 }

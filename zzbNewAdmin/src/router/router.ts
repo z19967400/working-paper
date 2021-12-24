@@ -885,6 +885,20 @@ export const asyncRoute = [
               isTag: true,
               isBread: true
             }
+          },
+          {
+            path: '/ordinary/adminList',
+            name: 'ordinary/adminList',
+            ismenu: true,
+            component: () => import('@/views/ordinary/adminList.vue'),
+            meta: {
+              icon: '',
+              keepAlive: true,
+              title: '管理员列表',
+              index: '3-1-2',
+              isTag: true,
+              isBread: true
+            }
           }
         ]
       },
@@ -1511,54 +1525,54 @@ export const asyncRoute = [
               isTag: false,
               isBread: true
             }
-          }
+          },
           //会员开票信息管理
-          // {
-          //   path: '/business/invoice',
-          //   name: 'business/invoice',
-          //   ismenu: true,
-          //   component: () => import('@/views/finance/invoice/invoice.vue'),
-          //   meta: {
-          //     icon: '',
-          //     keepAlive: true,
-          //     title: '会员开票信息管理',
-          //     index: '4-6-3',
-          //     isTag: true,
-          //     isBread: true
-          //   }
-          // },
-          // //会员收票地址管理
-          // {
-          //   path: '/business/gitinvoice',
-          //   name: 'business/gitinvoice',
-          //   ismenu: true,
-          //   component: () =>
-          //     import('@/views/finance/gitinvoice/gitinvoice.vue'),
-          //   meta: {
-          //     icon: '',
-          //     keepAlive: true,
-          //     title: '会员收票地址管理',
-          //     index: '4-6-4',
-          //     isTag: true,
-          //     isBread: true
-          //   }
-          // },
-          // //会员收款信息管理
-          // {
-          //   path: '/business/memberCollection',
-          //   name: 'business/memberCollection',
-          //   ismenu: true,
-          //   component: () =>
-          //     import('@/views/finance/memberCollection/memberCollection.vue'),
-          //   meta: {
-          //     icon: '',
-          //     keepAlive: true,
-          //     title: '会员收款管理',
-          //     index: '4-6-5',
-          //     isTag: true,
-          //     isBread: true
-          //   }
-          // }
+          {
+            path: '/business/invoice',
+            name: 'business/invoice',
+            ismenu: true,
+            component: () => import('@/views/finance/invoice/invoice.vue'),
+            meta: {
+              icon: '',
+              keepAlive: true,
+              title: '发票信息',
+              index: '4-6-3',
+              isTag: true,
+              isBread: true
+            }
+          },
+          //会员收票地址管理
+          {
+            path: '/business/gitinvoice',
+            name: 'business/gitinvoice',
+            ismenu: true,
+            component: () =>
+              import('@/views/finance/gitinvoice/gitinvoice.vue'),
+            meta: {
+              icon: '',
+              keepAlive: true,
+              title: '收票信息',
+              index: '4-6-4',
+              isTag: true,
+              isBread: true
+            }
+          },
+          //会员收款信息管理
+          {
+            path: '/business/memberCollection',
+            name: 'business/memberCollection',
+            ismenu: true,
+            component: () =>
+              import('@/views/finance/memberCollection/memberCollection.vue'),
+            meta: {
+              icon: '',
+              keepAlive: true,
+              title: '律所收款信息',
+              index: '4-6-5',
+              isTag: true,
+              isBread: true
+            }
+          }
         ]
       }
     ]

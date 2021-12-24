@@ -297,3 +297,7 @@ export const CreditorAdminAudit = (parmas: any) => {
 export const LawyerAudit = (parmas: any) => {
   return Api.LawyerAudit(parmas, 'POST')
 }
+//获取管理员列表
+export const GetVIPAdminPagingData = (parmas: any) => {
+  return Api.GetVIPAdminPagingData(parmas, 'GET')
+}

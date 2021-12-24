@@ -24,72 +24,64 @@ export default class About extends Vue {
   data: any = {
     loading: false,
     list: [],
-    select: {},
     totalize: 0,
-    options: [
-      {
-        value: '暂无',
-        label: '###'
-      }
-    ],
+    height: 0,
     dataType: [
       {
-        label: '会员',
-        prop: 'member_id'
+        label: '发票ID',
+        prop: 'id',
+        width: '80'
       },
       {
-        label: '会员类别',
-        prop: 'm_type'
+        label: '名称',
+        prop: 'invoice_name'
       },
       {
-        label: 'vip会员账户',
-        prop: 'account_name'
+        label: '发票类型',
+        prop: 'invoice_type',
+        width: '80'
       },
       {
-        label: 'vip用户管理员',
-        prop: 'admin_name'
+        label: '税号',
+        prop: 'duty_paragraph'
       },
       {
-        label: '发票抬头类型',
-        prop: 'invoice_title_type_name '
+        label: '地址',
+        prop: 'bank_of_deposit '
       },
       {
-        label: 'vip账户id',
-        prop: 'member_vip_account_id'
+        label: '电话',
+        prop: 'telephone'
       },
       {
-        label: '税率',
-        prop: 'invoice_tax_rate'
+        label: '开户行',
+        prop: 'bank_of_deposit'
       },
       {
-        label: '纳税人识别号',
-        prop: 'tax_number'
+        label: '银行账号',
+        prop: 'bank_account'
       },
       {
-        label: '开户银行',
-        prop: 'bank_name'
-      },
-      {
-        label: '银行电话',
-        prop: 'bank_telephone'
-      },
-      {
-        label: '详细地址 ',
-        prop: 'detailed_address'
+        label: '创建人',
+        prop: 'create_name'
       },
       {
         label: '创建时间',
-        prop: 'time'
+        prop: 'create_time'
       }
     ]
   }
-  options: finance['getinandout'] = {
+  options: any = {
     page: 1,
-    limit: this.$store.getters.limit
+    limit: this.$store.getters.limit,
+    invoice_id: '',
+    invoice_name: '',
+    create_name: ''
   }
 
   created() {
-    //
+    let Wheight: number | null = document.body.offsetHeight
+    this.data.height = Wheight - 230
   }
 
   activated() {
@@ -102,16 +94,15 @@ export default class About extends Vue {
 
   // 初始化函数
   init() {
-    let self: any = this
-    let params: any =
-      JSON.stringify(self.data.select) == '{}' ? self.options : self.data.select
-    this.getList(params)
+    this.getList(this.options)
   }
   //获取数据
-  getList(params: AdminOptions['AdminList']) {
+  getList(params: any) {
     let data: any = this.data
     data.loading = true
-    Api.getpaginginvoice(params)
+    let parmas2: any = JSON.parse(JSON.stringify(params))
+    parmas2.invoice_id = params.invoice_id || 0
+    Api.getpaginginvoice(parmas2)
       .then((res: any) => {
         data.loading = false
         data.list = res.data
@@ -142,34 +133,17 @@ export default class About extends Vue {
   //搜索
   search(data: any) {
     let self: any = this
-    self.data.loading = true
     self.options.page = 1
-    let params: any = Object.assign({}, self.options)
-    data.forEach((item: any) => {
-      let name: string = item.label
-      params[name] = item.value
-    })
-    self.data.select = params
-    this.getList(params)
-  }
-  //清除搜索项
-  clearSelection(data: any) {
-    let self: any = this
-    self.data.select = {}
     this.init()
   }
   //添加编辑
   add() {
-    this.$router.push({
-      path: '/business/listbill/gitbillailist'
-    })
+    //
   }
   //分页
   watchChange(index: number) {
     let self: any = this
-    let params: any =
-      JSON.stringify(self.data.select) == '{}' ? self.options : self.data.select
-    params.page = index
+    self.options.page = index
     self.init()
   }
 }

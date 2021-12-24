@@ -188,7 +188,7 @@ export default {
   getinandout: '/PaymentRecord/GetPayPagingData', //收支明细列表页
   getpagingbill: '/bill/getpaging', //账单列表
   getpagingbilldetails: 'bill/getadmin', //账单详情
-  getpaginginvoice: '/Invoice/GetPaging', //发票管理
+  getpaginginvoice: '/Bill/GetMemberInvoicePagingData', //获取发票信息
   getpaginggitinvoice: '/Invoice/GetPaging_address', //收票地址管理
   getpagingdeleteinvoice: '/Invoice/Delete_address', //会员收票地址删除
   getdetails: '/PaymentRecord/GetPayDetailsById', //根据id查收支详情
@@ -381,5 +381,6 @@ export default {
   SavelawyerQuotedPrice: '/Cases/SavelawyerQuotedPrice', //保存律师费报价设置
   SendQuotedPrice: '/Cases/SendQuotedPrice', //服务费报价发送至客户确认
   CustomerSelectQuotedPrice: '/Cases/CustomerSelectQuotedPrice', //客服选择服务费模式
-  GetByid: '/docrecord/GetByid' //获取文档编辑内容
+  GetByid: '/docrecord/GetByid', //获取文档编辑内容
+  GetVIPAdminPagingData: '/MemberV2/GetVIPAdminPagingData' //获取管理员分页数据
 }

@@ -89,9 +89,9 @@
             >新增授权管理员</el-button
           >
           <el-table border :data="item.admin_list" style="width: 100%">
-            <el-table-column prop="admin_account" label="登录名" width="120px">
+            <el-table-column prop="admin_account" label="登录名" width="180px">
             </el-table-column>
-            <el-table-column prop="admin_name" label="真实姓名" width="220px">
+            <el-table-column prop="admin_name" label="真实姓名" width="180px">
             </el-table-column>
             <el-table-column prop="id_number" label="身份证号" width="180px">
             </el-table-column>
