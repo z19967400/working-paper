@@ -14,11 +14,54 @@
         </view>
         <view class="text">
           <text>{{name}}</text>
-          <text class="number">{{debtor_number}}</text>
         </view>
       </view>
       <view class="content">
+          <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:{{height}}px">
+            <view class="item-box" wx:for="{{list}}" wx:key="index">
+                <view class="item-box-header">
+                  <text>风险服务费</text>
+                  <text>2021-09-09 11:11</text>
+                </view>
+                <view class="item-box-body">
+                  <text class="item-box-body-status">审核中</text>
+                  <view class="item-box-body-texts">
+                    <text space="ensp">回款金额:  人民币20000元</text>
+                    <text space="ensp">回款方式:  给付</text>
+                    <text space="ensp">回款日期:  2021-04-01</text>
+                    <text space="ensp">回款备注:  123456</text>
+                  </view>
+                  <view class="item-box-footer">
+                    <text space="ensp">风险律师费率:  10%</text>
+                    <text space="ensp">风险律师费额:  20000元/人民币</text>
+                  </view>
+                </view>
+            </view>
+         </scroll-view>
       </view>
-      
+      <view class="footer">
+        <text class="btn">返回</text>
+        <text bindtap="openSelect" class="btn">请款申请</text>
+      </view>
+      <view wx:if="{{show}}" class="select-box">
+        <view class="select-body">
+          <view class="select-body-content">
+            <van-icon custom-class="cross" bindtap="close" name="cross" />
+            <select1 wx:if="{{active === 1}}" bind:getSelectVal="getSelectVal1" bind:close="close" />
+            <select2 wx:if="{{active === 2 && type === '1'}}" bind:getSelectVal="getSelectVal2" bind:close="close" />
+            <select3 wx:if="{{active === 2 && type === '2'}}" bind:getSelectVal="getSelectVal1" list="{{Currency}}" bind:close="close" />
+          </view>
+        </view>
+        <view  class="select-time {{show2?'top':''}}">
+          <van-datetime-picker
+            type="datetime"
+            value="{{ currentDate }}"
+            min-date="{{ minDate }}"
+            max-date="{{ maxDate }}"
+            bind:confirm="onInput"
+            bind:cancel="cancel"
+          />
+        </view>
+      </view>
    </view>
 </view>

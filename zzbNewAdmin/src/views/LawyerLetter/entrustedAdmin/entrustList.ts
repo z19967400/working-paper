@@ -159,7 +159,7 @@ export default class About extends Vue {
       data.row.execution_progress == '待审核' ||
       data.row.execution_progress == '已撤销' ||
       data.row.execution_progress == '审核未通过'
-    if (isok) {
+    if (!isok) {
       this.$message.warning('该律师函不可删除')
       return false
     }

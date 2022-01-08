@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-radio": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio",
+    "van-radio-group": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio-group",
+    "van-picker":"../../../../miniprogram/miniprogram_npm/vant-weapp/picker",
+    "van-popup":"../../../../miniprogram/miniprogram_npm/vant-weapp/popup",
+    "select":"../select/select"
+  }
+}

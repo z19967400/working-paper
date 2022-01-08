@@ -1,0 +1,26 @@
+<view class="select2">
+  <text class="title">律师费请款</text>
+  <view class="content">
+    <view class="cell">
+      <text class="label">回款币种:</text>
+      <view class="input2">
+        <select id="select" options="{{list}}" key="id" text="currency_name" bind:change="onChange2"></select>
+      </view>
+    </view>
+    <view class="cell">
+      <text class="label">回款金额:</text>
+      <input class="input" bindinput="onChange" type="number" placeholder="请输入请款金额" auto-focus />
+    </view>
+    <view class="cell">
+      <text class="label">回款方式:</text>
+      <view class="input2">
+        <select id="select" options="{{list2}}" key="id" text="name" defaultOption="{{defaultOption}}" bind:change="onChange3"></select>
+      </view>
+    </view>
+  </view>
+  <view class="footer">
+    <text bindtap="close" class="btn">取消</text>
+    <text bindtap="next" class="btn">下一步</text>
+  </view>
+</view>
+<slot></slot>

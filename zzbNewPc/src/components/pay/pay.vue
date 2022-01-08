@@ -69,7 +69,7 @@
         </el-row>
       </div>
       <div v-show="!data.isCode" class="pay-bottom">
-        <span>￥ {{ thousand(data.info.payment_amount) }}.00</span>
+        <span>￥ {{ thousand(data.info.payment_amount) }}</span>
         <el-button @click="pay" type="primary">{{
           data.radio == "3" ? "立即发送" : "立即支付"
         }}</el-button>
@@ -93,7 +93,7 @@
         </div>
         <div class="code-text">
           <!-- <p>扫一扫付款（元）</p> -->
-          <span>{{ thousand(data.info.payment_amount) }}.00 元</span>
+          <span>{{ thousand(data.info.payment_amount) }} 元</span>
           <p>打开手机{{ data.title }}</p>
           <p>扫一扫继续付</p>
           <el-button @click="completePay" type="primary">已完成支付</el-button>
@@ -363,7 +363,22 @@ export default class About extends Vue {
   //支付金额千位符
   thousand(num: number) {
     if (num) {
-      return num.toLocaleString();
+      let str: string = num.toString();
+      if (str.indexOf(".") != -1) {
+        //有小数
+        let str1: string = str.substring(0, str.indexOf("."));
+        let str2: string = str.substring(str.indexOf("."), str.length);
+        let num2: number = Number(str1);
+        if (str2.length >= 3) {
+          //小数点后大于等于2位
+          return num2.toLocaleString() + str2;
+        } else {
+          return num2.toLocaleString() + str2 + "0";
+        }
+      } else {
+        //无小数
+        return num.toLocaleString() + ".00";
+      }
     } else {
       return num;
     }
