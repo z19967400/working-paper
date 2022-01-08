@@ -60,9 +60,9 @@ class Overbooking extends React.Component<any,overbookingStates>{
       ],
       debtorInfo2:[
         {label:'企业名称',value:'',isRequired:true,prop:"debtor_name"},
+        {label:'负责人姓名',value:'',isRequired:false,prop:"contact_person"},
         {label:'手机号码',value:'',isRequired:false,prop:"phone_number"},
         {label:'地址',value:[],value2:'',isRequired:false,prop:"detailed_address"},
-        {label:'负责人姓名',value:'',isRequired:true,prop:"contact_person"}
       ],
       debtorInfo3:[
         {label:'债务人姓名',value:'',isRequired:true, placeholder:'请填写债务人真实姓名',prop:'debtor_name'},
@@ -72,15 +72,15 @@ class Overbooking extends React.Component<any,overbookingStates>{
       ],
       debtorInfo4:[
         {label:'企业名称',value:'',isRequired:true,prop:"debtor_name"},
-        {label:'负责人姓名',value:'',isRequired:true,prop:"contact_person"},
+        {label:'负责人姓名',value:'',isRequired:false,prop:"contact_person"},
         {label:'手机号码',value:'',isRequired:true,prop:"phone_number"},
         {label:'地址',value:[],value2:'',isRequired:true,prop:"detailed_address"},
         {label:'电子邮箱',value:'',isRequired:false,prop:"email"}
       ],
       debInfo:[
-        {label:'选择币种',value:'人民币',isRequired:true,prop:"currency_id"},
-        {label:'债务本金',value:'',isRequired:true,prop:"arrears_principal"},
-        {label:'违约/利息/滞纳金',value:'',isRequired:false,prop:"arrears_interest"}
+        {label:'欠款币种',value:'人民币',isRequired:true,prop:"currency_id"},
+        {label:'欠款本金',value:'',isRequired:true,prop:"arrears_principal"},
+        {label:'违约金/利息/滞纳金',value:'',isRequired:false,prop:"arrears_interest"}
       ],
       parmas:{
       },
@@ -119,36 +119,69 @@ class Overbooking extends React.Component<any,overbookingStates>{
     )
   }
   componentDidMount(){
-    // let {debInfo,debtorInfo,debtorInfo2,key} = this.state
-    // debtorInfo.forEach((item:any) =>{
-    //   if (item.prop === 'detailed_address') {
-    //     item.value2 = this.props.parmas[item.prop]
-    //   }else{
-    //     item.value = this.props.parmas[item.prop]
-    //   }
-    // })
-    // debtorInfo2.forEach((item:any) =>{
-    //   if (item.prop === 'detailed_address') {
-    //     item.value2 = this.props.parmas[item.prop]
-    //   }else{
-    //     item.value = this.props.parmas[item.prop]
-    //   }
-    // })
-    // debInfo.forEach((item:any) =>{
-    //   if (item.prop !== 'currency_id') {
-    //     item.value = this.props.parmas[item.prop]
-    //   }
-    // })
-    // console.log(debtorInfo2,debInfo);
+    let {debtorInfo,debtorInfo2,debtorInfo3,debtorInfo4,type,title2,debInfo} = this.state
+    if (type === 1) {
+      if (title2 === '律师办案') {
+        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo))
+        arr.forEach((item:PaneData) =>{
+          if (this.props.parmas[item.prop]) {
+            item.value = this.props.parmas[item.prop]
+          }
+        })
+        this.setState({
+          debtorInfo:arr,
+          key:2
+        })
+      } else {
+        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo3))
+        arr.forEach((item:PaneData) =>{
+          if (this.props.parmas[item.prop]) {
+            item.value = this.props.parmas[item.prop]
+          }
+        })
+        this.setState({
+          debtorInfo3:arr,
+          key:3
+        })
+      }
+     
+    } else {
+      if (title2 === '律师办案') {
+        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo2))
+        arr.forEach((item:PaneData) =>{
+          if (this.props.parmas[item.prop]) {
+            item.value = this.props.parmas[item.prop]
+          }
+        })
+        this.setState({
+          debtorInfo2:arr,
+          key:4
+        })
+      } else {
+        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo4))
+        arr.forEach((item:PaneData) =>{
+          if (this.props.parmas[item.prop]) {
+            item.value = this.props.parmas[item.prop]
+          }
+        })
+        this.setState({
+          debtorInfo4:arr,
+          key:5
+        })
+      }
+    }
+    let arr2:PaneData[]=JSON.parse(JSON.stringify(debInfo))
+    arr2.forEach((item:PaneData) =>{
+      if (this.props.parmas[item.prop] && item.prop !== 'currency_id') {
+        item.value = this.props.parmas[item.prop]
+      }
+    })
     this.setState({
       type:parseInt(this.props.match.params.type2),
       parmas:this.props.parmas,
-      title:parseInt(this.props.match.params.type) === 0?'企业应收账款':'民间借贷',
-      title2:parseInt(this.props.match.params.type3) === 0?'AI律师函':"律师办案"
-      // debInfo,
-      // debtorInfo,
-      // debtorInfo2,
-      // key:key++
+      title:parseInt(this.props.match.params.type) === 0?'企业应收账款':'个人欠款',
+      title2:parseInt(this.props.match.params.type3) === 0?'AI律师函':"律师办案",
+      debInfo:arr2
     })
   }
   //下一步
@@ -233,11 +266,11 @@ class Overbooking extends React.Component<any,overbookingStates>{
     // }
     if (isOk) {
       // const phone:any = verifyPhone(parmas['phone_number'])
-      const phone:boolean = parmas['phone_number'] === ''
+      // const phone:boolean = parmas['phone_number'] === ''
       // isOk = phone
-      if (phone) {
-        Toast.offline('手机号码不能为空', 2);
-      }
+      // if (phone) {
+      //   Toast.offline('手机号码不能为空', 2);
+      // }
     }
     if (isOk) { 
       parmas['debtor_type'] = this.state.type === 0? 'Creditor_states_0':'Creditor_states_1' //债务人类别 0是企业 1是个人

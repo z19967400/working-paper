@@ -29,6 +29,9 @@ Page({
       debtor_number: options.debtor_number,
       isIPhoneX: app.globalData.isIPhoneX
     })
+
+  },
+  onShow() {
     this.getCaseMatters()
   },
   /**

@@ -111,6 +111,19 @@
               </span>
             </template>
           </el-menu-item>
+          <el-menu-item index="100-3">
+            <template slot="title">
+              <span
+                @click="
+                  open(
+                    'https://file.debteehelper.com/help/债主帮控制台操作手册-债权人及管理员.pdf'
+                  )
+                "
+              >
+                债权人及管理员
+              </span>
+            </template>
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

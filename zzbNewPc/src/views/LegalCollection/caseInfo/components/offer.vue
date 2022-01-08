@@ -135,7 +135,9 @@ export default class offer extends Vue {
       ) {
         //报价待选择
         this.data.type = 0;
-        this.data.confirm = true;
+        if (this.operation_authority) {
+          this.data.confirm = true;
+        }
       } else if (
         res.data.send_customer_status == 1 &&
         res.data.customer_select > -1

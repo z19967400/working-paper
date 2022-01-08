@@ -6,6 +6,7 @@ import { requstUrl } from "../../utils/requestUrl"
 import Toast from '../../miniprogram/miniprogram_npm/vant-weapp/toast/toast';
 Page({
   data: {
+    firstLoad: true,
     isIPhoneX: false,
     debtor_number: "",
     motto: 'Hello World',
@@ -76,12 +77,27 @@ Page({
     height: 0
   },
   onLoad: function () {
+    this.getCaseList()
     this.setData({
       height: wx.getSystemInfoSync().windowHeight - 175,
       isIPhoneX: app.globalData.isIPhoneX,
-      lawInfo: app.globalData.lawInfo
+      lawInfo: app.globalData.lawInfo,
     })
-    this.getCaseList()
+
+  },
+  onShow() {
+    if (this.data.firstLoad) {
+      this.setData({
+        firstLoad: false
+      })
+    } else {
+      this.setData({
+        page: 1,
+        list: []
+      })
+      this.getCaseList()
+    }
+
   },
   /**
    * 用户点击右上角分享

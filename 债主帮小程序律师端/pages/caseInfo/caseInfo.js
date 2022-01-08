@@ -101,6 +101,9 @@ Page({
       height: wx.getSystemInfoSync().windowHeight - 135,
       isIPhoneX: app.globalData.isIPhoneX
     })
+
+  },
+  onShow() {
     this.getCaseType()
     this.getInfo()
     this.getCurrency()

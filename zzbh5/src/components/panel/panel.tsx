@@ -88,7 +88,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                           </Col>
                           <Col className="col"  span={16}>
                             {
-                              item.label === '选择币种'? 
+                              item.label === '欠款币种'? 
                                <div>
                                   <Picker
                                     data={currencys}

@@ -110,6 +110,10 @@ Page({
   //   console.log(item.pagePath)
   //   console.log(item.text)
   // },
+  //小程序显示
+  onShow() {
+    this.getLawInfo()
+  },
   //获取律师认证详情
   getLawInfo: function (e) {
     let that = this

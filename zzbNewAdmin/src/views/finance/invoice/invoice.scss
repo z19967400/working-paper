@@ -14,4 +14,16 @@
       }
     }
   }
+  & .small {
+    & .creditorDialog {
+      border-radius: 10px;
+      width: 680px;
+    }
+  }
+  & .big {
+    & .creditorDialog {
+      border-radius: 10px;
+      width: 880px;
+    }
+  }
 }

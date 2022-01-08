@@ -106,9 +106,25 @@ Page({
   onShareAppMessage: function () {
 
   },
+  //小程序显示
+  onShow() {
+    this.getLawInfo()
+  },
   goHome(e) {
     wx.navigateTo({
       url: '/pages/index/index',
+    })
+  },
+  //获取律师认证详情
+  getLawInfo() {
+    let that = this
+    return new Promise((resolve, reject) => {
+      http.getRequest(requstUrl.getlawInfo, {}, function (res) {
+        that.setData({
+          lawInfo: res
+        })
+        resolve(res)
+      })
     })
   },
   toInfo(e) {

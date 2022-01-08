@@ -1,4 +1,6 @@
 const app = getApp()
+const http = require("../../utils/httputils")
+import { requstUrl } from "../../utils/requestUrl"
 // pages/examine/examine.js
 Page({
   /**
@@ -74,18 +76,23 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  //获取律师认证详情
+  getLawInfo() {
+    let that = this
+    http.getRequest(requstUrl.getlawInfo, {}, function (res) {
+      if (res.code == 2) {
+        wx.navigateTo({
+          url: '/pages/authentication/authentication',
+        })
+      } else {
+        if (res.data) {
+          that.setData({
+            type: res.code,
+            audit_feedback: res.data.audit_feedback
+          })
+        }
+      }
+    })
   },
   //审核失败重新提交
   reSubmit() {
@@ -101,5 +108,21 @@ Page({
     wx.navigateTo({
       url: '/pages/index/index',
     })
-  }
+  },
+  onShow() {
+    console.log(111);
+    this.getLawInfo()
+  },
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
 })

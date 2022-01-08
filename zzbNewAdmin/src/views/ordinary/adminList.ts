@@ -25,44 +25,7 @@ export default class adminList extends Vue {
     loading: false,
     list: [],
     totalize: 0,
-    height: 0,
-    dataType: [
-      {
-        label: '用户ID',
-        prop: 'id',
-        width: '80'
-      },
-
-      {
-        label: '用户类别',
-        prop: 'm_type',
-        width: '100'
-      },
-      {
-        label: '用户名称',
-        prop: 'name',
-        width: '300'
-      },
-      {
-        label: '手机号码',
-        prop: 'phone_number',
-        width: '120'
-      },
-      {
-        label: '电子邮箱',
-        prop: 'email',
-        width: '220'
-      },
-      {
-        label: '后台备注',
-        prop: 'back_remarks'
-      },
-      {
-        label: '注册时间',
-        prop: 'create_time',
-        width: '150'
-      }
-    ]
+    height: 0
   }
   getData: any = {
     page: 1,
@@ -142,6 +105,15 @@ export default class adminList extends Vue {
     let self: any = this
     self.getData.page = 1
     self.init()
+  }
+  //重置
+  reset() {
+    this.getData.page = 1
+    this.getData.member_name = ''
+    this.getData.admin_name = ''
+    this.getData.admin_phone_number = ''
+    this.getData.admin_account = ''
+    this.init()
   }
   //添加
   add() {

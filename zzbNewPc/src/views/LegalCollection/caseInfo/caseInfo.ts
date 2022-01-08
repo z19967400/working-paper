@@ -33,7 +33,7 @@ export default class About extends Vue {
           { name: "办案事项" },
           { name: "案件信息" },
           { name: "债权人" },
-          { name: "律师费报价" },
+          { name: "服务费报价" },
           { name: "签署合同" },
           { name: "办案律师" },
           { name: "法院信息" },

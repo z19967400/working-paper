@@ -106,8 +106,9 @@ page {
   display: block;
   text-align: center;
   width: 100%;
-  position: absolute;
-  bottom: 30px;
+  /* position: absolute; */
+  margin-top: 60rpx;
+  margin-bottom: 60rpx;
   color: #c8c8c8;
 }
 .nav-left{

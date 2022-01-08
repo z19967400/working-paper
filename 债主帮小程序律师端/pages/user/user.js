@@ -70,6 +70,10 @@ Page({
   onShareAppMessage: function () {
 
   },
+  //小程序显示
+  onShow() {
+    this.getLawInfo()
+  },
   goHome(e) {
     wx.navigateTo({
       url: '/pages/index/index',

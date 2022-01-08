@@ -152,6 +152,9 @@
   border-radius: 10rpx;
   z-index: 1100;
 }
+.cases-list{
+  padding-bottom: 100rpx;
+}
 .overlay-title {
   text-align: center;
   color: #333;
@@ -196,4 +199,24 @@
   top: 0;
   width: 100%;
   z-index: 1111;
+}
+.footer-box{
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  background: white;
+  width: 100%;
+  box-shadow: 4px 0px 4px #909399;
+  text-align: center;
+}
+.QKBtn{
+  border: 1px solid #ec193a;
+  color: #ec193a;
+  display: inline-block;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  border-radius: 5px;
+  padding: 0 36rpx;
+  margin-top: 18rpx;
 }

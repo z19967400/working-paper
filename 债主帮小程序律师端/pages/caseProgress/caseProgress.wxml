@@ -19,7 +19,7 @@
     </view>
     <view style="top:{{isIPhoneX?'150px':'135px'}} ;" class="tabs">
       <van-row custom-class="row">
-        <van-col wx:for="{{caseTabs}}" wx:key="index" custom-class="col" span="8">
+        <van-col wx:for="{{caseTabs}}" wx:key="index" custom-class="col" span="6">
           <text bindtap="tab" class="tab-text" data-index="{{index}}">{{item}}</text>
         </van-col>
       </van-row>
@@ -61,6 +61,9 @@
           </view>
         </view>
       </view>
+    </view>
+    <view class="footer-box" wx:if="{{payment_request_object == '1' && sign_status}}">
+      <text class="QKBtn">律师费请款</text>
     </view>
     <view wx:if="{{show}}" class="overlay" bindtap="onClickHide" catchtouchmove='true'></view>
     <view wx:if="{{show}}" class="overlay-content" catchtouchmove="preventD">

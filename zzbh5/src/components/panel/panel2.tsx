@@ -6,6 +6,7 @@ import { getAllRegion } from '../../api/https'
 import './panel.less'
 import {  createForm  } from 'rc-form';
 import bt from '../../images/bt.svg'
+import tips from '../../images/tips.svg'
 import Multiple from  "../multiple/multiple"
 
 
@@ -67,6 +68,7 @@ interface PaneData{
 }
 interface PanelProps{
   name?:string,
+  openTips?:any
   data:PaneData[],
   getData:Function,
   form?:any,
@@ -111,7 +113,8 @@ class Panel extends React.Component<PanelProps,PanelState>{
           {label:'保证',value:'保证'},
           {label:'银行履约保函',value:'银行履约保函'},
           {label:'抵押',value:'抵押'},
-          {label:'质押留置',value:'质押留置'},
+          {label:'质押',value:'质押'},
+          {label:'留置',value:'留置'},
           {label:'无',value:'无'}
         ],
         guarantee1:[
@@ -172,11 +175,10 @@ class Panel extends React.Component<PanelProps,PanelState>{
           {label:'全案委托',value:'全案委托'},
           {label:'非诉催收',value:'非诉催收'},
           {label:'财产保全',value:'财产保全'},
-          {label:'仲裁',value:'仲裁'},
-          {label:'一审',value:'一审'},
-          {label:'二审',value:'二审'},
+          {label:'诉讼一审/仲裁',value:'诉讼一审/仲裁'},
+          {label:'诉讼二审',value:'诉讼二审'},
           {label:'强制执行',value:'强制执行'},
-          {label:'破产清算/重组',value:'破产清算/重组'},
+          {label:'破产程序',value:'破产程序'},
           {label:'再审',value:'再审'},
         ]
       }
@@ -206,7 +208,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                               {
                                 (()=>{
                                   if (item.prop === 'guarantee_type') {
-                                    if (type2 === '1') {
+                                    if (type === '1') {
                                       return '担保'
                                     }else{
                                       return '担保类型'
@@ -219,9 +221,12 @@ class Panel extends React.Component<PanelProps,PanelState>{
                               { 
                                 item.isRequired && <img className="labelIcon" src={bt} alt=''/>
                               }
+                              {
+                                item.prop === 'guarantee_type' && <img onClick={this.openTips.bind(this)} className="tips" src={tips} alt=''/>
+                              }
                             </span>
                           </Col>
-                          <Col className="col"  span={16}>
+                          <Col className="col"  span={14}>
                             { 
                             // 约定付款日期
                              item.prop === 'agreed_payment_date'? 
@@ -252,7 +257,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                               :item.label === '担保类型'? 
                                <div>
                                   <Picker
-                                  data={type2 === '0' ?selects.guarantee:selects.guarantee1}
+                                  data={type === '0' ?selects.guarantee:selects.guarantee1}
                                   cols={1}
                                   title="担保类型"
                                   extra={item.placeholder}
@@ -401,6 +406,10 @@ class Panel extends React.Component<PanelProps,PanelState>{
     obj[name] = val
     obj['prop'] = name
     this.props.getData(obj)
+  }
+  //打开担保提示
+  openTips(){
+    this.props.openTips()
   }
   componentWillUnmount(){
     this.setState = (state,callback) => {

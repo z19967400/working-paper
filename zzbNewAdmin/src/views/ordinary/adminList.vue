@@ -25,6 +25,7 @@
         <el-button size="small" @click="search" type="primary" plain
           >查询</el-button
         >
+        <el-button size="small" @click="reset" type="primary">重置</el-button>
       </div>
       <el-table
         :height="data.height"
@@ -33,10 +34,15 @@
         style="margin-top:20px;"
         border
       >
-        <el-table-column prop="id" label="ID" width="80"> </el-table-column>
-        <el-table-column prop="member_name" label="用户名称"> </el-table-column>
-        <el-table-column prop="admin_account" label="登录名"> </el-table-column>
-        <el-table-column prop="id_number" label="身份证号" width="210">
+        <el-table-column prop="id" label="管理员ID" width="80">
+        </el-table-column>
+        <el-table-column prop="member_name" label="用户名称" width="220px">
+        </el-table-column>
+        <el-table-column prop="admin_name" label="管理员真实姓名" width="180">
+        </el-table-column>
+        <el-table-column prop="admin_account" label="登录名" width="250">
+        </el-table-column>
+        <el-table-column prop="id_number" label="身份证号" width="200">
         </el-table-column>
         <el-table-column prop="admin_phone_number" label="手机号码" width="150">
         </el-table-column>
@@ -52,7 +58,7 @@
             <span>{{ tiemStr(scope.row.create_time) }}</span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width="180">
+        <el-table-column fixed="right" align="center" label="操作" width="150">
           <template slot-scope="scope">
             <el-button
               style="color:#E6A23C;"

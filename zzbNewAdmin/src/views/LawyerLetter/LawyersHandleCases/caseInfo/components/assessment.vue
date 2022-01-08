@@ -405,6 +405,7 @@
     </div>
     <div class="section">
       <offer
+        @init2="upDataOffer"
         :debtor_number="data.debtor_number"
         :burl="burl"
         :admins="data.options"
@@ -751,6 +752,7 @@ export default class About extends Vue {
   //报价信息修改
   upDataOffer() {
     this.$emit('init', this.data.debtor_number)
+    this.$emit('init2')
   }
   //报价
   selectOffer(parmas: any) {

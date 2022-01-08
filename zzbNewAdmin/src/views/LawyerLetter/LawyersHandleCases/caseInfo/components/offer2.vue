@@ -417,11 +417,13 @@
                       <span v-if="scope.row.platform_management_fee_type == 1">
                         {{
                           scope.row.platform_management_fixed_fee_percentage
-                        }}% （{{ scope.row.admin_fee }}）</span
+                        }}% （{{ ce(scope.row.admin_fee) }}）</span
                       >
                       <span v-else>
-                        {{ scope.row.admin_fee }}（{{
-                          scope.row.platform_management_fixed_fee_percentage
+                        {{ ce(scope.row.admin_fee) }}（{{
+                          scope.row.platform_management_fixed_fee_percentage.toFixed(
+                            2
+                          )
                         }}%）</span
                       >
                     </span>
@@ -823,7 +825,22 @@ export default class offer2 extends Vue {
   //转千位符
   ce(num: number) {
     if (num) {
-      return num.toLocaleString()
+      let str: string = num.toString()
+      if (str.indexOf('.') !== -1) {
+        //包含小数点
+        let str1: string = str.substring(0, str.indexOf('.'))
+        let str2: string = str.substring(str.indexOf('.'), str.length)
+        if (str2.length >= 3) {
+          //小数点后尾数大于等于2
+          return parseInt(str1).toLocaleString() + str2.substring(0, 3)
+        } else {
+          //小数点后尾数小于2
+          return parseInt(str1).toLocaleString() + str2 + '0'
+        }
+      } else {
+        //不包含小数点
+        return num.toLocaleString()
+      }
     } else {
       return num
     }
@@ -1123,6 +1140,7 @@ export default class offer2 extends Vue {
         this.data.dialogVisible3 = false
         this.$message.success(res.msg)
         this.getTable1()
+        this.$emit('init2')
       } else {
         this.$message.warning(res.msg)
       }

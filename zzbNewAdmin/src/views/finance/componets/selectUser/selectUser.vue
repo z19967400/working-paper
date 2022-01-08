@@ -21,12 +21,13 @@
         >查询</el-button
       >
     </el-row>
-    <el-table :data="tableData" border>
-      <el-table-column prop="id" label="用户ID" width="180"> </el-table-column>
-      <el-table-column prop="m_type" label="用户类别" width="180">
+    <el-table max-height="450" :data="tableData" border>
+      <el-table-column prop="id" label="用户ID" width="80"> </el-table-column>
+      <el-table-column prop="m_type" label="用户类别" width="100">
       </el-table-column>
       <el-table-column prop="name" label="用户名称"> </el-table-column>
-      <el-table-column prop="phone_number" label="手机号码"> </el-table-column>
+      <el-table-column prop="phone_number" label="手机号码" width="150">
+      </el-table-column>
       <el-table-column label="选择" width="80">
         <template slot-scope="scope">
           <el-radio

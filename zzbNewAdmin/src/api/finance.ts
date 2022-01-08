@@ -368,3 +368,23 @@ export const SetSettlementPeriod = (parmas: any) => {
 export const SetBillDate = (parmas: any) => {
   return Api.SetBillDate(parmas, 'POST')
 }
+
+//获取用户管理员列表
+export const GetMemberVipAdminsByMmeberIdV2 = (member_id: any) => {
+  return Api.GetMemberVipAdminsByMmeberIdV2({ member_id }, 'GET')
+}
+
+//获取律所收款信息分页数据
+export const GetMemberCollectionPagingData = (parmas: any) => {
+  return Api.GetMemberCollectionPagingData(parmas, 'GET')
+}
+
+//新增或编辑用户收款信息
+export const AddCollectionInfoV2 = (parmas: any) => {
+  return Api.AddCollectionInfoV2(parmas, 'POST')
+}
+
+//删除律所收款信息
+export const DeleteMemberCollectionById = (id: any) => {
+  return Api.DeleteMemberCollectionById({ id }, 'GET')
+}

@@ -1,8 +1,29 @@
-@import "@/assets/scss/variables.scss";
+@import '@/assets/scss/variables.scss';
 
-.gitinvoice {
+.gitinvoice-wrap {
   height: 100%;
   background-color: $main-body-bgColor;
   width: 100%;
   position: relative;
+  & .gitinvoice-box {
+    & .search-box {
+      & > .el-input {
+        display: inline-block;
+        width: 180px;
+        margin-right: 20px;
+      }
+    }
+  }
+  & .small {
+    & .creditorDialog {
+      border-radius: 10px;
+      width: 680px;
+    }
+  }
+  & .big {
+    & .creditorDialog {
+      border-radius: 10px;
+      width: 880px;
+    }
+  }
 }

@@ -460,7 +460,7 @@ export default class About extends Vue {
             if (item2.name == '债务类别') {
               item2.value =
                 item2.value == 'Debt_type_0'
-                  ? '民间借贷'
+                  ? '个人欠款'
                   : item2.value == 'Debt_type_4'
                   ? '企业应收款'
                   : item2.value == 'Debt_type_5'

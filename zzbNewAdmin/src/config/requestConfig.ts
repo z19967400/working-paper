@@ -189,7 +189,7 @@ export default {
   getpagingbill: '/bill/getpaging', //账单列表
   getpagingbilldetails: 'bill/getadmin', //账单详情
   getpaginginvoice: '/Bill/GetMemberInvoicePagingData', //获取发票信息
-  getpaginggitinvoice: '/Invoice/GetPaging_address', //收票地址管理
+  getpaginggitinvoice: '/Bill/GetMemberTicketAddressPagingData', //收票地址管理
   getpagingdeleteinvoice: '/Invoice/Delete_address', //会员收票地址删除
   getdetails: '/PaymentRecord/GetPayDetailsById', //根据id查收支详情
   getpagingbilltable: '/pay/getpagingeall', //生成ai律师函账单
@@ -197,8 +197,8 @@ export default {
   getbillinsertlist: '/bill/insert', //生成账单
   gitinvaedit: '/Invoice/GetByid_address', //收票地址获取编辑
   editinvaeditaddress: '/Invoice/Insert_address', //收票地址新增||修改
-  deleteinvaeditaddress: '/Invoice/Delete_address', //收票地址删除
-  deleteinvaice: '/Invoice/Delete', //发票删除
+  deleteinvaeditaddress: '/Bill/DeleteMemberTicketAddressById', //收票地址删除
+  deleteinvaice: '/DeleteMemberInvoiceById', //发票删除
   geteditinvaicebyid: '/Invoice/GetByid', //发票获取编辑
   posteditinvoice: '/Invoice/Insert', //发票新增||修改
   getPhoneInfo: '/AILawyerLetter/GetAILawyerTaskContent', //查看短信/电话详情
@@ -333,6 +333,7 @@ export default {
   UpdateBillSettlementStatus: '/Bill/UpdateBillSettlementStatus', //更新账单结算状态
   UpdateBillRemarks: '/Bill/UpdateBackRemarks', //更新账单备注
   GetMemberVipAdminsByMmeberId: '/MemberV2/GetMemberVipAdminsByMmeberId', //根据用户ID获取管理员
+  GetMemberVipAdminsByMmeberIdV2: '/MemberV2/GetMemberVipAdminsByMmeberIdV2', ///根据用户ID获取管理员(发票专用)
   GetMemberInvoicesByMemberId: '/Bill/GetMemberInvoicesByMemberId', //获取用户所有发票
   AddInvoice: '/Bill/AddInvoice', //新增或编辑发票信息
   SelectInvoice: '/Bill/SelectInvoice', //选择发票信息
@@ -382,5 +383,8 @@ export default {
   SendQuotedPrice: '/Cases/SendQuotedPrice', //服务费报价发送至客户确认
   CustomerSelectQuotedPrice: '/Cases/CustomerSelectQuotedPrice', //客服选择服务费模式
   GetByid: '/docrecord/GetByid', //获取文档编辑内容
-  GetVIPAdminPagingData: '/MemberV2/GetVIPAdminPagingData' //获取管理员分页数据
+  GetVIPAdminPagingData: '/MemberV2/GetVIPAdminPagingData', //获取管理员分页数据
+  GetMemberCollectionPagingData: '/Bill/GetMemberCollectionPagingData', //律所收款信息分页数据
+  AddCollectionInfoV2: '/Bill/AddCollectionInfoV2', //新增或编辑用户收款信息
+  DeleteMemberCollectionById: '/Bill/DeleteMemberCollectionById' //删除律所收款信息
 }

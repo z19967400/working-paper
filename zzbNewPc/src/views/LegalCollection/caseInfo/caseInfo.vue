@@ -139,7 +139,7 @@
           </div>
         </div>
         <div ref="section4" class="section">
-          <span :class="{ act: data.rightIndex == 4 }">律师费报价</span>
+          <span :class="{ act: data.rightIndex == 4 }">服务费报价</span>
           <el-divider></el-divider>
           <div class="box">
             <offer

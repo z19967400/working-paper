@@ -388,7 +388,7 @@ export default class About extends Vue {
     const rate: any =
       this.data.form.new_management_rate || this.data.form.old_management_rate
     this.data.form.management_fee =
-      this.data.form.float_service_fee * (rate * 0.01)
+      this.data.form.collection_amount * (rate * 0.01)
     if (this.radio != 0) {
       this.data.form.lawyer_fee =
         this.data.form.float_service_fee - this.data.form.management_fee

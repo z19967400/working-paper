@@ -10,7 +10,8 @@
     "pages/text/text",
     "pages/caseProgressInfo/caseProgressInfo",
     "pages/user/user",
-    "pages/contract/contract"
+    "pages/contract/contract",
+    "pages/requestFunds/requestFunds"
   ],
   "window": {
     "navigationStyle": "custom"

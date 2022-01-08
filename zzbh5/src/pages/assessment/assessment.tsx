@@ -6,13 +6,29 @@ import FooterBtn from '../../components/Footer/footer-btn'
 import { Toast,Modal } from 'antd-mobile';
 import './Assessment.less'
 import {verifyEmall} from '../../utils/common'
-import { CheckOutlined  } from '@ant-design/icons'
 import Alert from '../../components/Toast/Alert'
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { AddState } from '../../store/reducers/CreateLetter';
+import { CombinedState } from '../../store/reducers';
+import * as types from '../../store/action_types';
 const prompt = Modal.prompt;
 
+//store配置
+const mapStateToProps = (state: CombinedState): AddState => state.CreateLetter;
+  const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+      delete() {
+        // payload为参数
+        dispatch({ type: types.DELETE });
+      }
+    };
+  };
 interface assessmentStates{
   text:string,
+  text2:string,
   title:string,
+  title2:string,
   parmas:any,
   debtorInfo:any,
   key:number,
@@ -26,7 +42,9 @@ class Assessment extends React.Component<any,assessmentStates>{
     this.state = {
       show:false,
       text:'为了实现催收成功率的最大化,我们需要采集债权的详情进行评估,整个过程预计需要3-5分钟。您提供的信息和资料越加详细充分,最终帮您收回借款的成功率也就越高！',
+      text2:'',
       title:'债权分析评估',
+      title2:'',
       parmas:{},
       confirm:false,
       userData:{},
@@ -45,14 +63,14 @@ class Assessment extends React.Component<any,assessmentStates>{
         {label:'欠款是否存在争议',value:'',isRequired:true, placeholder:'请选择是否存在争议',prop:"is_dispute"},
         {label:'案件管辖地区',value:'',isRequired:false, placeholder:'请选择案件管辖地区',prop:"​jurisdiction_01"},
         {label:'委托事项',value:'',isRequired:true, placeholder:'请选择委托事项',prop:"entrusted_matters"},
-        {label:'其他委托事项',value:'',isRequired:false, placeholder:'请选择其他委托事项',prop:"other_entrustment"},
+        {label:'其他委托',value:'',isRequired:false, placeholder:'请填写其他委托',prop:"other_entrustment"},
         {label:'备注',value:'',isRequired:false, placeholder:'请填写备注',prop:"f_remarks"},
       ],
       key:0
     }
   }
   render (){
-    const {text, title ,debtorInfo,key,confirm,show} = this.state
+    const {text,text2, title ,debtorInfo,key,confirm,show,title2} = this.state
     return(
       <div style={{overflowY:show?'hidden':'auto'}} className="Assessment">
         <Header  name={title}></Header>
@@ -61,7 +79,7 @@ class Assessment extends React.Component<any,assessmentStates>{
             {text}
           </div>
           <div className="box">
-            <Panel type={this.props.match.params.type} type2={this.props.match.params.type2} getData={this.getPanelSet.bind(this)} name={'债权详细资料'} data={debtorInfo} key={key}></Panel>
+            <Panel type={this.props.match.params.type} type2={this.props.match.params.type2} getData={this.getPanelSet.bind(this)} name={'债权详细资料'} openTips={this.openTips.bind(this)} data={debtorInfo} key={key}></Panel>
           </div>
           {/* <div onClick={() =>{this.setState({confirm:!this.state.confirm})}} className="confirm">
             <div style={{borderColor:confirm ? '#E01F3C':'#909399'}} className="checkBox">
@@ -71,7 +89,7 @@ class Assessment extends React.Component<any,assessmentStates>{
           </div> */}
         </div>
         <FooterBtn next={this.next.bind(this)} name={"提交"}></FooterBtn>
-        {/* <Alert show={show} text={text} title={'免责确认书'} closeToast={() =>{this.setState({show:false,text:'为了实现催收成功率的最大化,我们需要采集债权的详情进行评估,整个过程预计需要3-5分钟。您提供的信息和资料越加详细充分,最终帮您收回借款的成功率也就越高！'})}}></Alert> */}
+        <Alert show={show} text={text2} title={title2} closeToast={() =>{this.setState({show:false})}}></Alert>
       </div>
     )
   }
@@ -115,6 +133,7 @@ class Assessment extends React.Component<any,assessmentStates>{
   }
   //打开免责声明
   openText(e:any){
+  
     this.setState({
       show:true,
       text:`
@@ -129,6 +148,21 @@ class Assessment extends React.Component<any,assessmentStates>{
       `
     })
     e.stopPropagation();
+  }
+  //打开担保提示
+  openTips(){
+    this.setState({
+      show:true,
+      title2:'释义',
+      text2:`
+          <span class="blod">保证</span>-保证人与债权人约定，债务人不付款时，保证人代为偿还债务<p></p>
+          <span class="blod">银行履约保函</span>-乙方通过银行向甲方提供的保证认真履行合同的一种经济担保<p></p>
+          <span class="blod">抵押</span>-抵押指用房屋、车辆等财产提供担保，但财产不交付给债权人<p></p>
+          <span class="blod">质押</span>-质押指用车辆、股权等财产提供担保且财产交付给债权人或对财产权利进行出质登记<p></p>
+          <span class="blod">留置</span>-债权人因合同关系占有债务人的财物<p></p>
+          <span class="blod">无</span>-相当于应收账款没有担保<p></p>
+      `
+    })
   }
   //提交
   next(){
@@ -228,6 +262,7 @@ class Assessment extends React.Component<any,assessmentStates>{
                   resolve(value);
                   Createcase(parmas2).then((res:any) =>{
                     if (res.state) {
+                    this.props.delete()
                      this.props.history.push(`/lawyerCase/${res.data}`)
                     } else {
                      Toast.offline(res.msg,2);
@@ -255,4 +290,7 @@ class Assessment extends React.Component<any,assessmentStates>{
   }
 }
 
-export default Assessment
+export default  connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Assessment); 

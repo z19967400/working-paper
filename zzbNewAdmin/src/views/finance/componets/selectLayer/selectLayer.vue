@@ -27,7 +27,7 @@
         >查询</el-button
       >
     </el-row>
-    <el-table :height="500" :data="tableData" border>
+    <el-table :height="400" style="margin-top:20px;" :data="tableData" border>
       <el-table-column prop="id" label="用户ID" width="180"> </el-table-column>
       <el-table-column prop="lawyer_name" label="律师姓名" width="180">
       </el-table-column>

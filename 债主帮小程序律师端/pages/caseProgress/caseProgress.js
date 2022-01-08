@@ -11,6 +11,7 @@ Page({
     debtor_number: "", //债务编号
     show: false, //遮罩层状态
     active: 8, //当前第几步
+    payment_request_object: '1', // 1律师费 2平台管理费
     List: [
       {
         id: "",
@@ -68,7 +69,8 @@ Page({
       customer: [] //客服
     },
     isIPhoneX: false,
-    contract: {} //合同信息
+    contract: {}, //合同信息
+    sign_status: false, //合同签署状态
   },
 
   /**
@@ -82,6 +84,9 @@ Page({
       debtor_number: debtor_number,
       isIPhoneX: app.globalData.isIPhoneX
     })
+
+  },
+  onShow() {
     this.getCaseMatters()
     this.getCaseCourt()
   },
@@ -167,10 +172,12 @@ Page({
         usertokey: app.globalData.token
       },
       success(ress) {
+        let caseTabs = that.data.caseTabs
         let res = ress.data
         let matters = res.data.matters
         let matters_from = res.data.matters_from
         let contract = res.data.contract
+        let sign_status = false
         let creditor = [
           { name: "姓名", prop: "court_name", value: res.data.creditor.creditor_name },
           { name: "邮箱", prop: "tribunal_name", value: res.data.creditor.creditor_email },
@@ -185,7 +192,6 @@ Page({
           let arr = matters_from.filter(item2 => { return item2.matters_id == item.id })
           arr.forEach(item3 => { item3['matters_name'] = item.matters_name })
           array.forEach(item3 => { item3['matters_name'] = item.matters_name })
-          console.log(res);
           array[0].completion_time = res.data.case_time || ''
           array[1].completion_time = res.data.lawyer.allocated_date || ''
           if (res.data.contract) {
@@ -197,11 +203,22 @@ Page({
         let array3 = array.concat(array2)
         array3[1].execution_status = res.data.lawyer.lawyer_id == 0 ? -1 : 1
         array3[2].execution_status = res.data.contract == null ? -1 : res.data.contract.sign_status
+        if (res.data.contract != null && res.data.contract.sign_status == 1) {
+          sign_status = true
+        }
+        if (res.data.payment_request_object == '1') {
+          caseTabs.push('律师费')
+        } else {
+          caseTabs.push('平台管理费')
+        }
         that.setData({
           List: array3,
           'info.creditor': creditor,
           'info.customer': customer_service,
-          contract: contract
+          contract: contract,
+          payment_request_object: res.data.payment_request_object,
+          caseTabs,
+          sign_status
         })
       }
     })

@@ -1,0 +1,24 @@
+<!--pages/requestFunds/requestFunds.wxml-->
+<view class="container">
+   <view class="requestFunds">
+      <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+        <view class="title">
+          <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+          <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+            src="http://file.debteehelper.com/logo/logo_zzbang_03.png"> </image>-->
+          <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+            <van-icon bindtap="goBack" name="arrow-left" />
+            <view class="shu"></view>
+            <van-icon bindtap="goHome" name="wap-home" />
+          </view>
+        </view>
+        <view class="text">
+          <text>{{name}}</text>
+          <text class="number">{{debtor_number}}</text>
+        </view>
+      </view>
+      <view class="content">
+      </view>
+      
+   </view>
+</view>

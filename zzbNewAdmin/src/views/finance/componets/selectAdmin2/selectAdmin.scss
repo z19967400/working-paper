@@ -1,0 +1,16 @@
+.selectAdmin {
+  & .header {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  & .el-table {
+    width: 1000px;
+    display: block;
+    margin-top: 20px;
+  }
+  & .footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+}

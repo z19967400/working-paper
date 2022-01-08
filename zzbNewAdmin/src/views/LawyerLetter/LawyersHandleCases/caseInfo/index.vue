@@ -19,6 +19,7 @@
           :Case_state="data.caseoverview.information[0][1]"
           @release="data.case_status_code = 'Case_state_2'"
           @init="getCaseAssment"
+          @init2="init"
           :height="data.height"
           :assessment="data.assessmentData"
           :debtor_number="data.debtor_number"
