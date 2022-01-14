@@ -1,4 +1,39 @@
 <!--pages/requestFunds/requestFunds.wxml-->
+<wxs  module="jisuan">
+  var getStatus = function (str) {
+    var value = "";
+    switch (str) {
+      case "":
+        value = "审核中";
+        break;
+      case "Settlement_Status_0":
+        value = "审核中";
+        break;
+      case "Settlement_Status_1":
+        value = "用户确认";
+        break;
+      case "Settlement_Status_2":
+        value = "客服确认";
+        break;
+      case "Settlement_Status_3":
+        value = "开票中";
+        break;
+      case "Settlement_Status_4":
+        value = "结算中";
+        break;
+      case "Settlement_Status_5":
+        value = "已结算";
+        break;
+      case "Settlement_Status_6":
+        value = "已退款";
+        break;
+      default:
+        break;
+    }
+    return value;
+  };
+  module.exports.getStatus = getStatus;
+</wxs>
 <view class="container">
    <view class="requestFunds">
       <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
@@ -13,35 +48,51 @@
           </view>
         </view>
         <view class="text">
-          <text>{{name}}</text>
+          <text>{{payment_request_object == '1'?'律师费请款':'平台管理费'}}</text>
         </view>
       </view>
       <view class="content">
           <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:{{height}}px">
             <view class="item-box" wx:for="{{list}}" wx:key="index">
                 <view class="item-box-header">
-                  <text>风险服务费</text>
+                  <text wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}">风险服务费</text>
+                  <text wx:if="{{item.business_type === 'Entrust_type_6'||item.business_type === 'Entrust_type_8'}}">固定服务费</text>
                   <text>2021-09-09 11:11</text>
                 </view>
-                <view class="item-box-body">
-                  <text class="item-box-body-status">审核中</text>
+                <view wx:if="{{item.business_type === 'Entrust_type_7' || item.business_type === 'Entrust_type_9'}}" class="item-box-body">
+                  <text wx:if="{{payment_request_object == '1'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_2||'')}}</text>
+                  <text wx:if="{{payment_request_object == '2'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_3||'')}}</text>
                   <view class="item-box-body-texts">
-                    <text space="ensp">回款金额:  人民币20000元</text>
-                    <text space="ensp">回款方式:  给付</text>
-                    <text space="ensp">回款日期:  2021-04-01</text>
-                    <text space="ensp">回款备注:  123456</text>
+                    <text space="ensp">回款金额:  {{item.collection_amount}} {{item.currency_1}}</text>
+                    <text space="ensp">回款方式:  {{item.collection_mode}}</text>
+                    <text space="ensp">回款日期:  {{item.collection_date}}</text>
+                    <text space="ensp">回款备注:  {{item.collection_remarks}}</text>
                   </view>
                   <view class="item-box-footer">
-                    <text space="ensp">风险律师费率:  10%</text>
-                    <text space="ensp">风险律师费额:  20000元/人民币</text>
+                    <text space="ensp">风险律师费率:  {{item.float_service_rate - item.new_management_rate}}%</text>
+                    <text space="ensp">风险律师费额:  {{item.lawyer_fee}} {{item.currency_1}}</text>
+                    <text wx:if="{{item.business_type === 'Entrust_type_9'}}" space="ensp">平台管理费率:  {{item.new_management_rate}}%</text>
+                    <text wx:if="{{item.business_type === 'Entrust_type_9'}}" space="ensp">平台管理费额:  {{item.management_fee}} {{item.currency_4}}</text>
                   </view>
                 </view>
+                <view wx:elif="{{item.business_type === 'Entrust_type_6' || item.business_type === 'Entrust_type_8'}}" class="item-box-body">
+                  <text wx:if="{{payment_request_object == '1'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_2||'')}}</text>
+                  <text wx:if="{{payment_request_object == '2'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_3||'')}}</text>
+                  <view class="item-box-body-texts">
+                    <text space="ensp">固定律师费额:  {{item.lawyer_fee}} {{item.currency_5}}</text>
+                    <text wx:if="{{item.business_type === 'Entrust_type_8'}}" space="ensp">平台管理费率:  {{item.new_management_rate}}%</text>
+                    <text wx:if="{{item.business_type === 'Entrust_type_8'}}" space="ensp">平台管理费额:  {{item.management_fee}} {{item.currency_4}}</text>
+                  </view>
+                </view>
+            </view>
+            <view wx:if="{{list.length == 0}}" class="noData">
+              <text>---- 暂无请款记录,请先发起请款申请 ----</text>
             </view>
          </scroll-view>
       </view>
       <view class="footer">
-        <text class="btn">返回</text>
-        <text bindtap="openSelect" class="btn">请款申请</text>
+        <text bindtap="goBack" class="btn">返回</text>
+        <text wx:if="{{payment_request_object == '1'}}" bindtap="openSelect" class="btn">请款申请</text>
       </view>
       <view wx:if="{{show}}" class="select-box">
         <view class="select-body">
@@ -49,7 +100,7 @@
             <van-icon custom-class="cross" bindtap="close" name="cross" />
             <select1 wx:if="{{active === 1}}" bind:getSelectVal="getSelectVal1" bind:close="close" />
             <select2 wx:if="{{active === 2 && type === '1'}}" bind:getSelectVal="getSelectVal2" bind:close="close" />
-            <select3 wx:if="{{active === 2 && type === '2'}}" bind:getSelectVal="getSelectVal1" list="{{Currency}}" bind:close="close" />
+            <select3 wx:if="{{active === 2 && type === '2'}}" time="{{time}}" riskFee="{{caseOff.final_lawyer_risk_fee}}" bind:getSelectVal="getSelectVal3" bind:openTimeBox="openTimeBox" list="{{Currency}}" bind:close="close" />
           </view>
         </view>
         <view  class="select-time {{show2?'top':''}}">
@@ -64,4 +115,6 @@
         </view>
       </view>
    </view>
+   <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
 </view>

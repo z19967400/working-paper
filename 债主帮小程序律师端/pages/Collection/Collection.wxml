@@ -1,0 +1,50 @@
+<view class="container">
+   <view class="Collection">
+      <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+        <view class="title">
+          <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+            <van-icon bindtap="goBack" name="arrow-left" />
+            <view class="shu"></view>
+            <van-icon bindtap="goHome" name="wap-home" />
+          </view>
+        </view>
+        <view class="text">
+          <text>{{name}}</text>
+        </view>
+      </view>
+      <view class="content" style="height:{{height}}px">
+          <view class="box">
+            <view class="cell">
+              <text class="label">发票类型:</text>
+              <view class="input2">
+                <select id="select" options="{{list}}"  defaultOption="{{defaultOption}}" key="id" text="name" bind:change="onChange"></select>
+              </view>
+            </view>
+            <view class="cell">
+              <text class="label">收款户名:</text>
+              <input class="input" bindinput="onChange2" data-prop="account_name" type="text" placeholder="请输入收款户名" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">收款账号:</text>
+              <input class="input" bindinput="onChange2" data-prop="account_number" type="text" placeholder="请输入收款账号" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">收款银行全称:</text>
+              <input class="input" bindinput="onChange2" data-prop="bank_full_name" type="text" placeholder="请输入收款银行全称" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">收款银行行号:</text>
+              <input class="input" bindinput="onChange2" data-prop="bank_no" type="text" placeholder="请输入收款银行行号" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">联系人电话:</text>
+              <input class="input" bindinput="onChange2" data-prop="telephone" type="text" placeholder="请输入联系人电话" auto-focus />
+            </view>
+          </view>     
+      </view>
+      <view class="footer">
+        <text bindtap="close" class="btn">返回</text>
+        <text bindtap="next" class="btn">保存</text>
+      </view>
+   </view>
+</view>

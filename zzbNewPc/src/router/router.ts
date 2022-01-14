@@ -394,7 +394,7 @@ export const routes = [
       //   }
       // }
     ]
-  }
+  },
   // {
   //   path: "/account",
   //   name: "account",
@@ -487,82 +487,84 @@ export const routes = [
   //     }
   //   ]
   // },
-  // {
-  //   path: "/finance",
-  //   name: "finance",
-  //   ismenu: true,
-  //   component: layout,
-  //   redirect: "/finance/detailed",
-  //   meta: {
-  //     icon: "el-icon-coin",
-  //     keepAlive: false,
-  //     title: "财务管理",
-  //     index: "7"
-  //   },
-  //   children: [
-  //     {
-  //       path: "/finance/detailed",
-  //       name: "finance/detailed",
-  //       ismenu: true,
-  //       component: () => import("@/views/finance/detailed/index.vue"),
-  //       meta: {
-  //         icon: "",
-  //         keepAlive: true,
-  //         title: "收支明细",
-  //         index: "7-1"
-  //       }
-  //     },
-  //     {
-  //       path: "/finance/billManagement",
-  //       name: "finance/billManagement",
-  //       ismenu: true,
-  //       component: () => import("@/views/finance/billManagement/index.vue"),
-  //       meta: {
-  //         icon: "",
-  //         keepAlive: true,
-  //         title: "账单管理",
-  //         index: "7-2"
-  //       }
-  //     },
-  //     {
-  //       path: "/finance/billInfo/:id",
-  //       name: "finance/billInfo",
-  //       ismenu: false,
-  //       component: () => import("@/views/finance/billManagement/info.vue"),
-  //       meta: {
-  //         icon: "",
-  //         keepAlive: true,
-  //         title: "账单详情",
-  //         index: "",
-  //         isTag: false
-  //       }
-  //     },
-  //     {
-  //       path: "/finance/invoice",
-  //       name: "finance/invoice",
-  //       ismenu: true,
-  //       component: () => import("@/views/finance/invoice/index.vue"),
-  //       meta: {
-  //         icon: "",
-  //         keepAlive: true,
-  //         title: "发票管理",
-  //         index: "7-3"
-  //       }
-  //     },
-  //     {
-  //       path: "/finance/information",
-  //       name: "finance/information",
-  //       ismenu: true,
-  //       component: () => import("@/views/finance/information/index.vue"),
-  //       meta: {
-  //         icon: "",
-  //         keepAlive: true,
-  //         title: "财务信息",
-  //         index: "7-4"
-  //       }
-  //     }
-  //   ]
-  // }
+  {
+    path: "/finance",
+    name: "finance",
+    ismenu: true,
+    component: layout,
+    redirect: "/finance/detailed",
+    meta: {
+      icon: "el-icon-coin",
+      keepAlive: false,
+      title: "财务管理",
+      index: "8"
+    },
+    children: [
+      {
+        path: "/finance/billManagement",
+        name: "finance/billManagement",
+        ismenu: true,
+        component: () => import("@/views/finance/billManagement/index.vue"),
+        meta: {
+          icon: "",
+          keepAlive: true,
+          title: "账单管理",
+          index: "8-1"
+        },
+        children: [
+          {
+            path: "/finance/billInfo/:id",
+            name: "finance/billInfo",
+            ismenu: false,
+            component: () => import("@/views/finance/billManagement/info.vue"),
+            meta: {
+              icon: "",
+              keepAlive: true,
+              title: "账单详情",
+              index: "8-1-1",
+              isTag: false
+            }
+          }
+        ]
+      },
+      {
+        path: "/finance/detailed",
+        name: "finance/detailed",
+        ismenu: true,
+        component: () => import("@/views/finance/detailed/index.vue"),
+        meta: {
+          icon: "",
+          keepAlive: true,
+          title: "支付明细",
+          index: "8-2"
+        }
+      },
+      {
+        path: "/finance/invoice",
+        name: "finance/invoice",
+        ismenu: true,
+        component: () => import("@/views/finance/invoice/index.vue"),
+        meta: {
+          icon: "",
+          keepAlive: true,
+          title: "发票管理",
+          index: "8-3"
+        }
+      }
+      // {
+      //   path: "/finance/information",
+      //   name: "finance/information",
+      //   ismenu: true,
+      //   component: () => import("@/views/finance/information/index.vue"),
+      //   meta: {
+      //     icon: "",
+      //     keepAlive: true,
+      //     title: "财务信息",
+      //     index: "7-4"
+      //   }
+      // }
+    ]
+  }
 ];
 
 //需要权限的路由

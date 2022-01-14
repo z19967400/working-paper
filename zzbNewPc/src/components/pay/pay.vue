@@ -83,7 +83,7 @@
         ></div>
         <div v-if="data.radio == '2' && data.isCode" class="qrcode">
           <iframe
-            :src="data.baseURL + '#/pay'"
+            :src="'#/pay'"
             frameborder="0"
             width="205px"
             height="205px;"
@@ -129,7 +129,8 @@ export default class About extends Vue {
     info: {},
     baseURL: "",
     timer: null,
-    payQuery: false
+    payQuery: false,
+    wxCode: ""
   };
   @Watch("info", { immediate: true, deep: true })
   infoChange(newVal: any, oldVal: any) {
@@ -223,6 +224,7 @@ export default class About extends Vue {
       this.data.loading = false;
       this.data.isCode = true;
       this.data.title = "微信";
+      this.data.wxCode = res.out_trade_no;
       this.data.timer = setInterval(this.WeChatQuery, 1000);
     });
   }
@@ -315,7 +317,7 @@ export default class About extends Vue {
   //微信支付结果查询
   WeChatQuery() {
     let self: any = this;
-    Api.WeChatQuery(self.data.info.pay_number).then((res: any) => {
+    Api.WeChatQuery(self.data.wxCode).then((res: any) => {
       if (res.state) {
         clearInterval(self.data.timer);
         self.data.timer = null;
@@ -327,7 +329,7 @@ export default class About extends Vue {
         });
         setTimeout(() => {
           self.callbackTO();
-        }, 2000);
+        }, 3000);
       }
     });
   }
@@ -346,19 +348,21 @@ export default class About extends Vue {
         });
         setTimeout(() => {
           self.callbackTO();
-        }, 2000);
+        }, 3000);
       }
     });
   }
   //支付成功跳转
   callbackTO() {
     let self: any = this;
-    setTimeout(() => {
-      self.close();
+    // self.close();
+    if (self.$router.history.current.name == "AILawyerletter/Management") {
+      self.$router.go(0);
+    } else {
       self.$router.push({
         path: "/AILawyerletter/Management"
       });
-    }, 1000);
+    }
   }
   //支付金额千位符
   thousand(num: number) {

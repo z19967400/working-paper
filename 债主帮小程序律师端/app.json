@@ -11,7 +11,9 @@
     "pages/caseProgressInfo/caseProgressInfo",
     "pages/user/user",
     "pages/contract/contract",
-    "pages/requestFunds/requestFunds"
+    "pages/requestFunds/requestFunds",
+    "pages/requestFundsInfo/requestFundsInfo",
+    "pages/Collection/Collection"
   ],
   "window": {
     "navigationStyle": "custom"

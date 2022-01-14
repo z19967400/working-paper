@@ -9,6 +9,8 @@
 .footer{
   text-align: center;
   margin-top: 40rpx;
+  position: relative;
+  top: -10rpx;
 }
 .content{
   margin-top: 40rpx;
@@ -40,25 +42,78 @@
   text-align: right;
   margin-right: 20rpx;
   color: #606366;
+  height: 100%;
+  line-height: 80rpx;
+}
+.label2{
+  font-size: 28rpx;
+  display: inline-block;
+  width: 180rpx;
+  text-align: right;
+  margin-right: 20rpx;
+  color: #606366;
+  height: 100%;
+  line-height: 80rpx;
 }
 .cell{
-  margin-bottom: 20rpx;
+  margin-bottom: 10rpx;
+  min-height: 80rpx;
+  display: flex;
 }
 .input{
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 5rpx;
   padding: 8rpx 10rpx;
-  position: relative;
-  top: 16rpx;
-  left: 8rpx;
   font-size: 26rpx;
   color: #000;
+  height: 40rpx;
+  margin-top: 10rpx;
 }
 .input2{
   display: inline-block;
   width: 328rpx;
-  position: relative;
-  left: 8rpx;
-  top: 18rpx;
+  margin-top: 10rpx;
+}
+.time-input{
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  padding: 8rpx 10rpx;
+  font-size: 26rpx;
+  color: #000;
+  width: 308rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+}
+.textarea{
+  width: 308rpx;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  padding: 8rpx 10rpx;
+  height: 150rpx;
+}
+.xianBox{
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.xiantou{
+ font-size: 26rpx;
+ color: #303133;
+ margin-right: 20rpx;
+ position: relative;
+ top: 8rpx;
+}
+.xian{
+  height: 1rpx;
+  width: 80%;
+  display: inline-block;
+  background: #ccc;
+}
+.value{
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #606366;
 }

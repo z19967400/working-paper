@@ -1,0 +1,99 @@
+/* pages/requestFundsInfo/requestFundsInfo.wxss */
+.Collection {
+  width: 100%;
+  min-height: 100vh;
+}
+.content{
+  background: white;
+  overflow: hidden;
+}
+.xianBox{
+  margin: 40rpx 0;
+}
+.xiantou{
+  font-size: 26rpx;
+  color: #303133;
+  margin-right: 20rpx;
+  position: relative;
+  top: 8rpx;
+ }
+ .xian{
+   height: 1rpx;
+   width: 80%;
+   display: inline-block;
+   background: #ccc;
+ }
+ .value{
+   line-height: 80rpx;
+   font-size: 28rpx;
+   color: #606366;
+ }
+ .box{
+   width: 90%;
+   margin: auto;
+   margin-top:60rpx;
+ }
+ .cell{
+  margin-bottom: 20rpx;
+  min-height: 80rpx;
+  display: flex;
+}
+.input{
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  padding: 8rpx 10rpx;
+  font-size: 26rpx;
+  color: #000;
+  height: 40rpx;
+  margin-top: 10rpx;
+  width: 420rpx;
+}
+.input2{
+  display: inline-block;
+  width: 328rpx;
+  margin-top: 10rpx;
+}
+.label{
+  font-size: 28rpx;
+  display: inline-block;
+  width: 180rpx;
+  text-align: right;
+  margin-right: 20rpx;
+  color: #606366;
+  height: 100%;
+  line-height: 80rpx;
+}
+.textarea{
+  width: 420rpx;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  padding: 8rpx 10rpx;
+  height: 150rpx;
+  font-size: 26rpx;
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  box-shadow: 4rpx 0 4rpx #ccc;
+  text-align: center;
+  background: white;
+  z-index: 1111;
+}
+.btn{
+  display: inline-block;
+  background: #ec193a;
+  color: white;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  border-radius: 5px;
+  padding: 0 36rpx;
+  margin-top: 18rpx;
+  width: 220rpx;
+  margin: 0 10rpx;
+  margin-top: 10rpx;
+}

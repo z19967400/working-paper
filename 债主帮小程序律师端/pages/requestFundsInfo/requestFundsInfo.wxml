@@ -1,0 +1,86 @@
+<view class="container">
+   <view class="requestFundsInfo">
+      <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+        <view class="title">
+          <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+            <van-icon bindtap="goBack" name="arrow-left" />
+            <view class="shu"></view>
+            <van-icon bindtap="goHome" name="wap-home" />
+          </view>
+        </view>
+        <view class="text">
+          <text>{{name}}</text>
+        </view>
+      </view>
+      <view class="content" style="height:{{height}}px">
+        <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:100%;">
+          <view class="box">
+            <view class="xianBox">
+              <text class="xiantou">律师费</text>
+              <text class="xian"></text>
+            </view>
+            <view class="cell">
+              <text class="label">发票类型:</text>
+              <view class="input2">
+                <select id="select" options="{{list}}"  defaultOption="{{defaultOption}}" key="id" text="name" bind:change="onChange"></select>
+              </view>
+            </view>
+            <view class="cell">
+              <text class="label">发票名称:</text>
+              <input class="input" bindinput="onChange2" data-prop="invoice_name" type="text" placeholder="请输入发票名称" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">税号:</text>
+              <input class="input" bindinput="onChange2" data-prop="duty_paragraph" type="text" placeholder="请输入税号" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">地址:</text>
+              <input class="input" bindinput="onChange2" data-prop="detailed_address" type="text" placeholder="请输入地址" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">电话:</text>
+              <input class="input" bindinput="onChange2" data-prop="telephone" type="text" placeholder="请输入电话" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">开户行:</text>
+              <input class="input" bindinput="onChange2" data-prop="bank_of_deposit" type="text" placeholder="请输入开户行" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">银行账户:</text>
+              <input class="input" bindinput="onChange2" data-prop="bank_account" type="text" placeholder="请输入银行账户" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label">发票备注:</text>
+              <textarea bindinput="onChange2" class="textarea" data-prop="invoice_remarks" bind placeholder="请填写发票备注" />
+            </view>
+            <view class="xianBox">
+              <text class="xiantou">收票信息</text>
+              <text class="xian"></text>
+            </view>
+            <view class="cell">
+              <text class="label bigW">收票人姓名:</text>
+              <input class="input" bindinput="onChange3" data-prop="name" type="text" placeholder="请输入收票人姓名" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label bigW">收票人手机:</text>
+              <input class="input" bindinput="onChange3" data-prop="phone" type="text" placeholder="请输入收票人手机" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label bigW">收票人地址:</text>
+              <input class="input" bindinput="onChange3" data-prop="email" type="text" placeholder="请输入收票人地址" auto-focus />
+            </view>
+            <view class="cell">
+              <text class="label bigW">收票人电子邮箱:</text>
+              <input class="input" bindinput="onChange3" data-prop="detailed_address" type="text" placeholder="请输入收票人电子邮箱" auto-focus />
+            </view>
+          </view>  
+        </scroll-view>
+      </view>
+      <view class="footer">
+        <text bindtap="goBack" class="btn">返回</text>
+        <text bindtap="submit" class="btn">保存</text>
+      </view>
+   </view>
+   <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
+</view>

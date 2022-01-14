@@ -73,6 +73,24 @@
         {
           "name": "请款页面",
           "pathName": "pages/requestFunds/requestFunds",
+          "query": "debtor_number=WTB0000217_1&type=1",
+          "scene": null
+        },
+        {
+          "name": "发票信息",
+          "pathName": "pages/requestFundsInfo/requestFundsInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "收款信息",
+          "pathName": "pages/Collection/Collection",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "模拟更新",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null
         }

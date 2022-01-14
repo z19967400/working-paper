@@ -84,10 +84,10 @@ Page({
       debtor_number: debtor_number,
       isIPhoneX: app.globalData.isIPhoneX
     })
-
+    this.getCaseMatters()
   },
   onShow() {
-    this.getCaseMatters()
+
     this.getCaseCourt()
   },
 
@@ -151,6 +151,13 @@ Page({
           show: true,
           infoType: index
         })
+      })
+    }
+    if (index == 3) {
+      let debtor_number = this.data.debtor_number
+      let payment_request_object = this.data.payment_request_object
+      wx.navigateTo({
+        url: '/pages/requestFunds/requestFunds?debtor_number=' + debtor_number + '&type=' + payment_request_object
       })
     }
   },
@@ -343,6 +350,14 @@ Page({
   goHome(e) {
     wx.navigateTo({
       url: '/pages/index/index',
+    })
+  },
+  //律师费请款
+  QKBtn() {
+    let debtor_number = this.data.debtor_number
+    let payment_request_object = this.data.payment_request_object
+    wx.navigateTo({
+      url: '/pages/requestFunds/requestFunds?debtor_number=' + debtor_number + '&type=' + payment_request_object
     })
   }
 })

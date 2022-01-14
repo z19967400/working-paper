@@ -21,7 +21,12 @@ const requstUrl = {
   ContractNotice: baseUrl + '/api/CaseProcess/ContractNotice', //发送合同通知短信
   getPhoneCode: baseUrl + "/api/SendSMS/SendSMSCode", //获取短信验证码
   saveUserPhone: baseUrl + "/api/WechatFans/SavePhoneNumber", //保会员手机号码
-  getDocument: baseUrl + "/api/tools/GetDocumentById" //获取文档内容
+  getDocument: baseUrl + "/api/tools/GetDocumentById", //获取文档内容
+  GetCaseQuotedPrice: baseUrl + "/api/CaseProcess/GetCaseQuotedPrice", //获取案件报价
+  GetFinancialRecords: baseUrl + "/api/Finance/GetFinancialRecords", //获取案件请款记录
+  AddCaseFinance: baseUrl + "/api/Finance/AddCaseFinance", //添加请款记录
+  GetInvoiceAndTicketAddress: baseUrl + "/api/Finance/GetInvoiceAndTicketAddress", //获取用户发票和收票信息
+  AddInvoiceAndTicketAddress: baseUrl + "/api/Finance/AddInvoiceAndTicketAddress", //新增编辑用户发票收票信息
 }
 export {
   requstUrl

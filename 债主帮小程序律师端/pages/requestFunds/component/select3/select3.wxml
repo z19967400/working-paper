@@ -17,10 +17,37 @@
         <select id="select" options="{{list2}}" key="id" text="name" defaultOption="{{defaultOption}}" bind:change="onChange3"></select>
       </view>
     </view>
+    <view class="cell">
+      <text  class="label">请款日期:</text>
+      <view bindtap="openTImeBox" class="time-input">
+        {{parmas.collection_date}}
+      </view>
+    </view>
+     <view class="cell">
+      <text class="label">备注:</text>
+      <textarea bindinput="textareaChange" class="textarea" bind placeholder="请填写备注" />
+    </view>
+    <view style="text-align:center;">
+      <text bindtap="Recalculate" class="btn">重新计算</text>
+    </view>
+    <view class="xianBox">
+      <text class="xiantou">律师费</text>
+      <text class="xian"></text>
+    </view>
+    <view class="cell">
+      <text class="label2">风险律师费率:</text>
+      <text class="value">{{FxRiskFee}}%</text>
+    </view>
+    <view class="cell">
+      <text class="label2">风险律师费额:</text>
+      <text class="value">{{lawyerFee}} 元/{{collection_currency_name}}</text>
+    </view>
   </view>
   <view class="footer">
     <text bindtap="close" class="btn">取消</text>
     <text bindtap="next" class="btn">下一步</text>
   </view>
 </view>
+<!-- 文本提示节点 -->
+<van-toast id="van-toast" />
 <slot></slot>
