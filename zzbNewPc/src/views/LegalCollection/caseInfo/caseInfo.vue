@@ -267,6 +267,66 @@
           <el-divider></el-divider>
           <handCasePross :caseProssData="caseProssData"></handCasePross>
         </div>
+        <div ref="section10" class="section">
+          <span :class="{ act: data.rightIndex == 9 }">服务费</span>
+          <el-divider></el-divider>
+          <el-table class="table2" :data="data.list2" border :max-height="400">
+            <el-table-column
+              v-for="(item, index) in data.dataType2"
+              :prop="item.prop"
+              :label="item.label"
+              :width="item.width"
+              :key="index"
+              :align="item.label === '风险服务费' ? 'center' : ''"
+            >
+              <template slot-scope="scope">
+                <span
+                  :style="{
+                    color: scope.row[item.prop] == '未生成' ? '#c0c4cc' : ''
+                  }"
+                  v-if="item.prop == 'settlement_status'"
+                  >{{ scope.row[item.prop] }}</span
+                >
+                <span v-else>{{ scope.row[item.prop] }}</span>
+              </template>
+              <el-table-column
+                v-if="item.label === '风险服务费'"
+                prop="collection_amount"
+                label="回款金额"
+                width="120"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="float_service_rate"
+                label="风险服务费率(%)"
+                width="130"
+                v-if="item.label === '风险服务费'"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="float_service_fee"
+                label="风险服务费额"
+                width="120"
+                v-if="item.label === '风险服务费'"
+              >
+              </el-table-column>
+            </el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button
+                  type="text"
+                  :disabled="scope.row.bill_number == null"
+                  style="color:#67C23A;"
+                  @click="handlInfo(scope.row)"
+                  size="small"
+                  >{{
+                    scope.row.bill_number == null ? "未生成" : "查看账单"
+                  }}</el-button
+                >
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
       </div>
     </div>
     <div class="zhezhao" v-show="data.visible"></div>

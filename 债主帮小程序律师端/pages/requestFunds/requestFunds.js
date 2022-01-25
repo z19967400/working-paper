@@ -26,6 +26,15 @@ Page({
     maxHour: 20,
     minDate: new Date(1970, 10, 1).getTime(),
     maxDate: new Date(2050, 10, 1).getTime(),
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      }
+      if (type === 'month') {
+        return `${value}月`;
+      }
+      return value;
+    },
     currentDate: new Date().getTime(),
     time: '', //请款日期
     caseOff: {} //案件报价信息
@@ -125,7 +134,7 @@ Page({
   //关闭选择弹窗
   close() {
     const caseOff = this.data.caseOff
-    if (caseOff.customer_select == '-1' || caseOff.customer_select == '2') {
+    if (caseOff.customer_select == -1 || caseOff.customer_select == 2) {
       //未选择报价或选择固定+风险
       this.setData({
         show: false,
@@ -170,6 +179,7 @@ Page({
       if (res.state) {
         that.close()
         that.GetFinancialRecords()
+        Toast(res.msg)
       } else {
         Toast(res.msg)
         that.close()
@@ -188,6 +198,7 @@ Page({
       if (res.state) {
         that.close()
         that.GetFinancialRecords()
+        Toast(res.msg)
       } else {
         Toast(res.msg)
         that.close()
@@ -199,9 +210,22 @@ Page({
     const that = this
     http.getRequest(requstUrl.GetInvoiceAndTicketAddress, {}, function (res) {
       if (res.data.invoice !== null && res.data.ticket_address !== null) {
-        that.setData({
-          show: true
-        })
+        const caseOff = that.data.caseOff
+        if (caseOff.customer_select == -1 || caseOff.customer_select == 2) {
+          //未选择报价或选择固定+风险
+          that.setData({
+            show: true,
+            active: 1,
+            type: '1'
+          })
+        } else {
+          //选择固定或风险报价
+          that.setData({
+            show: true,
+            active: 2,
+            type: caseOff.customer_select == 0 ? '1' : '2'
+          })
+        }
       } else {
         Toast('请完善发票信息和收票信息')
         setTimeout(() => {
@@ -251,6 +275,6 @@ Page({
     const hours = (time.getHours()).toString().padStart(2, '0')
     const minute = (time.getMinutes()).toString().padStart(2, '0')
     const second = (time.getSeconds()).toString().padStart(2, '0')
-    return year + '-' + month + '-' + date + ' ' + hours + ':' + minute + ':' + second
+    return year + '-' + month + '-' + date
   }
 })

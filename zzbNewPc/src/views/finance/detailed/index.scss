@@ -4,20 +4,14 @@
   width: 100%;
   height: 100%;
   background-color: $main-body-bgColor;
+  & .el-table thead.is-group th.el-table__cell {
+    background: white;
+  }
   & .operation-wrap {
     & .input-box {
       button {
         display: none;
       }
-    }
-  }
-  // & .el-tabs__item {
-  //   color: $General-colors;
-  // }
-  & .cell {
-    & button:nth-child(1),
-    & button:nth-child(3) {
-      display: none;
     }
   }
   & .text {
@@ -28,5 +22,33 @@
   }
   & .editData {
     width: 680px;
+  }
+  & .search-box {
+    margin-bottom: 20px;
+    display: flex;
+  }
+  & .table1 {
+    & .el-table__row {
+      & td:nth-child(4),
+      & td:nth-child(5),
+      & td:nth-child(6) {
+        text-align: right;
+      }
+    }
+  }
+  & .table2 {
+    & .el-table__row {
+      & td:nth-child(9),
+      & td:nth-child(10),
+      & td:nth-child(11),
+      & td:nth-child(12) {
+        text-align: right;
+      }
+    }
+  }
+  & .el-button.is-disabled,
+  .el-button.is-disabled:hover,
+  .el-button.is-disabled:focus {
+    color: #c0c4cc !important;
   }
 }

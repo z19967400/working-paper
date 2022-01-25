@@ -374,9 +374,9 @@
               <el-table-column align="center" prop="service_fee" label="服务费">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Service_fee_model == '固定服务费'">{{
-                    ce(scope.row.service_fee)
+                    ce2(scope.row.service_fee)
                   }}</span>
-                  <span v-else>{{ ce(scope.row.service_fee) }} %</span>
+                  <span v-else>{{ ce2(scope.row.service_fee) }} %</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -416,18 +416,20 @@
                       }}
                       <span v-if="scope.row.platform_management_fee_type == 1">
                         {{
-                          scope.row.platform_management_fixed_fee_percentage
-                        }}% （{{ ce(scope.row.admin_fee) }}）</span
+                          ce2(
+                            scope.row.platform_management_fixed_fee_percentage
+                          )
+                        }}% （{{ ce2(scope.row.admin_fee) }}）</span
                       >
                       <span v-else>
-                        {{ ce(scope.row.admin_fee) }}（{{
+                        {{ ce2(scope.row.admin_fee) }}（{{
                           scope.row.platform_management_fixed_fee_percentage.toFixed(
                             2
                           )
                         }}%）</span
                       >
                     </span>
-                    <span v-else>{{ scope.row.admin_fee }} %</span>
+                    <span v-else>{{ ce2(scope.row.admin_fee) }} %</span>
                   </div>
                 </template>
               </el-table-column>
@@ -448,9 +450,9 @@
                   </div>
                   <div v-else>
                     <span v-if="scope.row.Service_fee_model == '固定服务费'">
-                      {{ ce(scope.row.lawyer_fee) }}
+                      {{ ce2(scope.row.lawyer_fee) }}
                     </span>
-                    <span v-else>{{ scope.row.lawyer_fee }} %</span>
+                    <span v-else>{{ ce2(scope.row.lawyer_fee) }} %</span>
                   </div>
                 </template>
               </el-table-column>
@@ -465,7 +467,7 @@
                     style="width:80%;"
                     v-model="scope.row.yj_lawyer_fee"
                   ></el-input>
-                  <span v-else>{{ ce(scope.row.yj_lawyer_fee) }}</span>
+                  <span v-else>{{ ce2(scope.row.yj_lawyer_fee) }}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -843,6 +845,29 @@ export default class offer2 extends Vue {
       }
     } else {
       return num
+    }
+  }
+  //转千位符
+  ce2(num: any) {
+    if (num) {
+      let str: string = num.toString()
+      if (str.indexOf('.') !== -1) {
+        //包含小数点
+        let str1: string = str.substring(0, str.indexOf('.'))
+        let str2: string = str.substring(str.indexOf('.'), str.length)
+        if (str2.length >= 3) {
+          //小数点后尾数大于等于2
+          return parseInt(str1).toLocaleString() + str2.substring(0, 3)
+        } else {
+          //小数点后尾数小于2
+          return parseInt(str1).toLocaleString() + str2 + '0'
+        }
+      } else {
+        //不包含小数点
+        return num.toLocaleString() + '.00'
+      }
+    } else {
+      return num + '.00'
     }
   }
   //重新计算服务费报价

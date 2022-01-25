@@ -72,10 +72,54 @@ export const getDetailedInfo = (id: number) => {
   return Api.getDetailedInfo({ id }, "GET");
 };
 //获取收票下拉
-export const getTicketDown = () => {
-  return Api.getTicketDown({}, "GET");
+export const getTicketDown = (parmas: any) => {
+  return Api.getTicketDown(parmas, "GET");
 };
 //获取发票下拉
-export const getInvoiceDown = () => {
-  return Api.getInvoiceDown({}, "GET");
+export const getInvoiceDown = (invoice_name: string) => {
+  return Api.getInvoiceDown({ invoice_name }, "GET");
+};
+//获取账单分页列表
+export const GetBillPagingData = (parmas: any) => {
+  return Api.GetBillPagingData(parmas, "GET");
+};
+//获取账单详情
+export const GetBillDetailsByBillNumber = (id: string) => {
+  return Api.GetBillDetailsByBillNumber({ bill_number: id }, "GET");
+};
+//获取AI律师函服务明细
+export const GetAIPayRecordsPagingData = (parmas: any) => {
+  return Api.GetAIPayRecordsPagingData(parmas, "GET");
+};
+//获取法律服务明细
+export const GetCasePayRecordsPagingData = (parmas: any) => {
+  return Api.GetCasePayRecordsPagingData(parmas, "GET");
+};
+//新增编辑发票信息
+export const UpdateInvoice = (parmas: any) => {
+  return Api.UpdateInvoice(parmas, "POST");
+};
+//选择账单发票
+export const SelectBillInvoice = (parmas: any) => {
+  return Api.SelectBillInvoice(parmas, "GET");
+};
+//选择收票地址信息
+export const SelectBillTicketAddress = (parmas: any) => {
+  return Api.SelectBillTicketAddress(parmas, "GET");
+};
+//新增编辑收票地址
+export const UpdateTicketAddress = (parmas: any) => {
+  return Api.UpdateTicketAddress(parmas, "POST");
+};
+//账单申请开票
+export const ApplyInvoicing = (bill_number: string) => {
+  return Api.ApplyInvoicing({ bill_number }, "GET");
+};
+//发票删除
+export const DeleteInvoice = (id: number) => {
+  return Api.DeleteInvoice({ id }, "GET");
+};
+//收票删除
+export const DeleteTicketAddress = (id: number) => {
+  return Api.DeleteTicketAddress({ id }, "GET");
 };

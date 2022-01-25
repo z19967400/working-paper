@@ -44,6 +44,7 @@
       </view>
       <view class="footer">
         <text bindtap="close" class="btn">返回</text>
+        <text class="xian"></text>
         <text bindtap="next" class="btn">保存</text>
       </view>
    </view>

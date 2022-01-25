@@ -45,9 +45,17 @@
           :width="item.width"
         >
           <template slot-scope="scope">
-            <span v-if="item.prop != 'invoice_type'">{{
-              scope.row[item.prop]
-            }}</span>
+            <span
+              v-if="item.prop != 'invoice_type' && item.label != '创建人'"
+              >{{ scope.row[item.prop] }}</span
+            >
+            <el-button
+              style="color:#67C23A;"
+              v-else-if="item.label == '创建人'"
+              @click="goAdmin(scope.row)"
+              type="text"
+              >{{ scope.row[item.prop] }}</el-button
+            >
             <span v-else>{{ getTypeName(scope.row[item.prop]) }}</span>
           </template>
         </el-table-column>

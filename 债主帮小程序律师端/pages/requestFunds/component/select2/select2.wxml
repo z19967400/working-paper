@@ -3,18 +3,18 @@
   <view class="content">
     <van-radio-group value="{{ radio }}" bind:change="onChange">
       <text>
-        <text class="label">固定律师费额:</text>  20000元/人民币
+        <text class="label">固定律师费额:</text> {{number}}元/人民币
       </text>
       <view class="br"></view>
       <view>
         <text class="label">请款金额:</text>
-        <input class="input" bindinput="onChange" type="number" placeholder="请输入请款金额" auto-focus />
+        <input class="input" bindinput="onChange" value="{{value1}}" type="number" placeholder="请输入请款金额" auto-focus />
       </view>
     </van-radio-group>
   </view>
   <view class="footer">
     <text bindtap="close" class="btn">取消</text>
-    <text bindtap="next" class="btn">下一步</text>
+    <text bindtap="next" class="btn">确定</text>
   </view>
 </view>
 <slot></slot>

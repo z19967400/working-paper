@@ -390,13 +390,14 @@ export default class About extends Vue {
       parmas['type'] = 0
       parmas['debtor_number'] = this.data.settlement.quoted_price.debtor_number
       parmas['member_id'] = this.data.settlement.case_detail.member_id
-      if (
-        this.data.tabList[0].list.length == 0
-        //  && this.data.tabList[1].length == 0
-      ) {
-        this.$message.warning('请先申请请款')
-        return false
-      }
+      // if (
+      //   this.data.tabList[0].list.length != 0
+      //    || this.data.tabList[1].list.length != 0
+      //    ||  this.data.tabList[2].list.length != 0
+      // ) {
+      //   this.$message.warning('请先申请请款')
+      //   return false
+      // }
       self.$router.push({
         path: '/business/listbill/ailist',
         query: parmas
@@ -406,13 +407,13 @@ export default class About extends Vue {
       parmas['debtor_number'] = this.data.settlement.quoted_price.debtor_number
       parmas['member_id'] = this.data.settlement.case_detail.lawyer_member_id
       parmas['lawyer_id'] = this.data.settlement.case_detail.lawyer_id
-      if (
-        // this.data.tabList[1].list.length == 0 &&
-        this.data.tabList[0].list.length == 0
-      ) {
-        this.$message.warning('请先申请请款')
-        return false
-      }
+      // if (
+      //   // this.data.tabList[1].list.length == 0 &&
+      //   this.data.tabList[0].list.length == 0
+      // ) {
+      //   this.$message.warning('请先申请请款')
+      //   return false
+      // }
       self.$router.push({
         path: '/business/listbill/ailist',
         query: parmas
@@ -422,10 +423,10 @@ export default class About extends Vue {
       parmas['debtor_number'] = this.data.settlement.quoted_price.debtor_number
       parmas['member_id'] = this.data.settlement.case_detail.lawyer_member_id
       parmas['lawyer_id'] = this.data.settlement.case_detail.lawyer_id
-      if (this.data.tabList[0].list.length == 0) {
-        this.$message.warning('请先申请请款')
-        return false
-      }
+      // if (this.data.tabList[0].list.length == 0) {
+      //   this.$message.warning('请先申请请款')
+      //   return false
+      // }
       self.$router.push({
         path: '/business/listbill/ailist',
         query: parmas

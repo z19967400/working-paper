@@ -198,7 +198,7 @@ export default {
   gitinvaedit: '/Invoice/GetByid_address', //收票地址获取编辑
   editinvaeditaddress: '/Invoice/Insert_address', //收票地址新增||修改
   deleteinvaeditaddress: '/Bill/DeleteMemberTicketAddressById', //收票地址删除
-  deleteinvaice: '/DeleteMemberInvoiceById', //发票删除
+  deleteinvaice: '/Bill/DeleteMemberInvoiceById', //发票删除
   geteditinvaicebyid: '/Invoice/GetByid', //发票获取编辑
   posteditinvoice: '/Invoice/Insert', //发票新增||修改
   getPhoneInfo: '/AILawyerLetter/GetAILawyerTaskContent', //查看短信/电话详情

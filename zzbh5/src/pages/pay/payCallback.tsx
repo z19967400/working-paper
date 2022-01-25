@@ -1,6 +1,6 @@
 import React from 'react'
 import './pay.less'
-import slogen from '../../images/solgen.png'
+// import slogen from '../../images/solgen.png'
 import paylaoding from '../../images/paylaoding.svg'
 import success from '../../images/sucess.png'
 import { Toast } from 'antd-mobile';
@@ -10,7 +10,8 @@ class PayCallback extends React.Component<any,any>{
   constructor(props:any){
     super(props)
     this.state={
-      isPay:false
+      isPay:false,
+      out_trade_no:'' //返回的支付编码
     }
   }
   render(){
@@ -54,7 +55,7 @@ class PayCallback extends React.Component<any,any>{
     let num = 0
     const myPolling = setInterval(() =>{
       num++
-      OrderQuery(this.props.match.params.payNumber).then((res:any) =>{
+      OrderQuery(this.state.out_trade_no).then((res:any) =>{
         if (res.data.state) {
           clearInterval(myPolling);
           this.props.history.push(`/CaseInfo/${this.props.match.params.debtor_number}`)
@@ -78,7 +79,10 @@ class PayCallback extends React.Component<any,any>{
     }
     WeChatPay(parmas).then((res:any) =>{
       if (res.data.state) {
-        window.location.href = res.data.mweb_url    
+        window.location.href = res.data.mweb_url   
+        this.setState({
+          out_trade_no:res.out_trade_no
+        }) 
       }else{
         Toast.fail(res.data.msg, 2);
       }

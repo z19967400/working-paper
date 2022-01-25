@@ -4,17 +4,15 @@
   width: 100%;
   height: 100%;
   background-color: $main-body-bgColor;
-  & .operation-wrap {
-    & .input-box {
-      button {
-        display: none;
-      }
-    }
+  & .table-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
-  & .cell {
-    & button:nth-child(1),
-    & button:nth-child(3) {
-      display: none;
+  & .zz-dialog {
+    border-radius: 10px;
+    & .el-dialog__footer {
+      text-align: center;
     }
   }
 }

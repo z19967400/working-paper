@@ -249,7 +249,7 @@ export const routes = [
     component: layout,
     redirect: "/litigation/litigation",
     meta: {
-      icon: "el-icon-coin",
+      icon: "el-icon-chat-line-square",
       keepAlive: false,
       title: "诉讼助资",
       index: "5"
@@ -510,22 +510,20 @@ export const routes = [
           keepAlive: true,
           title: "账单管理",
           index: "8-1"
-        },
-        children: [
-          {
-            path: "/finance/billInfo/:id",
-            name: "finance/billInfo",
-            ismenu: false,
-            component: () => import("@/views/finance/billManagement/info.vue"),
-            meta: {
-              icon: "",
-              keepAlive: true,
-              title: "账单详情",
-              index: "8-1-1",
-              isTag: false
-            }
-          }
-        ]
+        }
+      },
+      {
+        path: "/finance/billInfo/:id",
+        name: "finance/billInfo",
+        ismenu: false,
+        component: () => import("@/views/finance/billManagement/info.vue"),
+        meta: {
+          icon: "",
+          keepAlive: true,
+          title: "账单详情",
+          index: "8-1-1",
+          isTag: false
+        }
       },
       {
         path: "/finance/detailed",

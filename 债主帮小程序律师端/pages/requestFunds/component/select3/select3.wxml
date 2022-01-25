@@ -28,7 +28,7 @@
       <textarea bindinput="textareaChange" class="textarea" bind placeholder="请填写备注" />
     </view>
     <view style="text-align:center;">
-      <text bindtap="Recalculate" class="btn">重新计算</text>
+      <text bindtap="Recalculate" class="btn">计算律师费</text>
     </view>
     <view class="xianBox">
       <text class="xiantou">律师费</text>
@@ -45,7 +45,7 @@
   </view>
   <view class="footer">
     <text bindtap="close" class="btn">取消</text>
-    <text bindtap="next" class="btn">下一步</text>
+    <text bindtap="next" class="btn">确认</text>
   </view>
 </view>
 <!-- 文本提示节点 -->

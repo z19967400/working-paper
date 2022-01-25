@@ -38,8 +38,8 @@ export default class About extends Vue {
           { name: "办案律师" },
           { name: "法院信息" },
           { name: "专案客服" },
-          { name: "办案进度" }
-          // { name: "案件数据" },
+          { name: "办案进度" },
+          { name: "服务费" }
           // { name: "回款记录" }
         ]
       }
@@ -217,7 +217,65 @@ export default class About extends Vue {
       { prop: "tribunal_name", label: "法庭名称" }
     ],
     contractVisible: false,
-    contractData: []
+    contractData: [],
+    list2: [],
+    dataType2: [
+      // {
+      //   label: "委托编号",
+      //   prop: "debtor_number",
+      //   width: "150"
+      // },
+      {
+        label: "结算状态",
+        prop: "settlement_status",
+        width: "120"
+      },
+      // {
+      //   label: "债权人",
+      //   prop: "creditor_name",
+      //   width: "250"
+      // },
+      // {
+      //   label: "债务人",
+      //   prop: "debtor_name",
+      //   width: "250"
+      // },
+      {
+        label: "办案事项",
+        prop: "entrusted_matters",
+        width: "280"
+      },
+      {
+        label: "办案律师",
+        prop: "lawyer_name",
+        width: "100"
+      },
+      {
+        label: "管理员",
+        prop: "admin_name",
+        width: "100"
+      },
+      {
+        label: "固定服务费",
+        prop: "fixed_service_fee",
+        width: "120"
+      },
+      {
+        label: "风险服务费",
+        prop: "fixed_service_fee",
+        width: "120"
+      },
+      {
+        label: "备注",
+        prop: "bill_remarks",
+        width: "220"
+      },
+      {
+        label: "创建时间",
+        prop: "create_time",
+        width: "150"
+      }
+    ]
   };
   height: number = 0;
   sectionDom: any = {};
@@ -263,7 +321,7 @@ export default class About extends Vue {
       self.getCasePross();
     }
     let top: number = self.$refs.right.offsetTop; //初始位置
-    for (let index = 0; index <= 9; index++) {
+    for (let index = 0; index <= 10; index++) {
       const domTop = self.$refs["section" + index].offsetTop - top;
       self.sectionDom["section" + index] = domTop;
     }
@@ -279,6 +337,23 @@ export default class About extends Vue {
         this.case_status = res.data.case_daetails.case_status_code; //案件状态
         this.data.case_report_file = res.data.case_daetails.case_report_file;
         this.data.operation_authority = res.data.operation_authority;
+        res.data.pay_case.forEach((item: any) => {
+          item.settlement_status = this.getSettlementName(
+            item.settlement_status
+          );
+          item.create_time = this.timeStr(item.create_time);
+          item.fixed_service_fee = this.thousandBitSeparator(
+            item.fixed_service_fee
+          );
+          item.collection_amount = this.thousandBitSeparator(
+            item.collection_amount
+          );
+          item.float_service_rate = item.float_service_rate + " %";
+          item.float_service_fee = this.thousandBitSeparator(
+            item.float_service_fee
+          );
+        });
+        this.data.list2 = res.data.pay_case;
         //委托信息赋值
         this.data.BasicInfo.forEach((item: any) => {
           item.forEach((item2: any) => {
@@ -720,6 +795,53 @@ export default class About extends Vue {
       } else {
         this.$message.error(res.msg);
       }
+    });
+  }
+  //时间转码
+  timeStr(str: string) {
+    let str1: string = str.replace("T", " ");
+    let str2: string = str1.substring(0, str1.lastIndexOf(":"));
+    return str2;
+  }
+  //结算状态转码
+  getSettlementName(str: string) {
+    let val: string = "未生成";
+    switch (str) {
+      case "Settlement_Status_0":
+        val = "审核中";
+        break;
+      case "Settlement_Status_1":
+        val = "用户确认";
+        break;
+      case "Settlement_Status_2":
+        val = "客服确认";
+        break;
+      case "Settlement_Status_3":
+        val = "开票中";
+        break;
+      case "Settlement_Status_4":
+        val = "结算中";
+        break;
+      case "Settlement_Status_5":
+        val = "已结算";
+        break;
+      case "Settlement_Status_6":
+        val = "已退款";
+        break;
+      default:
+        break;
+    }
+    return val;
+  }
+  //千位符
+  thousandBitSeparator(num: number) {
+    return num.toLocaleString();
+  }
+  //跳转账单
+  handlInfo(row: any) {
+    let number: string = row.bill_number;
+    this.$router.push({
+      path: `/finance/billInfo/${number}`
     });
   }
 }

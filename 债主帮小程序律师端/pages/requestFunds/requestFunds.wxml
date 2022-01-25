@@ -55,8 +55,8 @@
           <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:{{height}}px">
             <view class="item-box" wx:for="{{list}}" wx:key="index">
                 <view class="item-box-header">
-                  <text wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}">风险服务费</text>
-                  <text wx:if="{{item.business_type === 'Entrust_type_6'||item.business_type === 'Entrust_type_8'}}">固定服务费</text>
+                  <text wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}">风险律师费</text>
+                  <text wx:if="{{item.business_type === 'Entrust_type_6'||item.business_type === 'Entrust_type_8'}}">固定律师费</text>
                   <text>2021-09-09 11:11</text>
                 </view>
                 <view wx:if="{{item.business_type === 'Entrust_type_7' || item.business_type === 'Entrust_type_9'}}" class="item-box-body">
@@ -92,23 +92,27 @@
       </view>
       <view class="footer">
         <text bindtap="goBack" class="btn">返回</text>
+        <text class="xian"></text>
         <text wx:if="{{payment_request_object == '1'}}" bindtap="openSelect" class="btn">请款申请</text>
       </view>
       <view wx:if="{{show}}" class="select-box">
         <view class="select-body">
           <view class="select-body-content">
-            <van-icon custom-class="cross" bindtap="close" name="cross" />
+            <view  class="cross" bindtap="close">
+              <van-icon  name="cross" />
+            </view>
             <select1 wx:if="{{active === 1}}" bind:getSelectVal="getSelectVal1" bind:close="close" />
-            <select2 wx:if="{{active === 2 && type === '1'}}" bind:getSelectVal="getSelectVal2" bind:close="close" />
+            <select2 wx:if="{{active === 2 && type === '1'}}" number="{{caseOff.final_lawyer_fixed_fee}}" bind:getSelectVal="getSelectVal2" bind:close="close" />
             <select3 wx:if="{{active === 2 && type === '2'}}" time="{{time}}" riskFee="{{caseOff.final_lawyer_risk_fee}}" bind:getSelectVal="getSelectVal3" bind:openTimeBox="openTimeBox" list="{{Currency}}" bind:close="close" />
           </view>
         </view>
         <view  class="select-time {{show2?'top':''}}">
           <van-datetime-picker
-            type="datetime"
+            type="date"
             value="{{ currentDate }}"
+            formatter="{{ formatter }}"
             min-date="{{ minDate }}"
-            max-date="{{ maxDate }}"
+           
             bind:confirm="onInput"
             bind:cancel="cancel"
           />

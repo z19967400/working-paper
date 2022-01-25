@@ -38,8 +38,8 @@ export default {
   deletecreditor: "/api/pt/Creditor/DeleteCreditorByid", //债权人删除
   addgetmaney: "/api/pt/CollectMoney/UpdateCollectMoney", //新增收款通道
   getDetailedInfo: "/api/pt/pay/GetDetails", //获取收支明细详情
-  getTicketDown: "/api/pt/Finance/InvoiceAddressPullDown", //获取收票地址下拉
-  getInvoiceDown: "/api/pt/Finance/InvoicePullDown", //获取发票下拉
+  getTicketDown: "/api/pt/Finance/GetTicketAddressList", //获取收票地址下拉
+  getInvoiceDown: "/api/pt/Finance/GetInvoiceList", //获取发票下拉
   getSmsInfo: "/api/pt/AILawyerLetter/GetAILawyerTaskContent", //查看短信发送详情
   // getPhoneInfo: "/api/pt/LogsSel/GetSel_phone", //查看电话详情
   getEmail: "/api/pt/AILawyerLetter/GetAILawyerLogistics", //获取ems物流信息
@@ -116,5 +116,16 @@ export default {
   VerifyAdminInfo: "/api/pt/VipMember/VerifyAdminInfo", //验证管理员信息是否重复
   GetAdminByNotCreditorId: "/api/pt/CreditorV2/GetAdminByNotCreditorId", //获取未授权指定债权人的管理员
   GetAllCreditorListReverseOrder:
-    "/api/pt/CreditorV2/GetAllCreditorListReverseOrder" //获取所有债权人及对应授权状态
+    "/api/pt/CreditorV2/GetAllCreditorListReverseOrder", //获取所有债权人及对应授权状态
+  GetBillPagingData: "/api/pt/Finance/GetBillPagingData", //获取账单分页信息
+  GetBillDetailsByBillNumber: "/api/pt/Finance/GetBillDetailsByBillNumber", //根据账单编号获取账单信息
+  GetCasePayRecordsPagingData: "/api/pt/Finance/GetCasePayRecordsPagingData", //获取律师办案法律服务明细
+  GetAIPayRecordsPagingData: "/api/pt/Finance/GetAIPayRecordsPagingData", //获取AI律师函服务明细
+  UpdateInvoice: "/api/pt/Finance/UpdateInvoice", //新增编辑发票信息
+  SelectBillInvoice: "/api/pt/Finance/SelectBillInvoice", //选择账单发票
+  SelectBillTicketAddress: "/api/pt/Finance/SelectBillTicketAddress", //选择收票地址信息
+  UpdateTicketAddress: "/api/pt/Finance/UpdateTicketAddress", //新增更新收票信息
+  ApplyInvoicing: "api/pt/Finance/ApplyInvoicing", //账单申请开票
+  DeleteInvoice: "api/pt/Finance/DeleteInvoice", //删除发票
+  DeleteTicketAddress: "api/pt/Finance/DeleteTicketAddress" //删除收票
 };

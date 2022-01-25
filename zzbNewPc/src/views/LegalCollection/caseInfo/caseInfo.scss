@@ -5,6 +5,14 @@
   min-height: 100%;
   background-color: $main-body-bgColor;
   position: relative;
+  & .el-table thead.is-group th.el-table__cell {
+    background: white;
+  }
+  & .el-button.is-disabled,
+  .el-button.is-disabled:hover,
+  .el-button.is-disabled:focus {
+    color: #c0c4cc !important;
+  }
   .LegalCollection-box {
     display: flex;
     .el-table th,
@@ -178,6 +186,16 @@
     height: auto;
     & p {
       margin: 0;
+    }
+  }
+  & .table2 {
+    & .el-table__row {
+      & td:nth-child(5),
+      & td:nth-child(6),
+      & td:nth-child(7),
+      & td:nth-child(8) {
+        text-align: right;
+      }
     }
   }
 }

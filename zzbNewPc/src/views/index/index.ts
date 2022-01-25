@@ -35,6 +35,14 @@ export default class About extends Vue {
     notice: [
       {
         send_name: "债主帮",
+        send_time: "2022-01-25 13:12",
+        status: "已读",
+        title: "债主帮春节假期通知",
+        text:
+          "尊敬的用户：由于春节假期，债主帮于2022年1月30日至2月6日期间暂停接受法催服务委托，请您提前安排委托服务，避免造成延误及损失。如需帮助请致电4006 321 918，提前祝您节日快乐。"
+      },
+      {
+        send_name: "债主帮",
         send_time: "2021-09-24 17:12",
         status: "已读",
         title: "债主帮国庆假期通知",

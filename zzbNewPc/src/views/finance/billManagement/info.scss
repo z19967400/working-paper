@@ -5,8 +5,16 @@
   min-height: 100%;
   background-color: $main-body-bgColor;
   position: relative;
+  & .el-table thead.is-group th.el-table__cell {
+    background: white;
+  }
+  & .el-table__header-wrapper tbody td.el-table__cell,
+  .el-table__footer-wrapper tbody td.el-table__cell {
+    background: white;
+  }
   .bilInfo-box {
     display: flex;
+    // padding-bottom: 50px;
     .left {
       width: 9%;
       display: flex;
@@ -14,9 +22,9 @@
         div {
           color: $Main-characters;
           font-size: $Text-font;
-          height: 40px;
-          line-height: 40px;
-          padding: 0 25px 0 0;
+          // min-height: 40px;
+          // line-height: 40px;
+          padding: 10px 25px 10px 0;
           text-align: center;
           cursor: pointer;
         }
@@ -80,30 +88,90 @@
       }
     }
   }
-  .el-divider--horizontal {
+  & .el-descriptions {
+    & .is-bordered-label {
+      width: 220px;
+    }
+  }
+  & .el-divider--horizontal {
     margin: 5px 0 20px 0;
   }
-  .info {
+  & .info {
     color: #67c23a;
   }
-  .edit {
+  & .edit {
     color: #e6a23c;
   }
-  .el-tabs--left .el-tabs__header.is-left {
+  & .el-tabs--left .el-tabs__header.is-left {
     margin-right: 20px;
   }
-  .el-checkbox-group {
+  & .el-checkbox-group {
     margin-bottom: 20px;
   }
-  .el-textarea textarea {
+  & .el-textarea textarea {
     height: 100px;
   }
-  .addNewUser,
-  .selectUser {
+  & .addNewUser,
+  & .selectUser {
     width: 50%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+  & .table-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  & .editData {
+    width: 880px;
+  }
+  & .footer-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    height: 30px;
+    background: white;
+    z-index: 2;
+    padding-top: 20px;
+    // box-shadow: 0px 4px 4px #ccc;
+  }
+  & .table1 {
+    & .el-table__body {
+      & .el-table__row {
+        & td:nth-child(7),
+        & td:nth-child(8) {
+          text-align: right;
+        }
+      }
+    }
+    & .el-table__footer-wrapper {
+      & .has-gutter {
+        & .cell {
+          text-align: right;
+        }
+      }
+    }
+  }
+  & .table2 {
+    & .el-table__body {
+      & .el-table__row {
+        & td:nth-child(9),
+        & td:nth-child(10),
+        & td:nth-child(11),
+        & td:nth-child(12) {
+          text-align: right;
+        }
+      }
+    }
+    & .el-table__footer-wrapper {
+      & .has-gutter {
+        & .cell {
+          text-align: right;
+        }
+      }
+    }
   }
 }

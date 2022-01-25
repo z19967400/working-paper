@@ -42,7 +42,7 @@ export default class About extends Vue {
       },
       {
         label: '收票人姓名',
-        prop: 'member_id',
+        prop: 'name',
         width: '120'
       },
       {
@@ -268,5 +268,13 @@ export default class About extends Vue {
         }
       }
     )
+  }
+  //跳转管理员
+  goAdmin(row: any) {
+    if (row.member_vip_admin_id == 0) {
+      this.$router.push(` /ordinary/ordinaryAdmin/${row.member_id}`)
+    } else {
+      this.$router.push(`/ordinary/VipAdmin/${row.member_vip_admin_id}`)
+    }
   }
 }

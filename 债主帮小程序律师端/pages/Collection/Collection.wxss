@@ -74,14 +74,31 @@
   font-size: 26rpx;
 }
 .footer{
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   height: 100rpx;
   width: 100%;
   box-shadow: 4rpx 0 4rpx #ccc;
   text-align: center;
-  background: white;
+  background: white; */
   z-index: 1111;
+      display: flex;
+    height: 50px;
+    color: white;
+    justify-content: space-around;
+    font-size: 14px;
+    background: #eb193a;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    line-height: 50px;
+}
+.xian{
+  height: 80%;
+  width: 1px;
+  background: white;
+  transform: translateY(10%);
+  display: inline-block;
 }
 .btn{
   display: inline-block;
@@ -96,4 +113,5 @@
   width: 220rpx;
   margin: 0 10rpx;
   margin-top: 10rpx;
+  text-align: center;
 }

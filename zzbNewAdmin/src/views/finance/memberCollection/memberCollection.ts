@@ -257,4 +257,8 @@ export default class memberCollection extends Vue {
   selectUser() {
     this.data.actvie = 1
   }
+  //跳转律师
+  goAdmin(row: any) {
+    this.$router.push(`/ordinary/lawterAdmin/${row.member_id}`)
+  }
 }

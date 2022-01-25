@@ -96,7 +96,7 @@ class service extends React.Component<any,serviceState> {
     return(
       <div className="service">
         <img className="serviceBg" src={serviceBg} alt=""/>
-        {/* <Marquee text={'尊敬的用户：由于国庆假期，EMS在2021年10月1日至7日期间停止收件，请您提前安排AI律师函的委托下单。如需帮助请致电4006 321 918，提前祝您节日快乐。'}></Marquee> */}
+        <Marquee text={'尊敬的用户：由于春节假期，债主帮于2022年1月30日至2月6日期间暂停接受法催服务委托，请您提前安排委托服务，避免造成延误及损失。如需帮助请致电4006 321 918，提前祝您节日快乐。'}></Marquee>
         <div className="box">
           <div className="head">
             <img className="headBg" src={headImg} alt=""/>

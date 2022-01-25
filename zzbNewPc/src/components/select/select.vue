@@ -20,7 +20,8 @@
                 data.value != 'end_time' &&
                 data.value != 'executing_status' &&
                 data.value != 'create_time' &&
-                data.value != 'case_status'
+                data.value != 'case_status' &&
+                data.value != 'settlement_status'
             "
             size="small"
             v-model="data.input"
@@ -32,7 +33,8 @@
               data.value == 'api_type' ||
                 data.value == 'project_name' ||
                 data.value == 'executing_status' ||
-                data.value == 'case_status'
+                data.value == 'case_status' ||
+                data.value == 'settlement_status'
             "
             size="small"
             v-model="data.input"
@@ -45,6 +47,8 @@
                 ? opt3
                 : data.value == 'case_status'
                 ? opt4
+                : data.value == 'settlement_status'
+                ? Settlements
                 : opt2"
               :key="item.value"
               :label="item.label"
@@ -91,6 +95,9 @@
               </span>
               <span v-else-if="tag.label == 'case_status'">
                 {{ extract2(tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'settlement_status'">
+                {{ extract3(tag.value) }}
               </span>
               <span v-else>
                 {{ tag.value }}
@@ -157,6 +164,15 @@ export default class About extends Vue {
     { label: "无律师接案", value: "Case_state_7" },
     { label: "已撤销", value: "Case_state_8" },
     { label: "已终止", value: "Case_state_9" }
+  ];
+  Settlements: any = [
+    { label: "审核中", value: "Settlement_Status_0" },
+    { label: "用户确认", value: "Settlement_Status_1" },
+    { label: "客服确认", value: "Settlement_Status_2" },
+    { label: "开票中", value: "Settlement_Status_3" },
+    { label: "结算中", value: "Settlement_Status_4" },
+    { label: "已结算", value: "Settlement_Status_5" },
+    { label: "已退款", value: "Settlement_Status_6" }
   ];
   pickerOptions: any = {
     shortcuts: [
@@ -274,6 +290,13 @@ export default class About extends Vue {
   //取值2
   extract2(val: string) {
     let data: any = this.opt4.filter((item: any) => {
+      return item.value == val;
+    });
+    return data[0].label;
+  }
+  //取值3
+  extract3(val: string) {
+    let data: any = this.Settlements.filter((item: any) => {
       return item.value == val;
     });
     return data[0].label;

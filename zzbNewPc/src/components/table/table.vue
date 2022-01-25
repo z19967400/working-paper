@@ -117,7 +117,7 @@
             size="small"
             v-if="admin"
             @click="handleAdmin(scope.$index, scope.row)"
-            >管理</el-button
+            >{{ adminName || "管理" }}</el-button
           >
           <el-button
             class="info"
@@ -209,6 +209,7 @@ export default class About extends Vue {
   @Prop({}) public load!: boolean;
   @Prop({}) public info?: boolean;
   @Prop({}) public number?: string;
+  @Prop({}) public adminName?: string;
   @Prop({ default: true }) public operation?: boolean;
   @Prop({ default: false }) public admin?: boolean;
   @Prop({ default: true }) public edit?: boolean;
