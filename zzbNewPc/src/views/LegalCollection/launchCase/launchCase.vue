@@ -182,6 +182,7 @@
               v-model="data.creditor_serch"
               size="small"
               placeholder="输入关键字搜索"
+              clearable
             >
             </el-input>
             <span>{{ scope.creditor_name }}</span>
@@ -579,7 +580,7 @@
     </el-dialog>
   </div>
 </template>
-<script lang="ts" src="./launchCase.ts"></script>
+<script lang="ts" src="./launchCase.ts" setup></script>
 
 <style lang="scss">
 @import "./launchCase.scss";

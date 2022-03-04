@@ -23,9 +23,11 @@ export default class adminList extends Vue {
   // data
   data: any = {
     loading: false,
+    loading2: false,
     list: [],
     totalize: 0,
-    height: 0
+    height: 0,
+    creditorData: []
   }
   getData: any = {
     page: 1,
@@ -48,6 +50,7 @@ export default class adminList extends Vue {
   sandPassWordShow: boolean = false
   customers: any = []
   adminEditData: any = {}
+  creditorAdminType: boolean = false
   created() {
     let Wheight: number | null = document.body.offsetHeight
     this.data.height = Wheight - 230
@@ -185,5 +188,31 @@ export default class adminList extends Vue {
         this.$message.warning(res.msg)
       }
     })
+  }
+  //债权人管理
+  creditorAdmin(row: any) {
+    this.creditorAdminType = true
+    this.data.loading2 = true
+    Api.GetCreditorByAdminId(row.id).then((res: any) => {
+      res.data.forEach((item: any) => {
+        item.create_time = item.create_time.replace('T', ' ')
+        item.create_time = item.create_time.substring(
+          0,
+          item.create_time.lastIndexOf(':')
+        )
+        item.audit_status =
+          item.audit_status === 'Audit_states_0'
+            ? '待审核'
+            : item.audit_status === 'Audit_states_1'
+            ? '未通过'
+            : '已通过'
+      })
+      this.data.creditorData = res.data
+      this.data.loading2 = false
+    })
+  }
+  //打开授权书
+  open(url: string) {
+    window.open(url)
   }
 }

@@ -82,12 +82,14 @@ export default class About extends Vue {
         { name: '创建时间', value: '', prop: 'create_time' }
       ]
     ],
-    payment: [
+    payment: {
       //支付信息
-      [{ name: '支付状态', value: '', prop: 'pay_status' }]
-      // [{ name: '支付方式', value: '' }],
-      // [{ name: '收支详情', value: '' }],
-    ],
+      pay_status: '',
+      pay_method_name: '',
+      total_amount: '',
+      paid_amount: '',
+      pay_platform_number: ''
+    },
     //执行进度
     implementList: [],
     implementOption: [
@@ -238,6 +240,22 @@ export default class About extends Vue {
   table2Loading: boolean = false
   table3Loading: boolean = false
   table4Loading: boolean = false
+  pay_methods: any = [
+    //支付方式列表
+    { name: '先催后付', type: 'Pay_Manner_0' },
+    { name: '银行转账', type: 'Pay_Manner_1' },
+    { name: '微信线上', type: 'Pay_Manner_2' },
+    { name: '支付宝线上', type: 'Pay_Manner_3' },
+    { name: '微信线下', type: 'Pay_Manner_4' },
+    { name: '支付宝线下', type: 'Pay_Manner_5' },
+    { name: '现金', type: 'Pay_Manner_6' },
+    { name: '支票', type: 'Pay_Manner_7' },
+    { name: '组合', type: 'Pay_Manner_8' },
+    { name: '其他', type: 'Pay_Manner_9' },
+    { name: '赠送', type: 'Pay_Manner_10' },
+    { name: '免费-非诉', type: 'Pay_Manner_11' },
+    { name: '免费-诉讼', type: 'Pay_Manner_12' }
+  ]
   created() {
     this.burl = baseURL
   }
@@ -425,9 +443,15 @@ export default class About extends Vue {
         this.data.creditorList[0]['admin_list'] = res.data.creditor_admin
         this.data.creditor_admin = res.data.creditor_admin
       }
-      this.data.payment[0][0].value =
+      this.data.payment.pay_status =
         res.data.overview.pay_status == 'Pay_Status_0' ? '待支付' : '已支付'
-      // this.data.payment[1][0].value = res.data.pay_method_name
+      this.data.payment.pay_method_name = this.getPayStatusName(
+        res.data.overview.pay_method
+      )
+      this.data.payment.total_amount = res.data.overview.total_amount
+      this.data.payment.paid_amount = res.data.overview.paid_amount
+      this.data.payment.pay_platform_number =
+        res.data.overview.pay_platform_number
       this.data.shenhe.audit_status = res.data.overview.audit_status
       this.data.shenhe.desc = res.data.overview.audit_feedback
       this.data.back_remarks = res.data.overview.back_remarks
@@ -686,25 +710,27 @@ export default class About extends Vue {
           let ctt: any = res.data.filter((item: any) => {
             return item.is_headers == 1
           })
-          let content: any = ctt[0].debt_content.split('╫')
-          content.forEach((item: any, index: number) => {
-            if (index == 0) {
-              let dd: any = {
-                prop: 'prop' + index,
-                label: item.split('&')[1]
-                // width: item.length * 20 + "px"
+          if (ctt.length != 0) {
+            let content: any = ctt[0].debt_content.split('╫')
+            content.forEach((item: any, index: number) => {
+              if (index == 0) {
+                let dd: any = {
+                  prop: 'prop' + index,
+                  label: item.split('&')[1]
+                  // width: item.length * 20 + "px"
+                }
+                debtDetailsOption.push(dd)
+              } else {
+                let dd: any = {
+                  prop: 'prop' + index,
+                  label: item
+                  // width: item.length * 20 + "px"
+                }
+                debtDetailsOption.push(dd)
               }
-              debtDetailsOption.push(dd)
-            } else {
-              let dd: any = {
-                prop: 'prop' + index,
-                label: item
-                // width: item.length * 20 + "px"
-              }
-              debtDetailsOption.push(dd)
-            }
-          })
-          this.data.debtDetailsOption = debtDetailsOption
+            })
+            this.data.debtDetailsOption = debtDetailsOption
+          }
         }
         if (res.data.length > 1) {
           let debtDetailsList: any = []
@@ -1343,6 +1369,18 @@ export default class About extends Vue {
       this.$router.push({
         path: `/ordinary/VipAdmin/${member_id}`
       })
+    }
+  }
+  //获取支付方式文本
+  getPayStatusName(status: string) {
+    if (status) {
+      const types: any = this.pay_methods
+      let val = types.filter((item: any) => {
+        return item.type === status
+      })
+      return val[0].name
+    } else {
+      return '暂无'
     }
   }
 }

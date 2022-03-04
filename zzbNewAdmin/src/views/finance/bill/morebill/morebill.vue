@@ -125,6 +125,7 @@
               :tabList="data.billData.push_object"
               :mType="data.billData.m_type"
               @delected="pushObjDelect"
+              @novice="novice"
             ></adminTab>
           </div>
         </div>
@@ -298,11 +299,11 @@
             <el-table border :data="data.billData.collection_info">
               <el-table-column prop="id" label="发票ID" width="80">
               </el-table-column>
-              <!-- <el-table-column prop="invoice_type" label="发票类型">
+              <el-table-column prop="invoice_type" label="发票类型">
                 <template slot-scope="scope">
                   {{ getInvoicName(scope.row.invoice_type) }}
                 </template>
-              </el-table-column> -->
+              </el-table-column>
               <el-table-column
                 prop="invoice_tax_rate"
                 label="发票税率(%)"
@@ -335,7 +336,7 @@
 
         <!-- 开票操作 -->
         <div ref="section6" class="section">
-          <span :class="{ act: data.actIndex == 7 }">
+          <span :class="{ act: data.actIndex == 6 }">
             {{ data.labers[6].name }}
             <span
               v-show="data.billData.open_invoices.length <= 0"
@@ -367,12 +368,12 @@
                   <span>{{ scope.row.invoice_amount.toLocaleString() }}</span>
                 </template>
               </el-table-column>
-              <!-- <el-table-column
+              <el-table-column
                 prop="invoice_remarks"
-                label="发票备注"
-                width="150"
+                label="打印在发票备注框中的文字"
+                width="300"
               >
-              </el-table-column> -->
+              </el-table-column>
               <el-table-column prop="billing_date" label="开票日期" width="150">
               </el-table-column>
               <el-table-column
@@ -459,7 +460,7 @@
         </div>
         <!-- 结算状态 -->
         <div ref="section7" class="section">
-          <span :class="{ act: data.actIndex == 6 }">
+          <span :class="{ act: data.actIndex == 7 }">
             {{ data.labers[7].name }}
             <span
               @click="data.SettlementType = !data.SettlementType"
@@ -673,15 +674,17 @@
         <el-button
           v-show="data.bill_file == ''"
           size="small"
-          @click="createBill"
+          @click="createBill()"
           type="primary"
           plain
           >生成账单</el-button
         >
         <el-button
-          v-show="data.bill_file != ''"
+          v-show="
+            data.bill_file != '' && data.billData.bill_type != 'Bill_Type_0'
+          "
           size="small"
-          @click="createBill"
+          @click="createBill()"
           type="primary"
           plain
           >重新生成账单</el-button
@@ -694,7 +697,11 @@
           plain
           >下载账单</el-button
         >
-        <el-button size="small" @click="delectBill" type="primary"
+        <el-button
+          size="small"
+          v-show="data.billData.bill_type != 'Bill_Type_0'"
+          @click="delectBill"
+          type="primary"
           >删除账单</el-button
         >
       </div>
@@ -807,6 +814,60 @@
         @init="init"
       ></collection>
     </el-dialog>
+    <el-dialog
+      custom-class="dowloadDialog"
+      :visible.sync="dialogVisible8"
+      title="账单文件下载"
+    >
+      <p>
+        法律服务费请款单：{{ data.bill_file ? '已生成' : '未生成' }}
+        <el-button
+          @click="createBill()"
+          style="color:#67C23A;margin-left:10px;"
+          type="text"
+          >{{ data.bill_file ? '重新生成' : '立即生成' }}</el-button
+        >
+        <el-button
+          v-show="data.bill_file"
+          @click="open(data.bill_file)"
+          style="color:#67C23A;"
+          type="text"
+          >下载</el-button
+        >
+      </p>
+      <p>
+        AI律师函服务请款单：{{ data.bill_file_ai ? '已生成' : '未生成' }}
+        <el-button
+          @click="createBill('Bill_Type_3')"
+          style="color:#67C23A;margin-left:10px;"
+          type="text"
+          >{{ data.bill_file_ai ? '重新生成' : '立即生成' }}</el-button
+        >
+        <el-button
+          @click="open(data.bill_file_ai)"
+          style="color:#67C23A;"
+          type="text"
+          v-show="data.bill_file_ai"
+          >下载</el-button
+        >
+      </p>
+      <p>
+        律师办案法律服务请款单：{{ data.bill_file_case ? '已生成' : '未生成' }}
+        <el-button
+          @click="createBill('Bill_Type_4')"
+          style="color:#67C23A;margin-left:10px;r"
+          type="text"
+          >{{ data.bill_file_case ? '重新生成' : '立即生成' }}</el-button
+        >
+        <el-button
+          v-show="data.bill_file_case"
+          @click="open(data.bill_file_case)"
+          style="color:#67C23A;"
+          type="text"
+          >下载</el-button
+        >
+      </p>
+    </el-dialog>
   </div>
 </template>
 
@@ -851,7 +912,9 @@ export default class About extends Vue {
     sendstates: [],
     editShow: false,
     id: '',
-    bill_file: '',
+    bill_file: '', //法律服务费请款单
+    bill_file_ai: '', //AI律师函请款单
+    bill_file_case: '', //律师办案请款单
     admin_id: '',
     infoData1: {},
     infoData2: {},
@@ -947,6 +1010,7 @@ export default class About extends Vue {
   dialogVisible5: boolean = false
   dialogVisible6: boolean = false
   dialogVisible7: boolean = false
+  dialogVisible8: boolean = false
   dialogName: string = ''
   height: number = 0
   settingTime: string = ''
@@ -994,9 +1058,10 @@ export default class About extends Vue {
       res.data.bill_details.settlement_status = this.getSettlementName(
         res.data.bill_details.settlement_status
       )
-      if (res.data.bill_details.bill_file) {
-        this.data.bill_file = res.data.bill_details.bill_file
-      }
+
+      this.data.bill_file = res.data.bill_details.bill_file || ''
+      this.data.bill_file_ai = res.data.bill_details.bill_file_ai || ''
+      this.data.bill_file_case = res.data.bill_details.bill_file_case || ''
       this.data.admin_id = res.data.bill_details.customer_service_admin_id
       this.data.id = res.data.bill_details.id
       res.data.bill_details.create_time = res.data.bill_details.create_time.replace(
@@ -1175,6 +1240,14 @@ export default class About extends Vue {
     } else {
       this.dialogVisible2 = true
     }
+    if (
+      this.data.billData.bill_type == 'Bill_Type_1' &&
+      this.data.billData.collection_info.length > 0
+    ) {
+      this.data.invoice_types = this.getInvoicName(
+        this.data.billData.collection_info[0].invoice_type
+      )
+    }
   }
   //结算状态转文本
   getSettlementName(str: string) {
@@ -1277,6 +1350,35 @@ export default class About extends Vue {
         this.$message.warning(res.msg)
       }
     })
+  }
+  //发送新账单通知
+  novice(row: any) {
+    let parmas: any = {
+      id: row.id,
+      bill_number: row.bill_number,
+      email: row.member_email
+    }
+    this.$confirm('确定发送新账单吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        Api.SendBillNotice(parmas).then((res: any) => {
+          if (res.state) {
+            this.$message.success(res.msg)
+            this.init()
+          } else {
+            this.$message.warning(res.msg)
+          }
+        })
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消发送'
+        })
+      })
   }
   //服务删除
   serverDelect(parmas: any) {
@@ -1390,7 +1492,7 @@ export default class About extends Vue {
     self.$router.push('/business/listbill')
   }
   //生成账单
-  createBill() {
+  createBill(type?: string) {
     if (this.settingTime == '' && this.data.billData.ai_pay.length > 0) {
       this.$message.warning('请设置结算周期')
       return false
@@ -1401,7 +1503,7 @@ export default class About extends Vue {
     // }
     let parmas: any = {
       bill_number: this.data.billData.bill_number,
-      bill_type: this.data.billData.bill_type
+      bill_type: type || this.data.billData.bill_type
     }
     Api.GenerateBillPdf(parmas).then((res: any) => {
       if (res.state) {
@@ -1414,11 +1516,15 @@ export default class About extends Vue {
   }
   //下载账单
   download() {
-    if (this.data.bill_file == '') {
-      this.$message.warning('账单尚未生成')
-      return false
+    if (this.data.billData.bill_type == 'Bill_Type_0') {
+      this.dialogVisible8 = true
+    } else {
+      if (this.data.bill_file == '') {
+        this.$message.warning('账单尚未生成')
+        return false
+      }
+      window.open(this.data.bill_file)
     }
-    window.open(this.data.bill_file)
   }
   //删除账单
   delectBill() {
@@ -1447,9 +1553,6 @@ export default class About extends Vue {
       })
   }
   getInvoicName(val: string) {
-    // eslint-disable-next-line no-console
-    console.log(val)
-
     let row: any = this.invoice_types.filter((item: any) => {
       return item.prop == val
     })
@@ -1587,6 +1690,9 @@ export default class About extends Vue {
       width: 100%;
       padding-left: 10%;
     }
+  }
+  & .dowloadDialog {
+    width: 500px !important;
   }
   & .el-dialog {
     width: 880px;

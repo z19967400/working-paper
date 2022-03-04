@@ -702,10 +702,24 @@
       >
       <el-button
         v-show="data.bill_file"
-        @click="download"
+        @click="download(data.bill_file)"
         size="small"
         type="primary"
         >下载账单</el-button
+      >
+      <el-button
+        v-show="data.bill_file_ai"
+        @click="download(data.bill_file_ai)"
+        size="small"
+        type="primary"
+        >下载AI律师函服务请款单</el-button
+      >
+      <el-button
+        v-show="data.bill_file_case"
+        @click="download(data.bill_file_case)"
+        size="small"
+        type="primary"
+        >下载律师办案法律服务请款单</el-button
       >
       <el-button size="small" @click="ApplyInvoicing" type="primary"
         >申请开票</el-button

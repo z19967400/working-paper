@@ -174,3 +174,7 @@ export const GetQuotedPriceByDebtorNumber = (debtor_number: string) => {
 export const CustomerSelectQuotedPrice = (params: any) => {
   return Api.CustomerSelectQuotedPrice(params, "GET");
 };
+//AI律师函转律师办案
+export const CreateCasesByAI = (params: any) => {
+  return Api.CreateCasesByAI(params, "POST");
+};

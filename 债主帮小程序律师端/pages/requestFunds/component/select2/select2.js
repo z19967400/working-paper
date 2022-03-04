@@ -5,6 +5,7 @@ Component({
       type: Number,
       value: '',
       observer: function (newVal, oldVal) {
+        console.log(newVal);
         this.setData({
           value1: newVal
         })
@@ -19,7 +20,7 @@ Component({
     // 这里是一个自定义方法
     onChange(e) {
       this.setData({
-        value: e.detail.value,
+        value1: e.detail.value,
       });
     },
     //取消
@@ -28,7 +29,7 @@ Component({
     },
     //下一步
     next() {
-      this.triggerEvent("getSelectVal", this.data.value);
+      this.triggerEvent("getSelectVal", this.data.value1);
     }
   }
 })

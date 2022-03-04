@@ -45,13 +45,23 @@
             <div class="text">
               <p>
                 <span>审核状态</span
-                ><span>{{
-                  data.shenhe.audit_status == "Audit_states_2"
-                    ? "已通过"
-                    : data.shenhe.audit_status == "Audit_states_1"
-                    ? "未通过"
-                    : "待审核"
-                }}</span>
+                ><span
+                  :style="{
+                    color:
+                      data.shenhe.audit_status == 'Audit_states_2'
+                        ? '#67C23A'
+                        : data.shenhe.audit_status == 'Audit_states_1'
+                        ? '#e01f3c'
+                        : '#E6A23C'
+                  }"
+                  >{{
+                    data.shenhe.audit_status == "Audit_states_2"
+                      ? "已通过"
+                      : data.shenhe.audit_status == "Audit_states_1"
+                      ? "未通过"
+                      : "待审核"
+                  }}</span
+                >
               </p>
               <p v-show="data.shenhe.desc != null">
                 <span>审核反馈</span><span>{{ data.shenhe.desc }}</span>
@@ -189,6 +199,16 @@
         @click="termination"
         type="primary"
         >终止执行
+      </el-button>
+      <el-button
+        size="small"
+        v-show="
+          data.BasicInfo[0][1].value == '企业应收账款' ||
+            data.BasicInfo[0][1].value == '逾期贷款'
+        "
+        @click="CreateCasesByAI"
+        type="primary"
+        >发起律师办案
       </el-button>
     </div>
     <div class="zhezhao" @click="reportShow = false" v-show="reportShow"></div>
@@ -345,7 +365,9 @@ export default class About extends Vue {
       //审核反馈
       desc: "",
       audit_status: "" //审核状态
-    }
+    },
+    obligorType: "", //债务人类别
+    creditor_id: "" //债权人ID
   };
   dialogVisible: boolean = false;
   height: number = 0;
@@ -390,6 +412,9 @@ export default class About extends Vue {
     let self: any = this;
     self.height = document.body.offsetHeight - 208;
     this.init();
+    if (self.$route.query.name === "执行进度") {
+      self.laberClick(1);
+    }
   }
 
   beforeDestroy() {
@@ -422,6 +447,7 @@ export default class About extends Vue {
         this.data.implementList = res.data.task_list;
         this.execution_progress = res.data.overview.execution_progress;
         this.executing_status = res.data.overview.executing_status;
+        this.data.creditor_id = res.data.overview.creditor_id;
         if (
           this.execution_progress == "已终止" ||
           this.execution_progress == "已撤销"
@@ -580,6 +606,7 @@ export default class About extends Vue {
   //债务人表头信息填充
   setObligorOption(res: any) {
     let obligorType: string = res.data.debtor.debtor_type; //债务人类别
+    this.data.obligorType = obligorType;
     let debtorType: string = res.data.debtor.entrust_type; //债务类别
     let variable: any = [];
     let constant: any = [
@@ -795,9 +822,6 @@ export default class About extends Vue {
   }
   //打开详情弹窗
   openInfo(data: any) {
-    // eslint-disable-next-line no-console
-    console.log(data);
-
     let debtor_number = this.data.BasicInfo[0][0].value;
     let ai_task_code = data.task_code;
     this.data.infoTitle = data.task_name;
@@ -930,6 +954,19 @@ export default class About extends Vue {
   //打开EMs官网
   openEms() {
     window.open("https://www.ems.com.cn/");
+  }
+  //AI律师函转律师办案
+  CreateCasesByAI() {
+    let self: any = this;
+    self.$router.push({
+      path: "/LawyerLawUrging/apply",
+      query: {
+        type: self.data.BasicInfo[0][1].value,
+        obligorType: self.data.obligorType,
+        creditor_id: self.data.creditor_id,
+        debtor_number: self.data.BasicInfo[0][0].value
+      }
+    });
   }
 }
 </script>

@@ -301,3 +301,15 @@ export const LawyerAudit = (parmas: any) => {
 export const GetVIPAdminPagingData = (parmas: any) => {
   return Api.GetVIPAdminPagingData(parmas, 'GET')
 }
+//根据管理员id获取债权人
+export const GetCreditorByAdminId = (id: any) => {
+  return Api.GetCreditorByAdminId({ admin_id: id }, 'GET')
+}
+//债权人管理分页数据
+export const GetCreditorPagingData = (parmas: any) => {
+  return Api.GetCreditorPagingData(parmas, 'GET')
+}
+//根据债权人ID获取管路员列表
+export const GetCreditorAdminByCreditorId = (creditor_id: number) => {
+  return Api.GetCreditorAdminByCreditorId({ creditor_id }, 'GET')
+}

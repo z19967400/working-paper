@@ -63,9 +63,9 @@
           </el-radio-group>
         </el-col>
       </el-row>
-      <!-- 收款通道 -->
-      <!-- <el-row type="flex" align="middle">
-        <el-col :span="2" align="left">收款通道</el-col>
+      <!-- 收款信息 -->
+      <el-row type="flex" align="middle">
+        <el-col :span="2" align="left">收款信息</el-col>
         <el-col style="margin-right:30px;" :span="4">
           <div @click="openShouKuang" class="select-zz">
             <span>{{ selectTicket }}</span>
@@ -73,9 +73,16 @@
           </div>
         </el-col>
         <el-col :span="3">
-          <el-button type="primary" size="small" icon="el-icon-circle-plus-outline" plain @click="data.addCollectionDialogVisible = true">新增收款通道</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            icon="el-icon-circle-plus-outline"
+            plain
+            @click="data.addCollectionDialogVisible = true"
+            >新增收款信息</el-button
+          >
         </el-col>
-      </el-row> -->
+      </el-row>
       <!-- 发函方式 -->
       <!-- <el-row type="flex" align="middle">
         <el-col :span="2" align="left">发函方式</el-col>
@@ -258,6 +265,7 @@
               v-model="data.creditor_serch"
               size="small"
               placeholder="输入关键字搜索"
+              clearable
             >
             </el-input>
             <span>{{ scope.creditor_name }}</span>
@@ -404,9 +412,9 @@
       ></addForms>
     </el-dialog>
 
-    <!-- 选择收款通道 弹框 -->
+    <!-- 选择收款信息 弹框 -->
     <el-dialog
-      title="选择收款通道"
+      title="选择收款信息"
       :visible.sync="data.collectionDialogVisible"
     >
       <el-table
@@ -417,7 +425,7 @@
       >
         <!-- <el-table-column fixed prop="id" label="ID" width="50">
         </el-table-column> -->
-        <!-- <el-table-column prop="payment_channel_name" label="收款通道名称" width="120">
+        <!-- <el-table-column prop="payment_channel_name" label="收款信息名称" width="120">
         </el-table-column> -->
         <el-table-column prop="contacts_name" label="联系人" width="120">
         </el-table-column>
@@ -458,9 +466,9 @@
       </span>
     </el-dialog>
 
-    <!-- 新增收款通道 -->
+    <!-- 新增收款信息 -->
     <el-dialog
-      title="新增收款通道"
+      title="新增收款信息"
       :visible.sync="data.addCollectionDialogVisible"
     >
       <!-- <shoukuan-form ref="reference" @listenaddid="addcollid"></shoukuan-form> -->
@@ -471,7 +479,7 @@
         :rules="data.addCollectionRuleForm"
         ref="addRuleRef"
       >
-        <!-- <el-form-item label="收款通道名称" prop="payment_channel_name">
+        <!-- <el-form-item label="收款信息名称" prop="payment_channel_name">
           <el-col :span="22">
             <el-input v-model="collectList.payment_channel_name"></el-input>
           </el-col>

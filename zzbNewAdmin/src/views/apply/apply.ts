@@ -43,7 +43,8 @@ export default class apply extends Vue {
     dataType: [
       {
         label: 'ID',
-        prop: 'id'
+        prop: 'id',
+        width: '80'
       },
       {
         label: '公司企业名称',
@@ -51,11 +52,13 @@ export default class apply extends Vue {
       },
       {
         label: '联系人',
-        prop: 'contacts_name'
+        prop: 'contacts_name',
+        width: '80'
       },
       {
         label: '联系人电话',
-        prop: 'phone_number'
+        prop: 'phone_number',
+        width: '150'
       },
       {
         label: '邮箱',
@@ -63,11 +66,17 @@ export default class apply extends Vue {
       },
       {
         label: '所属行业',
-        prop: 'industry'
+        prop: 'industry',
+        width: '120'
       },
       {
         label: '需求描述',
         prop: 'requirement_desc'
+      },
+      {
+        label: '申请时间',
+        prop: 'create_time',
+        width: '150'
       },
       {
         label: '后台备注',

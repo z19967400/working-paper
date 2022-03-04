@@ -229,7 +229,7 @@
               <el-col :span="10">
                 <div style="line-height: 1.5;">
                   <span
-                    style="font-size:12px;color:#606366;display:block;position: relative;top:-27px;"
+                    style="font-size:12px;color:#606366;display:block;position: relative;top:-27px;letter-spacing: 1px;"
                     >请完成所有内容的填写并加盖公章后上传,文件大小不超过50M,仅支持上传jpg/jpeg/png/pdf格式</span
                   >
                   <!-- <el-link style="font-size:12px;" @click="upSq" type="success"
@@ -397,7 +397,7 @@
             <el-button @click="close">取消</el-button>
           </div>
           <div v-if="data.step == 2">
-            <el-button @click="data.step = 1">上一步</el-button>
+            <el-button @click="data.step = 0">上一步</el-button>
             <el-button
               :loading="data.submitType"
               type="primary"
@@ -776,14 +776,25 @@ export default class About extends Vue {
     return isLt2M && isJPG;
   }
   beforeAvatarUpload2(file: any) {
+    // eslint-disable-next-line no-console
+    console.log(file);
+
     let self: any = this;
     self.loading2 = true;
     const isLt2M = file.size / 1024 / 1024 <= 50;
+    const isJPG =
+      file.type === "image/jpeg" ||
+      file.type === "image/jpg" ||
+      file.type === "image/png" ||
+      file.type === "application/pdf";
     if (!isLt2M) {
       self.loading2 = false;
-      self.$message.error("上传头像图片大小不能超过 50MB!", 4000);
+      self.$message.error("上传图片大小不能超过 50MB!", 4000);
     }
-    return isLt2M;
+    if (!isJPG) {
+      self.$message.error("图片只能是 JPG/JPEG/PNG/PDF 格式!", 4000);
+    }
+    return isLt2M && isJPG;
   }
   //重置表
   resetForm(formName: string) {

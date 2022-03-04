@@ -51,9 +51,19 @@
               :key="index"
               class="text"
             >
-              <p v-for="(item2, index2) in item" :key="index2">
+              <p
+                v-show="item2.value"
+                v-for="(item2, index2) in item"
+                :key="index2"
+              >
                 <span>{{ item2.name }}</span>
-                <span>{{ item2.value }}</span>
+                <el-link
+                  @click="$router.push(`/detailed/${item2.value}`)"
+                  v-if="item2.prop === 'ai_number'"
+                  type="success"
+                  >{{ `AI律师函(${item2.value})` }}</el-link
+                >
+                <span v-else>{{ item2.value }}</span>
               </p>
             </div>
           </div>

@@ -54,7 +54,10 @@ export default class About extends Vue {
         { name: "案件状态", value: "", prop: "case_status" },
         { name: "创建时间", value: "", prop: "entrust_time" }
       ],
-      [{ name: "债务类别", value: "", prop: "collection_scene" }]
+      [
+        { name: "债务类别", value: "", prop: "collection_scene" },
+        { name: "委托记录", value: "", prop: "ai_number" }
+      ]
     ],
     //办案事项
     case_matters_name: [],
@@ -303,9 +306,7 @@ export default class About extends Vue {
   mounted() {
     let self: any = this;
     self.height = document.body.offsetHeight - 208;
-    setTimeout(() => {
-      this.init();
-    }, 1000);
+    this.init();
   }
 
   beforeDestroy() {
@@ -362,6 +363,8 @@ export default class About extends Vue {
                 0,
                 res.data.case_daetails[item2.prop].lastIndexOf(":")
               );
+            } else if (item2.prop === "ai_number") {
+              item2.value = res.data.case_debtor.ai_number;
             } else {
               item2.value = res.data.case_daetails[item2.prop];
             }

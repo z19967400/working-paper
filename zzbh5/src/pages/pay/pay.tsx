@@ -14,7 +14,6 @@ import Alert from '../../components/Toast/Alert'
 declare global {
   interface Window { wx: any; }
 }
-
 interface tasksItem{
   send_time:string
   task_type:Number
@@ -177,6 +176,7 @@ class Pay extends React.Component<any,PayState>{
         return false
       }
       //获取微信所需配置
+      Toast.loading('加载中...',0)
       let path:string = window.location.href
       const _this = this
       GetWeChatConfig(path).then((res:any) =>{

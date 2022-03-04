@@ -65,7 +65,7 @@
             </el-switch>
           </div>
           <div v-if="item.label == '执行进度'" class="cell">
-            <span @click="handleInfo(scope.$index, scope.row)">
+            <span @click="handleInfo(scope.$index, scope.row, '执行进度')">
               <el-link
                 :underline="false"
                 :class="{ info: scope.row[item.prop] == '执行中' }"
@@ -384,10 +384,11 @@ export default class About extends Vue {
       });
   }
   //详情
-  handleInfo(index: number, row: object) {
+  handleInfo(index: number, row: object, name: string) {
     let params: any = {
       index,
-      row
+      row,
+      name
     };
     this.$emit("Info", params);
   }

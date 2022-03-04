@@ -5,6 +5,7 @@
       @selection-change="handleSelectionChange"
       :data="data.list"
       border
+      :max-height="500"
     >
       <el-table-column prop="id" label="管理员ID" width="80"> </el-table-column>
       <el-table-column prop="admin_name" label="管理员真实姓名">

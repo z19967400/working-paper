@@ -58,7 +58,7 @@
             <span>{{ tiemStr(scope.row.create_time) }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" align="center" label="操作" width="150">
+        <el-table-column fixed="right" align="center" label="操作" width="220">
           <template slot-scope="scope">
             <el-button
               style="color:#E6A23C;"
@@ -66,6 +66,13 @@
               type="text"
               size="small"
               >编辑</el-button
+            >
+            <el-button
+              @click="creditorAdmin(scope.row)"
+              type="text"
+              style="color:#409EFF;"
+              size="small"
+              >债权人管理</el-button
             >
             <el-button
               style="color:#67C23A;"
@@ -194,6 +201,65 @@
           <el-button @click="adminEditType = !adminEditType">取消</el-button>
         </div>
       </el-form>
+    </el-dialog>
+    <el-dialog
+      custom-class="creditorDialog2"
+      title="债权人管理"
+      :visible.sync="creditorAdminType"
+      center
+    >
+      <el-table
+        v-loading="data.loading2"
+        border
+        style="width: 100%"
+        :data="data.creditorData"
+      >
+        <el-table-column align="center" prop="id" label="ID" width="80">
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="creditor_name"
+          label="债权人名称"
+          width="250"
+        >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="authorization_file"
+          label="授权书"
+          width="80"
+        >
+          <template slot-scope="scope">
+            <el-button
+              @click="open(scope.row.authorization_file)"
+              style="color:#67C23A;"
+              type="text"
+              >查看</el-button
+            >
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="audit_status"
+          label="审核状态"
+          width="120"
+        >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="create_name"
+          label="创建人"
+          width="280"
+        >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="create_time"
+          label="创建时间"
+          width="180"
+        >
+        </el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>

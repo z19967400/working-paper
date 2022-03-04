@@ -38,7 +38,7 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="120">
+        <el-table-column fixed="right" label="操作" width="180">
           <template slot-scope="scope">
             <el-button
               @click="editClick(scope.row)"
@@ -46,6 +46,15 @@
               type="text"
               size="small"
               >编辑</el-button
+            >
+            <el-button
+              @click="notice(scope.row.id)"
+              style="color:#67C23A;"
+              type="text"
+              size="small"
+              >{{
+                scope.row.is_notice == 0 ? '发送通知' : '再次通知'
+              }}</el-button
             >
             <el-button
               @click="deleteClick(scope.row)"
@@ -342,6 +351,17 @@ export default class About extends Vue {
           type: 'error',
           message: res.msg
         })
+      }
+    })
+  }
+  //发送通知
+  notice(id: number) {
+    Api.SendFeedbackNotice(id).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg)
+        this.$emit('init')
+      } else {
+        this.$message.warning(res.msg)
       }
     })
   }

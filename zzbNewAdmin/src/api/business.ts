@@ -509,3 +509,7 @@ export const SendQuotedPrice = (parmas: any) => {
 export const CustomerSelectQuotedPrice = (parmas: any) => {
   return Api.CustomerSelectQuotedPrice(parmas, 'GET')
 }
+//发送债务反馈通知至客户
+export const SendFeedbackNotice = (id: any) => {
+  return Api.SendFeedbackNotice({ id }, 'GET')
+}

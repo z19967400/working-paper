@@ -15,9 +15,12 @@ export default class About extends Vue {
   @Action GET_DATA_ASYN: any
 
   // data
-  data: IndexData = {
+  data: any = {
     pageName: 'index',
-    chart: null
+    chart1: null,
+    chart2: null,
+    chart3: null,
+    workList: 10
   }
 
   created() {
@@ -33,208 +36,257 @@ export default class About extends Vue {
 
   // 初始化函数
   init() {
-    this.initChart()
+    this.initChart1()
+    this.initChart2()
+    this.initChart3()
   }
-
-  initChart() {
-    let chartHtml: any = document.getElementById('chart')
-    this.data.chart = echarts.init(chartHtml)
-    this.data.chart.setOption({
-      backgroundColor: '#394056',
+  //过去十二个月AI律师函委托数量统计
+  initChart1() {
+    let chartHtml: any = document.getElementById('chart1')
+    this.data.chart1 = echarts.init(chartHtml)
+    this.data.chart1.setOption({
+      color: ['#3398DB'],
       title: {
-        top: 20,
-        text: 'Requests',
+        text: 'AI律师函委托数量统计（过去12个月）',
+        left: '10px',
+        top: '10px',
         textStyle: {
-          fontWeight: 'normal',
-          fontSize: 16,
-          color: '#F1F1F3'
-        },
-        left: '1%'
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { lineStyle: { color: '#57617B' } }
-      },
-      legend: {
-        top: 20,
-        icon: 'rect',
-        itemWidth: 14,
-        itemHeight: 5,
-        itemGap: 13,
-        data: ['CMCC', 'CTCC', 'CUCC'],
-        right: '4%',
-        textStyle: { fontSize: 12, color: '#F1F1F3' }
+          fontSize: '14'
+        }
       },
       grid: {
-        top: 100,
-        left: '2%',
-        right: '2%',
-        bottom: '2%',
+        left: '60px',
+        right: '60px',
+        top: '80px',
+        bottom: '30px',
         containLabel: true
       },
-      xAxis: [
+      xAxis: {
+        type: 'category',
+        name: '日期',
+        data: this.getAllData(),
+        axisTick: {
+          alignWithLabel: true
+        }
+      },
+      yAxis: {
+        type: 'value',
+        name: '数量'
+      },
+      series: [
         {
-          type: 'category',
-          boundaryGap: false,
-          axisLine: { lineStyle: { color: '#57617B' } },
-          data: [
-            '13:00',
-            '13:05',
-            '13:10',
-            '13:15',
-            '13:20',
-            '13:25',
-            '13:30',
-            '13:35',
-            '13:40',
-            '13:45',
-            '13:50',
-            '13:55'
-          ]
+          data: [120, 200, 150, 80, 70, 110, 130, 800, 500, 400, 132, 250],
+          type: 'bar'
         }
       ],
-      yAxis: [
+      tooltip: {
+        show: true,
+        trigger: 'item',
+        triggerOn: 'mousemove'
+      }
+    })
+  }
+  initChart2() {
+    let chartHtml: any = document.getElementById('chart2')
+    this.data.chart2 = echarts.init(chartHtml)
+    this.data.chart2.setOption({
+      title: {
+        text: '执行结果统计',
+        left: 'center',
+        bottom: '20px'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+
+      series: [
         {
-          type: 'value',
-          name: '(%)',
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#57617B'
-            }
-          },
-          axisLabel: { margin: 10, textStyle: { fontSize: 14 } },
-          splitLine: {
-            lineStyle: {
-              color: '#57617B'
+          // name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: 1048, name: '审核未通过' },
+            { value: 735, name: '已撤销' },
+            { value: 580, name: '已终止' },
+            { value: 484, name: '已完成' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
           }
+        }
+      ]
+    })
+  }
+  initChart3() {
+    let chartHtml: any = document.getElementById('chart3')
+    this.data.chart3 = echarts.init(chartHtml)
+    this.data.chart3.setOption({
+      title: [
+        {
+          text: '首次催收短信',
+          left: '20%',
+          top: '10%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '首次催收电话',
+          left: '45%',
+          top: '10%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '电子邮件催款函',
+          left: '70%',
+          top: '10%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '电子邮件律师函',
+          left: '9.5%',
+          bottom: '50%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: 'EMS律师函',
+          left: '34%',
+          bottom: '50%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '电子邮件律师函',
+          left: '57%',
+          bottom: '50%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '电子邮件律师函',
+          left: '79.5%',
+          bottom: '50%',
+          textStyle: {
+            color: '#606366',
+            fontSize: 12
+          }
+        },
+        {
+          text: '催收任务结果统计',
+          left: 'center',
+          bottom: '20px'
         }
       ],
       series: [
         {
-          name: 'CMCC',
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          lineStyle: { normal: { width: 1 } },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: 'rgba(137, 189, 27, 0.3)'
-                  },
-                  {
-                    offset: 0.8,
-                    color: 'rgba(137, 189, 27, 0)'
-                  }
-                ],
-                false
-              ),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'rgb(137,189,27)',
-              borderColor: 'rgba(137,189,2,0.27)',
-              borderWidth: 12
-            }
-          },
-          data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
+          type: 'pie',
+          radius: 50,
+          center: ['25%', '30%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
         },
         {
-          name: 'CTCC',
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          lineStyle: { normal: { width: 1 } },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: 'rgba(0, 136, 212, 0.3)'
-                  },
-                  {
-                    offset: 0.8,
-                    color: 'rgba(0, 136, 212, 0)'
-                  }
-                ],
-                false
-              ),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'rgb(0,136,212)',
-              borderColor: 'rgba(0,136,212,0.2)',
-              borderWidth: 12
-            }
-          },
-          data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+          type: 'pie',
+          radius: 50,
+          center: ['50%', '30%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
         },
         {
-          name: 'CUCC',
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          lineStyle: { normal: { width: 1 } },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: 'rgba(219, 50, 51, 0.3)'
-                  },
-                  {
-                    offset: 0.8,
-                    color: 'rgba(219, 50, 51, 0)'
-                  }
-                ],
-                false
-              ),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'rgb(219,50,51)',
-              borderColor: 'rgba(219,50,51,0.2)',
-              borderWidth: 12
-            }
-          },
-          data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+          type: 'pie',
+          radius: 50,
+          center: ['75%', '30%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
+        },
+        {
+          type: 'pie',
+          radius: 50,
+          center: ['15%', '65%'],
+          name: '0000',
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
+        },
+        {
+          type: 'pie',
+          radius: 50,
+          center: ['38%', '65%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
+        },
+        {
+          type: 'pie',
+          radius: 50,
+          center: ['62%', '65%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
+        },
+        {
+          type: 'pie',
+          radius: 50,
+          center: ['85%', '65%'],
+          data: [
+            // 数据数组，name 为数据项名称，value 为数据项值
+            { value: 235, name: '失败' },
+            { value: 274, name: '成功' }
+          ]
         }
       ]
     })
+  }
+  //获取过去十二个月份
+  getAllData() {
+    var dataArr: any = []
+    var data: Date = new Date()
+    var year: any = data.getFullYear()
+    data.setMonth(data.getMonth() + 1, 1) //获取到当前月份,设置月份
+    for (var i = 0; i < 12; i++) {
+      data.setMonth(data.getMonth() - 1) //每次循环一次 月份值减1
+      var m: any = data.getMonth() + 1
+      m = m < 10 ? '0' + m : m
+      dataArr.push(data.getFullYear() + '-' + m)
+    }
+    return dataArr.reverse()
+  }
+  //千位符
+  Thousand(num: number | string) {
+    let val: string = Number(num).toLocaleString()
+    return val
   }
 }

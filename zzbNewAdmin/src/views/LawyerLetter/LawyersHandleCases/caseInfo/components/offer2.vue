@@ -271,7 +271,7 @@
                       size="mini"
                       type="primary"
                       @click="data.dialogVisible3 = true"
-                      >客服替客户选择报价模式</el-button
+                      >用户委托债主帮客服代为操作</el-button
                     >
                   </div>
                   <div v-else>
@@ -339,13 +339,13 @@
               <span>
                 欠款本金：
                 {{ data.CaseQuoted.currency_name }}
-                {{ this.ce(data.CaseQuoted.arrears_principal) }}
+                {{ this.ce2(data.CaseQuoted.arrears_principal) }}
                 {{ data.CaseQuoted.currency_unit }}
               </span>
               <span style="margin-left:20px;">
                 违约金/利息/滞纳金：
                 {{ data.CaseQuoted.currency_name }}
-                {{ this.ce(data.CaseQuoted.arrears_interest) }}
+                {{ this.ce2(data.CaseQuoted.arrears_interest) }}
                 {{ data.CaseQuoted.currency_unit }}
               </span>
               <span style="float:right;">

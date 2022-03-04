@@ -388,3 +388,8 @@ export const AddCollectionInfoV2 = (parmas: any) => {
 export const DeleteMemberCollectionById = (id: any) => {
   return Api.DeleteMemberCollectionById({ id }, 'GET')
 }
+
+//删除律所收款信息
+export const SendBillNotice = (parmas: any) => {
+  return Api.SendBillNotice(parmas, 'GET')
+}

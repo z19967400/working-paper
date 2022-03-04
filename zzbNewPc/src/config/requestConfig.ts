@@ -127,5 +127,6 @@ export default {
   UpdateTicketAddress: "/api/pt/Finance/UpdateTicketAddress", //新增更新收票信息
   ApplyInvoicing: "api/pt/Finance/ApplyInvoicing", //账单申请开票
   DeleteInvoice: "api/pt/Finance/DeleteInvoice", //删除发票
-  DeleteTicketAddress: "api/pt/Finance/DeleteTicketAddress" //删除收票
+  DeleteTicketAddress: "api/pt/Finance/DeleteTicketAddress", //删除收票
+  CreateCasesByAI: "api/pt/Cases/CreateCasesByAI" //AI律师函转律师办案
 };

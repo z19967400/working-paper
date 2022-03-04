@@ -108,9 +108,15 @@
             src="../../assets/images/layout/7@3x.png"
             alt=""
           />
-          <router-link to="/manual/manual"
-            ><img src="https://file.debteehelper.com/weapp-img/czsc.png" alt=""
-          /></router-link>
+          <!-- <router-link to="/manual/manual"> -->
+          <img
+            @click="
+              toPage('https://file.debteehelper.com/help/操作手册.zip', -1)
+            "
+            src="https://file.debteehelper.com/weapp-img/czsc.png"
+            alt=""
+          />
+          <!-- </router-link> -->
         </div>
       </div>
       <!-- <div class="footer">

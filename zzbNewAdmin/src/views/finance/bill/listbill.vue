@@ -6,7 +6,7 @@
       @clear="clearSelection"
     ></comselect>
     <comOperation :totalize="data.totalize" @add="add"></comOperation>
-    <el-row type="flex" justify="">
+    <el-row type="flex" class="button" justify="">
       <el-col :span="5">
         <el-button type="primary" size="mini" @click="addailist"
           >新增账单</el-button

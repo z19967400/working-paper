@@ -40,6 +40,7 @@ Component({
   data: {
     // 这里是一些组件内部数据
     show: false,
+    show2: false,
     currency_name: '',
     arrList: [],
     FxRiskFee: '', //风险律师费率
@@ -88,7 +89,7 @@ Component({
     //下一步
     next() {
       if (this.data.lawyerFee == 0) {
-        Toast('请先重新计算')
+        Toast('请先计算律师费')
         return false
       }
       this.triggerEvent("getSelectVal", this.data.parmas);
@@ -110,7 +111,8 @@ Component({
       }
       let prime = this.data.parmas.collection_amount * (this.data.FxRiskFee * 0.01)
       this.setData({
-        lawyerFee: prime.toFixed(2)
+        lawyerFee: prime.toFixed(2),
+        show2: true
       })
     },
     //备注输入监听

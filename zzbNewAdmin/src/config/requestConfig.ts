@@ -386,5 +386,10 @@ export default {
   GetVIPAdminPagingData: '/MemberV2/GetVIPAdminPagingData', //获取管理员分页数据
   GetMemberCollectionPagingData: '/Bill/GetMemberCollectionPagingData', //律所收款信息分页数据
   AddCollectionInfoV2: '/Bill/AddCollectionInfoV2', //新增或编辑用户收款信息
-  DeleteMemberCollectionById: '/Bill/DeleteMemberCollectionById' //删除律所收款信息
+  DeleteMemberCollectionById: '/Bill/DeleteMemberCollectionById', //删除律所收款信息
+  SendFeedbackNotice: '/DebtorFeedback/SendFeedbackNotice', //发送债务反馈通知至客户
+  SendBillNotice: '/Bill/SendBillNotice', //发送账单通知
+  GetCreditorByAdminId: '/MemberV2/GetCreditorByAdminId', //根据管理员id获取债权人
+  GetCreditorPagingData: '/CreditorV2/GetCreditorPagingData', //债权人管理分页数据
+  GetCreditorAdminByCreditorId: '/MemberV2/GetCreditorAdminByCreditorId' //根据债权人ID获取管理员列表
 }

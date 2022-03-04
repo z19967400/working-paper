@@ -260,13 +260,13 @@ export default class About extends Vue {
               let val: string = res.data[item.prop].replace('T', ' ')
               item.value = val.substring(0, val.lastIndexOf(':'))
             } else if (item.prop === 'pay_method') {
-              if (res.data.pay_platform_number) {
-                item.value = `${this.getPayStatusName(res.data[item.prop])}(${
-                  res.data.pay_platform_number
-                })`
-              } else {
-                item.value = `${this.getPayStatusName(res.data[item.prop])}`
-              }
+              // if (res.data.pay_platform_number) {
+              //   item.value = `${this.getPayStatusName(res.data[item.prop])}(${
+              //     res.data.pay_platform_number
+              //   })`
+              // } else {
+              item.value = `${this.getPayStatusName(res.data[item.prop])}`
+              // }
             } else if (item.prop === 'business_type') {
               item.value =
                 res.data[item.prop] === 'Entrust_type_0'

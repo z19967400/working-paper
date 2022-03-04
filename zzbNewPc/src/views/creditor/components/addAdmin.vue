@@ -410,9 +410,10 @@ export default class addAdmin extends Vue {
     let self: any = this;
     self.loading = true;
     const isLt2M = file.size / 1024 / 1024 <= 50;
+
     if (!isLt2M) {
       self.loading = false;
-      self.$message.error("上传头像图片大小不能超过 50MB!");
+      self.$message.error("上传图片大小不能超过 50MB!");
     }
     return isLt2M;
   }

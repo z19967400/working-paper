@@ -101,6 +101,9 @@ export default class About extends Vue {
           item.bill_settled_amount
         );
       });
+      // eslint-disable-next-line no-console
+      console.log(res.data);
+
       data.totalize = res.total;
     });
   }
@@ -112,16 +115,11 @@ export default class About extends Vue {
     });
   }
   //搜索
-  search(data: any) {
+  search() {
     let self: any = this;
     self.data.loading = true;
     self.options.page = 1;
     let params: any = Object.assign({}, self.options);
-    data.forEach((item: any) => {
-      let name: string = item.label;
-      params[name] = item.value;
-    });
-    self.data.select = params;
     this.getList(params);
   }
   //清除搜索项
@@ -142,10 +140,7 @@ export default class About extends Vue {
   //分页
   watchChange(index: number) {
     let self: any = this;
-    let params: any =
-      JSON.stringify(self.data.select) == "{}"
-        ? self.options
-        : self.data.select;
+    let params: any = self.options;
     params.page = index;
     self.init();
   }

@@ -27,7 +27,7 @@
             <span class="title">委托概况</span>
           </span>
           <el-divider></el-divider>
-          <div class="box">
+          <div class="box teshu">
             <div
               v-for="(item, index) in data.BasicInfo"
               :key="index"
@@ -353,24 +353,31 @@
           </span>
           <el-divider></el-divider>
           <div class="box">
-            <div
-              v-for="(item, index) in data.payment"
-              :key="index"
-              class="text"
+            <el-descriptions
+              style="width:100%;"
+              direction="vertical"
+              :column="6"
+              border
             >
-              <p v-for="(item2, index2) in item" :key="index2">
-                <span>{{ item2.name }}</span>
-                <span v-if="item2.name != '收支详情'">{{ item2.value }}</span>
-                <el-button
-                  v-if="item2.name == '收支详情'"
-                  class="info"
-                  size="small"
-                  type="text"
-                  @click="paymentInfo($route.params.id)"
-                  >查看</el-button
-                >
-              </p>
-            </div>
+              <el-descriptions-item label="支付状态">{{
+                data.payment.pay_status
+              }}</el-descriptions-item>
+              <el-descriptions-item label="总金额">{{
+                data.payment.total_amount
+              }}</el-descriptions-item>
+              <el-descriptions-item label="应付金额">{{
+                data.payment.paid_amount
+              }}</el-descriptions-item>
+              <el-descriptions-item label="支付方式">
+                {{ data.payment.pay_method_name }}
+              </el-descriptions-item>
+              <el-descriptions-item label="流水号">
+                {{ data.payment.pay_platform_number }}</el-descriptions-item
+              >
+              <el-descriptions-item label="账单编号">
+                {{ $route.params.id }}</el-descriptions-item
+              >
+            </el-descriptions>
           </div>
         </div>
         <div ref="section8" class="section">
@@ -399,7 +406,7 @@
                 <el-input
                   style="width:80%;"
                   type="textarea"
-                  :rows="5"
+                  :rows="8"
                   v-model="data.shenhe.desc"
                 ></el-input>
               </el-form-item>
@@ -418,10 +425,10 @@
           <el-divider></el-divider>
           <div style="flex-wrap: wrap;" class="box">
             <el-row style="width:100%;margin-bottom:20px;">
-              <el-col :span="18">
+              <el-col :span="24">
                 <el-input
                   type="textarea"
-                  :rows="5"
+                  :rows="15"
                   v-model="data.back_remarks"
                 ></el-input>
               </el-col>
@@ -612,10 +619,19 @@
             margin-left: 10px;
           }
         }
+
         .box {
           display: flex;
-          .text {
+          .text:nth-child(1) {
+            width: 23.33%;
+          }
+          .text:nth-child(2) {
+            width: 43.33%;
+          }
+          .text:nth-child(3) {
             width: 33.33%;
+          }
+          .text {
             p {
               color: $General-colors;
               font-size: 14px;

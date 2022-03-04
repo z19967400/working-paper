@@ -163,6 +163,18 @@ export const routes = [
         }
       },
       {
+        path: "/LawyerLawUrging/apply",
+        name: "apply",
+        ismenu: false,
+        component: () => import("@/views/LegalCollection/apply/apply.vue"),
+        meta: {
+          icon: "",
+          keepAlive: false,
+          title: "律师函转办案",
+          index: "3-1"
+        }
+      },
+      {
         path: "/LawyerLawUrging/caseAdmin",
         name: "caseAdmin",
         ismenu: true,

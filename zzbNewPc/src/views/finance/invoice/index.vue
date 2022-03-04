@@ -113,7 +113,7 @@
         <el-table-column prop="detailed_address" label="收票人地址">
         </el-table-column>
         <el-table-column prop="email" label="收票人电子邮箱"> </el-table-column>
-        <el-table-column prop="create_time" label="创建人"> </el-table-column>
+        <el-table-column prop="create_name" label="创建人"> </el-table-column>
         <el-table-column prop="create_time" label="创建时间"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="120px">
           <template slot-scope="scope">
@@ -222,18 +222,18 @@
           <el-form-item label="收票人地址" prop="email">
             <el-input
               style="width:280px"
-              v-model="data.addTicketData.email"
+              v-model="data.addTicketData.detailed_address"
             ></el-input>
           </el-form-item>
           <el-form-item label="收票人电子邮箱" prop="detailed_address">
             <el-input
               style="width:280px"
-              v-model="data.addTicketData.detailed_address"
+              v-model="data.addTicketData.email"
             ></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="data.outerVisible = false">取 消</el-button>
+          <el-button @click="handleClose">取 消</el-button>
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </el-dialog>

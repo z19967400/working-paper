@@ -899,6 +899,20 @@ export const asyncRoute = [
               isTag: true,
               isBread: true
             }
+          },
+          {
+            path: '/ordinary/creditor',
+            name: 'ordinary/creditor',
+            ismenu: true,
+            component: () => import('@/views/ordinary/creditor.vue'),
+            meta: {
+              icon: '',
+              keepAlive: true,
+              title: '债权人管理',
+              index: '3-1-3',
+              isTag: true,
+              isBread: true
+            }
           }
         ]
       },

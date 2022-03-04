@@ -259,8 +259,11 @@ export default class About extends Vue {
   handleInfo(data: any) {
     let self: any = this;
     let id: any = data.row.debtor_number;
-    this.$router.push({
-      path: `/detailed/${id}`
+    self.$router.push({
+      path: `/detailed/${id}`,
+      query: {
+        name: data.name
+      }
     });
   }
   //删除

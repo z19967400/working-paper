@@ -57,7 +57,7 @@
                 <view class="item-box-header">
                   <text wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}">风险律师费</text>
                   <text wx:if="{{item.business_type === 'Entrust_type_6'||item.business_type === 'Entrust_type_8'}}">固定律师费</text>
-                  <text>2021-09-09 11:11</text>
+                  <text>{{item.create_time}}</text>
                 </view>
                 <view wx:if="{{item.business_type === 'Entrust_type_7' || item.business_type === 'Entrust_type_9'}}" class="item-box-body">
                   <text wx:if="{{payment_request_object == '1'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_2||'')}}</text>
@@ -66,7 +66,7 @@
                     <text space="ensp">回款金额:  {{item.collection_amount}} {{item.currency_1}}</text>
                     <text space="ensp">回款方式:  {{item.collection_mode}}</text>
                     <text space="ensp">回款日期:  {{item.collection_date}}</text>
-                    <text space="ensp">回款备注:  {{item.collection_remarks}}</text>
+                    <text space="ensp">回款备注:  {{item.collection_remarks || ''}}</text>
                   </view>
                   <view class="item-box-footer">
                     <text space="ensp">风险律师费率:  {{item.float_service_rate - item.new_management_rate}}%</text>
@@ -92,7 +92,7 @@
       </view>
       <view class="footer">
         <text bindtap="goBack" class="btn">返回</text>
-        <text class="xian"></text>
+        <text wx:if="{{payment_request_object == '1'}}" class="xian"></text>
         <text wx:if="{{payment_request_object == '1'}}" bindtap="openSelect" class="btn">请款申请</text>
       </view>
       <view wx:if="{{show}}" class="select-box">

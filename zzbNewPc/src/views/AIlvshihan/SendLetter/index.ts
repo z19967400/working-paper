@@ -193,14 +193,14 @@ export default class About extends Vue {
         { required: true, message: "请输入地址详情", trigger: "blur" }
       ]
     },
-    //新增收款通道
+    //新增收款信息
     addCollectionRuleForm: {
       // payment_channel_name: [
-      //   { required: true, message: "请输入收款通道名称", trigger: "blur" },
+      //   { required: true, message: "请输入收款信息名称", trigger: "blur" },
       //   {
       //     min: 2,
       //     max: 10,
-      //     message: "收款通道名称的长度在2~10个字符之间",
+      //     message: "收款信息名称的长度在2~10个字符之间",
       //     trigger: "blur"
       //   }
       // ],
@@ -221,12 +221,12 @@ export default class About extends Vue {
     // 配置请求的基准URL地址
     basurl: "",
 
-    //选择收款通道
+    //选择收款信息
     collectionDialogVisible: false,
-    // 收款通道id
+    // 收款信息id
     moneids: "",
 
-    // 新增收款通道
+    // 新增收款信息
     addCollectionDialogVisible: false,
 
     // 获取下载模板的地址，名字
@@ -244,7 +244,7 @@ export default class About extends Vue {
   right: boolean = false;
   openType: boolean = false;
   selectCreditors: string = "请选择债权人"; //选择债权人
-  selectTicket: string = "请选择收款通道"; //选择收款通道
+  selectTicket: string = "请选择收款信息"; //选择收款信息
   nextpoxType: boolean = false;
   uploadText: string = "可将文件拖曳至框内上传";
   fullscreenLoading: boolean = false;
@@ -353,7 +353,7 @@ export default class About extends Vue {
       });
     });
   }
-  // 打开收款通道弹窗
+  // 打开收款信息弹窗
   openShouKuang() {
     this.getshoukuanTableData().then(() => {
       if (this.data.shoukuanTableData.length == 0) {
@@ -363,7 +363,7 @@ export default class About extends Vue {
       }
     });
   }
-  //获取收款通道
+  //获取收款信息
   getshoukuanTableData() {
     return new Promise(resolve => {
       Api.getshoukuanTableData().then((res: any) => {
@@ -477,7 +477,7 @@ export default class About extends Vue {
     this.data.addDialogVisible = false;
     this.parentId = 0;
   }
-  //收款通道选择
+  //收款信息选择
   ticket() {
     let self: any = this;
     self.data.collectionDialogVisible = false;
@@ -485,13 +485,13 @@ export default class About extends Vue {
       return item.id == self.data.moneids;
     });
     if (self.data.moneids != 0) {
-      self.$message.success("选择收款通道成功");
+      self.$message.success("选择收款信息成功");
       self.selectTicket = act[0].payee_name;
     } else {
-      self.$message.warning("你未选择收款通道");
+      self.$message.warning("你未选择收款信息");
     }
   }
-  // 新增收款通道
+  // 新增收款信息
   getAddCollection() {
     let self: any = this;
     Api.addgetmaney(this.collectList).then((res: any) => {
@@ -501,16 +501,16 @@ export default class About extends Vue {
           self.ticket();
         });
       } else {
-        self.$message.error("添加收款通道失败");
+        self.$message.error("添加收款信息失败");
       }
     });
     self.data.addCollectionDialogVisible = false;
   }
-  //收款通道id
+  //收款信息id
   moneyid(moneyid: any) {
     this.data.moneids = moneyid;
   }
-  // 新增收款通道id
+  // 新增收款信息id
   addcollid(addid: any) {
     this.data.moneids = addid;
   }
@@ -600,7 +600,7 @@ export default class About extends Vue {
     //   this.$message.warning(this.selectCreditors);
     //   return false;
     // }
-    // if (this.selectTicket == "请选择收款通道") {
+    // if (this.selectTicket == "请选择收款信息") {
     //   this.$message.warning(this.selectTicket);
     //   return false;
     // }
@@ -850,7 +850,7 @@ export default class About extends Vue {
     }
     this.data.collid = row.id;
   }
-  //收款通道列表选中
+  //收款信息列表选中
   collectionRowClick(row: any) {
     this.data.moneids = row.id;
   }

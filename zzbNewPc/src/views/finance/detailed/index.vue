@@ -136,11 +136,17 @@
             <el-button
               type="text"
               style="color:#67C23A;"
-              :disabled="scope.row.bill_number == null"
+              :disabled="
+                scope.row.bill_number == null || scope.row.bill_number == ''
+              "
               @click="handlInfo(scope.row)"
               size="small"
               >{{
-                scope.row.bill_number == null ? "未生成" : "查看账单"
+                scope.row.bill_number == null
+                  ? "未生成"
+                  : scope.row.bill_number == ""
+                  ? "未生成"
+                  : "查看账单"
               }}</el-button
             >
           </template>

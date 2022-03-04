@@ -25,7 +25,7 @@
   border-radius: 5px;
   padding: 0 36rpx;
   margin-top: 18rpx;
-  width: 120rpx;
+  /* width: 120rpx; */
   margin: 0 10rpx;
   margin-top: 10rpx;
   border: 1px solid #ec193a;

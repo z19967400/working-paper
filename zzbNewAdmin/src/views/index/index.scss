@@ -1,14 +1,53 @@
-@import "@/assets/scss/variables.scss";
+@import '@/assets/scss/variables.scss';
 
 .index-wrap {
   width: 100%;
   height: 100%;
   background-color: $main-body-bgColor;
-  .index-box{
+  // background-color: #f8f8f8;
+  & .index-box {
     height: 100%;
-    .chart{
-      height: 100%;
-      width: 100%;
+    overflow-y: auto;
+    // .chart {
+    //   height: 100%;
+    //   width: 100%;
+    // }
+    & .box {
+      // display: flex;
+      // justify-content: space-around;
+      width: 98%;
+      margin: 5px auto;
+      & .panl {
+        background: white;
+        box-shadow: 0 2px 10px #ccc;
+        width: 100%;
+        & .header {
+          border-bottom: 1px solid #ccc;
+          padding: 0px 15px;
+          font-size: 14px !important;
+          color: #303033;
+          font-weight: 600;
+          line-height: 40px;
+          height: 40px;
+          margin: 0;
+        }
+        & p {
+          padding: 0 15px;
+          font-size: 13px;
+          color: #606266;
+          & span {
+            font-size: 12px;
+            font-weight: normal;
+          }
+        }
+      }
+      & .chartBox {
+        box-shadow: 0 2px 10px #ccc;
+        & .chart1 {
+          width: 100%;
+          height: 500px;
+        }
+      }
     }
   }
 }

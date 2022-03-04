@@ -30,10 +30,15 @@
           <span>{{ getJurisdiction(scope.row.is_super) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="120">
+      <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <!-- <el-button type="text">发票完善通知</el-button>
-          <el-button type="text">新账单通知</el-button> -->
+          <!-- <el-button type="text">发票完善通知</el-button> -->
+          <el-button
+            @click="novice(scope.row)"
+            style="color:#67C23A;"
+            type="text"
+            >{{ '新账单通知' }}</el-button
+          >
           <el-button @click="delected(scope.row.id)" type="text"
             >删除</el-button
           >
@@ -93,6 +98,10 @@ export default class adminTab extends Vue {
           message: '已取消删除'
         })
       })
+  }
+  //发送账单通知
+  novice(row: any) {
+    this.$emit('novice', row)
   }
 }
 </script>

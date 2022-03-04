@@ -320,7 +320,7 @@
     >
       <el-form v-loading="loading" :model="userData" label-width="120px">
         <el-form-item label="身份证人像面" class="zhengzhao">
-          <el-col class="upBox" :span="24">
+          <el-col class="upBox" :span="20">
             <el-upload
               drag
               class="avatar-uploader"
@@ -350,7 +350,7 @@
           </el-col>
         </el-form-item>
         <el-form-item label="身份证国徽面" class="zhengzhao">
-          <el-col class="upBox" :span="24">
+          <el-col class="upBox" :span="20">
             <el-upload
               drag
               class="avatar-uploader"

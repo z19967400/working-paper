@@ -166,6 +166,8 @@ export default class About extends Vue {
     Api.GetBillDetailsByBillNumber(id).then((res: any) => {
       this.data.bill_id = res.data.bill.bill_id;
       this.data.bill_file = res.data.bill.bill_file;
+      this.data.bill_file_ai = res.data.bill.bill_file_ai;
+      this.data.bill_file_case = res.data.bill.bill_file_case;
       Object.keys(this.data.survey).forEach((key: string) => {
         if (res.data.bill[key]) {
           this.data.survey[key] = res.data.bill[key];
@@ -278,7 +280,7 @@ export default class About extends Vue {
   //申请开票信息提交
   submitForm() {
     let params: any = {
-      bill_number: this.data.survey.bill_number,
+      bill_number: this.data.id,
       invoice_id: this.data.ApplyForInvoice.invoice,
       address_id: this.data.ApplyForInvoice.ticketCollection
     };
@@ -449,7 +451,7 @@ export default class About extends Vue {
   }
   //账单申请开票
   ApplyInvoicing() {
-    Api.ApplyInvoicing(this.data.survey.bill_number).then((res: any) => {
+    Api.ApplyInvoicing(this.data.id).then((res: any) => {
       if (res.state) {
         this.$message.success(res.msg);
       } else {
@@ -464,8 +466,8 @@ export default class About extends Vue {
     });
   }
   //下载账单
-  download() {
-    window.open(this.data.bill_file);
+  download(path: string) {
+    window.open(path);
   }
   thousandBitSeparator(num: number) {
     return num.toLocaleString();

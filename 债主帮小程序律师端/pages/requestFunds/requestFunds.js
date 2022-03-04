@@ -116,6 +116,10 @@ Page({
   GetFinancialRecords() {
     const that = this
     http.getRequest(requstUrl.GetFinancialRecords, { debtor_number: that.data.debtor_number }, function (res) {
+      res.data.forEach((item =>{
+        item.create_time = item.create_time.replace('T',' ')
+        item.create_time  = item.create_time.substring(0,  item.create_time.lastIndexOf(':'))
+      }))
       that.setData({
         list: res.data
       })
