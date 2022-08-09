@@ -1,6 +1,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import * as Api from "@/api/Finance";
 import { Options } from "@/types/index";
+import { thousandBitSeparator } from "@/utils/common";
 import {
   comselect,
   comtable,
@@ -106,11 +107,7 @@ export default class About extends Vue {
         prop: "admin_name",
         width: "100"
       },
-      {
-        label: "创建时间",
-        prop: "create_time",
-        width: "150"
-      },
+
       {
         label: "固定服务费",
         prop: "fixed_service_fee",
@@ -122,6 +119,11 @@ export default class About extends Vue {
         width: "120"
       },
       {
+        label: "创建时间",
+        prop: "create_time",
+        width: "150"
+      },
+      {
         label: "备注",
         prop: "bill_remarks",
         width: "220"
@@ -129,8 +131,8 @@ export default class About extends Vue {
     ],
     settlements: [
       { value: "Settlement_Status_0", label: "审核中" },
-      { value: "Settlement_Status_1", label: "用户确认" },
-      { value: "Settlement_Status_2", label: "客服确认" },
+      { value: "Settlement_Status_1", label: "待确认账单" },
+      { value: "Settlement_Status_2", label: "账单复核中" },
       { value: "Settlement_Status_3", label: "开票中" },
       { value: "Settlement_Status_4", label: "结算中" },
       { value: "Settlement_Status_5", label: "已结算" },
@@ -185,10 +187,10 @@ export default class About extends Vue {
       Api.GetAIPayRecordsPagingData(params).then((res: any) => {
         res.data.forEach((item: any) => {
           item.pay_status =
-            item.pay_status == "Pay_Status_0" ? "待支付" : "已支付";
+            item.pay_status == "Pay_Status_0" ? "待支付" : item.pay_status == "Pay_Status_2" ? "已退款" : '已支付'
           item.create_time = this.timeStr(item.create_time);
           item.unit_price = item.unit_price + ".00";
-          item.paid_amount = this.thousandBitSeparator(item.paid_amount);
+          item.paid_amount = thousandBitSeparator(item.paid_amount);
         });
         this.data.list = res.data;
         this.data.loading = false;
@@ -201,16 +203,11 @@ export default class About extends Vue {
             item.settlement_status
           );
           item.create_time = this.timeStr(item.create_time);
-          item.fixed_service_fee = this.thousandBitSeparator(
-            item.fixed_service_fee
-          );
-          item.collection_amount = this.thousandBitSeparator(
-            item.collection_amount
-          );
-          item.float_service_rate = item.float_service_rate + " %";
-          item.float_service_fee = this.thousandBitSeparator(
-            item.float_service_fee
-          );
+          item.fixed_service_fee = thousandBitSeparator(item.fixed_service_fee);
+          item.collection_amount =
+            thousandBitSeparator(item.collection_amount) + "元";
+          item.float_service_fee =
+            thousandBitSeparator(item.float_service_fee) + "元";
         });
         this.data.list2 = res.data;
         this.data.loading = false;
@@ -297,10 +294,10 @@ export default class About extends Vue {
         val = "审核中";
         break;
       case "Settlement_Status_1":
-        val = "用户确认";
+        val = "待确认账单";
         break;
       case "Settlement_Status_2":
-        val = "客服确认";
+        val = "账单复核中";
         break;
       case "Settlement_Status_3":
         val = "开票中";
@@ -319,10 +316,7 @@ export default class About extends Vue {
     }
     return val;
   }
-  //千位符
-  thousandBitSeparator(num: number) {
-    return num.toLocaleString();
-  }
+
   //跳转账单
   handlInfo(row: any) {
     let number: string = row.bill_number;

@@ -53,7 +53,8 @@
                   <el-button
                     @click.stop="openEdit(scope.$index)"
                     type="text"
-                    icon="el-icon-edit"
+                    icon="el-icon-edit-outline"
+                    style="color:#409EFF;"
                     circle
                   ></el-button>
                 </div>

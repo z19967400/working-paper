@@ -1,14 +1,14 @@
 <view class="select1">
   <text class="title">律师费请款</text>
   <view class="content">
-    <van-radio-group value="{{ radio }}" bind:change="onChange">
-      <van-radio name="1" checked-color="#ec193a">申请固定服务费</van-radio>
+    <van-radio-group value="{{ radio }}" bind:change="onChange" >
+      <van-radio custom-class="zdy-radio" label-position="left" name="1" checked-color="#ec193a">申请固定服务费</van-radio>
       <view class="br"></view>
-      <van-radio name="2" checked-color="#ec193a">申请风险服务费</van-radio>
+      <van-radio custom-class="zdy-radio" label-position="left" name="2" checked-color="#ec193a">申请风险服务费</van-radio>
     </van-radio-group>
   </view>
   <view class="footer">
-    <text bindtap="close" class="btn">取消</text>
+    <!-- <text bindtap="close" class="btn">取消</text> !-->
     <text bindtap="next" class="btn">下一步</text>
   </view>
 </view>

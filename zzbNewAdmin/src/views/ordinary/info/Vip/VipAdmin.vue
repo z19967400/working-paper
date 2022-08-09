@@ -125,6 +125,59 @@
             </div>
           </el-form>
         </div>
+        <!-- AI律师函赠送 -->
+        <div class="section">
+          <span style="margin-top:0;">
+            <span class="title">赠送服务</span>
+            <el-button
+              class="edit"
+              @click="zengson = !zengson"
+              type="text"
+              size="small"
+              >{{ zengson ? '返回' : '编辑' }}</el-button
+            >
+          </span>
+          <el-divider></el-divider>
+          <div class="box">
+            <p v-if="!zengson" style="font-size:12px;color:#606266;">
+              赠送AI律师函总数量/已使用&nbsp;&nbsp;&nbsp;&nbsp;
+              <span style="font-size:16px;">{{
+                present.ai_lawyer_letter_total_quantity
+              }}</span
+              >&nbsp;/&nbsp;<span style="font-size:16px;">{{
+                present.ai_lawyer_letter_used_quantity
+              }}</span>
+            </p>
+            <div v-else>
+              <el-row style="display:flex;">
+                <span
+                  style="width:200px;display:inline-block;color:#606366;"
+                  class="label"
+                  >赠送AI律师函总数量</span
+                >
+                <el-input size="small" v-model="total_quantity"></el-input>
+              </el-row>
+              <el-row>
+                <el-button
+                  style="margin-left:135px;"
+                  size="small"
+                  @click="zengsonBtn"
+                  type="primary"
+                  >保存</el-button
+                >
+                <el-button
+                  size="small"
+                  @click="
+                    () => {
+                      ;(zengson = false), total_quantity
+                    }
+                  "
+                  >取消</el-button
+                >
+              </el-row>
+            </div>
+          </div>
+        </div>
         <div class="section">
           <span style="margin-top:0;">
             <span class="title">设置客服及付款时间</span>
@@ -247,7 +300,8 @@
           ></creditor>
         </div>
         <div class="section">
-          <span style="margin-top:0;">
+          <remark :id="this.$route.params.id" :remarks_type="1" />
+          <!-- <span style="margin-top:0;">
             <span class="title">后台备注</span>
           </span>
           <el-divider></el-divider>
@@ -266,7 +320,7 @@
               size="small"
               >保存</el-button
             >
-          </el-form>
+          </el-form> -->
         </div>
       </div>
       <!-- 弹窗 -->
@@ -455,6 +509,18 @@
       >
         <div class="shenhe-box">
           <el-row>
+            <el-col :span="5" class="lable">债权人名称</el-col>
+            <el-col class="value" :span="8">{{
+              shenheCreditor.creditor_name
+            }}</el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="5" class="lable">管理员姓名</el-col>
+            <el-col class="value" :span="8">{{
+              shenheCreditor.admin_name
+            }}</el-col>
+          </el-row>
+          <el-row>
             <el-col :span="5" class="lable">营业执照</el-col>
             <el-col style="position: relative;top:4px;" :span="12">
               <img
@@ -531,7 +597,7 @@
                   >
                 </span>
               </template>
-              <el-col :span="18">
+              <el-col :span="20">
                 <span></span>
                 <el-input
                   type="textarea"
@@ -545,7 +611,7 @@
               <template slot="label">
                 <span style="position: relative;top:-10px;">后台备注</span>
               </template>
-              <el-col :span="18">
+              <el-col :span="20">
                 <el-input
                   type="textarea"
                   :rows="4"
@@ -555,7 +621,38 @@
               </el-col>
             </el-form-item>
           </el-form>
+          <el-divider
+            v-if="shenheCreditor.history.length > 0"
+            content-position="left"
+            >授权委托书更换记录</el-divider
+          >
+          <div style="padding-bottom:20px;">
+            <el-table
+              v-show="shenheCreditor.history.length > 0"
+              :data="shenheCreditor.history"
+              border
+              max-height="300"
+              style="width: 80%;margin:auto;"
+            >
+              <el-table-column prop="authorization_file" label="授权委托书文件">
+                <template slot-scope="scope">
+                  <div
+                    style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;"
+                  >
+                    <span
+                      @click="preview(scope.row.authorization_file)"
+                      style="color:rgb(103, 194, 58);cursor: pointer;"
+                      >{{ sblicet(scope.row.authorization_file) }}</span
+                    >
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="create_time" label="更换时间" width="180">
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
+
         <div style="text-align: center;">
           <el-button type="primary" @click="shenheSubmit">确定</el-button>
           <el-button @click="creditorshenhShow = !creditorshenhShow"

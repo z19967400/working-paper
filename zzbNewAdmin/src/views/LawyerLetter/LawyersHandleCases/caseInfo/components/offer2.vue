@@ -95,6 +95,7 @@
             <p style="line-height: 40px;margin-bottom:10px;">
               {{ toStr(data.case_report_file) || '未生成评估报告' }}
               <el-link
+                v-show="data.case_report_file"
                 style="margin-left:20px;position: relative;top:-1px;"
                 type="success"
                 @click="generate(0)"
@@ -102,7 +103,7 @@
               >
             </p>
             <div>
-              <el-button
+              <!-- <el-button
                 @click="generate(1)"
                 style="width:120px;"
                 size="small"
@@ -110,7 +111,17 @@
                 >{{
                   !data.case_report_file ? '生成案件评估报告' : '重新生成'
                 }}</el-button
-              >
+              > -->
+              <el-button @click="generate(1, 1)" size="small" type="primary">{{
+                !data.case_report_file
+                  ? '生成诉讼评估报告'
+                  : '重新生成诉讼评估报告'
+              }}</el-button>
+              <el-button @click="generate(1, 2)" size="small" type="primary">{{
+                !data.case_report_file
+                  ? '生成仲裁评估报告'
+                  : '重新生成仲裁评估报告'
+              }}</el-button>
               <el-upload
                 class="upload-demo"
                 style="margin-left:50px;width:120px;"
@@ -953,23 +964,29 @@ export default class offer2 extends Vue {
     this.data.type2 = !this.data.type2
   }
   //重新生成/下载报告
-  generate(num: number) {
-    let parmas: any = {
-      debtor_number: this.debtor_number,
-      type: num
-    }
-    Api.DownLoadReport(parmas).then((res: any) => {
-      if (res.state) {
-        this.$message.success(res.msg)
-        if (num === 1) {
+  generate(num: number, type?: number) {
+    if (num === 0) {
+      let url: string =
+        this.data.case_report_file.indexOf('http') == -1
+          ? 'https://file.debteehelper.com/' + this.data.case_report_file
+          : this.data.case_report_file
+      window.open(url)
+      return false
+    } else {
+      let parmas: any = {
+        debtor_number: this.debtor_number,
+        type: num, //0 直接下载 1 重新生成
+        report_type: type //1：诉讼 2：仲裁
+      }
+      Api.DownLoadReport(parmas).then((res: any) => {
+        if (res.state) {
+          this.$message.success(res.msg)
           this.data.case_report_file = res.data
         } else {
-          window.open(res.data)
+          this.$message.warning(res.msg)
         }
-      } else {
-        this.$message.warning(res.msg)
-      }
-    })
+      })
+    }
   }
   //上传之前
   beforeAvatarUpload(file: any) {
@@ -1122,6 +1139,7 @@ export default class offer2 extends Vue {
         this.$message.success(res.msg)
         this.data.dialogVisible2 = false
         this.getTable1()
+        this.$emit('init2')
       } else {
         this.$message.warning(res.msg)
       }

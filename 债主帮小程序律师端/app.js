@@ -1,5 +1,6 @@
 //app.js
 import { requstUrl } from "./utils/requestUrl"
+import router from './utils/router'
 App({
   onLaunch: function () {
     if (wx.canIUse('getUpdateManager')) {
@@ -159,6 +160,7 @@ App({
       }
     })
   },
+  router,
   globalData: {
     userInfo: null,
     active: 0,

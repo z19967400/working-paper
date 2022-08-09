@@ -51,7 +51,7 @@ class Multiple extends React.Component<MultipleProp,any>{
             </div>
           </div>
         }
-        <span className={(title === '现有证据'&& value) || (title === '债务人财产线索' && value) ?'line':''} style={{color: `${value?'#303133':'#ccc'}`,fontSize:'12px',display:"block",width:"100%" }} onClick={this.open.bind(this)}>
+        <span className={(title === '现有证据'&& value) || (title === '债务人财产线索' && value) || (title === '委托事项' && value) ?'line':''} style={{color: `${value?'#303133':'#ccc'}`,fontSize:'12px',display:"block",width:"100%" }} onClick={this.open.bind(this)}>
           {
             title === '现有证据'&&value&&
             value.split(',').map((item:string,index:number) =>{
@@ -64,8 +64,14 @@ class Multiple extends React.Component<MultipleProp,any>{
               return <span className="label" key={index}>{item}</span> 
             })
           }
+          {
+            title === '委托事项'&&value&&
+            value.split(',').map((item:string,index:number) =>{
+              return <span className="label" key={index}>{item}</span> 
+            })
+          }
           {(() =>{
-            if (title === '现有证据'|| title === '债务人财产线索') {
+            if (title === '现有证据'|| title === '债务人财产线索' || title === '委托事项') {
               if (value) {
                
               }else{
@@ -82,14 +88,17 @@ class Multiple extends React.Component<MultipleProp,any>{
   componentDidMount(){
     const options = this.props.options
     this.setState({
-      options
+      options,
+      value:this.props.value
     })
   }
   // 打开选择弹窗
   open(e:any){
     const doc:any =  document.getElementsByClassName('Assessment')[0]
-    doc.style.position = "fixed"
-    doc.style.overflow  = "hidden"
+    if (doc) {
+      doc.style.position = "fixed"
+      doc.style.overflow  = "hidden"
+    }
     this.setState({
       show:true
     },() =>{
@@ -103,8 +112,10 @@ class Multiple extends React.Component<MultipleProp,any>{
   //关闭弹窗
   close(){
     const doc:any =  document.getElementsByClassName('Assessment')[0]
-    doc.style.position = "absolute"
-    doc.style.overflow  = "auto"
+    if (doc) {
+      doc.style.position = "absolute"
+      doc.style.overflow  = "auto"
+    }
     let options = this.state.options
     // options.forEach((item:options) =>{
     //   item.cheeked = false

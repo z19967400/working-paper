@@ -11,18 +11,21 @@ Page({
   data: {
     name: '律所发票信息',
     height: '',
+    index: 0,
     list: [
       { id: 'Invoice_Type_2', name: '增值税专用发票(纸质)' },
-      { id: 'Invoice_Type_0', name: '增值税普通发票(电子)' }
+      { id: 'Invoice_Type_0', name: '增值税普通发票(电子)' },
+      { id: 'Invoice_Type_3', name: '增值税专用发票(电子)' }
     ],
     defaultOption: {
       id: 'Invoice_Type_2',
       name: '增值税专用发票(纸质)'
     },
+    array3: ['中国', '美国', '英国'],
     //发票信息
     invoice: {
       id: 0,
-      invoice_type: '',
+      invoice_type: 'Invoice_Type_2',
       invoice_name: '',
       duty_paragraph: '',
       detailed_address: '',
@@ -102,20 +105,21 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
   //发票类型选择回调
   onChange(event) {
     let invoice = this.data.invoice
-    invoice.invoice_type = event.detail.id
+    invoice.invoice_type = event.target.dataset.id
     this.setData({
-      invoice
+      invoice,
+      index: event.detail.value
     })
   },
   //普通输入框回调
@@ -145,8 +149,8 @@ Page({
   submit() {
     const that = this
     let parmas = {
-      invoice: that.data.invoice,
-      ticket_address: that.data.ticket_address
+      invoice: JSON.stringify(that.data.invoice),
+      ticket_address: JSON.stringify(that.data.ticket_address)
     }
     http.postRequest(requstUrl.AddInvoiceAndTicketAddress, parmas, function (res) {
       if (res.state) {

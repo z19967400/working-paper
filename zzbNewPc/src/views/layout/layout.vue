@@ -65,6 +65,7 @@
                 :key="tag.name"
                 :closable="tag.closable"
                 :type="tag.type"
+                v-show="tag.name != '404'"
                 @click="handleClick(tag)"
                 @close="handleClose(tag)"
                 :class="{ active: tag.active }"
@@ -146,28 +147,28 @@
           label="登录名"
           prop="account_name"
         >
-          <el-input v-model="form.account_name"></el-input>
+          <el-input v-model.trim="form.account_name"></el-input>
         </el-form-item>
         <el-form-item
           v-if="form.update_password == '1'"
           label="原密码"
           prop="password"
         >
-          <el-input show-password v-model="form.password"></el-input>
+          <el-input show-password v-model.trim="form.password"></el-input>
         </el-form-item>
         <el-form-item
           v-if="form.update_password == '1'"
           label="新密码"
           prop="password_01"
         >
-          <el-input show-password v-model="form.password_01"></el-input>
+          <el-input show-password v-model.trim="form.password_01"></el-input>
         </el-form-item>
         <el-form-item
           v-if="form.update_password == '1'"
           label="再次输入新密码"
           prop="password_02"
         >
-          <el-input show-password v-model="form.password_02"></el-input>
+          <el-input show-password v-model.trim="form.password_02"></el-input>
         </el-form-item>
       </el-form>
       <div style="text-align: center;">

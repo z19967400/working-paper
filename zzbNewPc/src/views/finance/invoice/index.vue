@@ -10,8 +10,8 @@
       <div class="table-header">
         <div>
           <el-input
-            style="width:220px;"
-            placeholder="名称"
+            style="width:330px;"
+            placeholder="抬头"
             size="small"
             v-model="data.searchVal1"
           ></el-input>
@@ -27,17 +27,21 @@
             @click="clearSearch1"
             size="small"
             type="primary"
-            >清除</el-button
+            >重置</el-button
           >
         </div>
-        <el-button @click="addInvoice" size="small" type="primary"
-          >新增发票</el-button
+        <el-button
+          icon="el-icon-circle-plus-outline"
+          @click="addInvoice"
+          size="small"
+          type="primary"
+          >发票信息</el-button
         >
       </div>
       <el-table :height="(data.height - 180) / 2" border :data="data.list">
         <el-table-column prop="invoice_type" label="发票类型" width="180">
         </el-table-column>
-        <el-table-column prop="invoice_name" label="名称" width="180">
+        <el-table-column prop="invoice_name" label="抬头" width="180">
         </el-table-column>
         <el-table-column prop="duty_paragraph" label="税号" width="180">
         </el-table-column>
@@ -72,7 +76,7 @@
 
     <div :style="{ height: data.height / 2 + 'px' }" style="margin-top:20px;">
       <p style="color:#606366;font-size:14px;margin-bottom:20px;">
-        收票地址管理
+        收票信息管理
       </p>
       <div class="table-header">
         <div>
@@ -100,11 +104,15 @@
             @click="clearSearch2"
             size="small"
             type="primary"
-            >清除</el-button
+            >重置</el-button
           >
         </div>
-        <el-button @click="addTicket" size="small" type="primary"
-          >新增收票</el-button
+        <el-button
+          icon="el-icon-circle-plus-outline"
+          @click="addTicket"
+          size="small"
+          type="primary"
+          >收票信息</el-button
         >
       </div>
       <el-table :height="(data.height - 180) / 2" border :data="data.list2">
@@ -139,62 +147,71 @@
       >
         <el-form
           v-if="data.title == '新增发票信息' || data.title == '编辑发票信息'"
-          :rules="rules"
+          :rules="
+            data.addInvoiceData.invoice_type == 'Invoice_Type_2' ||
+            data.addInvoiceData.invoice_type == 'Invoice_Type_3'
+              ? rules3
+              : rules
+          "
           label-width="120px"
           :model="data.addInvoiceData"
           ref="ruleForm"
         >
-          <el-form-item label="发票类型" prop="invoice_type">
+          <el-form-item class="is-required" label="发票类型">
             <el-select
               v-model="data.addInvoiceData.invoice_type"
               placeholder="请选择发票类型"
+              style="width:440px;"
+              @change="select"
             >
               <el-option label="增值税普通发票（电子）" value="Invoice_Type_0">
               </el-option>
-              <el-option label="增值税普通发票（纸质）" value="Invoice_Type_1">
+              <el-option label="增值税专用发票（电子）" value="Invoice_Type_3">
               </el-option>
+              <!-- <el-option label="增值税普通发票（纸质）" value="Invoice_Type_1">
+              </el-option> -->
               <el-option label="增值税专用发票（纸质）" value="Invoice_Type_2">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="发票名称" prop="invoice_name">
+          <el-form-item label="抬头" prop="invoice_name">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.invoice_name"
-              placeholder="请输入发票名称"
+              placeholder="请输入抬头"
             ></el-input>
           </el-form-item>
           <el-form-item label="税号" prop="duty_paragraph">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.duty_paragraph"
               placeholder="请输入税号"
             ></el-input>
           </el-form-item>
           <el-form-item label="地址" prop="detailed_address">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.detailed_address"
               placeholder="请输入地址"
             ></el-input>
           </el-form-item>
           <el-form-item label="电话" prop="telephone">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.telephone"
               placeholder="请输入电话"
             ></el-input>
           </el-form-item>
           <el-form-item label="开户行" prop="bank_of_deposit">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.bank_of_deposit"
               placeholder="请输入开户行"
             ></el-input>
           </el-form-item>
           <el-form-item label="银行账号" prop="bank_account">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addInvoiceData.bank_account"
               placeholder="请输入银行账号"
             ></el-input>
@@ -209,25 +226,25 @@
         >
           <el-form-item label="收票人姓名" prop="name">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addTicketData.name"
             ></el-input>
           </el-form-item>
           <el-form-item label="收票人手机" prop="phone">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addTicketData.phone"
             ></el-input>
           </el-form-item>
-          <el-form-item label="收票人地址" prop="email">
+          <el-form-item label="收票人地址" prop="detailed_address">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addTicketData.detailed_address"
             ></el-input>
           </el-form-item>
-          <el-form-item label="收票人电子邮箱" prop="detailed_address">
+          <el-form-item label="收票人电子邮箱" prop="email">
             <el-input
-              style="width:280px"
+              style="width:440px"
               v-model="data.addTicketData.email"
             ></el-input>
           </el-form-item>

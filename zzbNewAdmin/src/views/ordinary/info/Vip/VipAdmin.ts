@@ -2,13 +2,15 @@ import { Component, Vue } from 'vue-property-decorator'
 import * as Api from '../../../../api/user'
 import { verifyPhone, verifyEmall } from '../../../../utils/common'
 import { enterpriseCreditor } from '../../../../components/index'
+import remark from '../../../../components/remark/remark.vue'
 import { baseURL } from '../../../../utils/request'
 import creditor from './creditor/creditor.vue'
 import * as Api2 from '@/api/finance'
 @Component({
   components: {
     enterpriseCreditor,
-    creditor
+    creditor,
+    remark
   }
 })
 export default class VipAdmin extends Vue {
@@ -85,6 +87,11 @@ export default class VipAdmin extends Vue {
     authorization_file: '',
     license_img_url: ''
   }
+  shenheCreditor: any = {
+    creditor_name: '',
+    admin_name: '',
+    history: []
+  }
   user: any = {}
   loading: boolean = false
   burl: string = ''
@@ -112,6 +119,9 @@ export default class VipAdmin extends Vue {
   }
   creditorEdit: any = {}
   customers: any = []
+  zengson: boolean = false
+  present: any = {}
+  total_quantity: string = ''
   created() {
     this.burl = baseURL
   }
@@ -149,7 +159,7 @@ export default class VipAdmin extends Vue {
   //获取客服下拉
   getKefu() {
     Api2.getKefu().then((res: any) => {
-      this.customers = res.data
+      this.customers = res.data.filter((item: any, index: number) => { return index > 3 })
     })
   }
   //设置客服
@@ -287,6 +297,8 @@ export default class VipAdmin extends Vue {
           this.data.pay_set = Object.assign({}, res.data.pay_set)
           this.edit.pay_set = Object.assign({}, res.data.pay_set)
           this.data.admin_list = [...res.data.admin_list]
+          this.present = res.data.present
+          this.total_quantity = res.data.present.ai_lawyer_letter_total_quantity
           this.data.admin_list.forEach((item: any) => {
             item.is_super = item.is_super == 0 ? '普通管理员' : '超级管理员'
             item.create_time = item.create_time.replace('T', ' ')
@@ -309,8 +321,8 @@ export default class VipAdmin extends Vue {
                   item2.audit_status == 'Audit_states_0'
                     ? '待审核'
                     : item2.audit_status == 'Audit_states_1'
-                    ? '未通过'
-                    : '已通过'
+                      ? '未通过'
+                      : '已通过'
               })
             }
           })
@@ -428,18 +440,38 @@ export default class VipAdmin extends Vue {
   //打开授权管理员审核弹窗
   openAdminSh(row: any) {
     this.fileList = []
-    this.shenhe.id = row.creditor_admin_id
+    this.shenhe.id = row.row.creditor_admin_id
     this.shenhe.audit_status =
-      row.audit_status == '待审核'
+      row.row.audit_status == '待审核'
         ? 'Audit_states_0'
-        : row.audit_status == '未通过'
-        ? 'Audit_states_1'
-        : 'Audit_states_2'
-    this.shenhe.audit_feedback = row.audit_feedback
-    this.shenhe.back_remarks = row.back_remarks
-    this.shenhe.authorization_file = row.authorization_file
-    this.shenhe.license_img_url = row.license_img_url
+        : row.row.audit_status == '未通过'
+          ? 'Audit_states_1'
+          : 'Audit_states_2'
+    this.shenhe.audit_feedback = row.row.audit_feedback
+    this.shenhe.back_remarks = row.row.back_remarks
+    this.shenhe.authorization_file = row.row.authorization_file
+    this.shenhe.license_img_url = row.row.license_img_url
+    this.shenheCreditor.creditor_name = row.creditor_name
+    this.shenheCreditor.admin_name = row.row.admin_name
     this.creditorshenhShow = true
+    this.shenhe['creditor_admin_id'] = row.row.creditor_admin_id
+    this.GetAllAuthorizationFileRecord(row.row.creditor_admin_id)
+  }
+  //获取所有授权书记录
+  GetAllAuthorizationFileRecord(creditor_admin_id: number) {
+    Api.GetAllAuthorizationFileRecord(creditor_admin_id).then((res: any) => {
+      res.data.forEach((item: any) => {
+        item.create_time = item.create_time.replace(
+          'T',
+          ' '
+        )
+        item.create_time = item.create_time.substring(
+          0,
+          item.create_time.lastIndexOf(':')
+        )
+      })
+      this.shenheCreditor.history = res.data
+    })
   }
   //设置管理员
   setAdmin() {
@@ -448,6 +480,7 @@ export default class VipAdmin extends Vue {
   }
   //审核确定
   shenheSubmit() {
+
     Api.CreditorAdminAudit(this.shenhe).then((res: any) => {
       if (res.state) {
         this.$message.success(res.msg)
@@ -568,5 +601,22 @@ export default class VipAdmin extends Vue {
     window.open(
       'https://file.debteehelper.com/template/授权委托书模板-新增管理员-V6.docx'
     )
+  }
+  //更新赠送数据
+  zengsonBtn() {
+    const parmas: any = {
+      member_id: this.present.member_id,
+      ai_lawyer_letter_total_quantity: this.total_quantity
+    }
+    Api2.UpdatePresent(parmas).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg)
+        this.zengson = false
+        // this.total_quantity = ''
+        this.init()
+      } else {
+        this.$message.warning(res.msg)
+      }
+    })
   }
 }

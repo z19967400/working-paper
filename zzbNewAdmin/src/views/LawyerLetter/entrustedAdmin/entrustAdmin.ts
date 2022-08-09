@@ -8,10 +8,11 @@ import table3 from './components/table3.vue'
 import table4 from './components/table4.vue'
 import comInfo from './components/comInfo.vue'
 import comEdit from './components/obligorEdit.vue'
-import { api } from '../../../../../zzbPc/src/assets/js/api'
 import creditor from './components/creditor/creditor.vue'
 import { baseURL } from '../../../utils/request'
 import * as Api2 from '../../../api/user'
+import { thousandBitSeparator } from '@/utils/common'
+import remark from '@/components/remark/remark.vue'
 @Component({
   components: {
     table1,
@@ -20,10 +21,11 @@ import * as Api2 from '../../../api/user'
     table4,
     comInfo,
     comEdit,
-    creditor
+    creditor,
+    remark
   }
 })
-export default class About extends Vue {
+export default class entrustAdmin extends Vue {
   //手机号码验证
   validatePhone = (rule: any, value: any, callback: any) => {
     let vtf: any = verifyPhone(value)
@@ -44,13 +46,19 @@ export default class About extends Vue {
   }
   // data
   data: any = {
+    stopKey: 0,
+    stop_reason: '', //终止理由
+    stopListType: false, //终止执行状态
+    stopList: [],
     executing_states: '', //订单状态
     actIndex: 0,
     actName: 'first',
     infoTitle: '债务人详情',
+    audit_status: '',
     visible: false,
     loading: true,
     sendstates: [],
+    creditor_type: '', //债务人类别 0企业 1个人
     editShow: false,
     detailedShow: false,
     member_id: 0,
@@ -61,6 +69,7 @@ export default class About extends Vue {
       { name: '债务人' },
       { name: '债务明细' },
       { name: '债务反馈' },
+      { name: '收款信息' },
       { name: '律师函署名' },
       { name: '债权人' },
       { name: '支付信息' },
@@ -88,7 +97,8 @@ export default class About extends Vue {
       pay_method_name: '',
       total_amount: '',
       paid_amount: '',
-      pay_platform_number: ''
+      pay_platform_number: '',
+      bill_number: ''
     },
     //执行进度
     implementList: [],
@@ -118,16 +128,19 @@ export default class About extends Vue {
     obligorOption: [
       { prop: 'debtor_number', label: '委托编号', width: '180px' },
       { prop: 'debtor_name', label: '债务人名称', width: '330px' },
-      { prop: 'receiving_name', label: '收件人', width: '180px' },
-      { prop: 'phone_number', label: '收件人电话', width: '220px' },
-      { prop: 'email', label: '电子邮箱', width: '220px' },
-      { prop: 'address_txt', label: '详细地址', width: '500px' },
+      { prop: 'contact_person', label: '企业负责人姓名', width: '180px', show: false },
+      { prop: 'receiving_phone', label: '企业负责人手机号码', width: '180px', show: false },
+      { prop: 'receiving_name', label: 'EMS收件人', width: '180px' },
+      { prop: 'phone_number', label: 'EMS收件人电话', width: '220px' },
+      { prop: 'email', label: '债务人电子邮箱', width: '220px' },
       { prop: 'address_selected', label: '地区', width: '220px' },
-      { prop: 'arrears_principal', label: '欠款本金', width: '180px' },
-      { prop: 'arrears_interest', label: '欠款利息', width: '180px' },
-      { prop: 'creditor_name', label: '债权联系人姓名', width: '180px' },
-      { prop: 'creditor_telphone', label: '债权联系人电话', width: '180px' },
-      { prop: 'creditor_email', label: '债权联系人邮箱', width: '220px' },
+      { prop: 'address_txt', label: '详细地址', width: '500px' },
+      { prop: 'currency_name', label: '欠款币种', width: '150px' },
+      { prop: 'arrears_principal', label: '欠款本金', width: '120px' },
+      { prop: 'arrears_interest', label: '违约金/利息/滞纳金', width: '180px' },
+      { prop: 'creditor_name', label: '债权人联系人姓名', width: '180px' },
+      { prop: 'creditor_telphone', label: '债权人联系人电话', width: '180px' },
+      { prop: 'creditor_email', label: '债权人联系人邮箱', width: '220px' },
       { prop: 'execution_progress', label: '执行进度' },
       { prop: 'sms_01_status', label: '首次短信' },
       { prop: 'call_01_status', label: '首次电话', ishow: false },
@@ -168,7 +181,8 @@ export default class About extends Vue {
       batch_no: this.$route.params.id,
       debtor_number: '',
       debtor_name: '',
-      phone_number: ''
+      phone_number: '',
+      receiving_name: ''
     },
     //获取债务明细分页参数
     debtDetailsParmas: {
@@ -185,7 +199,8 @@ export default class About extends Vue {
       debtor_number: '',
       debtor_name: '',
       phone_number: ''
-    }
+    },
+    collection_account: [] //收款信息
   }
   height: number = 0
   sectionDom: any = {}
@@ -295,6 +310,7 @@ export default class About extends Vue {
     self.data.executing_states = self.$route.params.executing_states
     if (self.$route.params.id != 0 && self.$route.params.id != null) {
       this.getInfo(self.$route.params.id)
+      this.getKefu()
       if (!num) {
         this.GetDebtors(1)
         this.debtDetails(1)
@@ -303,7 +319,7 @@ export default class About extends Vue {
       // this.GetType()
     }
     let top: number = self.$refs.right.offsetTop //初始位置
-    for (let index = 0; index <= 8; index++) {
+    for (let index = 0; index <= 9; index++) {
       const domTop = self.$refs['section' + index].offsetTop - top
       self.sectionDom['section' + index] = domTop
     }
@@ -391,6 +407,28 @@ export default class About extends Vue {
       this.data.loading = false
     })
   }
+  //获取客服
+  getKefu() {
+    let arr1: any = []
+    let arr2: any = []
+    Api.getKefu().then((res: any) => {
+      res.data.forEach((item: any, index: number) => {
+        if (index > 3) {
+          arr1.push({
+            label: item.real_name,
+            value: item.real_name
+          })
+          arr2.push({
+            label: item.real_name, value: item.phone_no
+          })
+        }
+
+      })
+      this.Signature.lawyers = arr1
+      this.Signature.phones = arr2
+
+    })
+  }
   //获取管理详情
   getInfo(id: number) {
     Api.getAiLawyerAdmin(id).then((res: any) => {
@@ -402,16 +440,16 @@ export default class About extends Vue {
             item.task_execution_status == 0
               ? '未执行'
               : item.task_execution_status == 1
-              ? '执行中'
-              : item.task_execution_status == 2
-              ? '已结束'
-              : item.task_execution_status == 3
-              ? '已撤销'
-              : item.task_execution_status == 4
-              ? '已终止'
-              : item.task_execution_status == 5
-              ? '执行中'
-              : '已终止'
+                ? '执行中'
+                : item.task_execution_status == 2
+                  ? '已结束'
+                  : item.task_execution_status == 3
+                    ? '已撤销'
+                    : item.task_execution_status == 4
+                      ? '已终止'
+                      : item.task_execution_status == 5
+                        ? '执行中'
+                        : '已终止'
           item.send_time = item.send_time.replace('T', ' ')
           item.send_time = item.send_time.substring(
             0,
@@ -421,14 +459,17 @@ export default class About extends Vue {
         })
       }
       this.data.implementList = res.data.tasks_list
+      if (res.data.collection_account) {
+        this.data.collection_account = [res.data.collection_account]
+      }
       //债权人
       if (res.data.creditor != null) {
         res.data.creditor.audit_status =
           res.data.creditor.audit_status == 'Audit_states_0'
             ? '待审核'
             : res.data.creditor.audit_status == 'Audit_states_1'
-            ? '未通过'
-            : '已通过'
+              ? '未通过'
+              : '已通过'
         res.data.creditor.create_time = res.data.creditor.create_time.replace(
           'T',
           ' '
@@ -442,6 +483,10 @@ export default class About extends Vue {
         this.data.creditorList = arr
         this.data.creditorList[0]['admin_list'] = res.data.creditor_admin
         this.data.creditor_admin = res.data.creditor_admin
+        this.data.creditor_type = res.data.creditor.creditor_type
+        if (this.data.creditor_type == 'Creditor_states_1') {
+          this.data.obligorOption = this.data.obligorOption.filter((item: any) => { return item.show != false })
+        }
       }
       this.data.payment.pay_status =
         res.data.overview.pay_status == 'Pay_Status_0' ? '待支付' : '已支付'
@@ -452,7 +497,9 @@ export default class About extends Vue {
       this.data.payment.paid_amount = res.data.overview.paid_amount
       this.data.payment.pay_platform_number =
         res.data.overview.pay_platform_number
+      this.data.payment.bill_number = res.data.overview.bill_number
       this.data.shenhe.audit_status = res.data.overview.audit_status
+      this.data.audit_status = res.data.overview.audit_status
       this.data.shenhe.desc = res.data.overview.audit_feedback
       this.data.back_remarks = res.data.overview.back_remarks
       this.data.state = res.data.overview.pay_status
@@ -486,16 +533,16 @@ export default class About extends Vue {
                 item2.value == 'Debt_type_0'
                   ? '个人欠款'
                   : item2.value == 'Debt_type_4'
-                  ? '企业应收款'
-                  : item2.value == 'Debt_type_5'
-                  ? '逾期贷款'
-                  : item2.value == 'Debt_type_6'
-                  ? '信用卡逾期'
-                  : item2.value == 'Debt_type_7'
-                  ? '保险追偿'
-                  : item2.value == 'Debt_type_8'
-                  ? '物业/采暖欠费'
-                  : '不当得利'
+                    ? '企业应收款'
+                    : item2.value == 'Debt_type_5'
+                      ? '逾期贷款'
+                      : item2.value == 'Debt_type_6'
+                        ? '信用卡逾期'
+                        : item2.value == 'Debt_type_7'
+                          ? '保险追偿'
+                          : item2.value == 'Debt_type_8'
+                            ? '物业/采暖欠费'
+                            : '不当得利'
             }
           }
         })
@@ -517,7 +564,8 @@ export default class About extends Vue {
       batch_no: this.$route.params.id,
       debtor_number: '',
       debtor_name: '',
-      phone_number: ''
+      phone_number: '',
+      receiving_name: ''
     }
     this.GetDebtors(1)
   }
@@ -538,74 +586,105 @@ export default class About extends Vue {
         item['isAddress'] = false
         item.arrears_principal = item.arrears_principal.toLocaleString()
         item.arrears_interest = item.arrears_interest.toLocaleString()
-        item.sms_01_status =
-          item.sms_01_id == 0
-            ? '未委托'
-            : item.sms_01_status == -1
-            ? '待执行'
-            : item.sms_01_status == 0
-            ? '执行成功'
-            : item.sms_01_status == 1
-            ? '执行失败'
-            : '未委托'
-        item.call_01_status =
-          item.call_01_id == 0
-            ? '未委托'
-            : item.call_01_status == -1
-            ? '待执行'
-            : item.call_01_status == 0
-            ? '执行中'
-            : item.call_01_status == 1
-            ? '执行成功'
-            : item.call_01_status == 5
-            ? '执行中'
-            : '执行失败'
-        item.email_01_status =
-          item.email_01_id == 0
-            ? '未委托'
-            : item.email_01_status == -1
-            ? '待执行'
-            : item.email_01_status == 0
-            ? '执行成功'
-            : '执行失败'
-        item.email_02_status =
-          item.email_02_id == 0
-            ? '未委托'
-            : item.email_02_status == -1
-            ? '待执行'
-            : item.email_02_status == 0
-            ? '执行成功'
-            : '执行失败'
-        item.logistics_status =
-          item.log_logistics_id == 0
-            ? '未委托'
-            : item.logistics_status == 0
-            ? '待执行'
-            : item.logistics_status == 1
-            ? '执行中'
-            : item.logistics_status == 3
-            ? '执行成功'
-            : '执行失败'
-        item.sms_02_status =
-          item.sms_02_id == 0
-            ? '未委托'
-            : item.sms_02_status == -1
-            ? '待执行'
-            : item.sms_02_status == 0
-            ? '执行成功'
-            : '执行失败'
-        item.call_02_status =
-          item.call_02_id == 0
-            ? '未委托'
-            : item.call_02_status == -1
-            ? '待执行'
-            : item.call_02_status == 0
-            ? '执行中'
-            : item.call_02_status == 1
-            ? '执行成功'
-            : item.call_01_status == 5
-            ? '执行中'
-            : '执行失败'
+        if (item.sms_01_msg == '已终止' || item.sms_01_msg == '已撤销') {
+          item.sms_01_status = item.sms_01_msg
+        } else {
+          item.sms_01_status =
+            item.sms_01_id == 0
+              ? '未委托'
+              : item.sms_01_status == -1
+                ? '待执行'
+                : item.sms_01_status == 0
+                  ? '执行成功'
+                  : item.sms_01_status == 1
+                    ? '执行失败'
+                    : '未委托'
+        }
+        if (item.call_01_msg == '已终止' || item.call_01_msg == '已撤销') {
+          item.call_01_status = item.call_01_msg
+        } else {
+          item.call_01_status =
+            item.call_01_id == 0
+              ? '未委托'
+              : item.call_01_status == -1
+                ? '待执行'
+                : item.call_01_status == 0
+                  ? '执行中'
+                  : item.call_01_status == 1
+                    ? '执行成功'
+                    : item.call_01_status == 5
+                      ? '执行中'
+                      : '执行失败'
+        }
+        if (item.email_01_msg == '已终止' || item.email_01_msg == '已撤销') {
+          item.email_01_status = item.email_01_msg
+        } else {
+          item.email_01_status =
+            item.email_01_id == 0
+              ? '未委托'
+              : item.email_01_status == -1
+                ? '待执行'
+                : item.email_01_status == 0
+                  ? '执行成功'
+                  : '执行失败'
+        }
+        if (item.email_02_msg == '已终止' || item.email_02_msg == '已撤销') {
+          item.email_02_status = item.email_02_msg
+        } else {
+          item.email_02_status =
+            item.email_02_id == 0
+              ? '未委托'
+              : item.email_02_status == -1
+                ? '待执行'
+                : item.email_02_status == 0
+                  ? '执行成功'
+                  : '执行失败'
+        }
+        if (
+          item.logistics_msg === '已终止' ||
+          item.logistics_msg === '已撤销'
+        ) {
+          item.logistics_status = item.logistics_msg
+        } else {
+          item.logistics_status =
+            item.log_logistics_id == 0
+              ? '未委托'
+              : item.logistics_status == 0
+                ? '待执行'
+                : item.logistics_status == 1
+                  ? '执行中'
+                  : item.logistics_status == 3
+                    ? '执行成功'
+                    : '执行失败'
+        }
+        if (item.sms_02_msg == '已终止' || item.sms_02_msg == '已撤销') {
+          item.sms_02_status = item.sms_02_msg
+        } else {
+          item.sms_02_status =
+            item.sms_02_id == 0
+              ? '未委托'
+              : item.sms_02_status == -1
+                ? '待执行'
+                : item.sms_02_status == 0
+                  ? '执行成功'
+                  : '执行失败'
+        }
+        if (item.call_02_msg == '已终止' || item.call_02_msg == '已撤销') {
+          item.call_02_status = item.call_02_msg
+        } else {
+          item.call_02_status =
+            item.call_02_id == 0
+              ? '未委托'
+              : item.call_02_status == -1
+                ? '待执行'
+                : item.call_02_status == 0
+                  ? '执行中'
+                  : item.call_02_status == 1
+                    ? '执行成功'
+                    : item.call_01_status == 5
+                      ? '执行中'
+                      : '执行失败'
+        }
       })
       arr.forEach((item: any) => {
         if (
@@ -809,8 +888,8 @@ export default class About extends Vue {
             item.is_dissent == 1
               ? '有'
               : item.is_dissent == -1
-              ? '未选择'
-              : '无'
+                ? '未选择'
+                : '无'
           item.feedback_source =
             item.feedback_source == 1 ? '债务人提交' : '客服添加'
         })
@@ -870,7 +949,7 @@ export default class About extends Vue {
         { prop: 'debtor_name', label: '债务人', width: '120px' },
         { prop: 'phone_number', label: '债务人手机', width: '200px' },
         { prop: 'email', label: '债务人邮箱', width: '200px' },
-        // { prop: 'city_name', label: '债务人地区', width: '250px' },
+        { prop: 'address_selected', label: '债务人地区', width: '250px' },
         { prop: 'address_txt', label: '债务人地址', width: '400px' }
       ]
       if (debtorType == '保险追偿') {
@@ -911,7 +990,7 @@ export default class About extends Vue {
           width: '200px'
         },
         { prop: 'email', label: '债务人邮箱', width: '200px' },
-        // { prop: 'city_name', label: '债务人地区', width: '250px' },
+        { prop: 'address_selected', label: '债务人地区', width: '250px' },
         {
           prop: 'address_txt',
           label: '债务人地址',
@@ -1026,30 +1105,126 @@ export default class About extends Vue {
   //撤销
   entrustRevoke() {
     let self: any = this
-    self
-      .$confirm('您确定撤销吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-      .then(() => {
-        Api.entrustRevoke(self.data.BasicInfo[0][0].value).then((res: any) => {
-          if (res.data != 0) {
-            self.$message.success(res.msg)
-            self.$router.push({
-              path: '/LawyerLetter/entrustList'
+    let parmas: any = {
+      batch_no: self.data.BasicInfo[0][0].value,
+      type: 2
+    }
+    const h: any = this.$createElement
+    this.$msgbox({
+      title: '提示',
+      message: h('p', { key: this.data.stopKey }, [
+        h('span', '您确定撤销吗?如有,请输入撤销理由'),
+        h(
+          'div',
+          {
+            attrs: {
+              class: 'el-input el-input--small'
+            }
+          },
+          [
+            h('input', {
+              attrs: {
+                class: 'el-input__inner',
+                id: 'status-error-detail'
+              }
             })
-          } else {
-            self.$message.warning(res.msg)
-          }
-        })
-      })
-      .catch(() => {
-        self.$message({
-          type: 'info',
-          message: '已取消撤销'
-        })
-      })
+          ]
+        )
+      ]),
+      showCancelButton: true,
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      beforeClose: (action, instance, done) => {
+        let doc: any = document.getElementById('status-error-detail')
+        let value: string = doc.value
+        parmas['stop_reason'] = value
+        if (action === 'confirm') {
+          Api.StopBatchTask(parmas).then((res: any) => {
+            if (res.data != 0) {
+              self.$message.success(res.msg)
+              self.$router.push({
+                path: '/LawyerLetter/entrustList'
+              })
+            } else {
+              self.$message.warning(res.msg)
+            }
+            done()
+          })
+        } else {
+          this.data.stopKey = this.data.stopKey + 1
+          self.$message({
+            type: 'info',
+            message: '已取消撤销'
+          })
+          done()
+        }
+      }
+    }).then(action => {
+      this.data.stopKey = this.data.stopKey + 1
+      self.init()
+    })
+  }
+  //终止
+  entrustStop() {
+    let self: any = this
+    let parmas: any = {
+      batch_no: self.data.BasicInfo[0][0].value,
+      type: 1
+    }
+    const h: any = this.$createElement
+    this.$msgbox({
+      title: '提示',
+      message: h('p', { key: this.data.stopKey }, [
+        h('span', '您确定终止吗?如有,请输入终止理由'),
+        h(
+          'div',
+          {
+            attrs: {
+              class: 'el-input el-input--small'
+            }
+          },
+          [
+            h('input', {
+              attrs: {
+                class: 'el-input__inner',
+                id: 'status-error-detail'
+              }
+            })
+          ]
+        )
+      ]),
+      showCancelButton: true,
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      beforeClose: (action, instance, done) => {
+        let doc: any = document.getElementById('status-error-detail')
+        let value: string = doc.value
+        parmas['stop_reason'] = value
+        if (action === 'confirm') {
+          Api.StopBatchTask(parmas).then((res: any) => {
+            if (res.state) {
+              self.$message.success(res.msg)
+              self.$router.push({
+                path: '/LawyerLetter/entrustList'
+              })
+            } else {
+              self.$message.warning(res.msg)
+            }
+            done()
+          })
+        } else {
+          this.data.stopKey = this.data.stopKey + 1
+          self.$message({
+            type: 'info',
+            message: '已取消终止'
+          })
+          done()
+        }
+      }
+    }).then(action => {
+      this.data.stopKey = this.data.stopKey + 1
+      self.init()
+    })
   }
   //删除
   entrustDelet() {
@@ -1098,6 +1273,7 @@ export default class About extends Vue {
     this.infoData2.email = data.email
     this.infoData2['isStop'] = data.executing_status
     //首次短信
+    this.data.loading = true
     this.getinfo2(this.option.sms_01_id, 'AI_Task_Code_1')
   }
   //打开编辑弹窗
@@ -1114,28 +1290,194 @@ export default class About extends Vue {
   //任务终止
   taskStop(data: any) {
     let self: any = this
-    self
-      .$confirm('您确定终止任务吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-      .then(() => {
-        Api.taskStop(data.debtor_number).then((res: any) => {
-          if (res.state) {
-            self.$message.success(res.msg)
-            self.init()
+    self.data.stopListType = true
+    self.data.stopList = []
+
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'call_01_id') {
+        self.data.stopList.push({
+          name: '首次电话',
+          prop: key,
+          value: data[key],
+          status: data['call_01_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'call_02_id') {
+        self.data.stopList.push({
+          name: '末次电话',
+          prop: key,
+          value: data[key],
+          status: data['call_02_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'email_01_id') {
+        self.data.stopList.push({
+          name: '邮件催款函',
+          prop: key,
+          value: data[key],
+          status: data['email_01_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'email_02_id') {
+        self.data.stopList.push({
+          name: '电子律师函',
+          prop: key,
+          value: data[key],
+          status: data['email_02_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'log_logistics_id') {
+        self.data.stopList.push({
+          name: 'EMS律师函',
+          prop: key,
+          value: data[key],
+          status: data['logistics_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'sms_01_id') {
+        self.data.stopList.push({
+          name: '首次短信',
+          prop: key,
+          value: data[key],
+          status: data['sms_01_status'],
+          debtor_number: data.debtor_number
+        })
+      } else if (key === 'sms_02_id') {
+        self.data.stopList.push({
+          name: '末次短信',
+          prop: key,
+          value: data[key],
+          status: data['sms_02_status'],
+          debtor_number: data.debtor_number
+        })
+      }
+    })
+    self.data.stopList.push({
+      name: '全部任务',
+      prop: 'ALl',
+      value: data['debtor_number'],
+      status: '待执行',
+      debtor_number: data.debtor_number
+    })
+  }
+  //终止任务
+  stopBtn(row: any, index: number) {
+    let self: any = this
+    let parmas: any = {
+      debtor_number: row.debtor_number,
+      task_type: self.getTaskType(row.prop)
+    }
+    const h: any = this.$createElement
+    this.$msgbox({
+      title: '提示',
+      message: h('p', { key: this.data.stopKey }, [
+        h('span', '您确定终止任务吗?如有,请输入终止理由'),
+        h(
+          'div',
+          {
+            attrs: {
+              class: 'el-input el-input--small'
+            }
+          },
+          [
+            h('input', {
+              attrs: {
+                class: 'el-input__inner',
+                id: 'status-error-detail'
+              }
+            })
+          ]
+        )
+      ]),
+      showCancelButton: true,
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      beforeClose: (action, instance, done) => {
+        let doc: any = document.getElementById('status-error-detail')
+        let value: string = doc.value
+        parmas['stop_reason'] = value
+        if (action === 'confirm') {
+          if (row.prop === 'ALl') {
+            Api.StopAllTask(row.debtor_number, value).then((res: any) => {
+              if (res.state) {
+                self.$message.success(res.msg)
+                self.data.stopListType = false
+                done()
+              } else {
+                done()
+                self.$message.warning(res.msg)
+              }
+            })
           } else {
-            self.$message.warning(res.msg)
+            Api.StopSingleTask(parmas).then((res: any) => {
+              if (res.state) {
+                self.$message.success(res.msg)
+                self.data.stopList[index].status = '已终止'
+                let list: any = self.data.stopList.filter((item: any) => {
+                  return item.status === '待执行'
+                })
+                if (list.length <= 1) {
+                  self.data.stopList[self.data.stopList.length - 1].status =
+                    '已终止'
+                  self.data.stopListType = false
+                  done()
+                } else {
+                  done()
+                }
+              } else {
+                done()
+                self.$message.warning(res.msg)
+              }
+            })
           }
-        })
-      })
-      .catch(() => {
-        self.$message({
-          type: 'info',
-          message: '已取消终止'
-        })
-      })
+        } else {
+          this.$message({
+            type: 'info',
+            message: '取消终止'
+          })
+          this.data.stopKey = this.data.stopKey + 1
+          // eslint-disable-next-line no-console
+          console.log(this.data.stopKey)
+
+          done()
+        }
+      }
+    }).then(action => {
+      this.data.stopKey = this.data.stopKey + 1
+      // eslint-disable-next-line no-console
+      console.log(this.data.stopKey)
+      self.init()
+    })
+  }
+  //获取任务类别
+  getTaskType(str: string) {
+    let num: number = 0
+    switch (str) {
+      case 'call_01_id':
+        num = 2
+        break
+      case 'call_02_id':
+        num = 7
+        break
+      case 'email_01_id':
+        num = 3
+        break
+      case 'email_02_id':
+        num = 4
+        break
+      case 'log_logistics_id':
+        num = 5
+        break
+      case 'sms_01_id':
+        num = 1
+        break
+      case 'sms_02_id':
+        num = 6
+        break
+      default:
+        break
+    }
+    return num
   }
   //编辑提交
   editSubmit(data: any) {
@@ -1149,16 +1491,26 @@ export default class About extends Vue {
       debtor_number: data.data.debtor_number,
       content: data.lawyerLetter
     }
+    let parmas4: any = {
+      debtor_number: parmas1.address_Edit['id'],
+      country: parmas1.address_Edit['country'],
+      province: parmas1.address_Edit['province'],
+      city: parmas1.address_Edit['city'],
+      county: parmas1.address_Edit['county']
+    }
+
     Api.UpdateDebtor(data.data).then((res1: any) => {
       Api.UpdateCollectionLetterContent(parmas2).then((res2: any) => {
-        Api.UpdateLawyersLetterContent(parmas3).then((res3: any) => {
-          if (res3.state) {
-            this.data.editShow = false
-            this.$message.success(res3.msg)
-            self.init()
-          } else {
-            this.$message.warning(res3.msg)
-          }
+        Api.debtorAddressEdit(parmas4).then((res4: any) => {
+          Api.UpdateLawyersLetterContent(parmas3).then((res3: any) => {
+            if (res3.state) {
+              this.data.editShow = false
+              this.$message.success(res3.msg)
+              self.init()
+            } else {
+              this.$message.warning(res3.msg)
+            }
+          })
         })
       })
     })
@@ -1231,9 +1583,8 @@ export default class About extends Vue {
   //快递信息下载
   DownLoadEMS() {
     const baseURL: string = 'http://api1.debteehelper.com/api'
-    let downloadFil = `${baseURL}/LawyerLetterExpress/DownLoadEMS?batch_no=${
-      this.$route.params.id
-    }&debtor_number=&receiving_name=&receiving_phone=&send_time=&ai_status=all&express_status=${'-1'}&courier_receipt=${'-1'}&courier_receipt_img=${'-1'}`
+    let downloadFil = `${baseURL}/LawyerLetterExpress/DownLoadEMS?batch_no=${this.$route.params.id
+      }&debtor_number=&receiving_name=&receiving_phone=&send_time=&ai_status=all&express_status=${'-1'}&courier_receipt=${'-1'}&courier_receipt_img=${'-1'}`
     window.open(downloadFil)
   }
   //通知
@@ -1382,5 +1733,9 @@ export default class About extends Vue {
     } else {
       return '暂无'
     }
+  }
+  //千位符'
+  thousandBitSeparator(val: any) {
+    return thousandBitSeparator(val)
   }
 }

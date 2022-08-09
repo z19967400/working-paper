@@ -104,7 +104,7 @@ class Offer extends React.Component<offerProps,any>{
     }
     CustomerSelectQuotedPrice(parmas).then((res:any) =>{
       if (res.state) {
-        this.props.hide()
+        this.props.hide('ok')
       } else {
         Toast.info(res.msg)
       }

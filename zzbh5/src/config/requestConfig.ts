@@ -40,7 +40,8 @@ const url = {
   GetAILawyerLetterReport:'/AILawyerLetter/GetAILawyerLetterReport', //获取AI律师函催收报告
   GetQuotedPriceByDebtorNumber:'/MemberCase/GetQuotedPriceByDebtorNumber', //获取案件报价
   CustomerSelectQuotedPrice:'/MemberCase/CustomerSelectQuotedPrice',//用户选择服务费模式
-  GetByid:'/tools/GetDocumentById' //获取文档内容
+  GetByid:'/tools/GetDocumentById', //获取文档内容
+  GetFeedbackByDebtorNumber:'/AILawyerLetter/GetFeedbackByDebtorNumber' //根据委托编号获取债务反馈
 }
 
 export default url

@@ -56,7 +56,7 @@ export default class About extends Vue {
       },
       {
         label: '地址',
-        prop: 'bank_of_deposit ',
+        prop: 'detailed_address',
         width: '250'
       },
       {

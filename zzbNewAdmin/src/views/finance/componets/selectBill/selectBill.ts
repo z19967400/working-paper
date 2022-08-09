@@ -1,5 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import * as Api from '@/api/finance'
+import { thousandBitSeparator } from '../../../../utils/common'
 @Component({
   components: {}
 })
@@ -24,6 +25,7 @@ export default class selectBill extends Vue {
   }
   currencys: any = []
   ai_pay: any = []
+  ai_pay_total = 0
   fixed_service_fee: any = []
   float_service_fee: any = []
   vip_admin: any = []
@@ -60,7 +62,11 @@ export default class selectBill extends Vue {
   getBillInfo() {
     this.getData.debtor_number = this.debtor_number
     Api.getBillInfo(this.getData).then((res: any) => {
+      this.ai_pay_total = 0
       if (res.state) {
+        res.data.ai_pay.forEach((item: any) => {
+          this.ai_pay_total += item.e_total
+        })
         this.ai_pay = res.data.ai_pay
         if (this.ai_pay.length > 0) {
           this.ai_pay.forEach((item: any) => {
@@ -72,7 +78,14 @@ export default class selectBill extends Vue {
           })
         }
         this.fixed_service_fee = res.data.fixed_service_fee
+        this.fixed_service_fee.forEach((item: any) => {
+          item.new_management_rate = item.new_management_rate + '%'
+        })
         this.float_service_fee = res.data.float_service_fee
+        this.float_service_fee.forEach((item: any) => {
+          item.float_service_rate = item.float_service_rate + '%'
+          item.new_management_rate = item.new_management_rate + '%'
+        })
         this.vip_admin = res.data.vip_admin
         this.name = res.data.name
         if (this.vip_admin) {
@@ -182,5 +195,9 @@ export default class selectBill extends Vue {
     } else {
       return ''
     }
+  }
+  qianweifu(val: any) {
+    let num: number = Number(val)
+    return thousandBitSeparator(num)
   }
 }

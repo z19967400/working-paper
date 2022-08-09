@@ -37,7 +37,20 @@
               {{ scope.row[item.prop] }}
             </el-link>
           </div>
-
+          <div
+            style="text-align:right;"
+            v-else-if="
+              item.prop == 'float_service_rate' ||
+                item.prop == 'new_management_rate' ||
+                item.prop == 'collection_amount' ||
+                item.prop == 'float_service_fee' ||
+                item.prop == 'fixed_service_fee' ||
+                item.prop == 'management_fee' ||
+                item.prop == 'lawyer_fee'
+            "
+          >
+            <span>{{ scope.row[item.prop] }}</span>
+          </div>
           <span v-else>{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>

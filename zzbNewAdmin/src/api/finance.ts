@@ -393,3 +393,18 @@ export const DeleteMemberCollectionById = (id: any) => {
 export const SendBillNotice = (parmas: any) => {
   return Api.SendBillNotice(parmas, 'GET')
 }
+
+//更新赠送数据
+export const UpdatePresent = (parmas: any) => {
+  return Api.UpdatePresent(parmas, 'GET')
+}
+
+//更新账单标题名称
+export const UpdateBillTitle = (parmas: any) => {
+  return Api.UpdateBillTitle(parmas, 'POST')
+}
+
+//查询账单生成状态
+export const GetBillFileByBillNumber = (parmas: any) => {
+  return Api.GetBillFileByBillNumber(parmas, 'GET')
+}

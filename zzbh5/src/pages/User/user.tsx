@@ -63,10 +63,9 @@ class List extends React.Component<ListProps,ListStates>{
     this.state = {
       list:[
         {name:'委托列表',url:'/home'},
-        {name:'我的资料',url:'/MemberEdit'},
         // {name:'推送通知',url:'/home'},
         {name:'客服中心',url:'https://webchat.7moor.com/wapchat.html?accessId=31dff590-cb85-11e8-a15e-39a686fb9aaf&fromUrl=home&urlTitle=H5'},
-        // {name:'设置',url:'/home'}
+        {name:'设置',url:'/User/UserInfo'}
       ]
     }
   }

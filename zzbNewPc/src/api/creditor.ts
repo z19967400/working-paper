@@ -85,3 +85,22 @@ export const GetAdminByNotCreditorId = (creditor_id: any) => {
 export const GetAllCreditorListReverseOrder = () => {
   return Api.GetAllCreditorListReverseOrder({}, "GET");
 };
+//获取管理员授权次数
+export const GetAuthorizationTimes = (id: number) => {
+  return Api.GetAuthorizationTimes({ creditor_admin_id: id }, "GET");
+};
+
+//更新债权人管理员信息
+export const UpdateCreditorAdmin = (parmas: any) => {
+  return Api.UpdateCreditorAdmin(parmas, "POST");
+};
+
+//更新管理员时验证手机号或登录名
+export const VerifyAdminInfoForUpdate = (parmas: any) => {
+  return Api.VerifyAdminInfoForUpdate(parmas, "GET");
+};
+
+//更新债权人信息
+export const UpdateCreditor = (parmas: any) => {
+  return Api.UpdateCreditor(parmas, "POST");
+};

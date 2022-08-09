@@ -27,3 +27,7 @@ export const UnionPay = (out_trade_no: string, pay_email_number: string) => {
 export const SendTransfer = (toAddress: string, pay_number: string) => {
   return Api.SendTransfer({ toAddress, pay_number }, "GET");
 };
+//赠送支付
+export const PresentPay = (pay_number: string) => {
+  return Api.PresentPay({ out_trade_no: pay_number }, "GET");
+};

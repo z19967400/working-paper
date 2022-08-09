@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/assets/swiper-5.2.1/css/swiper.min.css">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1768920_7uttn1m7115.css">
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"> -->
-  <link rel="stylesheet" href="/assets/css/viewcss/login.css?v=2021430">
+  <link rel="stylesheet" href="/assets/css/viewcss/login.css?v=2021627">
   <link rel="stylesheet" href="/assets/css/phonepublick.css">
   <link rel="stylesheet" href="/assets/css/phone/login.css">
   <link rel="stylesheet" href="/css/head.css" />
@@ -257,7 +257,8 @@
                     <div class="upload">
                       <div class="upload-left width">
                         <input class="upload-file2" type="file" id="authorize" accept="image/*,.pdf">
-                        <div style="font-size:14px;width:108px;" class="upload-pdf">上传授权书</div>
+                        <div style="font-size:14px;width:108px;" id="upload-btn" class="upload-pdf">上传授权书</div>
+                        <img class="upload-sucess-icon" src="../image/gou2.png" alt="">
                         <p class="upload-pdf-text" data-url="" id="authorize_img"></p>
                       </div>
                       <div style="position: relative;top: -25px;" class="upload-right">
@@ -341,7 +342,7 @@
                 <button style="width: 40%;padding: 6px 4px;" type="button" id="hqyzm"
                   class="btn btn-primary testing">获取验证码</button>
               </div>
-              <button type="button" id="login2" class="btn btn-primary ">登 录</button>
+              <button type="button" id="login2" class="btn btn-primary">登 录</button>
               <div class="loginfoot">
                 <div id="zhuce" style="color: #ec193a;">没有账号?点击注册</div>
               </div>
@@ -669,10 +670,10 @@
       }
     }
     //h5获取验证码
-    function getCode2(parmas) {
+    function getCode2(parmas, num) {
       if (timer == null) {
         $.ajax({
-          url: "https://wechat.debteehelper.com/api/SendSMS/SendSMSCode",
+          url: num === 1 ? "https://wechat.debteehelper.com/api/Login/SendSMSCode" : "https://wechat.debteehelper.com/api/Login/SendSMSCodeV2",
           type: "GET",
           data: parmas,
           headers: { 'Content-Type': 'application/json;charset=utf8' },
@@ -709,7 +710,7 @@
         let parmas = {
           phone_number,
         }
-        getCode2(parmas)
+        getCode2(parmas, 1)
       }
     })
     $('#hqyzm2').click(function () {
@@ -721,7 +722,7 @@
         let parmas = {
           phone_number,
         }
-        getCode2(parmas)
+        getCode2(parmas, 2)
       }
 
     })
@@ -814,7 +815,8 @@
       let phone_number = $('input[name=admin_phone_number]').val()
       if (timer2 == null) {
         $.ajax({
-          url: "https://api2.debteehelper.com/api/Register/SendSMSCode",
+          // url: "https://api2.debteehelper.com/api/Register/SendSMSCode",
+          url: 'https://api2.debteehelper.com/api/Login/SendSMSCodeV2',
           type: "GET",
           data: { phone_number },
           headers: { 'Content-Type': 'application/json;charset=utf8' },
@@ -850,7 +852,8 @@
       let phone_number = $('#phone_number2').val()
       if (timer3 == null) {
         $.ajax({
-          url: "https://api2.debteehelper.com/api/Register/SendSMSCode",
+          url: "https://api2.debteehelper.com/api/Login/SendSMSCode",
+          // url: 'https://api2.debteehelper.com/api/Login/SendSMSCodeV2',
           type: "GET",
           data: { phone_number },
           headers: { 'Content-Type': 'application/json;charset=utf8' },
@@ -959,7 +962,10 @@
               if (res.data != null) {
                 let imgUrl = 'https://file.debteehelper.com' + res.data.FileUrl + res.data.FileExtension
                 $('#authorize_img').attr('data-url', imgUrl)
-                $('#authorize_img').text('上传的文件' + res.data.FileExtension)
+                $('#authorize_img').text('上传成功')
+                $('#upload-btn').text('重新上传')
+                $('#authorize_img').show()
+                $('.upload-sucess-icon').show()
                 openToast(res.msg, "success")
               }
               $('#uploading').hide()

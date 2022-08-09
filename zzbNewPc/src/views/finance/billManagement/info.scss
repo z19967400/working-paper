@@ -20,8 +20,8 @@
       display: flex;
       & > .text {
         div {
-          color: $Main-characters;
-          font-size: $Text-font;
+          color: #909399;
+          font-size: 12px;
           // min-height: 40px;
           // line-height: 40px;
           padding: 10px 25px 10px 0;
@@ -56,11 +56,12 @@
       .section {
         & > span:first-child {
           font-size: 14px;
-          color: $Secondary-text;
           margin-top: 10px;
           display: flex;
           justify-content: space-between;
           line-height: 32px;
+          color: #606266;
+          font-weight: 700;
         }
         & .el-textarea {
           width: 600px;
@@ -77,10 +78,12 @@
               margin-bottom: 10px;
               line-height: 32px;
               & > span:first-child {
-                margin-right: 10px;
+                margin-right: 20px;
+                font-size: 12px;
+                color: #909399;
               }
               & > span:last-child {
-                color: $Main-characters;
+                color: #606366;
               }
             }
           }
@@ -124,9 +127,9 @@
     justify-content: space-between;
     margin-bottom: 20px;
   }
-  & .editData {
-    width: 880px;
-  }
+  // & .editData {
+  //   width: 880px;
+  // }
   & .footer-box {
     position: absolute;
     bottom: 0;
@@ -137,6 +140,9 @@
     z-index: 2;
     padding-top: 20px;
     // box-shadow: 0px 4px 4px #ccc;
+  }
+  & .el-table th.el-table__cell > .cell {
+    font-weight: normal;
   }
   & .table1 {
     & .el-table__body {

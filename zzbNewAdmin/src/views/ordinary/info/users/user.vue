@@ -155,26 +155,7 @@
           </div>
         </div>
         <div class="section">
-          <span style="margin-top:0;">
-            <span class="title">后台备注</span>
-          </span>
-          <el-divider></el-divider>
-          <el-form>
-            <el-form-item label="备注">
-              <el-input
-                type="textarea"
-                :rows="24"
-                v-model="data.back_remarks"
-              ></el-input>
-            </el-form-item>
-            <el-button
-              style="margin-left:40px;"
-              type="primary"
-              @click="SaveNotes"
-              size="small"
-              >保存</el-button
-            >
-          </el-form>
+          <remark :id="this.$route.params.id" :remarks_type="2"></remark>
         </div>
       </div>
     </div>
@@ -273,7 +254,7 @@
             ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="代理人姓名">
+        <el-form-item label="管理员姓名">
           <el-col :span="18">
             <el-input
               placeholder="请填写电子邮箱"
@@ -281,7 +262,7 @@
             ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="代理人身份证号">
+        <el-form-item label="管理员身份证号">
           <el-col :span="18">
             <el-input
               placeholder="请填写电子邮箱"
@@ -289,7 +270,7 @@
             ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="代理人手机号码">
+        <el-form-item label="管理员手机号码">
           <el-col :span="18">
             <el-input
               placeholder="请填写电子邮箱"
@@ -297,7 +278,7 @@
             ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="代理人电子邮箱">
+        <el-form-item label="管理员电子邮箱">
           <el-col :span="18">
             <el-input
               placeholder="请填写电子邮箱"
@@ -429,42 +410,46 @@
         <el-row v-if="userData.creditor_type === 'Creditor_states_1'">
           <el-col :span="5" class="lable">身份证人像面</el-col>
           <el-col :span="12">
-            <img
+            <el-image
               class="img"
-              @click="preview(userData.id_card_img_01)"
               :src="userData.id_card_img_01"
-            />
+              :preview-src-list="data.srcList"
+            >
+            </el-image>
           </el-col>
         </el-row>
         <el-row v-else>
           <el-col :span="5" class="lable">营业执照</el-col>
           <el-col :span="12">
-            <img
+            <el-image
               class="img"
-              @click="preview(userData.license_img_url)"
               :src="userData.license_img_url"
-            />
+              :preview-src-list="data.srcList"
+            >
+            </el-image>
           </el-col>
         </el-row>
         <el-row v-if="userData.creditor_type === 'Creditor_states_1'">
           <el-col :span="5" class="lable">身份证国徽面</el-col>
           <el-col :span="12">
-            <img
+            <el-image
               class="img"
-              @click="preview(userData.id_card_img_02)"
               :src="userData.id_card_img_02"
-            />
+              :preview-src-list="data.srcList"
+            >
+            </el-image>
           </el-col>
         </el-row>
         <el-row v-else>
-          <el-col :span="5" class="lable">代理人授权书</el-col>
+          <el-col :span="5" class="lable">管理员授权书</el-col>
           <el-col :span="12">
-            <img
-              class="img"
+            <el-image
               v-if="substr(userData.agent_authorization) !== 'pdf'"
-              @click="preview(userData.agent_authorization)"
+              class="img"
               :src="userData.agent_authorization"
-            />
+              :preview-src-list="data.srcList"
+            >
+            </el-image>
             <el-link v-else type="success">{{
               sblicet(userData.agent_authorization)
             }}</el-link>
@@ -498,19 +483,19 @@
         </div>
         <div v-else>
           <el-row>
-            <el-col :span="5" class="lable">代理人姓名</el-col>
+            <el-col :span="5" class="lable">管理员姓名</el-col>
             <el-col :span="12">{{ userData.agent_name }}</el-col>
           </el-row>
           <el-row>
-            <el-col :span="5" class="lable">代理人身份证号</el-col>
+            <el-col :span="5" class="lable">管理员身份证号</el-col>
             <el-col :span="12">{{ userData.agent_id_number }}</el-col>
           </el-row>
           <el-row>
-            <el-col :span="5" class="lable">代理人手机号码</el-col>
+            <el-col :span="5" class="lable">管理员手机号码</el-col>
             <el-col :span="12">{{ userData.phone_number }}</el-col>
           </el-row>
           <el-row>
-            <el-col :span="5" class="lable">代理人电子邮箱</el-col>
+            <el-col :span="5" class="lable">管理员电子邮箱</el-col>
             <el-col :span="12">{{ userData.email }}</el-col>
           </el-row>
         </div>

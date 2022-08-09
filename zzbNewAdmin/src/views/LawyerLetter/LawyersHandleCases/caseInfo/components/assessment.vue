@@ -277,11 +277,14 @@
           <el-table-column label="得分">
             <template slot-scope="scope">
               <span v-if="!data.collectionrateType">{{ scope.row.score }}</span>
-              <el-input
-                v-else
-                size="small"
-                v-model="scope.row.score"
-              ></el-input>
+              <div v-else>
+                <span v-show="scope.row.weight == '人工评估调整'"> - </span>
+                <el-input
+                  style="display:inline-block;width:80%;"
+                  size="small"
+                  v-model="scope.row.score"
+                ></el-input>
+              </div>
             </template>
           </el-table-column>
         </el-table>
@@ -578,8 +581,6 @@ export default class About extends Vue {
           })
         })
     } else {
-      // eslint-disable-next-line no-console
-      console.log('编辑')
       this.data.informationType = !this.data.informationType
     }
   }
@@ -662,7 +663,16 @@ export default class About extends Vue {
       debtor_number: this.data.debtor_number
     }
     this.data.assessment.case_collectionrate.forEach((item: any) => {
-      parmas1[item.prop] = item.score
+      if (
+        item.prop === 'bq_accounts_receivable' ||
+        item.prop === 'bq_fixed_assets' ||
+        item.prop === 'bq_other_property'
+      ) {
+        parmas1[item.prop] = item.score * -1
+      } else {
+        parmas1[item.prop] = item.score
+      }
+
       if (item.prop2) {
         parmas2[item.prop2] = item.value
       }

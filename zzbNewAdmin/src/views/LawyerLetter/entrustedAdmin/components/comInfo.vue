@@ -19,19 +19,35 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
-            >
+              >已终止
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
             <el-col v-else :span="20">
               {{
                 data.info.run_status == '-1'
                   ? '待执行'
                   : data.info.run_status == '0'
                   ? '执行成功'
-                  : data.info.run_status == '2'
+                  : data.info.run_status == '2' || data.info.run_status == '1'
                   ? '执行失败'
                   : '未委托'
-              }}</el-col
-            >
+              }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
           </el-row>
           <el-row v-if="data.info.send_time">
             <el-col :span="4">{{
@@ -75,19 +91,37 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
+              >已终止
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '-1'
-                ? '待执行'
-                : data.info.run_status == '0'
-                ? '执行中'
-                : data.info.run_status == '1'
-                ? '执行成功'
-                : data.info.run_status == '2'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '-1'
+                  ? '待执行'
+                  : data.info.run_status == '0'
+                  ? '执行中'
+                  : data.info.run_status == '1'
+                  ? '执行成功'
+                  : data.info.run_status == '2'
+                  ? '执行失败'
+                  : '未委托'
+              }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
           </el-row>
           <el-row v-if="data.info.send_time">
             <el-col :span="4">{{
@@ -124,17 +158,33 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
+              >已终止<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '-1'
-                ? '待执行'
-                : data.info.run_status == '0'
-                ? '执行成功'
-                : data.info.run_status == '1'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '-1'
+                  ? '待执行'
+                  : data.info.run_status == '0'
+                  ? '执行成功'
+                  : data.info.run_status == '1'
+                  ? '执行失败'
+                  : '未委托'
+              }}<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
+            >
           </el-row>
           <!-- <el-row>
             <el-col :span="4">发送内容</el-col>
@@ -196,17 +246,33 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
+              >已终止<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '-1'
-                ? '待执行'
-                : data.info.run_status == '0'
-                ? '执行成功'
-                : data.info.run_status == '1'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '-1'
+                  ? '待执行'
+                  : data.info.run_status == '0'
+                  ? '执行成功'
+                  : data.info.run_status == '1'
+                  ? '执行失败'
+                  : '未委托'
+              }}<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
+            >
           </el-row>
           <el-row
             v-if="
@@ -220,7 +286,7 @@
               ><span
                 @click="
                   toinfo(
-                    'http://api1.debteehelper.com/AILawyerLetter/LawyerLetter?debtor_number='
+                    'https://api1.debteehelper.com/AILawyerLetter/LawyerLetterV2?debtor_number='
                   )
                 "
                 class="info"
@@ -270,19 +336,35 @@
                   data.info.run_status == '0'
               "
               :span="20"
-              >已终止</el-col
+              >已终止<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '0'
-                ? '待执行'
-                : data.info.run_status == '1'
-                ? '执行中'
-                : data.info.run_status == '3'
-                ? '执行成功'
-                : data.info.run_status == '4'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '0'
+                  ? '待执行'
+                  : data.info.run_status == '1'
+                  ? '执行中'
+                  : data.info.run_status == '3'
+                  ? '执行成功'
+                  : data.info.run_status == '4'
+                  ? '执行失败'
+                  : '未委托'
+              }}<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
+            >
           </el-row>
           <el-row
             v-if="
@@ -297,7 +379,7 @@
               ><span
                 @click="
                   toinfo(
-                    'http://api1.debteehelper.com/AILawyerLetter/LawyerLetter?debtor_number='
+                    'https://api1.debteehelper.com/AILawyerLetter/LawyerLetterV2?debtor_number='
                   )
                 "
                 class="info"
@@ -629,17 +711,33 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
+              >已终止<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '-1'
-                ? '待执行'
-                : data.info.run_status == '0'
-                ? '执行成功'
-                : data.info.run_status == '2'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '-1'
+                  ? '待执行'
+                  : data.info.run_status == '0'
+                  ? '执行成功'
+                  : data.info.run_status == '2'
+                  ? '执行失败'
+                  : '未委托'
+              }}<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
+            >
           </el-row>
           <el-row>
             <el-col :span="4">{{
@@ -676,19 +774,35 @@
                   data.info.run_status == '-1'
               "
               :span="20"
-              >已终止</el-col
+              >已终止<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
             >
-            <el-col v-else :span="20">{{
-              data.info.run_status == '-1'
-                ? '待执行'
-                : data.info.run_status == '0'
-                ? '执行中'
-                : data.info.run_status == '1'
-                ? '执行成功'
-                : data.info.run_status == '2'
-                ? '执行失败'
-                : '未委托'
-            }}</el-col>
+            <el-col
+              v-else-if="
+                data.info.run_msg == '已撤销' || data.info.run_msg == '已终止'
+              "
+              :span="20"
+              >{{ data.info.run_msg }}
+              <span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              >
+            </el-col>
+            <el-col v-else :span="20"
+              >{{
+                data.info.run_status == '-1'
+                  ? '待执行'
+                  : data.info.run_status == '0'
+                  ? '执行中'
+                  : data.info.run_status == '1'
+                  ? '执行成功'
+                  : data.info.run_status == '2'
+                  ? '执行失败'
+                  : '未委托'
+              }}<span v-show="data.info.stop_reason">
+                ({{ data.info.stop_reason }})</span
+              ></el-col
+            >
           </el-row>
           <el-row
             v-show="data.info.send_time != null && data.info.send_time != ''"

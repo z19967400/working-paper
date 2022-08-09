@@ -230,6 +230,7 @@ export default class About extends Vue {
     invoiceTypes: [
       //发票类型下拉
       { value: 'Invoice_Type_0', name: '增值税普通发票（电子）', taxRate: '1' },
+      { value: 'Invoice_Type_3', name: '增值税专用发票（电子）', taxRate: '6' },
       { value: 'Invoice_Type_1', name: '增值税普通发票（纸质）', taxRate: '3' },
       { value: 'Invoice_Type_2', name: '增值税专用发票（纸质）', taxRate: '6' }
     ],

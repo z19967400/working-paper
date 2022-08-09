@@ -1,5 +1,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import * as Api from "@/api/AIlvshihan";
+import axios from "axios";
+import { getToken } from "@/utils/common";
 import {
   comselect,
   comtable,
@@ -228,6 +230,35 @@ export default class About extends Vue {
   //添加编辑
   add() {
     //
+  }
+  //导出列表数据
+  exportBtn() {
+    let params: any =
+      JSON.stringify(this.data.select) == "{}"
+        ? this.options
+        : this.data.select;
+
+    const baseURL: string = "https://api2.debteehelper.com";
+    // let downloadFil = `${baseURL}/api/Cases/ExportExcel?case_status=${
+    //   params.case_status
+    // }&debtor_number=${params.debtor_number}&creditor_name=${
+    //   params.creditor_name
+    // }&debtor_name=${params.debtor_name}&create_name=${
+    //   params.create_name
+    // }&create_time=${params.create_time}&tokey=${getToken()}`;
+    // window.open(downloadFil);
+    let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportExcel?create_time=${
+      params.create_time
+    }&debtor_number=${params.debtor_number}&creditor_name=${
+      params.creditor_name
+    }&debtor_name=${params.debtor_name}&executing_status=${
+      params.executing_status
+    }&create_name=${params.create_name}&tokey=${getToken()}`;
+
+    var elemIF = document.createElement("iframe");
+    elemIF.src = downloadFileUrl;
+    elemIF.style.display = "none";
+    document.body.appendChild(elemIF);
   }
   //分页
   watchChange(index: number) {

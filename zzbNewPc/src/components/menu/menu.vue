@@ -85,41 +85,43 @@
           <span slot="title">操作手册</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="100-1">
+          <el-menu-item
+            @click="
+              open(
+                'https://file.debteehelper.com/help/债主帮VIP账户操作手册-AI律师函.pdf'
+              )
+            "
+            index="100-1"
+          >
             <template slot="title">
               <!-- <div class="xian"></div> -->
-              <span
-                @click="
-                  open(
-                    'https://file.debteehelper.com/help/债主帮VIP账户操作手册-AI律师函.pdf'
-                  )
-                "
-                >AI律师函</span
-              >
+              <span>AI律师函</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="100-2">
+          <el-menu-item
+            @click="
+              open(
+                'https://file.debteehelper.com/help/债主帮VIP账户操作手册-律师办案.pdf'
+              )
+            "
+            index="100-2"
+          >
             <template slot="title">
-              <span
-                @click="
-                  open(
-                    'https://file.debteehelper.com/help/债主帮VIP账户操作手册-律师办案.pdf'
-                  )
-                "
-              >
+              <span>
                 律师办案
               </span>
             </template>
           </el-menu-item>
-          <el-menu-item index="100-3">
+          <el-menu-item
+            @click="
+              open(
+                'https://file.debteehelper.com/help/债主帮控制台操作手册-债权人及管理员.pdf'
+              )
+            "
+            index="100-3"
+          >
             <template slot="title">
-              <span
-                @click="
-                  open(
-                    'https://file.debteehelper.com/help/债主帮控制台操作手册-债权人及管理员.pdf'
-                  )
-                "
-              >
+              <span>
                 债权人及管理员
               </span>
             </template>

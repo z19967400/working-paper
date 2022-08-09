@@ -313,3 +313,31 @@ export const GetCreditorPagingData = (parmas: any) => {
 export const GetCreditorAdminByCreditorId = (creditor_id: number) => {
   return Api.GetCreditorAdminByCreditorId({ creditor_id }, 'GET')
 }
+//获取所有授权书记录
+export const GetAllAuthorizationFileRecord = (creditor_admin_id: number) => {
+  return Api.GetAllAuthorizationFileRecord({ creditor_admin_id }, 'GET')
+}
+//新增备注
+export const AddRemarks = (parmas: any) => {
+  return Api.AddRemarks(parmas, 'POST')
+}
+//获取备注
+export const GetRemarksByTypeAndNumber = (parmas: any) => {
+  return Api.GetRemarksByTypeAndNumber(parmas, 'GET')
+}
+//根据ID删除备注文件(改：2022/8/8)
+export const DeleteRemarksFileByID = (id: any) => {
+  return Api.DeleteRemarksFileByID({ id }, 'GET')
+}
+// 更新备注内容
+export const UpdateRemarksContent = (parmas: any) => {
+  return Api.UpdateRemarksContent(parmas, 'POST')
+}
+//新增备注文件
+export const AddRemarksFile = (parmas: any) => {
+  return Api.AddRemarksFile(parmas, 'POST')
+}
+//根据ID删除备注
+export const DeleteRemarksByID = (id: any) => {
+  return Api.DeleteRemarksByID({ id }, 'GET')
+}

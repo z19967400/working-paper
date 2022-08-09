@@ -338,32 +338,66 @@ export default class About extends Vue {
       })
     }
     parmas.dissent_content = str.substring(0, str.lastIndexOf(','))
-    Api.UpdateFeedback(parmas).then((res: any) => {
-      if (res.state) {
-        self.data.feedbackType = false
-        self.$message({
-          type: 'success',
-          message: res.msg
-        })
-        self.$emit('init')
-      } else {
-        self.$message({
-          type: 'error',
-          message: res.msg
-        })
+    this.$confirm(
+      '“债务反馈”中的内容将直接反馈给用户，是否确认提交？',
+      '提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       }
-    })
+    )
+      .then(() => {
+        Api.UpdateFeedback(parmas).then((res: any) => {
+          if (res.state) {
+            self.data.feedbackType = false
+            self.$message({
+              type: 'success',
+              message: res.msg
+            })
+            self.$emit('init')
+          } else {
+            self.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
   }
   //发送通知
   notice(id: number) {
-    Api.SendFeedbackNotice(id).then((res: any) => {
-      if (res.state) {
-        this.$message.success(res.msg)
-        this.$emit('init')
-      } else {
-        this.$message.warning(res.msg)
+    this.$confirm(
+      '将发送通知至债权人联系人及债权人管理员电子邮箱，是否确认？',
+      '提示',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
       }
-    })
+    )
+      .then(() => {
+        Api.SendFeedbackNotice(id).then((res: any) => {
+          if (res.state) {
+            this.$message.success(res.msg)
+            this.$emit('init')
+          } else {
+            this.$message.warning(res.msg)
+          }
+        })
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
   }
   handlScorll(res: any) {
     let height = res.target

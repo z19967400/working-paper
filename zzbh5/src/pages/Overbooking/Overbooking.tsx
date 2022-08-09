@@ -98,16 +98,16 @@ class Overbooking extends React.Component<any,overbookingStates>{
               if (type === 1) {
                 // 个人
                 if (title2 === '律师办案') {
-                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo} key={'debtorInfo'+key}></Panel>
+                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo} key={'debtorInfo_'+key}></Panel>
                 } else {
-                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo3} key={'debtorInfo'+key}></Panel>
+                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo3} key={'debtorInfo3_'+key}></Panel>
                 }   
               } else {
                 // 企业
                 if (title2 === '律师办案') {
-                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo2} key={'debtorInfo'+key}></Panel>
+                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo2} key={'debtorInfo2_'+key}></Panel>
                 } else {
-                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo4} key={'debtorInfo'+key}></Panel>
+                  return  <Panel getData={this.getPanelSet.bind(this)} name={'债务人信息'} data={debtorInfo4} key={'debtorInfo4_'+key}></Panel>
                 }
               }
             })()
@@ -119,69 +119,92 @@ class Overbooking extends React.Component<any,overbookingStates>{
     )
   }
   componentDidMount(){
-    let {debtorInfo,debtorInfo2,debtorInfo3,debtorInfo4,type,title2,debInfo} = this.state
-    if (type === 1) {
-      if (title2 === '律师办案') {
-        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo))
-        arr.forEach((item:PaneData) =>{
-          if (this.props.parmas[item.prop]) {
-            item.value = this.props.parmas[item.prop]
-          }
-        })
-        this.setState({
-          debtorInfo:arr,
-          key:2
-        })
-      } else {
-        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo3))
-        arr.forEach((item:PaneData) =>{
-          if (this.props.parmas[item.prop]) {
-            item.value = this.props.parmas[item.prop]
-          }
-        })
-        this.setState({
-          debtorInfo3:arr,
-          key:3
-        })
-      }
-     
-    } else {
-      if (title2 === '律师办案') {
-        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo2))
-        arr.forEach((item:PaneData) =>{
-          if (this.props.parmas[item.prop]) {
-            item.value = this.props.parmas[item.prop]
-          }
-        })
-        this.setState({
-          debtorInfo2:arr,
-          key:4
-        })
-      } else {
-        let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo4))
-        arr.forEach((item:PaneData) =>{
-          if (this.props.parmas[item.prop]) {
-            item.value = this.props.parmas[item.prop]
-          }
-        })
-        this.setState({
-          debtorInfo4:arr,
-          key:5
-        })
-      }
-    }
-    let arr2:PaneData[]=JSON.parse(JSON.stringify(debInfo))
-    arr2.forEach((item:PaneData) =>{
-      if (this.props.parmas[item.prop] && item.prop !== 'currency_id') {
-        item.value = this.props.parmas[item.prop]
-      }
-    })
     this.setState({
       type:parseInt(this.props.match.params.type2),
       parmas:this.props.parmas,
       title:parseInt(this.props.match.params.type) === 0?'企业应收账款':'个人欠款',
       title2:parseInt(this.props.match.params.type3) === 0?'AI律师函':"律师办案",
-      debInfo:arr2
+    },() =>{
+      let {debtorInfo,debtorInfo2,debtorInfo3,debtorInfo4,type,title2,debInfo} = this.state
+      if (type === 1) {
+        if (title2 === '律师办案') {
+          let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo))
+          arr.forEach((item:PaneData) =>{
+            if (item.prop === 'detailed_address') {
+              item.value2 = this.props.parmas[item.prop]
+              item.value = this.props.parmas['address']
+            }else{
+              if (this.props.parmas[item.prop]) {
+                item.value = this.props.parmas[item.prop]
+              }
+            }
+            
+          })
+          this.setState({
+            debtorInfo:arr,
+            key:2
+          })
+        } else {
+          let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo3))
+          arr.forEach((item:PaneData) =>{
+            if (item.prop === 'detailed_address') {
+              item.value2 = this.props.parmas[item.prop]
+              item.value = this.props.parmas['address']
+            }else{
+              if (this.props.parmas[item.prop]) {
+                item.value = this.props.parmas[item.prop]
+              }
+            }
+          })
+          this.setState({
+            debtorInfo3:arr,
+            key:3
+          })
+        }
+      } else {   
+        if (title2 === '律师办案') {
+          let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo2))
+          arr.forEach((item:PaneData) =>{
+            if (item.prop === 'detailed_address') {
+              item.value2 = this.props.parmas[item.prop]
+              item.value = this.props.parmas['address']
+            }else{
+              if (this.props.parmas[item.prop]) {
+                item.value = this.props.parmas[item.prop]
+              }
+            }
+          })    
+          this.setState({
+            debtorInfo2:arr,
+            key:4
+          })       
+        } else {
+          let arr:PaneData[] = JSON.parse(JSON.stringify(debtorInfo4))
+          arr.forEach((item:PaneData) =>{
+            if (item.prop === 'detailed_address') {
+              item.value2 = this.props.parmas[item.prop]
+              item.value = this.props.parmas['address']
+            }else{
+              if (this.props.parmas[item.prop]) {
+                item.value = this.props.parmas[item.prop]
+              }
+            }
+          })
+          this.setState({
+            debtorInfo4:arr,
+            key:5
+          })
+        }
+      }
+      let arr2:PaneData[]=JSON.parse(JSON.stringify(debInfo))
+      arr2.forEach((item:PaneData) =>{
+        if (this.props.parmas[item.prop] && item.prop !== 'currency_id') {
+          item.value = this.props.parmas[item.prop]
+        }
+      })
+      this.setState({
+        debInfo:arr2
+      })
     })
   }
   //下一步
@@ -273,9 +296,12 @@ class Overbooking extends React.Component<any,overbookingStates>{
       // }
     }
     if (isOk) { 
+      const storage:any = window.localStorage
       parmas['debtor_type'] = this.state.type === 0? 'Creditor_states_0':'Creditor_states_1' //债务人类别 0是企业 1是个人
       parmas['debt_type'] = parseInt(this.props.match.params.type)  === 1 ? 'Debt_type_0':'Debt_type_4' //债务类别 0明间借贷 4是企业应收
       this.props.add(parmas)
+      storage.setItem("HC",JSON.stringify(parmas))
+      storage.setItem("Router",`overbooking/${this.props.match.params.type}/${this.props.match.params.type2}/${this.props.match.params.type3}`)
       this.props.history.push(`/Authentication/${this.props.match.params.type}/${this.props.match.params.type2}/${this.props.match.params.type3}`)
     }
   } 
@@ -287,6 +313,7 @@ class Overbooking extends React.Component<any,overbookingStates>{
       parmas['province'] = res.value[0]
       parmas['city'] = res.value[1]
       parmas['county'] = res.value[2]
+      parmas['address'] = res.value2
     }else if(res.prop === 'detailed_address2'){
       parmas['detailed_address'] = res.value
     } else if(res.prop === 'currency_id'){

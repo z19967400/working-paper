@@ -80,12 +80,14 @@ Page({
   },
   //提交
   submit() {
+    let that = this
     let parmas = {
-      debtor_number: this.data.debtor_number,
-      matters_from_id: this.data.matters_from_id,
+      debtor_number: that.data.debtor_number,
+      matters_from_id: that.data.matters_from_id,
       execution_status: 0,
-      from_details: this.data.from_details
+      from_details: that.data.from_details
     }
+    console.log(parmas);
     wx.request({
       url: requstUrl.lawyerSaveMatterForm,
       data: { data: JSON.stringify(parmas) },
@@ -98,9 +100,10 @@ Page({
         let res = ress.data
         if (res.state) {
           Toast.success(res.msg);
-          wx.navigateTo({
-            url: '/pages/caseProgress/caseProgress?debtor_number=' + that.data.debtor_number
-          })
+          // wx.navigateTo({
+          //   url: '/pages/caseProgress/caseProgress?debtor_number=' + that.data.debtor_number
+          // })
+          app.router.navigateBack()
         } else {
           Toast.fail(res.msg);
         }
@@ -116,12 +119,14 @@ Page({
       execution_status: 1,
       from_details: that.data.from_details
     }
+    console.log(parmas);
     http.postRequest(requstUrl.lawyerSaveMatterForm, { data: JSON.stringify(parmas) }, function (res) {
       if (res.state) {
         Toast.success(res.msg);
-        wx.navigateTo({
-          url: '/pages/caseProgress/caseProgress?debtor_number=' + that.data.debtor_number
-        })
+        // wx.navigateTo({
+        //   url: '/pages/caseProgress/caseProgress?debtor_number=' + that.data.debtor_number
+        // })
+        app.router.navigateBack()
       } else {
         Toast.fail(res.msg);
       }
@@ -129,11 +134,11 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/index/index',
     })
   }

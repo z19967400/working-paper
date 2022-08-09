@@ -38,10 +38,7 @@
             placement="right"
             v-show="data.failcount <= 0"
           >
-            <span
-              style="color:#67c23a;"
-              class="textred el-icon-warning-outline"
-            >
+            <span style="color:#67c23a;" class="textred el-icon-circle-check">
               <span style="color: #ec193a;" class="textred3"
                 >上传成功，请核对无误后提交委托</span
               >

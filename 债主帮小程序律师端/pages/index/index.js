@@ -111,7 +111,7 @@ Page({
     this.getLawInfo()
   },
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
@@ -132,16 +132,16 @@ Page({
     let code = this.data.lawInfo.code
     if (path == '/pages/authentication/authentication') {
       if (code == 2 || code == -1) {
-        wx.navigateTo({
+        app.router.navigateTo({
           url: path,
         })
       } else {
-        wx.navigateTo({
+        app.router.navigateTo({
           url: '/pages/examine/examine?type=' + code
         })
       }
     } else {
-      wx.navigateTo({
+      app.router.navigateTo({
         url: path,
       })
     }
@@ -176,15 +176,15 @@ Page({
     let code = this.data.lawInfo.code
     console.log(code);
     if (code == -1) { //未认证
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/authentication/authentication'
       })
     } else if (code == 2) { //认证通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/authentication/authentication'
       })
     } else { //待审核 或 未通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/examine/examine?type=' + code
       })
     }

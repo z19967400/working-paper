@@ -814,10 +814,10 @@ export default class About extends Vue {
         val = "审核中";
         break;
       case "Settlement_Status_1":
-        val = "用户确认";
+        val = "待确认账单";
         break;
       case "Settlement_Status_2":
-        val = "客服确认";
+        val = "账单复核中";
         break;
       case "Settlement_Status_3":
         val = "开票中";

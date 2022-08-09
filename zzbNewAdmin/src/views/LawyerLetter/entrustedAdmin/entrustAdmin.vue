@@ -49,6 +49,13 @@
                     data.m_type == 'VIP' ? 'PC' : '移动端'
                   }}）
                 </span>
+                <span v-else-if="item2.name == '债务类别'">
+                  {{ item2.value }}({{
+                    data.creditor_type == 'Creditor_states_0'
+                      ? '企业债务人'
+                      : '个人债务人'
+                  }})
+                </span>
                 <span v-else>{{ item2.value }}</span>
               </p>
             </div>
@@ -64,7 +71,7 @@
               @editSandTime="editSandTime"
               :tableOption="data.implementOption"
               :tableData="data.implementList"
-              :audit_status="data.shenhe.audit_status"
+              :audit_status="data.audit_status"
             ></table1>
           </div>
         </div>
@@ -113,6 +120,11 @@
             <el-input
               v-model="data.getDebtorParmas.debtor_number"
               placeholder="委托编号"
+              size="small"
+            ></el-input>
+            <el-input
+              v-model="data.getDebtorParmas.receiving_name"
+              placeholder="收件人"
               size="small"
             ></el-input>
           </div>
@@ -209,6 +221,48 @@
         </div>
         <div ref="section5" class="section">
           <span :class="{ act: data.actIndex == 5 }">
+            <span class="title">收款信息</span>
+          </span>
+          <el-divider></el-divider>
+          <div class="box">
+            <div style="width:100%;">
+              <el-table :data="data.collection_account">
+                <el-table-column label="对公转账">
+                  <el-table-column
+                    label="收款户名"
+                    prop="payee_account_name"
+                  ></el-table-column>
+                  <el-table-column
+                    label="收款账号"
+                    prop="collection_account_number"
+                  ></el-table-column>
+                  <el-table-column
+                    label="收款银行全称"
+                    prop="bank_full_name"
+                  ></el-table-column>
+                  <el-table-column
+                    label="银行行号"
+                    prop="bank_code"
+                  ></el-table-column>
+                </el-table-column>
+                <el-table-column label="支付宝转账">
+                  <el-table-column
+                    label="支付宝账户"
+                    prop="alipay_account"
+                  ></el-table-column>
+                  <el-table-column
+                    label="手机号码"
+                    prop="alipay_phone_number"
+                  ></el-table-column>
+                </el-table-column>
+                <el-table-column prop="payment_remarks" label="付款备注">
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </div>
+        <div ref="section6" class="section">
+          <span :class="{ act: data.actIndex == 6 }">
             <span class="title">律师函署名</span>
           </span>
           <el-divider></el-divider>
@@ -334,8 +388,8 @@
             </div>
           </div>
         </div>
-        <div ref="section6" class="section">
-          <span :class="{ act: data.actIndex == 6 }">
+        <div ref="section7" class="section">
+          <span :class="{ act: data.actIndex == 7 }">
             <span class="title">债权人</span>
           </span>
           <el-divider></el-divider>
@@ -347,8 +401,8 @@
             :Creditors="data.creditorList"
           ></creditor>
         </div>
-        <div ref="section7" class="section">
-          <span :class="{ act: data.actIndex == 7 }">
+        <div ref="section8" class="section">
+          <span :class="{ act: data.actIndex == 8 }">
             <span class="title">支付信息</span>
           </span>
           <el-divider></el-divider>
@@ -363,10 +417,10 @@
                 data.payment.pay_status
               }}</el-descriptions-item>
               <el-descriptions-item label="总金额">{{
-                data.payment.total_amount
+                thousandBitSeparator(data.payment.total_amount)
               }}</el-descriptions-item>
               <el-descriptions-item label="应付金额">{{
-                data.payment.paid_amount
+                thousandBitSeparator(data.payment.paid_amount)
               }}</el-descriptions-item>
               <el-descriptions-item label="支付方式">
                 {{ data.payment.pay_method_name }}
@@ -375,13 +429,13 @@
                 {{ data.payment.pay_platform_number }}</el-descriptions-item
               >
               <el-descriptions-item label="账单编号">
-                {{ $route.params.id }}</el-descriptions-item
+                {{ data.payment.bill_number }}</el-descriptions-item
               >
             </el-descriptions>
           </div>
         </div>
-        <div ref="section8" class="section">
-          <span :class="{ act: data.actIndex == 8 }">
+        <div ref="section9" class="section">
+          <span :class="{ act: data.actIndex == 9 }">
             <span class="title">审核/反馈</span>
           </span>
           <el-divider></el-divider>
@@ -418,33 +472,16 @@
             </el-form>
           </div>
         </div>
-        <div ref="section9" class="section">
-          <span :class="{ act: data.actIndex == 9 }">
+        <div ref="section10" class="section">
+          <!-- <span :class="{ act: data.actIndex == 10 }">
             <span class="title">后台备注</span>
-          </span>
-          <el-divider></el-divider>
-          <div style="flex-wrap: wrap;" class="box">
-            <el-row style="width:100%;margin-bottom:20px;">
-              <el-col :span="24">
-                <el-input
-                  type="textarea"
-                  :rows="15"
-                  v-model="data.back_remarks"
-                ></el-input>
-              </el-col>
-            </el-row>
-            <el-row style="width:100%;">
-              <el-col>
-                <el-button
-                  @click="back_remarksSave"
-                  plain
-                  size="small"
-                  type="primary"
-                  >保存</el-button
-                >
-              </el-col>
-            </el-row>
-          </div>
+          </span> -->
+
+          <remark
+            :class="{ act: data.actIndex == 10 }"
+            :id="this.$route.params.id"
+            :remarks_type="4"
+          ></remark>
         </div>
       </div>
     </div>
@@ -506,7 +543,22 @@
         type="primary"
         >撤销</el-button
       >
-      <el-button size="small" @click="entrustDelet" type="primary"
+      <el-button
+        v-show="data.executing_states == 'AI_State_2'"
+        size="small"
+        @click="entrustStop"
+        type="primary"
+        >终止</el-button
+      >
+      <el-button
+        size="small"
+        :disabled="
+          data.executing_states != 'AI_State_0' &&
+            data.executing_states != 'AI_State_1' &&
+            data.executing_states != 'AI_State_6'
+        "
+        @click="entrustDelet"
+        type="primary"
         >删除</el-button
       >
     </div>
@@ -544,6 +596,22 @@
         <el-button type="primary" @click="tzRelease">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="任务终止" width="45%" :visible.sync="data.stopListType">
+      <el-descriptions direction="vertical" :column="10" border>
+        <el-descriptions-item
+          v-for="(item, index) in data.stopList"
+          :key="index"
+          :label="item.name"
+        >
+          <el-button
+            :disabled="item.status !== '待执行'"
+            @click="stopBtn(item, index)"
+            type="text"
+            >立即终止</el-button
+          >
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-dialog>
   </div>
 </template>
 
@@ -577,7 +645,7 @@
           cursor: pointer;
         }
         .act {
-          .title {
+          & .title {
             color: #ec193a;
           }
         }
@@ -666,7 +734,7 @@
     left: 10%;
   }
   .obligor {
-    width: 600px;
+    width: 620px;
     padding: 20px 40px;
   }
   .title {
@@ -682,6 +750,12 @@
   .el-dialog {
     width: 598px;
     border-radius: 10px;
+  }
+  .el-table thead.is-group th.el-table__cell {
+    background: white;
+  }
+  .el-descriptions :not(.is-bordered) .el-descriptions-item__cell {
+    text-align: center;
   }
 }
 </style>

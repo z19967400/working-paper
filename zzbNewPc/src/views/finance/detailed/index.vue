@@ -25,13 +25,14 @@
       >
         <el-option label="待支付" value="Pay_Status_0"></el-option>
         <el-option label="已支付" value="Pay_Status_1"></el-option>
+        <el-option label="已退款" value="Pay_Status_2"></el-option>
       </el-select>
       <el-input
         v-if="data.type == 'AI律师函支付明细'"
         style="width:220px;margin-left:20px;"
         size="small"
         v-model="options.batch_no"
-        placeholder="委托编号"
+        placeholder="委托批次号"
       ></el-input>
       <el-input
         v-if="data.type == 'AI律师函支付明细'"
@@ -123,7 +124,12 @@
           <template slot-scope="scope">
             <span
               :style="{
-                color: scope.row[item.prop] == '已支付' ? '#67C23A' : ''
+                color:
+                  scope.row[item.prop] == '已支付'
+                    ? '#67C23A'
+                    : scope.row[item.prop] == '已退款'
+                    ? '#f04761'
+                    : ''
               }"
               v-if="item.prop == 'pay_status'"
               >{{ scope.row[item.prop] }}</span

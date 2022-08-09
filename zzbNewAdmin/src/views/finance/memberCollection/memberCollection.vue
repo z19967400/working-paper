@@ -105,6 +105,8 @@
             >
               <el-option label="增值税普通发票（电子）" value="Invoice_Type_0">
               </el-option>
+              <el-option label="增值税专用发票（电子）" value="Invoice_Type_3">
+              </el-option>
               <el-option label="增值税普通发票（纸质）" value="Invoice_Type_1">
               </el-option>
               <el-option label="增值税专用发票（纸质）" value="Invoice_Type_2">

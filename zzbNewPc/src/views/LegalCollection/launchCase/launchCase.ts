@@ -394,6 +394,13 @@ export default class About extends Vue {
       });
     }
   }
+  //取消选择债权人
+  chacakClose() {
+    if (this.data.selectCreditors == "请选择债权人") {
+      this.data.collid = "";
+    }
+    this.data.dialogVisible = false;
+  }
   beforeTest(res: any) {
     this.fullscreenLoading = true;
   }
@@ -445,7 +452,7 @@ export default class About extends Vue {
         // }
         this.$notify({
           title: "文件上传成功",
-          message: res.data.FileName,
+          message: "",
           type: "success"
         });
         this.fullscreenLoading = false;
@@ -596,10 +603,12 @@ export default class About extends Vue {
     Api.sendTextVal(val, verify).then((res: any) => {
       if (val == "") return this.$message.warning("请输入内容");
       if (res.state == true) {
+        if (colltable[rownum][textname].bol == "False") {
+          this.data.failcount -= 1;
+        }
         colltable[rownum][textname].value = res.data;
         colltable[rownum][textname].bol = "True";
         this.$message.success("修改成功");
-        this.data.failcount -= 1;
         this.data.errorDialogVisible = false;
       } else {
         this.$message.warning("请按正确格式修改");
@@ -734,5 +743,16 @@ export default class About extends Vue {
     this.editCreaditor.creditor_id = row.id;
     this.editCreaditor.creditor_name = row.creditor_name;
     this.editCreaditor.license_no = row.license_no;
+  }
+  //括号中文转化’
+  kuohao(str: string) {
+    // eslint-disable-next-line no-useless-escape
+    var reg = /[\（]/g;
+    // eslint-disable-next-line no-useless-escape
+    var reg2 = /[\）]/g;
+    // eslint-disable-next-line no-console
+    console.log(str.replace(reg, "(").replace(reg2, ")"));
+
+    return str.replace(reg, "(").replace(reg2, ")");
   }
 }

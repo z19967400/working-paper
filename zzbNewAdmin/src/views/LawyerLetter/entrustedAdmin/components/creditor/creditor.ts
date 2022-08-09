@@ -10,6 +10,14 @@ export default class creditor extends Vue {
   @Watch('Creditors', { deep: true })
   CreditorsChange(newVal: any, oldVal: any) {
     this.data.list = [...newVal]
+    this.data.list.forEach((item: any) => {
+      if (item.license_img_url) {
+        this.data.srcList.push(item.license_img_url)
+      } else {
+        this.data.srcList.push(item.id_card_img_01)
+        this.data.srcList.push(item.id_card_img_02)
+      }
+    })
     // this.data.list.forEach((item: any) => {
     //   item.create_time = item.create_time.replace("T", " ");
     //   if (item.admin_list.length != 0) {
@@ -30,6 +38,7 @@ export default class creditor extends Vue {
     this.data.adminList = [...newVal]
   }
   data: any = {
+    srcList: [],
     show: false,
     row: {
       id: 0,
@@ -52,13 +61,15 @@ export default class creditor extends Vue {
       authorization_file: [
         { required: true, message: '请上传授权书', trigger: 'change' }
       ]
-    }
+    },
+    history: [],
+    creditor_admin_id: ''
   }
   adminAddType: boolean = false
   fileList: any = []
   shenhe: any = {}
-  created() {}
-  activated() {}
+  created() { }
+  activated() { }
 
   mounted() {
     //
@@ -71,6 +82,8 @@ export default class creditor extends Vue {
   handleEdit(row: any) {
     this.shenhe = Object.assign({}, row)
     this.adminAddType = true
+    this.data.creditor_admin_id = row.creditor_admin_id
+    this.GetAllAuthorizationFileRecord(row.creditor_admin_id)
   }
   //授权管理员删除
   handleClick(row: any) {
@@ -206,8 +219,8 @@ export default class creditor extends Vue {
           row[key] == '已通过'
             ? 'Audit_states_2'
             : row[key] == '未通过'
-            ? 'Audit_states_1'
-            : 'Audit_states_0'
+              ? 'Audit_states_1'
+              : 'Audit_states_0'
       } else if (key == 'id') {
         this.data.row[key] = row[key]
       } else {
@@ -224,7 +237,8 @@ export default class creditor extends Vue {
       audit_feedback: this.shenhe.audit_feedback,
       back_remarks: this.shenhe.back_remarks,
       authorization_file: this.shenhe.authorization_file,
-      license_img_url: this.data.list[0].license_img_url
+      license_img_url: this.data.list[0].license_img_url,
+      creditor_admin_id: this.data.creditor_admin_id
     }
     Api.CreditorAdminAudit(parmas).then((res: any) => {
       if (res.state) {
@@ -277,5 +291,21 @@ export default class creditor extends Vue {
         break
     }
     return text
+  }
+  //获取所有授权书记录
+  GetAllAuthorizationFileRecord(creditor_admin_id: number) {
+    Api.GetAllAuthorizationFileRecord(creditor_admin_id).then((res: any) => {
+      res.data.forEach((item: any) => {
+        item.create_time = item.create_time.replace(
+          'T',
+          ' '
+        )
+        item.create_time = item.create_time.substring(
+          0,
+          item.create_time.lastIndexOf(':')
+        )
+      })
+      this.data.history = res.data
+    })
   }
 }

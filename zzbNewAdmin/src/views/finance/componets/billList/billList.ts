@@ -1,5 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import * as Api from '@/api/finance'
+import { thousandBitSeparator } from '../../../../utils/common'
 @Component({
   components: {}
 })
@@ -30,13 +31,13 @@ export default class billList extends Vue {
     if (this.case_pay != []) {
       if (this.billType == 'Bill_Type_0') {
         this.tableData1 = this.case_pay.filter((item: any) => {
-          item.fixed_service_fee = `${item.fixed_service_fee.toLocaleString()}${
+          item.fixed_service_fee = `${this.qianweifu(item.fixed_service_fee)}${
             item.currency_2
           }`
-          item.collection_amount = `${item.collection_amount.toLocaleString()}${
+          item.collection_amount = `${this.qianweifu(item.collection_amount)}${
             item.currency_1
           }`
-          item.float_service_fee = `${item.float_service_fee.toLocaleString()}${
+          item.float_service_fee = `${this.qianweifu(item.float_service_fee)}${
             item.currency_3
           }`
           return item.business_type != 'Entrust_type_7'
@@ -46,19 +47,19 @@ export default class billList extends Vue {
         })
       } else if (this.billType == 'Bill_Type_1') {
         this.tableData1 = this.case_pay.filter((item: any) => {
-          item.collection_amount = `${item.collection_amount.toLocaleString()}${
+          item.collection_amount = `${this.qianweifu(item.collection_amount)}${
             item.currency_1
           }`
-          item.fixed_service_fee = `${item.fixed_service_fee.toLocaleString()}${
+          item.fixed_service_fee = `${this.qianweifu(item.fixed_service_fee)}${
             item.currency_2
           }`
-          item.float_service_fee = `${item.float_service_fee.toLocaleString()}${
+          item.float_service_fee = `${this.qianweifu(item.float_service_fee)}${
             item.currency_3
           }`
-          item.management_fee = `${item.management_fee.toLocaleString()}${
+          item.management_fee = `${this.qianweifu(item.management_fee)}${
             item.currency_4
           }`
-          item.lawyer_fee = `${item.lawyer_fee.toLocaleString()}${
+          item.lawyer_fee = `${this.qianweifu(item.lawyer_fee)}${
             item.currency_5
           }`
           return item.business_type == 'Entrust_type_6'
@@ -68,16 +69,16 @@ export default class billList extends Vue {
         })
       } else {
         this.tableData1 = this.case_pay.filter((item: any) => {
-          item.collection_amount = `${item.collection_amount.toLocaleString()}${
+          item.collection_amount = `${this.qianweifu(item.collection_amount)}${
             item.currency_1
           }`
-          item.fixed_service_fee = `${item.fixed_service_fee.toLocaleString()}${
+          item.fixed_service_fee = `${this.qianweifu(item.fixed_service_fee)}${
             item.currency_2
           }`
-          item.float_service_fee = `${item.float_service_fee.toLocaleString()}${
+          item.float_service_fee = `${this.qianweifu(item.float_service_fee)}${
             item.currency_3
           }`
-          item.management_fee = `${item.management_fee.toLocaleString()}${
+          item.management_fee = `${this.qianweifu(item.management_fee)}${
             item.currency_4
           }`
           return item.business_type == 'Entrust_type_8'
@@ -169,5 +170,10 @@ export default class billList extends Vue {
     } else {
       return val
     }
+  }
+  //千位符
+  qianweifu(val: any) {
+    let num: number = Number(val)
+    return thousandBitSeparator(num)
   }
 }

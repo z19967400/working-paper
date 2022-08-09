@@ -1,0 +1,69 @@
+// @import '@/assets/scss/variables';
+.remark{
+  width: 100%;
+  ul{
+    padding-left: 0px;
+  }
+  & .header{
+    position: relative;
+    display: block;
+    width: 100%;
+    & .add{
+      position: absolute;
+      right: 0px;
+      top: -10px;
+      color: #67C23A;
+    }
+  }
+  & .edit{
+    color: #E6A23C!important;
+  }
+  & .block{
+    & .item-header{
+      max-height: 20px;
+      position: relative;
+      top: -14px;
+    }
+    & .btn{
+      height: 20px;
+    }
+    & .text{
+      overflow: hidden;
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+   
+    & .el-upload-list {
+      width: 50%;
+    }
+    & .img-box{
+      & .el-image:nth-child(1){
+        margin-left: 0px!important;
+      }
+      & .el-image{
+        margin-left:20px;
+        width: 146px; 
+        height: 146px;
+        cursor: pointer;
+      }
+      
+    }
+  }
+  & .addRemarks{
+    .el-dialog__body{
+      padding: 0 20px 0px 20px;
+    }
+    & > .el-dialog{
+      border-radius: 10px;
+    }
+  }
+  & .textarea{
+    width: 100% !important;
+    margin-bottom: 20px;
+    & > .el-textarea__inner{
+      height: auto!important;
+    }
+   
+  }
+}

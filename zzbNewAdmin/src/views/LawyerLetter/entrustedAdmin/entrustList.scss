@@ -1,4 +1,4 @@
-@import "@/assets/scss/variables.scss";
+@import '@/assets/scss/variables.scss';
 
 .entrustList-wrap {
   height: 100%;
@@ -15,5 +15,19 @@
   }
   & .input-box button {
     display: none;
+  }
+  & .daochu {
+    position: absolute;
+    right: 20px;
+    top: 51px;
+  }
+  & .tanchuang {
+    & .el-dialog {
+      width: 1080px;
+      border-radius: 10px;
+    }
+    & .el-dialog__footer {
+      text-align: center;
+    }
   }
 }

@@ -273,3 +273,31 @@ export function numFormat(num: number) {
   });
   return res;
 }
+/**
+ * 数字千位符保留小数点后两位
+ * */
+export function thousandBitSeparator(num: any): any {
+  if (num === 0) {
+    return "0.00";
+  } else if (num) {
+    let val: string = num.toString();
+    //不含小数点
+    if (val.indexOf(".") == -1) {
+      return Number(num).toLocaleString() + ".00";
+    } else {
+      //含有小数点
+      let ws: string = val.substring(val.lastIndexOf(".") + 1, val.length);
+      let ss: number = Number(val.substring(0, val.lastIndexOf(".")));
+      if (ws.length == 1) {
+        //小数点后有一位
+        return Number(num).toLocaleString() + "0";
+      } else if (ws.length == 2) {
+        //小数点后有两位
+        return ss.toLocaleString() + "." + ws;
+      } else {
+        let val1: any = Number(num).toFixed(2);
+        return thousandBitSeparator(val1);
+      }
+    }
+  }
+}

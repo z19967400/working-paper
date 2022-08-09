@@ -66,7 +66,7 @@
           <van-cell  required title-class="laber" title="年检页照" custom-class="updata-cell">
             <view class="value">
               <van-uploader max-count="1" file-list="{{ authenticationData.fileList2 }}" deletable="{{ editType }}" bind:after-read="afterRead2"
-                bind:delete="updataDelet2" />
+                bind:delete="updataDelet2"  bind:click-preview="peview"  />
             </view>
           </van-cell>
           <van-cell  required title-class="laber" title="专长类型" custom-class="updata-cell">

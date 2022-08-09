@@ -15,7 +15,7 @@
 .content{
   margin-top: 40rpx;
   font-size: 28rpx;
-  padding: 0 40rpx;
+  /* padding: 0 40rpx; */
 }
 .btn{
   display: inline-block;
@@ -116,4 +116,55 @@
   line-height: 80rpx;
   font-size: 28rpx;
   color: #606366;
+}
+.weui-cell {
+  padding: 16px;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  /* margin: 40px 0; */
+}
+.weui-label {
+  display: block;
+  width: 105px;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-size: 14px;
+}
+.weui-cell__bd {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  font-size: 14px;
+}
+.weui-input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  -webkit-appearance: none;
+  background-color: transparent;
+  font-size: inherit;
+  color: inherit;
+  height: 1.41176471em;
+  line-height: 1.41176471;
+}
+.weui-cell::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid var(--weui-FG-3);
+  color: var(--weui-FG-3);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  left: 16px;
+  z-index: 2;
 }

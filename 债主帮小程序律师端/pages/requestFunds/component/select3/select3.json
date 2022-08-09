@@ -5,6 +5,8 @@
     "van-radio-group": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio-group",
     "van-picker":"../../../../miniprogram/miniprogram_npm/vant-weapp/picker",
     "van-popup":"../../../../miniprogram/miniprogram_npm/vant-weapp/popup",
-    "select":"../select/select"
+    "select":"../select/select",
+    "mp-form": "weui-miniprogram/form/form",
+    "mp-form-page": "weui-miniprogram/form-page/form-page"
   }
 }

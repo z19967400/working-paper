@@ -1,5 +1,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import * as Api from "@/api/Finance";
+import { thousandBitSeparator } from "@/utils/common";
 // import { UserOptions } from "../../../types";
 @Component({})
 export default class About extends Vue {
@@ -17,10 +18,10 @@ export default class About extends Vue {
       { name: "律师办案<br/>法律服务明细" },
       { name: `债主帮收款<br/>银行账号信息` },
       { name: "发票信息" },
-      { name: "债主帮<br/>开票信息" },
+      { name: "发票开具状态" },
       { name: "结算记录" },
       { name: "退款记录" },
-      { name: "账单客服" }
+      { name: "专属客服" }
     ],
     id: 0,
     tabPosition: "left",
@@ -222,8 +223,22 @@ export default class About extends Vue {
           }
         });
       }
-      this.data.settlement_records = res.data.settlement_records;
-      this.data.refund_records = res.data.refund_records;
+      if (res.data.settlement_records) {
+        res.data.settlement_records.forEach((item: any) => {
+          item.settlement_time = item.settlement_time.replace("T", " ");
+          item.settlement_amount = this.thousandBitSeparator(
+            item.settlement_amount
+          );
+        });
+        this.data.settlement_records = res.data.settlement_records;
+      }
+      if (res.data.refund_records) {
+        res.data.refund_records.forEach((item: any) => {
+          item.refund_time = item.refund_time.replace("T", " ");
+          item.refund_amount = this.thousandBitSeparator(item.refund_amount);
+        });
+        this.data.refund_records = res.data.refund_records;
+      }
     });
   }
 
@@ -330,7 +345,7 @@ export default class About extends Vue {
             }
           }, 0)
         );
-        sums[index] += " 元";
+        sums[index] += "";
       } else {
         sums[index] = "";
       }
@@ -469,7 +484,8 @@ export default class About extends Vue {
   download(path: string) {
     window.open(path);
   }
-  thousandBitSeparator(num: number) {
-    return num.toLocaleString();
+  //数字千位符保留小数点后两位
+  thousandBitSeparator(num: any) {
+    return thousandBitSeparator(num);
   }
 }

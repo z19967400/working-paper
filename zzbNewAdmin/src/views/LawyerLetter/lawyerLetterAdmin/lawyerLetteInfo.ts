@@ -31,7 +31,8 @@ export default class About extends Vue {
       back_remarks: '',
       back_remarks_file: [],
       evidence_status: '',
-      evidence_number: ''
+      evidence_number: '',
+      error_prompt: ''
     },
     addExpressData: {
       id: 0,

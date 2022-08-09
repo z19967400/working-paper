@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import ElementUI from "element-ui";
+import AFTableColumn from "af-table-column";
+Vue.use(AFTableColumn);
 // import "tcj-lib-flexible";
 import "@/assets/scss/element-variables.scss";
 Vue.config.productionTip = false;

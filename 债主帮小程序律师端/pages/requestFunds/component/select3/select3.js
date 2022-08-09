@@ -42,6 +42,7 @@ Component({
     show: false,
     show2: false,
     currency_name: '',
+    index: 0,
     arrList: [],
     FxRiskFee: '', //风险律师费率
     lawyerFee: 0, //风险律师费额

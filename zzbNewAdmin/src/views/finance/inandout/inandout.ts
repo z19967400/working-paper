@@ -43,19 +43,47 @@ export default class About extends Vue {
       {
         value: 'pay_status',
         label: '支付状态'
+      },
+      {
+        value: 'batch_no',
+        label: '委托批次号'
+      },
+      {
+        value: 'member_id',
+        label: '用户Id'
+      },
+      {
+        value: 'pay_platform_number',
+        label: '流水号'
+      },
+      {
+        value: 'm_type',
+        label: '用户类别'
+      },
+      {
+        value: 'bill_status',
+        label: '账单生成状态'
+      },
+      {
+        value: 'pay_method',
+        label: '支付方式'
+      },
+      {
+        value: 'time',
+        label: '创建时间段'
       }
     ],
     dataType: [
-      { label: '支付编号', prop: 'pay_number' },
-      { label: '委托类别', prop: 'business_type' },
-      { label: '委托批次号', prop: 'relation_number' },
-      { label: '应付金额', prop: 'paid_amount', width: '80' },
-      { label: '支付方式', prop: 'pay_method' },
-      { label: '支付状态', prop: 'pay_status' },
-      { label: '账单编号', prop: 'bill_number' },
-      { label: '创建人', prop: 'create_name' },
-      { label: '创建时间', prop: 'create_time' },
-      { label: '备注', prop: 'bill_remarks' }
+      { label: '支付编号', prop: 'pay_number', width: '180px' },
+      { label: '委托类别', prop: 'business_type', width: '100px' },
+      { label: '委托批次号', prop: 'relation_number', width: '180px' },
+      { label: '应付金额', prop: 'paid_amount', width: '120px' },
+      { label: '支付方式', prop: 'pay_method', width: '100px' },
+      { label: '支付状态', prop: 'pay_status', width: '100px' },
+      { label: '账单编号', prop: 'bill_number', width: '180px' },
+      { label: '创建人', prop: 'create_name', width: '220px' },
+      { label: '创建时间', prop: 'create_time', width: '150px' },
+      { label: '备注', prop: 'back_remarks', width: '180px' }
     ]
   }
   options: any = {
@@ -65,20 +93,30 @@ export default class About extends Vue {
     member_name: '',
     pay_number: '',
     bill_number: '',
-    pay_status: ''
+    pay_status: '',
+    pay_platform_number: '',
+    batch_no: '',
+    m_type: '',
+    bill_status: 0,
+    pay_method: '',
+    start_time: '',
+    end_time: ''
   }
   info: any = [
     { label: '支付编号', value: '', prop: 'pay_number' },
     { label: '收支类别', value: '', prop: 'business_type' },
-    { label: '委托编号', value: '', prop: 'relation_number' },
+    { label: '委托批次号', value: '', prop: 'relation_number' },
     { label: '币种', value: '', prop: 'currency_id' },
     { label: '账单编号', value: '', prop: 'bill_number', span: 2 },
     { label: '创建时间', value: '', prop: 'create_time' },
     { label: '创建人', value: '', prop: 'create_name', span: 2 },
+    { label: '委托总数', prop: 'e_total', span: 1 },
+    { label: '撤销数量', prop: 'cancel_total', span: 2 },
     { label: '单价', value: '', prop: 'total_amount' },
     { label: '应付金额', value: '', prop: 'paid_amount', span: 2 },
     { label: '支付状态', value: '', prop: 'pay_status' },
     { label: '支付方式', value: '', prop: 'pay_method', span: 2 },
+    { label: '支付时间', value: '暂无', prop: 'pay_time', span: 1 },
     {
       label: '流水号',
       value: '',
@@ -105,7 +143,7 @@ export default class About extends Vue {
   edit: any = [
     { label: '支付编号', value: '', prop: 'pay_number' },
     { label: '收支类别', value: '', prop: 'business_type' },
-    { label: '委托编号', value: '', prop: 'relation_number' },
+    { label: '委托批次号', value: '', prop: 'relation_number' },
     {
       label: '币种',
       value: '',
@@ -116,6 +154,8 @@ export default class About extends Vue {
     { label: '账单编号', value: '', prop: 'bill_number', span: 2 },
     { label: '创建时间', value: '', prop: 'create_time' },
     { label: '创建人', value: '', prop: 'create_name', span: 2 },
+    { label: '委托总数', prop: 'e_total', span: 1 },
+    { label: '撤销数量', prop: 'cancel_total', span: 2 },
     { label: '单价', value: '', prop: 'total_amount' },
     {
       label: '应付金额',
@@ -140,6 +180,7 @@ export default class About extends Vue {
       type: 'select',
       edit: true
     },
+    { label: '支付时间', value: '暂无', prop: 'pay_time', span: 1 },
     {
       label: '流水号',
       value: '',
@@ -189,7 +230,8 @@ export default class About extends Vue {
   pay_types: any = [
     //支付状态列表
     { name: '已支付', type: 'Pay_Status_1' },
-    { name: '待支付', type: 'Pay_Status_0' }
+    { name: '待支付', type: 'Pay_Status_0' },
+    { name: '已退款', type: 'Pay_Status_2' }
   ]
   currency: any = [] //币种
   pay_id: any = ''
@@ -227,7 +269,7 @@ export default class About extends Vue {
               item.business_type === 'Entrust_type_0' ? 'AI律师函' : '律师办案'
             item.pay_method = this.getPayStatusName(item.pay_method)
             item.pay_status =
-              item.pay_status === 'Pay_Status_1' ? '已支付' : '待支付'
+              item.pay_status === 'Pay_Status_1' ? '已支付' : item.pay_status === 'Pay_Status_2' ? '已退款' : '待支付'
             item.bill_number = item.bill_number || '未生成'
             item.paid_amount = item.paid_amount.toLocaleString() + '.00'
           })
@@ -274,7 +316,7 @@ export default class About extends Vue {
                   : '律师办案'
             } else if (item.prop === 'pay_status') {
               item.value =
-                res.data[item.prop] === 'Pay_Status_1' ? '已支付' : '待支付'
+                res.data[item.prop] === 'Pay_Status_1' ? '已支付' : res.data[item.prop] === 'Pay_Status_2' ? '已退款' : '待支付'
             } else if (item.prop == 'create_name') {
               item.value = `${res.data[item.prop]}(ID:${res.data.member_id})`
             } else if (item.prop == 'bill_number') {
@@ -301,11 +343,10 @@ export default class About extends Vue {
               item.value = `${res.data[item.prop]}(ID:${res.data.member_id})`
             } else if (item.prop === 'pay_method') {
               if (res.data.pay_platform_number) {
-                item.value = `${this.getPayStatusName(res.data[item.prop])}(${
-                  res.data.pay_platform_number
-                })`
+                item.value = `${res.data[item.prop]}(${res.data.pay_platform_number
+                  })`
               } else {
-                item.value = `${this.getPayStatusName(res.data[item.prop])}`
+                item.value = `${res.data[item.prop]}`
               }
             } else {
               item.value = res.data[item.prop]
@@ -328,8 +369,8 @@ export default class About extends Vue {
         //该订单已支付
         let parmas: any = {
           pay_id: this.pay_id,
-          bill_remarks: this.info[12].value,
-          back_remarks: this.info[13].value
+          bill_remarks: this.info[13].value,
+          back_remarks: this.info[14].value
         }
         Api.editBillReamak(parmas).then((res: any) => {
           if (res.state) {
@@ -353,9 +394,9 @@ export default class About extends Vue {
       pay_method: this.edit[10].value, //支付方式
       currency_id: parseInt(this.edit[3].value), //币种
       pay_status: this.edit[9].value, //支付状态
-      pay_platform_number: this.edit[11].value, //流水号
-      bill_remarks: this.edit[12].value, //备注
-      back_remarks: this.edit[13].value
+      pay_platform_number: this.edit[12].value, //流水号
+      bill_remarks: this.edit[13].value, //备注
+      back_remarks: this.edit[14].value
     }
     if (parmas.paid_amount === null) {
       this.$message.warning('必要内容为空')
@@ -386,7 +427,11 @@ export default class About extends Vue {
       let val = types.filter((item: any) => {
         return item.type === status
       })
+      // if (val.lenght != 0) {
       return val[0].name
+      // } else {
+      // return '暂无'
+      // }
     } else {
       return '暂无'
     }
@@ -422,6 +467,15 @@ export default class About extends Vue {
     self.options.page = 1
     let params: any = Object.assign({}, self.options)
     data.forEach((item: any) => {
+      if (item.label == 'time') {
+        // eslint-disable-next-line no-console
+        console.log(item.value);
+        params['start_time'] = item.value[0]
+        params['end_time'] = item.value[1]
+      } else {
+        let name: string = item.label
+        params[name] = item.value
+      }
       let name: string = item.label
       params[name] = item.value
     })

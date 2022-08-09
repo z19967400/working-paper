@@ -392,7 +392,7 @@
       ></creditor>
     </div>
     <div class="section">
-      <span style="margin-top:0;">
+      <!-- <span style="margin-top:0;">
         <span class="title">后台备注</span>
         <span @click="data.textarea = !data.textarea" class="edit">{{
           data.textarea ? '编辑' : '返回'
@@ -405,9 +405,10 @@
             <span style="color:#909199;font-size:12px;">备注</span>
           </el-col>
           <el-col v-if="data.textarea" :span="12">
-            <p style="font-size:14px;color:#303133;margin:0;">
-              {{ data.caseoverview.textarea }}
-            </p>
+            <p
+              v-html="data.caseoverview.textarea"
+              style="font-size:14px;color:#303133;margin:0;white-space: pre-line;"
+            ></p>
           </el-col>
           <el-col v-else :span="12">
             <el-input
@@ -427,7 +428,8 @@
             >
           </el-col>
         </el-row>
-      </div>
+      </div> -->
+      <remark :id="this.$route.params.number" :remarks_type="5"></remark>
     </div>
     <div v-show="data.caseoverview.close_case_remarks" class="section">
       <span style="margin-top:0;">
@@ -445,9 +447,10 @@
             <span style="color:#909199;font-size:12px;">备注</span>
           </el-col>
           <el-col v-if="data.close_case_remarks" :span="12">
-            <p style="font-size:14px;color:#303133;margin:0;">
-              {{ data.caseoverview.close_case_remarks }}
-            </p>
+            <p
+              v-html="data.caseoverview.close_case_remarks"
+              style="font-size:14px;color:#303133;margin:0;white-space: pre-line;"
+            ></p>
           </el-col>
           <el-col v-else :span="12">
             <el-input
@@ -490,6 +493,7 @@ import { api } from '../../../../../../../zzbPc/src/assets/js/api'
 import creditor from './creditor/creditor.vue'
 import { baseURL } from '../../../../../utils/request'
 import * as Api2 from '../../../../../api/user'
+import remark from '../../../../../components/remark/remark.vue'
 import {
   caseData,
   guarantee_types,
@@ -503,7 +507,8 @@ import {
     comTab1,
     addFrom,
     comAddress,
-    creditor
+    creditor,
+    remark
   }
 })
 export default class About extends Vue {

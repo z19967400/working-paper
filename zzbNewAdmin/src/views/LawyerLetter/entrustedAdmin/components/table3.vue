@@ -17,17 +17,33 @@
           :width="item.width"
         >
           <template slot-scope="scope">
-            <el-popover
-              placement="bottom"
-              trigger="click"
-              :content="tostr(scope.row[item.prop])"
-              popper-class="table-click"
-              :visible-arrow="false"
-            >
-              <div slot="reference" class="cell">
-                {{ scope.row[item.prop] }}
+            <div v-if="getLabel(item.label) != -1">
+              <div style="text-align:right">
+                <el-popover
+                  placement="top-start"
+                  trigger="click"
+                  :content="tostr(scope.row[item.prop])"
+                  popper-class="table-click"
+                >
+                  <span slot="reference">
+                    {{ thousandBitSeparator(scope.row[item.prop]) }}
+                  </span>
+                </el-popover>
               </div>
-            </el-popover>
+            </div>
+            <div v-else>
+              <el-popover
+                placement="bottom"
+                trigger="click"
+                :content="tostr(scope.row[item.prop])"
+                popper-class="table-click"
+                :visible-arrow="false"
+              >
+                <div slot="reference" class="cell">
+                  {{ scope.row[item.prop] }}
+                </div>
+              </el-popover>
+            </div>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="120">
@@ -114,6 +130,34 @@ export default class About extends Vue {
   beforeDestroy() {
     window.removeEventListener('scroll', this.handlScorll)
   }
+  //检测label是否含有金额
+  getLabel(str: string) {
+    return str.indexOf('金额')
+  }
+  //千位符
+  thousandBitSeparator(num: any): any {
+    if (num) {
+      let val: string = num.toString()
+      //不含小数点
+      if (val.indexOf('.') == -1) {
+        return Number(num).toLocaleString() + '.00'
+      } else {
+        //含有小数点
+        let ws: string = val.substring(val.lastIndexOf('.') + 1, val.length)
+        let ss: number = Number(val.substring(0, val.lastIndexOf('.')))
+        if (ws.length == 1) {
+          //小数点后有一位
+          return Number(num).toLocaleString() + '0'
+        } else if (ws.length == 2) {
+          //小数点后有两位
+          return ss.toLocaleString() + '.' + ws
+        } else {
+          let val1: any = Number(num).toFixed(2)
+          return this.thousandBitSeparator(val1)
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -127,6 +171,12 @@ export default class About extends Vue {
   }
   .edit {
     color: #55a3f4;
+  }
+  & .el-table .cell {
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   & .el-button.is-disabled {
     color: #c0c4cc !important;

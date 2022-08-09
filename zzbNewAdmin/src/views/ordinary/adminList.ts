@@ -81,19 +81,33 @@ export default class adminList extends Vue {
   handleEdit(row: any) {
     this.adminEditType = true
     this.adminEditData = Object.assign({}, row)
+    this.adminEditData['admin_id'] = this.adminEditData.id
     this.adminEditData.is_super =
       this.adminEditData.is_super == '普通管理员' ? 0 : 1
   }
   //删除
   handleDelete(data: any) {
-    Api.ordinaryDelete(data.row.id).then((res: any) => {
-      if (res.data != 0) {
-        this.$message.success(res.msg)
-        this.init()
-      } else {
-        this.$message.warning(res.msg)
-      }
+    this.$confirm('确定删除该管理员吗?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
     })
+      .then(() => {
+        Api.adminDelect(data.id).then((res: any) => {
+          if (res.data != 0) {
+            this.$message.success(res.msg)
+            this.init()
+          } else {
+            this.$message.warning(res.msg)
+          }
+        })
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
   }
   //弹窗确定
   determine() {

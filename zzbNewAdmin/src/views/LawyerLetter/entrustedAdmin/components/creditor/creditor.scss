@@ -25,7 +25,7 @@
       font-size: 12px;
       margin-left: 20px;
       position: relative;
-      top: -5px;
+      top: -1px;
     }
     & > .cell-delect {
       float: right;
@@ -37,6 +37,7 @@
     & > .cell-top {
       display: flex;
       margin-bottom: 50px;
+      margin-top: 20px;
       justify-content: space-around;
       & > .cell-top-left {
         width: 25%;

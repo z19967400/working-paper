@@ -16,15 +16,15 @@ export default class selectUser extends Vue {
       id: 0,
       bill_number: '',
       invoice_type: '',
-      invoice_tax_rate: 6,
-      invoice_amount: this.totalAmount,
+      invoice_tax_rate: '' /*6*/,
+      invoice_amount: '' /*this.totalAmount*/,
       invoice_remarks: `账单编号：${this.bill_number}`,
       billing_date: '',
       invoice_number: '',
       courier_services_company: '',
       courier_number: '',
       express_fee: '',
-      invoicing_status: '待开票',
+      invoicing_status: '' /*待开票*/,
       invoice_img: '',
       Invoicing_requirements: ''
     }
@@ -44,6 +44,11 @@ export default class selectUser extends Vue {
             name: '发票底单',
             url: newVal[key]
           })
+        }
+        if (key === 'express_fee') {
+          if (this.data.form[key] == -2) {
+            this.data.form[key] = ''
+          }
         }
         if (key == 'invoice_type') {
           this.data.form[key] = this.returnInvoice_type(newVal[key])
@@ -93,7 +98,7 @@ export default class selectUser extends Vue {
   onSubmit() {
     let parmas: any = Object.assign({}, this.data.form)
     parmas['express_fee'] =
-      parmas['express_fee'] == '' ? -1 : parmas['express_fee']
+      parmas['express_fee'] == '' ? -2 : parmas['express_fee']
     Api.AddOpenInvoices(parmas).then((res: any) => {
       if (res.state) {
         this.$message.success(res.msg)

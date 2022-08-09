@@ -164,7 +164,10 @@
           <el-divider></el-divider>
           <el-table
             align="left"
-            :header-cell-style="{ 'text-align': 'left' }"
+            :header-cell-style="{
+              'text-align': 'left',
+              'font-weight': 'normal'
+            }"
             :cell-style="{ 'text-align': 'left' }"
             :data="caseProssData.contract"
             style="width: 100%"
@@ -278,7 +281,7 @@
           <handCasePross :caseProssData="caseProssData"></handCasePross>
         </div>
         <div ref="section10" class="section">
-          <span :class="{ act: data.rightIndex == 9 }">服务费</span>
+          <span :class="{ act: data.rightIndex == 10 }">服务费</span>
           <el-divider></el-divider>
           <el-table class="table2" :data="data.list2" border :max-height="400">
             <el-table-column

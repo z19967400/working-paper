@@ -3,55 +3,64 @@
     <div class="shenhe-box">
       <el-divider content-position="left">债权人信息</el-divider>
       <el-row v-if="data.info.creditor_type === 'Creditor_states_1'">
-        <el-col :span="5" class="lable">身份证人像面</el-col>
+        <el-col :span="6" class="lable">身份证人像面</el-col>
         <el-col :span="12">
-          <img
+          <el-image
             class="img"
-            @click="preview(data.info.id_card_img_01)"
             :src="data.info.id_card_img_01"
-          />
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
         </el-col>
       </el-row>
       <el-row v-else>
-        <el-col :span="5" class="lable">营业执照</el-col>
+        <el-col :span="6" class="lable">营业执照</el-col>
         <el-col :span="12">
-          <img
+          <el-image
             class="img"
-            @click="preview(data.info.license_img_url)"
             :src="data.info.license_img_url"
-          />
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
         </el-col>
       </el-row>
       <el-row v-if="data.info.creditor_type === 'Creditor_states_1'">
-        <el-col :span="5" class="lable">身份证国徽面</el-col>
+        <el-col :span="6" class="lable">身份证国徽面</el-col>
         <el-col :span="12">
-          <img
+          <el-image
             class="img"
-            @click="preview(data.info.id_card_img_02)"
             :src="data.info.id_card_img_02"
-          />
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
         </el-col>
       </el-row>
-      <el-row v-else>
-        <el-col :span="5" class="lable">代理人授权书</el-col>
+      <el-row
+        v-if="
+          data.info.creditor_type === 'Creditor_states_0' &&
+            data.info.member_vip_admin_id === 0
+        "
+      >
+        <el-col :span="6" class="lable">管理员授权书</el-col>
         <el-col :span="12">
-          <img
+          <el-image
             class="img"
             v-if="substr(data.info.agent_authorization) !== 'pdf'"
-            @click="preview(data.info.agent_authorization)"
             :src="data.info.agent_authorization"
-          />
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
           <el-link v-else type="success">{{
             sblicet(data.info.agent_authorization)
           }}</el-link>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="5" class="lable">债权人名称</el-col>
+        <el-col :span="6" class="lable">债权人名称</el-col>
         <el-col :span="12">{{ data.info.creditor_name }}</el-col>
       </el-row>
       <el-row>
-        <el-col :span="5" class="lable">{{
+        <el-col :span="6" class="lable">{{
           data.info.creditor_type === 'Creditor_states_1'
             ? '身份证号码'
             : '统一社会信用代码'
@@ -64,29 +73,34 @@
       </el-row>
       <div v-if="data.info.creditor_type === 'Creditor_states_1'">
         <el-row>
-          <el-col :span="5" class="lable">手机号码</el-col>
+          <el-col :span="6" class="lable">手机号码</el-col>
           <el-col :span="12">{{ data.info.phone_number }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="5" class="lable">电子邮箱</el-col>
+          <el-col :span="6" class="lable">电子邮箱</el-col>
           <el-col :span="12">{{ data.info.email }}</el-col>
         </el-row>
       </div>
-      <div v-else>
+      <div
+        v-if="
+          data.info.creditor_type === 'Creditor_states_0' &&
+            data.info.member_vip_admin_id === 0
+        "
+      >
         <el-row>
-          <el-col :span="5" class="lable">代理人姓名</el-col>
+          <el-col :span="6" class="lable">管理员姓名</el-col>
           <el-col :span="12">{{ data.info.agent_name }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="5" class="lable">代理人身份证号</el-col>
+          <el-col :span="6" class="lable">管理员身份证号</el-col>
           <el-col :span="12">{{ data.info.agent_id_number }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="5" class="lable">代理人手机号码</el-col>
+          <el-col :span="6" class="lable">管理员手机号码</el-col>
           <el-col :span="12">{{ data.info.phone_number }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="5" class="lable">代理人电子邮箱</el-col>
+          <el-col :span="6" class="lable">管理员电子邮箱</el-col>
           <el-col :span="12">{{ data.info.email }}</el-col>
         </el-row>
       </div>
@@ -134,6 +148,7 @@ export default class shenhe extends Vue {
   @Prop() row!: any
   data: any = {
     info: {},
+    srcList: [],
     shenhe: {
       id: 0,
       audit_status: '',
@@ -147,6 +162,11 @@ export default class shenhe extends Vue {
     Object.keys(this.data.shenhe).forEach((key: string) => {
       this.data.shenhe[key] = newVal[key]
     })
+    if (newVal.creditor_type == 'Creditor_states_1') {
+      this.data.srcList = [newVal.id_card_img_01, newVal.id_card_img_02]
+    } else {
+      this.data.srcList = [newVal.license_img_url, newVal.agent_authorization]
+    }
   }
   //打开图片
   preview(file: string) {

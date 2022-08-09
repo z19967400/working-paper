@@ -27,7 +27,7 @@ const actions: ActionTree<IndexState, any> = {
     commit('UPDATE_INDEX_STATE', data)
   },
   GET_DATA_ASYN() {
-    IndexApi.getData()
+    // IndexApi.getData()
   }
 }
 

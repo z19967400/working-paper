@@ -19,7 +19,7 @@ export const getToken = () => {
 };
 //删除token
 export const removeToken = (name: string) => {
-  Cookies.remove(name);
+  Cookies.remove(name,{path:'/',domain:'.debteehelper.com'});
 };
 //存储cookie
 export const setCookie = (name: string, value: string) => {

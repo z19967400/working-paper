@@ -11,7 +11,19 @@
       >
       <div class="cell-top">
         <div class="cell-top-left">
-          <img
+          <el-image
+            :class="[item.license_img_url ? 'qiye' : '']"
+            :src="item.license_img_url || item.id_card_img_01"
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
+          <el-image
+            v-if="!item.license_img_url"
+            :src="item.id_card_img_02"
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
+          <!-- <img
             :class="[item.license_img_url ? 'qiye' : '']"
             @click="check(item.license_img_url || item.id_card_img_01)"
             :src="item.license_img_url || item.id_card_img_01"
@@ -22,7 +34,7 @@
             @click="check(item.id_card_img_02)"
             :src="item.id_card_img_02"
             alt=""
-          />
+          /> -->
         </div>
         <div class="cell-top-right">
           <p class="cell-top-right-row">
@@ -115,6 +127,46 @@
               <span v-else>无</span>
             </span>
           </p>
+          <p
+            v-show="
+              item.member_vip_admin_id == 0 &&
+                item.creditor_type === 'Creditor_states_0'
+            "
+            class="cell-top-right-row"
+          >
+            <span class="label">管理员姓名</span>
+            <span class="value">{{ item.agent_name }}</span>
+          </p>
+          <p
+            v-show="
+              item.member_vip_admin_id == 0 &&
+                item.creditor_type === 'Creditor_states_0'
+            "
+            class="cell-top-right-row"
+          >
+            <span class="label">管理员身份证号</span>
+            <span class="value">{{ item.agent_id_number }}</span>
+          </p>
+          <p
+            v-show="
+              item.member_vip_admin_id == 0 &&
+                item.creditor_type === 'Creditor_states_0'
+            "
+            class="cell-top-right-row"
+          >
+            <span class="label">管理员手机号码</span>
+            <span class="value">{{ item.phone_number }}</span>
+          </p>
+          <p
+            v-show="
+              item.member_vip_admin_id == 0 &&
+                item.creditor_type === 'Creditor_states_0'
+            "
+            class="cell-top-right-row"
+          >
+            <span class="label">管理员电子邮箱</span>
+            <span class="value">{{ item.email }}</span>
+          </p>
         </div>
       </div>
       <el-divider v-if="item.admin_list.length > 0" content-position="left"
@@ -136,6 +188,13 @@
           >
           </el-table-column>
           <el-table-column prop="admin_email" label="电子邮箱" width="280px">
+          </el-table-column>
+          <el-table-column prop="is_super" label="权限" width="100">
+            <template slot-scope="scope">
+              <span>{{
+                scope.row.is_super == 0 ? '普通管理员' : '超级管理员'
+              }}</span>
+            </template>
           </el-table-column>
           <el-table-column label="授权书" width="80px">
             <template slot-scope="scope">
@@ -313,6 +372,34 @@
             </el-col>
           </el-form-item>
         </el-form>
+        <el-divider v-if="data.history.length > 0" content-position="left"
+          >授权委托书更换记录</el-divider
+        >
+        <div style="padding-bottom:20px;">
+          <el-table
+            v-show="data.history.length > 0"
+            :data="data.history"
+            border
+            max-height="300"
+            style="width: 85%;margin:auto;"
+          >
+            <el-table-column prop="authorization_file" label="授权委托书文件">
+              <template slot-scope="scope">
+                <div
+                  style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;"
+                >
+                  <span
+                    @click="preview(scope.row.authorization_file)"
+                    style="color:rgb(103, 194, 58);cursor: pointer;"
+                    >{{ sblicet(scope.row.authorization_file) }}</span
+                  >
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="create_time" label="更换时间" width="180">
+            </el-table-column>
+          </el-table>
+        </div>
       </div>
       <div style="text-align: center;">
         <el-button type="primary" @click="examine2">确定</el-button>

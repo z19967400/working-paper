@@ -14,7 +14,7 @@
       </view>
       <view class="content" style="height:{{height}}px">
           <view class="box">
-            <view class="cell">
+            <!-- <view class="cell">
               <text class="label">发票类型:</text>
               <view class="input2">
                 <select id="select" options="{{list}}"  defaultOption="{{defaultOption}}" key="id" text="name" bind:change="onChange"></select>
@@ -39,13 +39,66 @@
             <view class="cell">
               <text class="label">联系人电话:</text>
               <input class="input" bindinput="onChange2" data-prop="telephone" type="text" placeholder="请输入联系人电话" auto-focus />
+            </view> 
+            <view class="weui-cells__title">律师费</view> !-->
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" >发票类型</label>
+              </view>
+              <view class="weui-cell__bd">
+                  <picker aria-role="combobox" value="{{index}}" bindchange="onChange" data-id='{{list[index].id}}' range-key="name" range="{{list}}">
+                      <view class="weui-select">{{list[index].name}}</view>
+                  </picker>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">收款户名</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onChange2" data-prop="account_name" auto-focus placeholder="请输入收款户名" placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">收款账号</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onChange2" data-prop="account_number" auto-focus placeholder="请输入收款账号" placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">收款银行全称</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onChange2" data-prop="bank_full_name" auto-focus placeholder="请输入收款银行全称" placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">收款银行行号</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onChange2" data-prop="bank_no" auto-focus placeholder="请输入收款银行行号" placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">联系人电话</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onChange2" data-prop="telephone" auto-focus placeholder="请输入联系人电话" placeholder-class="weui-input__placeholder" />
+              </view>
             </view>
           </view>     
       </view>
       <view class="footer">
-        <text bindtap="close" class="btn">返回</text>
+        <text bindtap="goBack" class="btn">返回</text>
         <text class="xian"></text>
         <text bindtap="next" class="btn">保存</text>
       </view>
    </view>
+   <!-- 文本提示节点 -->
+  <van-toast id="van-toast" />
 </view>

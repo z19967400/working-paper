@@ -209,6 +209,12 @@ a {
   transform: rotateY(180deg);
   box-shadow: 8px 8px 8px #eee;
 }
+#pc .lastcontont > div:hover >.box > .box-text{
+  display: none;
+}
+/* #pc .lastcontont > div:hover >.box >.box-img {
+  z-index: 0;
+} */
 #pc .lastcontont .box .box-text {
   background-color: #fff;
   position: absolute;
@@ -228,7 +234,7 @@ a {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 1;
   transform: rotateY(180deg);
 }
 #pc .lastcontont > div:last-child .box .box-img {
@@ -241,7 +247,7 @@ a {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 1;
   transform: rotateY(180deg);
 }
 #pc .lastcontont .box img {

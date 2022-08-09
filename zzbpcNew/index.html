@@ -639,6 +639,10 @@
 				<img src="./image/WeChat.svg" alt="">
 				<span>微信公众号</span>
 			</div>
+			<div id="goTop">
+				<img src="./image/Top.png" alt="">
+				<span>回到顶部</span>
+			</div>
 		</div>
 		<!-- <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script> -->
 		<script src="/js/jquery.min.js"></script>
@@ -656,11 +660,12 @@
 <script>
 	$(function () {
 		let wdith = document.body.offsetWidth
+		let index = 0
 		cooperation()
 		if (wdith <= 780) {
 			var swiper = new Swiper('.swiper-container', {
 				autoplay: {
-					delay: 3000000,
+					delay: 3000,
 					stopOnLastSlide: false,
 					disableOnInteraction: true,
 				},
@@ -677,9 +682,23 @@
 			$(".maxwidthbox .right .tab-item").removeClass("show").eq($(this).index()).addClass("show")
 			$(".maxwidthbox>.right-img .tab-item").eq($(this).index()).addClass("show").siblings().removeClass("show");
 		})
+		//企业应收自动切换
+		function qiehuan(num) {
+			$('.maxwidthbox .left .option').removeClass("active").eq(num).addClass("active");
+			$(".maxwidthbox .right .tab-item").removeClass("show").eq(num).addClass("show")
+			$(".maxwidthbox>.right-img .tab-item").eq(num).addClass("show").siblings().removeClass("show");
+		}
 		setTimeout(() => {
 			$('.running').running();
 		}, 2000);
+		setInterval(() => {
+			if (index >= 5) {
+				index = 0
+			} else {
+				index++
+			}
+			qiehuan(index)
+		}, 3000);
 		//平台用户
 		function cooperation() {
 			let html = ""

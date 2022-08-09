@@ -5,6 +5,7 @@ import FooterBtn from '../../components/Footer/footer-btn'
 import './authentication.less'
 import WeUpload from '../../components/upload/upload'
 import {GetMyCreditor,saveCCreditor,Recognitiion,CreateAiOrder,updateCreditor,GetByid} from '../../api/https'
+import CreateAILawyerLetter from '../../store/types/CreateAILawyerLetter'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { AddState } from '../../store/reducers/CreateLetter';
@@ -22,6 +23,9 @@ const mapStateToProps = (state: CombinedState): AddState => state.CreateLetter;
       delete() {
         // payload为参数
         dispatch({ type: types.DELETE });
+      },
+      add(parmas:CreateAILawyerLetter){
+        dispatch({ type: types.ADD, payload: parmas });
       }
     };
   };
@@ -338,10 +342,10 @@ class Authentication extends React.Component<any,AuthenticationStates>{
         this.setState({
           creditor_id:res.data
         },() =>{
-          if (this.props.match.params.type2 === "0") {
-            this.CreateAiOrder(this.state.creditor_id)
+          if (this.props.match.params.type3 === "0") {
+            this.CreateAiOrder(res.data)
           }else{
-            this.CreateLawyercases(this.state.creditor_id)
+            this.CreateLawyercases(res.data)
           }
         })
       }else{
@@ -363,6 +367,9 @@ class Authentication extends React.Component<any,AuthenticationStates>{
     CreateAiOrder(parmas2).then((res:any) =>{
       if (res.state) {
         this.props.delete()
+        const storage:any=window.localStorage;
+        storage.removeItem("HC");
+        storage.removeItem("Router")
         if (getIsWxClient()) {
           const url = encodeURIComponent("https://h5.debteehelper.com/pay/"+res.data)
           window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0f1f173be61d890e&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
@@ -377,14 +384,19 @@ class Authentication extends React.Component<any,AuthenticationStates>{
   //创建律师办案
   CreateLawyercases(id:number){
     let parmas2 = Object.assign({},this.props.parmas)
+    const storage:any=window.localStorage;
     const { type2,personal,enterprise } = this.state
     parmas2['is_wechat'] = getIsWxClient()?1:0
     parmas2['creditor_id'] = id
     parmas2['creditor_name'] = type2 === 0?enterprise[3].value:personal[0].value
-    parmas2['creditor_telphone'] = type2 === 0?enterprise[5].value:personal[2].value
+    parmas2['creditor_telphone'] = type2 === 0?enterprise[5].value:personal[2].value 
     parmas2['creditor_email'] = type2 === 0?enterprise[6].value:personal[3].value
     parmas2['arrears_principal'] = parseFloat(parseFloat(parmas2.arrears_principal).toFixed(2))
     parmas2['arrears_interest'] = parseFloat(parseFloat(parmas2.arrears_interest).toFixed(2)) || 0
+    this.props.add(parmas2)
+    storage.removeItem("HC");
+    storage.setItem("HC2",JSON.stringify(parmas2));
+    storage.setItem('Router',`/Assessment/${this.state.type}/${this.state.type2}`)
     this.props.history.push({
       pathname:`/Assessment/${this.state.type}/${this.state.type2}`,
       state:parmas2
@@ -458,11 +470,13 @@ class Authentication extends React.Component<any,AuthenticationStates>{
         //创建订单
         if (this.props.match.params.type3 === "0") {
           _this.CreateAiOrder(_this.state.creditor_id)
+         
         }else{
           _this.CreateLawyercases(this.state.creditor_id)
         }
       })
     }
+   
   }
 }
 

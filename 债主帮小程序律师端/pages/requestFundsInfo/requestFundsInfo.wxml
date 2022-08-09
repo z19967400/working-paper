@@ -15,64 +15,112 @@
       <view class="content" style="height:{{height}}px">
         <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:100%;">
           <view class="box">
-            <view class="xianBox">
-              <text class="xiantou">律师费</text>
-              <text class="xian"></text>
-            </view>
-            <view class="cell">
-              <text class="label">发票类型:</text>
-              <view class="input2">
-                <select id="select" options="{{list}}"  defaultOption="{{defaultOption}}" key="id" text="name" bind:change="onChange"></select>
+            <view class="weui-form__control-area">
+              <view class="weui-cells__group weui-cells__group_form">
+                <view class="weui-cells__title">发票信息</view>
+                <view class="weui-cells">
+                  <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+                    <view class="weui-cell__hd">
+                      <label class="weui-label" >发票类型</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker aria-role="combobox" value="{{index}}" bindchange="onChange" data-id='{{list[index].id}}' range-key="name" range="{{list}}">
+                            <view class="weui-select">{{list[index].name}}</view>
+                        </picker>
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">发票名称</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="invoice_name"  placeholder="请输入发票名称" placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">税号</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="duty_paragraph"  placeholder="请输入税号" type="number" placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">地址</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="detailed_address"  placeholder="请输入地址"  placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">电话</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="telephone"  placeholder="请输入电话" type="number" placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">开户行</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="bank_of_deposit"  placeholder="请输入开户行"  placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">银行账户</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="bank_account"  placeholder="请输入银行账户"  placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                  <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <label class="weui-label">发票备注</label>
+                    </view>
+                    <view class="weui-cell__bd">
+                      <input class="weui-input" bindinput="onChange2" data-prop="invoice_remarks"  placeholder="请输入发票备注"  placeholder-class="weui-input__placeholder" />
+                    </view>
+                  </view>
+                </view>
+                <view style="margin-top:40px;" class="weui-cells__title">收票信息</view>
+                <view class="weui-cell weui-cell_active">
+                  <view class="weui-cell__hd">
+                      <label class="weui-label">收票人姓名</label>
+                  </view>
+                  <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="onChange3" data-prop="name"  placeholder="请输入收票人姓名" placeholder-class="weui-input__placeholder" />
+                  </view>
+                </view>
+                <view class="weui-cell weui-cell_active">
+                  <view class="weui-cell__hd">
+                      <label class="weui-label">收票人手机</label>
+                  </view>
+                  <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="onChange3" data-prop="phone"  placeholder="请输入收票人手机" placeholder-class="weui-input__placeholder" />
+                  </view>
+                </view>
+                <view class="weui-cell weui-cell_active">
+                  <view class="weui-cell__hd">
+                      <label class="weui-label">收票人地址</label>
+                  </view>
+                  <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="onChange3" data-prop="detailed_address"  placeholder="请输入收票人地址" placeholder-class="weui-input__placeholder" />
+                  </view>
+                </view>
+                <view class="weui-cell weui-cell_active">
+                  <view class="weui-cell__hd">
+                      <label class="weui-label">收票人邮箱</label>
+                  </view>
+                  <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="onChange3" data-prop="email"  placeholder="请输入收票人邮箱" placeholder-class="weui-input__placeholder" />
+                  </view>
+                </view>
               </view>
-            </view>
-            <view class="cell">
-              <text class="label">发票名称:</text>
-              <input class="input" bindinput="onChange2" data-prop="invoice_name" type="text" placeholder="请输入发票名称" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">税号:</text>
-              <input class="input" bindinput="onChange2" data-prop="duty_paragraph" type="text" placeholder="请输入税号" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">地址:</text>
-              <input class="input" bindinput="onChange2" data-prop="detailed_address" type="text" placeholder="请输入地址" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">电话:</text>
-              <input class="input" bindinput="onChange2" data-prop="telephone" type="text" placeholder="请输入电话" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">开户行:</text>
-              <input class="input" bindinput="onChange2" data-prop="bank_of_deposit" type="text" placeholder="请输入开户行" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">银行账户:</text>
-              <input class="input" bindinput="onChange2" data-prop="bank_account" type="text" placeholder="请输入银行账户" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label">发票备注:</text>
-              <textarea bindinput="onChange2" class="textarea" data-prop="invoice_remarks" bind placeholder="请填写发票备注" />
-            </view>
-            <view class="xianBox">
-              <text class="xiantou">收票信息</text>
-              <text class="xian"></text>
-            </view>
-            <view class="cell">
-              <text class="label bigW">收票人姓名:</text>
-              <input class="input" bindinput="onChange3" data-prop="name" type="text" placeholder="请输入收票人姓名" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label bigW">收票人手机:</text>
-              <input class="input" bindinput="onChange3" data-prop="phone" type="text" placeholder="请输入收票人手机" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label bigW">收票人地址:</text>
-              <input class="input" bindinput="onChange3" data-prop="email" type="text" placeholder="请输入收票人地址" auto-focus />
-            </view>
-            <view class="cell">
-              <text class="label bigW">收票人电子邮箱:</text>
-              <input class="input" bindinput="onChange3" data-prop="detailed_address" type="text" placeholder="请输入收票人电子邮箱" auto-focus />
-            </view>
+		        </view>
           </view>  
         </scroll-view>
       </view>

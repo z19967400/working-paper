@@ -194,11 +194,7 @@
                 autocomplete="off"
               ></el-input>
             </el-form-item>
-            <el-form-item
-              style="margin-bottom:0px;"
-              label="管理员授权书"
-              prop="authorization_file"
-            >
+            <el-form-item style="margin-bottom:0px;" label="管理员授权书">
               <el-link
                 style="font-size:14px;letter-spacing: 2px;position: relative;top:-1px;"
                 @click="upSq"
@@ -870,6 +866,8 @@ export default class About extends Vue {
         }
       ];
       self.fileList = item;
+      // eslint-disable-next-line no-console
+      console.log(self.fileList);
     } else {
       self.$message.warning(res.data.Msg, 4000);
     }

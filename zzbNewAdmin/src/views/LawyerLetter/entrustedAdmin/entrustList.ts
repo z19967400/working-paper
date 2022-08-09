@@ -7,6 +7,8 @@ import {
 } from '@/components/index'
 import { businessOptions } from '@/types/index'
 import * as Api from '@/api/business'
+import { getToken } from '@/utils/common'
+import { thousandBitSeparator } from '@/utils/common'
 @Component({
   components: {
     comtable,
@@ -21,6 +23,14 @@ export default class About extends Vue {
   // Action
 
   // data
+  dialogVisible: boolean = false
+  tableData: any = []
+  getdaochu: any = {
+    member_id: '',
+    create_name: '',
+    creditor_name: ''
+  }
+  load: boolean = false
   data: any = {
     loading: false,
     list: [],
@@ -54,6 +64,14 @@ export default class About extends Vue {
       {
         value: 'batch_no',
         label: '批次号'
+      },
+      {
+        value: 'receiving_name',
+        label: '收件人'
+      },
+      {
+        value: 'courier_number',
+        label: '快递单号'
       }
     ],
     dataType: [
@@ -108,7 +126,9 @@ export default class About extends Vue {
     executing_states: '',
     create_time: '',
     debtor_name: '',
-    debtor_phone_number: ''
+    debtor_phone_number: '',
+    receiving_name: '',
+    courier_number: ''
   }
   list: any = []
   visible: boolean = false
@@ -139,7 +159,9 @@ export default class About extends Vue {
     data.list = this.list
     Api.getEntrusted(params).then((res: any) => {
       data.loading = false
-      res.data.forEach((item: any) => {})
+      res.data.forEach((item: any) => {
+        item.creditor_name = item.creditor_name + `(ID:${item.creditor_id})`
+      })
       data.list = res.data
       data.totalize = res.total
     })
@@ -215,5 +237,61 @@ export default class About extends Vue {
   //取消
   cancel() {
     this.visible = false
+  }
+  //获取导出数据
+  GetAILawyerLetterExportData() {
+    this.load = true
+    this.dialogVisible = true
+    let parmas: any = {
+      member_id: this.getdaochu.member_id || 0,
+      create_name: this.getdaochu.create_name,
+      creditor_name: this.getdaochu.creditor_name
+    }
+    Api.GetAILawyerLetterExportData(parmas).then((res: any) => {
+      if (res.state) {
+        this.tableData = res.data
+        this.$message.success(res.msg)
+      } else {
+        this.$message.warning(res.msg)
+      }
+      this.load = false
+    })
+  }
+  //重置
+  chongzhi() {
+    this.getdaochu = {
+      member_id: '',
+      create_name: '',
+      creditor_name: ''
+    }
+    this.GetAILawyerLetterExportData()
+  }
+  //导出弹窗关闭
+  handleClose() {
+    this.getdaochu = {
+      member_id: '',
+      create_name: '',
+      creditor_name: ''
+    }
+    this.dialogVisible = false
+  }
+  //导出按钮
+  exportBtn() {
+    let params: any = {
+      member_id: this.getdaochu.member_id || 0,
+      create_name: this.getdaochu.create_name,
+      creditor_name: this.getdaochu.creditor_name
+    }
+    const baseURL: string = 'https://api1.debteehelper.com'
+    let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportAILawyerLetterExcel?member_id=${params.member_id}&create_name=${params.create_name}&creditor_name=${params.creditor_name}`
+
+    var elemIF = document.createElement('iframe')
+    elemIF.src = downloadFileUrl
+    elemIF.style.display = 'none'
+    document.body.appendChild(elemIF)
+  }
+  //千位符
+  thousandBitSeparator(val: any) {
+    return thousandBitSeparator(val)
   }
 }

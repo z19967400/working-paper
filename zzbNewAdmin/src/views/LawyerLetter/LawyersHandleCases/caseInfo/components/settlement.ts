@@ -1,8 +1,8 @@
 const OptionDatas: any = {
   UserFixed: [
     {
-      title: '固定服务费请款_最终_诚收发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_诚收发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_5',
       option: [
@@ -16,25 +16,25 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -56,8 +56,8 @@ const OptionDatas: any = {
       ]
     },
     {
-      title: '固定服务费请款_最终_律师发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_律师发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_6',
       option: [
@@ -71,25 +71,25 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -120,8 +120,8 @@ const OptionDatas: any = {
   ],
   UserFloat: [
     {
-      title: '风险服务费请款_最终_律师发起',
-      generate: '申请风险服务费请款',
+      title: '风险服务费请款_律师发起',
+      generate: '新增风险服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_7',
       option: [
@@ -135,7 +135,7 @@ const OptionDatas: any = {
           label: '回款金额',
           value: '',
           prop: 'collection_amount',
-          width: '150'
+          width: '200'
         },
         {
           label: '回款方式',
@@ -150,7 +150,7 @@ const OptionDatas: any = {
           width: '150'
         },
         {
-          label: '风险服务费率(%)',
+          label: '风险服务费率',
           value: '',
           prop: 'float_service_rate',
           width: '150'
@@ -159,25 +159,25 @@ const OptionDatas: any = {
           label: '风险服务费额',
           value: '',
           prop: 'float_service_fee',
-          width: '150'
+          width: '200'
         },
         {
-          label: '平台管理费率(%)',
+          label: '含平台管理费率',
           value: '',
           prop: 'new_management_rate',
           width: '150'
         },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -208,8 +208,8 @@ const OptionDatas: any = {
   ],
   UserFixedFloat: [
     {
-      title: '固定服务费请款_最终_诚收发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_诚收发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_5',
       option: [
@@ -223,25 +223,25 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -263,8 +263,8 @@ const OptionDatas: any = {
       ]
     },
     {
-      title: '固定服务费请款_最终_律师发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_律师发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_6',
       option: [
@@ -278,25 +278,25 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -325,8 +325,8 @@ const OptionDatas: any = {
       ]
     },
     {
-      title: '风险服务费请款_最终_律师发起',
-      generate: '申请风险服务费请款',
+      title: '风险服务费请款_律师发起',
+      generate: '新增风险服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_7',
       option: [
@@ -340,7 +340,7 @@ const OptionDatas: any = {
           label: '回款金额',
           value: '',
           prop: 'collection_amount',
-          width: '150'
+          width: '200'
         },
         {
           label: '回款方式',
@@ -355,7 +355,7 @@ const OptionDatas: any = {
           width: '150'
         },
         {
-          label: '风险服务费率(%)',
+          label: '风险服务费率',
           value: '',
           prop: 'float_service_rate',
           width: '150'
@@ -364,25 +364,25 @@ const OptionDatas: any = {
           label: '风险服务费额',
           value: '',
           prop: 'float_service_fee',
-          width: '150'
+          width: '200'
         },
         {
-          label: '平台管理费率(%)',
+          label: '含平台管理费率',
           value: '',
           prop: 'new_management_rate',
           width: '150'
         },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '应付律师费',
           value: '',
           prop: 'lawyer_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -413,8 +413,8 @@ const OptionDatas: any = {
   ],
   LawyerFixed: [
     {
-      title: '固定服务费请款_最终_诚收发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_诚收发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_5',
       option: [
@@ -428,19 +428,19 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -464,8 +464,8 @@ const OptionDatas: any = {
   ],
   lawyerFixed: [
     {
-      title: '固定服务费请款_最终_诚收发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_诚收发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_8',
       option: [
@@ -479,19 +479,19 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -516,8 +516,8 @@ const OptionDatas: any = {
   ],
   lawyerFloat: [
     {
-      title: '风险服务费请款_最终_诚收发起',
-      generate: '申请风险服务费请款',
+      title: '风险服务费请款_诚收发起',
+      generate: '新增风险服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_9',
       option: [
@@ -531,7 +531,7 @@ const OptionDatas: any = {
           label: '回款金额',
           value: '',
           prop: 'collection_amount',
-          width: '150'
+          width: '200'
         },
         {
           label: '回款方式',
@@ -546,7 +546,7 @@ const OptionDatas: any = {
           width: '150'
         },
         {
-          label: '风险服务费率(%)',
+          label: '风险服务费率',
           value: '',
           prop: 'float_service_rate',
           width: '150'
@@ -555,19 +555,19 @@ const OptionDatas: any = {
           label: '风险服务费额',
           value: '',
           prop: 'float_service_fee',
-          width: '150'
+          width: '200'
         },
         {
-          label: '平台管理费率(%)',
+          label: '含平台管理费率',
           value: '',
           prop: 'new_management_rate',
           width: '150'
         },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -592,8 +592,8 @@ const OptionDatas: any = {
   ],
   lawyerFixedFloat: [
     {
-      title: '固定服务费请款_最终_诚收发起',
-      generate: '申请固定服务费请款',
+      title: '固定服务费请款_诚收发起',
+      generate: '新增固定服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_8',
       option: [
@@ -607,19 +607,19 @@ const OptionDatas: any = {
           label: '固定服务费',
           value: '',
           prop: 'fixed_service_fee',
-          width: '150'
+          width: '200'
         },
         // {
-        //   label: '平台管理费率(%)',
+        //   label: '含平台管理费率',
         //   value: '',
         //   prop: 'new_management_rate',
         //   width: '150'
         // },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',
@@ -642,8 +642,8 @@ const OptionDatas: any = {
       ]
     },
     {
-      title: '风险服务费请款_最终_诚收发起',
-      generate: '申请风险服务费请款',
+      title: '风险服务费请款_诚收发起',
+      generate: '新增风险服务费请款',
       list: [],
       Entrust_type: 'Entrust_type_9',
       option: [
@@ -657,7 +657,7 @@ const OptionDatas: any = {
           label: '回款金额',
           value: '',
           prop: 'collection_amount',
-          width: '150'
+          width: '200'
         },
         {
           label: '回款方式',
@@ -672,7 +672,7 @@ const OptionDatas: any = {
           width: '150'
         },
         {
-          label: '风险服务费率(%)',
+          label: '风险服务费率',
           value: '',
           prop: 'float_service_rate',
           width: '150'
@@ -681,19 +681,19 @@ const OptionDatas: any = {
           label: '风险服务费额',
           value: '',
           prop: 'float_service_fee',
-          width: '150'
+          width: '200'
         },
         {
-          label: '平台管理费率(%)',
+          label: '含平台管理费率',
           value: '',
           prop: 'new_management_rate',
           width: '150'
         },
         {
-          label: '平台管理费额',
+          label: '含平台管理费额',
           value: '',
           prop: 'management_fee',
-          width: '150'
+          width: '200'
         },
         {
           label: '请款日期',

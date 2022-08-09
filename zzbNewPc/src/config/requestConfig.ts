@@ -17,10 +17,10 @@ export default {
   getInformation: "/api/pt/Finance/GetPaging", //获取发票信息列表
   ticketCollection: "/api/pt/Finance/GetPaging_address", //获取收票信息列表
   getCollection: "/api/pt/CollectMoney/GetAllCollectMoney", //收款通道列表
-  collectionDelete: "/api/pt/MemberCollectMoney/Delete", //收款通道删除
+  collectionDelete: "/api/pt//VipMember/DeleteCollectionAccountById", //收款信息删除
   addCollection: "/api/pt/CollectMoney/UpdateCollectMoney", //收款通道编辑/新增
   getCollectInfo: "/api/pt/MemberCollectMoney/GetByid", //获取收款通道详情
-  getshoukuanTableData: "/api/pt/CollectMoney/GetAllCollectMoney", //选择收款通道
+  getshoukuanTableData: "/api/pt/VipMember/GetCollectionAccountList", //获取收款信息列表
   getpaygetDetails: "/api/pt/pay/GetDetails", //收支详情
   getAddress: "/api/pt/Tools/GetAddress", //地区练级选择器
   getcreditor: "/api/pt/Creditor/GetCreditorInfoByIdV2", //获取债权人详情
@@ -36,7 +36,7 @@ export default {
   ticketDelete: "/api/pt/Finance/Delete_address", //收票地址删除
   getCollectionInfo: "/api/pt/CollectMoney/GetCollectMoneyById", //获取收款通道详情
   deletecreditor: "/api/pt/Creditor/DeleteCreditorByid", //债权人删除
-  addgetmaney: "/api/pt/CollectMoney/UpdateCollectMoney", //新增收款通道
+  addgetmaney: "/api/pt/VipMember/UpdateCollectionAccount", //新增收款信息
   getDetailedInfo: "/api/pt/pay/GetDetails", //获取收支明细详情
   getTicketDown: "/api/pt/Finance/GetTicketAddressList", //获取收票地址下拉
   getInvoiceDown: "/api/pt/Finance/GetInvoiceList", //获取发票下拉
@@ -128,5 +128,11 @@ export default {
   ApplyInvoicing: "api/pt/Finance/ApplyInvoicing", //账单申请开票
   DeleteInvoice: "api/pt/Finance/DeleteInvoice", //删除发票
   DeleteTicketAddress: "api/pt/Finance/DeleteTicketAddress", //删除收票
-  CreateCasesByAI: "api/pt/Cases/CreateCasesByAI" //AI律师函转律师办案
+  CreateCasesByAI: "api/pt/Cases/CreateCasesByAI", //AI律师函转律师办案
+  ExportExcel: "/api/pt/Cases/ExportExcel", //导出案件数据
+  PresentPay: "/api/zf/AfterPay/PresentPay", //赠送支付
+  GetAuthorizationTimes: "/api/pt/CreditorV2/GetAuthorizationTimes", //获取管理员授权次数
+  UpdateCreditorAdmin: "/api/pt/CreditorV2/UpdateCreditorAdmin", //更新债权人管理员信息
+  VerifyAdminInfoForUpdate: "/api/pt/CreditorV2/VerifyAdminInfoForUpdate", //更新管理员时验证手机号或登录名
+  UpdateCreditor: "/api/pt/CreditorV2/UpdateCreditor" //更新债权人信息
 };

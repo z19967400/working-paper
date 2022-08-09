@@ -117,32 +117,34 @@
             >
               <el-option label="增值税普通发票（电子）" value="Invoice_Type_0">
               </el-option>
+              <el-option label="增值税专用发票（电子）" value="Invoice_Type_3">
+              </el-option>
               <el-option label="增值税普通发票（纸质）" value="Invoice_Type_1">
               </el-option>
               <el-option label="增值税专用发票（纸质）" value="Invoice_Type_2">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="发票名称">
+          <el-form-item label="名称">
             <el-col :span="18">
               <el-input
-                placeholder="请填写发票名称"
+                placeholder="请填写名称"
                 v-model="editData.invoice_name"
               ></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="发票税号">
+          <el-form-item label="税号">
             <el-col :span="18">
               <el-input
-                placeholder="请填写发票税号"
+                placeholder="请填写税号"
                 v-model="editData.duty_paragraph"
               ></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="详细地址">
+          <el-form-item label="地址">
             <el-col :span="18">
               <el-input
-                placeholder="请填写详细地址"
+                placeholder="请填写地址"
                 v-model="editData.detailed_address"
               ></el-input>
             </el-col>

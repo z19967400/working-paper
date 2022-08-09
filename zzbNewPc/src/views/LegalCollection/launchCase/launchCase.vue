@@ -152,7 +152,7 @@
               !this.data.creditor_serch ||
               data.creditor_name
                 .toLowerCase()
-                .includes(this.data.creditor_serch.toLowerCase())
+                .includes(this.kuohao(this.data.creditor_serch).toLowerCase())
           )
         "
         @row-click="creditorRowClick"
@@ -301,7 +301,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="chacakparams">确 定</el-button>
-        <el-button @click="data.dialogVisible = false">取 消</el-button>
+        <el-button @click="chacakClose">取 消</el-button>
       </span>
     </el-dialog>
     <!-- 新增债权人 弹框 -->

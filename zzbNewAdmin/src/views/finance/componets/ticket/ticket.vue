@@ -9,13 +9,13 @@
     <div v-if="!data.type">
       <el-table :data="List" border>
         <el-table-column prop="id" label="收票ID" width="80"> </el-table-column>
-        <el-table-column prop="name" label="收票人姓名" width="280">
+        <el-table-column prop="name" label="收票人姓名" width="120">
         </el-table-column>
-        <el-table-column prop="phone" label="收票人手机" width="180">
+        <el-table-column prop="phone" label="收票人手机" width="120">
         </el-table-column>
-        <el-table-column prop="detailed_address" label="收票人地址" width="180">
+        <el-table-column prop="detailed_address" label="收票人地址" width="280">
         </el-table-column>
-        <el-table-column prop="email" label="收票人电子邮箱" width="120">
+        <el-table-column prop="email" label="收票人电子邮箱" width="180">
         </el-table-column>
         <el-table-column prop="create_name" label="创建人" width="120">
         </el-table-column>
@@ -45,7 +45,7 @@
       label-width="150px"
     >
       <el-form-item v-show="adminList.length > 0" label="管理员">
-        <el-select v-model="data.form.member_vip_admin_id">
+        <el-select style="width:650px;" v-model="data.form.member_vip_admin_id">
           <el-option
             v-for="(item, index) in adminList"
             :key="index"
@@ -55,10 +55,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="收票人姓名">
-        <el-input v-model="data.form.name"></el-input>
+        <el-input style="width:650px;" v-model="data.form.name"></el-input>
       </el-form-item>
       <el-form-item label="收票人手机">
-        <el-input v-model="data.form.phone"></el-input>
+        <el-input style="width:650px;" v-model="data.form.phone"></el-input>
       </el-form-item>
       <!-- <el-form-item label="收票人地区">
         <comAddress
@@ -73,7 +73,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="收票人电子邮箱">
-        <el-input style="width:330px;" v-model="data.form.email"></el-input>
+        <el-input style="width:650px;" v-model="data.form.email"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('新增')">确认</el-button>

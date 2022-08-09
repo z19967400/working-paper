@@ -5,15 +5,17 @@ interface StepsProps{
   openToast:any
   list:any
   infoName:string
+  feedback_total?:number
 }
 
-class Steps extends React.Component<StepsProps,any>{
+class Steps extends React.Component<any,any>{
   constructor(props:any){
     super(props)
     this.state = {}
   }
   render (){
     const list = this.props.list
+    const feedback_total = this.props.feedback_total
     return (
       <div className='Steps'>
         {
@@ -36,7 +38,11 @@ class Steps extends React.Component<StepsProps,any>{
                           </div>
                           <div className='bottom'>
                             <p>{item.task_type_Name}</p>
-                            <p>{item.send_object}</p>
+                            {
+                              feedback_total  && 
+                              <p>债务反馈*{feedback_total} <span onClick={this.tofeedback.bind(this)} className="click">点击查看</span></p>
+                            }
+                            <p className="ts">{item.send_object}</p>
                             <p className={`stutas ${item.task_status !== 0?'act':''}`}>{this.getStatus(item.task_status)}</p>
                           </div>
                         </div>
@@ -53,7 +59,7 @@ class Steps extends React.Component<StepsProps,any>{
                             <div className='bottom'>
                               <p>{item.task_type_Name}</p>
                               <p>{item.send_object}</p>
-                              <p className={`stutas ${item.task_status !== 0?'act':''}`}>{this.getStatus(item.task_status)}</p>
+                              <p className={`stutas ${item.task_status !== 0?'act':''}`}>{item.msg==='已终止'?'已终止': this.getStatus(item.task_status)}</p>
                             </div>
                           </div>
                         </div>
@@ -67,6 +73,10 @@ class Steps extends React.Component<StepsProps,any>{
   //打开弹窗
   openInfo(content:any,name:string){
     this.props.openToast(content,name)
+  }
+  //跳转债务反馈
+  tofeedback(){
+    this.props.toFeekback()
   }
   //获取状态文本
   getStatus(num:number){

@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    Page: 0,
     debtor_number: "", //债务编号
     show: false, //遮罩层状态
     active: 8, //当前第几步
@@ -84,11 +85,12 @@ Page({
       debtor_number: debtor_number,
       isIPhoneX: app.globalData.isIPhoneX
     })
-    this.getCaseMatters()
+
   },
   onShow() {
-
-    this.getCaseCourt()
+    let that = this
+    that.getCaseCourt()
+    that.getCaseMatters()
   },
 
   /**
@@ -99,7 +101,7 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //分类点击打开遮罩
   tab(e) {
@@ -127,20 +129,20 @@ Page({
           courtItem = {
             entrust_case_matters_id: 0,
             children: [
-              { name: "法院名称", prop: "court_name", value: "" },
-              { name: "法庭名称", prop: "tribunal_name", value: "" },
-              { name: "法官姓名", prop: "judge_name", value: "" },
-              { name: "电话", prop: "telephone", value: "" },
+              { name: "法院名称", prop: "court_name", value: "", placeholder: '请输入法院名称' },
+              { name: "法庭名称", prop: "tribunal_name", value: "", placeholder: '请输入法庭名称' },
+              { name: "法官姓名", prop: "judge_name", value: "", placeholder: '请输入法官姓名' },
+              { name: "电话", prop: "telephone", value: "", placeholder: '请输入电话' },
             ]
           }
         } else {
           courtItem = {
             entrust_case_matters_id: 0,
             children: [
-              { name: "法院名称", prop: "court_name", value: res[0].court_name },
-              { name: "法庭名称", prop: "tribunal_name", value: res[0].tribunal_name },
-              { name: "法官姓名", prop: "judge_name", value: res[0].judge_name },
-              { name: "电话", prop: "telephone", value: res[0].telephone },
+              { name: "法院名称", prop: "court_name", value: res[res.length - 1].court_name },
+              { name: "法庭名称", prop: "tribunal_name", value: res[res.length - 1].tribunal_name },
+              { name: "法官姓名", prop: "judge_name", value: res[res.length - 1].judge_name },
+              { name: "电话", prop: "telephone", value: res[res.length - 1].telephone },
             ]
           }
         }
@@ -156,7 +158,7 @@ Page({
     if (index == 3) {
       let debtor_number = this.data.debtor_number
       let payment_request_object = this.data.payment_request_object
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/requestFunds/requestFunds?debtor_number=' + debtor_number + '&type=' + payment_request_object
       })
     }
@@ -169,7 +171,50 @@ Page({
   getCaseMatters() {
     let that = this
     let debtor_number = that.data.debtor_number
-    let array = that.data.List
+    let array = [
+      {
+        id: "",
+        matters_id: "a58a24b752dc4bf4ba6197faf3ced4be",
+        from_name: "委托确认",
+        f_sort: 0,
+        estimated_time: "",
+        interval_days: 3,
+        completion_time: "",
+        execution_status: 1,
+        status: 0,
+        create_time: "2020-11-03T14:53:54.67",
+        time: null,
+        type: 0
+      },
+      {
+        id: "",
+        matters_id: "",
+        from_name: "分配律师",
+        f_sort: 0,
+        estimated_time: "",
+        interval_days: 3,
+        completion_time: "",
+        execution_status: 1,
+        status: 0,
+        create_time: "2020-11-03T14:53:54.67",
+        time: null,
+        type: 1
+      },
+      {
+        id: "",
+        matters_id: "a58a24b752dc4bf4ba6197faf3ced4be",
+        from_name: "签订律师代理合同",
+        f_sort: 0,
+        estimated_time: "",
+        interval_days: 3,
+        completion_time: "",
+        execution_status: 1,
+        status: 0,
+        create_time: "2020-11-03T14:53:54.67",
+        time: null,
+        type: 2
+      }
+    ]
     let array2 = []
     wx.request({
       url: requstUrl.getCaseMatters,
@@ -179,7 +224,7 @@ Page({
         usertokey: app.globalData.token
       },
       success(ress) {
-        let caseTabs = that.data.caseTabs
+        let caseTabs = ["债权人", "客服", "法官"]
         let res = ress.data
         let matters = res.data.matters
         let matters_from = res.data.matters_from
@@ -219,6 +264,7 @@ Page({
           caseTabs.push('平台管理费')
         }
         that.setData({
+          Page: that.data.Page++,
           List: array3,
           'info.creditor': creditor,
           'info.customer': customer_service,
@@ -310,7 +356,7 @@ Page({
     let debtor_number = this.data.debtor_number
     let contract_number = this.data.contract_number
     if (type == 0) {
-      wx.navigateTo({
+      wx.reLaunch({
         url: '/pages/caseInfo/caseInfo?debtor_number=' + debtor_number
       })
       return false
@@ -342,13 +388,13 @@ Page({
     }
     let id = e.currentTarget.dataset.id
     let name = e.currentTarget.dataset.name
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/caseProgressInfo/caseProgressInfo?id=' + id + "&name=" + name + "&debtor_number=" + debtor_number
     })
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
@@ -356,7 +402,7 @@ Page({
   QKBtn() {
     let debtor_number = this.data.debtor_number
     let payment_request_object = this.data.payment_request_object
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/requestFunds/requestFunds?debtor_number=' + debtor_number + '&type=' + payment_request_object
     })
   }

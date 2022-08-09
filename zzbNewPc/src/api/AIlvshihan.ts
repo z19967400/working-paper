@@ -56,9 +56,9 @@ export const AILawyerLetterInsert = (params: any) => {
 export const sendTextVal = (content: any, verify_conditions: any) => {
   return Api.sendTextVal({ content, verify_conditions }, "GET");
 };
-//选择收款通道
+//获取收款信息列表
 export const getshoukuanTableData = () => {
-  return Api.getshoukuanTableData({ payment_channel_name: "" }, "GET");
+  return Api.getshoukuanTableData({}, "GET");
 };
 // 委托管理
 export const getPaging = (params: AIlvshihanOptions["getPaging"]) => {
@@ -77,8 +77,11 @@ export const getpaygetDetails = (id: any) => {
 export const getAddress = (parent_id: any) => {
   return Api.getAddress({ parent_id }, "GET");
 };
-
-//新增收款通道
+//删除收款信息
+export const collectionDelete = (id: any) => {
+  return Api.collectionDelete({ id }, "GET");
+};
+//新增收款信息
 export const addgetmaney = (params: any) => {
   return Api.addgetmaney(params, "POST");
 };
@@ -177,4 +180,8 @@ export const CustomerSelectQuotedPrice = (params: any) => {
 //AI律师函转律师办案
 export const CreateCasesByAI = (params: any) => {
   return Api.CreateCasesByAI(params, "POST");
+};
+//导出AI律师函数据
+export const ExportExcel = (params: any) => {
+  return Api.ExportExcel(params, "GET");
 };

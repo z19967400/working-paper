@@ -33,6 +33,15 @@ export default class About extends Vue {
     case_total: "", //律师办案全部数量
     case_end_total: "", //律师办案
     notice: [
+      // {
+      //   send_name: "债主帮",
+      //   send_time: "2022-03-28 13:12",
+      //   status: "已读",
+      //   title: "债主帮春节假期通知",
+      //   text: `<p>尊敬的用户，您好。</p>
+      //     <p>由于受疫情影响，债主帮所在地区的EMS暂停了寄件服务，故自2022年3月28日起，EMS律师函暂停寄送，其他委托项目照常执行。</p>
+      //     <p>待EMS恢复寄件后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，谢谢。</p>`
+      // },
       {
         send_name: "债主帮",
         send_time: "2022-01-25 13:12",

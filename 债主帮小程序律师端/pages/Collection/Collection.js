@@ -10,6 +10,7 @@ Page({
   data: {
     name: '律所收款信息',
     height: '',
+    index: 0,
     list: [
       { id: 'Invoice_Type_2', name: '增值税专用发票(纸质)' },
       { id: 'Invoice_Type_0', name: '增值税普通发票(电子)' }
@@ -92,25 +93,26 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
   //发票类型选择回调
   onChange(event) {
     let invoice = this.data.invoice
-    invoice.invoice_type = event.detail.id
+    invoice.invoice_type = event.target.dataset.id
     if (event.detail.id == 'Invoice_Type_2') {
       invoice.invoice_tax_rate = 6
     } else {
       invoice.invoice_tax_rate = 1
     }
     this.setData({
-      invoice
+      invoice,
+      index: event.detail.value
     })
   },
   //普通输入框回调
@@ -123,6 +125,21 @@ Page({
     })
     this.setData({
       invoice
+    })
+  },
+  //提交信息
+  next() {
+    const that = this
+    let parmas = that.data.invoice
+    http.postRequest(requstUrl.AddCollectionInfo, parmas, function (res) {
+      if (res.state) {
+        Toast(res.msg)
+        setTimeout(() => {
+          that.goBack()
+        }, 2000);
+      } else {
+        Toast(res.msg)
+      }
     })
   }
 })

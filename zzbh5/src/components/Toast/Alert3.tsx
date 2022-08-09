@@ -32,7 +32,7 @@ class Alert extends React.Component<AlertProps,AlertState>{
           {
             text.map((item:any,index:number) =>{
               return <p className="Alert3-step">
-                <p className="title">{item.name}</p>
+                <p className="title"><span className="shu"></span>{item.name}</p>
                 <p className="value">
                   {
                     item.form_value.indexOf('http') !== -1 &&

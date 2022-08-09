@@ -55,8 +55,20 @@
             <span>{{ timeStr(scope.row.create_time) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="paid_amount" label="单价"> </el-table-column>
-        <el-table-column prop="total_amount" label="应付金额">
+        <el-table-column prop="unit_price" label="单价">
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.unit_price) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="委托数/撤销数">
+          <template slot-scope="scope">
+            <span>{{ scope.row.e_total }} / {{ scope.row.cancel_total }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="paid_amount" label="应付金额">
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.paid_amount) }}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="bill_remarks" label="账单备注">
           <template slot-scope="scope">

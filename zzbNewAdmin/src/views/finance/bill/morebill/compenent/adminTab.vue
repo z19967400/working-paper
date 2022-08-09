@@ -7,7 +7,7 @@
       :data="tabList"
     >
       <el-table-column
-        v-if="mType != '普通用户'"
+        v-if="mType != '普通管理员'"
         prop="member_vip_admin_id"
         label="管理员ID"
         width="180"
@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column v-else prop="member_id" label="用户ID"></el-table-column>
       <el-table-column
-        v-if="mType != '普通用户'"
+        v-if="mType != '普通管理员'"
         prop="admin_name"
         label="管理员真实姓名"
       >
@@ -25,7 +25,7 @@
       <el-table-column prop="admin_phone_number" label="手机号码">
       </el-table-column>
       <el-table-column prop="admin_email" label="电子邮箱"> </el-table-column>
-      <el-table-column v-show="mType != '普通用户'" label="权限" width="180">
+      <el-table-column v-show="mType != '普通管理员'" label="权限" width="180">
         <template slot-scope="scope">
           <span>{{ getJurisdiction(scope.row.is_super) }}</span>
         </template>
@@ -80,7 +80,7 @@ export default class adminTab extends Vue {
     //
   }
   getJurisdiction(num: number) {
-    return num == 0 ? '普通用户' : '超级管理员'
+    return num == 0 ? '普通管理员' : '超级管理员'
   }
   //删除记录
   delected(id: number) {

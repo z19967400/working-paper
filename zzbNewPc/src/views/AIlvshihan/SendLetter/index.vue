@@ -1,14 +1,14 @@
 <template>
   <div
     v-loading.fullscreen.lock="fullscreenLoading"
-    element-loading-text="上传中"
+    :element-loading-text="loadingText"
     class="letter"
   >
     <!-- 主页面 -->
     <div class="letter" v-show="data.flag">
       <!-- 选择债权人 -->
       <el-row type="flex" align="middle">
-        <el-col :span="2">选择债权人</el-col>
+        <el-col class="required" :span="2">选择债权人</el-col>
         <el-col style="margin-right:30px;" :span="6">
           <div @click="changeDialogVisible" class="select-zz">
             <span>{{ selectCreditors }}</span>
@@ -31,7 +31,7 @@
       </el-row>
       <!-- 债务人类别 -->
       <el-row type="flex" align="middle">
-        <el-col :span="2" align="left">债务人类别</el-col>
+        <el-col :span="2" class="required" align="left">债务人类别</el-col>
         <el-col :span="6">
           <el-radio-group v-model="data.Radio">
             <el-radio
@@ -47,7 +47,7 @@
       </el-row>
       <!-- 债务类别 -->
       <el-row type="flex" align="middle" class="zhaiwu">
-        <el-col :span="2" align="left">债务类别</el-col>
+        <el-col :span="2" class="required" align="left">债务类别</el-col>
         <el-col :span="30">
           <el-radio-group v-model="data.collection_scene">
             <el-radio
@@ -65,8 +65,22 @@
       </el-row>
       <!-- 收款信息 -->
       <el-row type="flex" align="middle">
-        <el-col :span="2" align="left">收款信息</el-col>
-        <el-col style="margin-right:30px;" :span="4">
+        <el-col :span="2" align="left">
+          收款信息
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="收款信息将附于律师函中"
+            placement="right-start"
+          >
+            <img
+              style="width:17px;cursor: pointer;position:absolute ;top:7px;left:58px;"
+              src="../../../assets/images/tips.svg"
+              alt=""
+            />
+          </el-tooltip>
+        </el-col>
+        <el-col style="margin-right:30px;" :span="6">
           <div @click="openShouKuang" class="select-zz">
             <span>{{ selectTicket }}</span>
             <span class="el-icon-arrow-down"></span>
@@ -78,7 +92,7 @@
             size="small"
             icon="el-icon-circle-plus-outline"
             plain
-            @click="data.addCollectionDialogVisible = true"
+            @click="openAddCollection"
             >新增收款信息</el-button
           >
         </el-col>
@@ -99,7 +113,7 @@
       </el-row> -->
       <!-- 增值服务 -->
       <el-row type="flex" align="middle">
-        <el-col :span="2" align="left">增值服务</el-col>
+        <el-col class="required" :span="2" align="left">增值服务</el-col>
         <el-col :span="9">
           <el-checkbox-group v-model="data.checkList">
             <el-checkbox label="1">催收短信</el-checkbox>
@@ -110,7 +124,7 @@
       </el-row>
       <!-- 法催主体 -->
       <el-row type="flex" align="middle">
-        <el-col :span="2" align="left">法催主体</el-col>
+        <el-col :span="2" class="required" align="left">法催主体</el-col>
         <el-col :span="6">
           <el-radio-group v-model="data.logo_type">
             <el-radio
@@ -135,7 +149,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" style="height:auto;" align="middle">
-        <el-col :span="2">催收模板下载</el-col>
+        <el-col class="required" :span="2">催收模板下载</el-col>
         <el-col :span="12">
           <div class="down-zz">
             <a
@@ -157,7 +171,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" style="height:auto;" align="middle">
-        <el-col :span="2">催收信息上传</el-col>
+        <el-col class="required" :span="2">催收信息上传</el-col>
         <el-col :span="12">
           <el-upload
             drag
@@ -236,7 +250,7 @@
               !this.data.creditor_serch ||
               data.creditor_name
                 .toLowerCase()
-                .includes(this.data.creditor_serch.toLowerCase())
+                .includes(this.kuohao(this.data.creditor_serch).toLowerCase())
           )
         "
         @row-click="creditorRowClick"
@@ -390,7 +404,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="chacakparams">确 定</el-button>
-        <el-button @click="data.dialogVisible = false">取 消</el-button>
+        <el-button @click="chacakClose">取 消</el-button>
       </span>
     </el-dialog>
 
@@ -414,56 +428,108 @@
 
     <!-- 选择收款信息 弹框 -->
     <el-dialog
-      title="选择收款信息"
+      :title="!data.CollectionType ? '选择收款信息' : '填写付款备注'"
       :visible.sync="data.collectionDialogVisible"
+      custom-class="addCreditor2"
+      @close="quxiao"
     >
-      <el-table
-        style="width: 100%"
-        @row-click="collectionRowClick"
-        :data="data.shoukuanTableData"
-        max-height="350"
-      >
-        <!-- <el-table-column fixed prop="id" label="ID" width="50">
-        </el-table-column> -->
-        <!-- <el-table-column prop="payment_channel_name" label="收款信息名称" width="120">
-        </el-table-column> -->
-        <el-table-column prop="contacts_name" label="联系人" width="120">
-        </el-table-column>
-        <el-table-column prop="contacts_phone" label="联系电话" width="120">
-        </el-table-column>
-        <el-table-column prop="contacts_email" label="电子邮箱" width="180">
-        </el-table-column>
-        <el-table-column prop="payee_name" label="收款账户" width="120">
-        </el-table-column>
-        <el-table-column prop="bank_account" label="收款账号" width="120">
-        </el-table-column>
-        <el-table-column prop="bank_name" label="收款银行支行" width="120">
-        </el-table-column>
-        <el-table-column
-          prop="alipay_account"
-          label="收款企业支付宝"
-          width="120"
+      <div v-if="!data.CollectionType">
+        <el-table
+          style="width: 100%"
+          @row-click="collectionRowClick"
+          :data="data.shoukuanTableData"
+          max-height="350"
         >
-        </el-table-column>
-        <el-table-column prop="pay_remarks" label="收款备注" width="120">
-        </el-table-column>
-        <!-- <el-table-column prop="time" label="创建时间" width="200">
-        </el-table-column> -->
-        <el-table-column fixed="left" label="选择" width="60">
-          <template slot-scope="scope">
-            <el-radio v-model="data.moneids" :label="scope.row.id">{{
-              ""
-            }}</el-radio>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!-- <collection-table @listensendMoidss="moneyid"></collection-table> -->
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="ticket">确 定</el-button>
-        <el-button @click="data.collectionDialogVisible = false"
-          >取 消</el-button
-        >
-      </span>
+          <el-table-column fixed="left" label="选择" width="80">
+            <template slot-scope="scope">
+              <el-radio v-model="data.moneids" :label="scope.row.id">{{
+                ""
+              }}</el-radio>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="对公转账">
+            <el-table-column
+              prop="payee_account_name"
+              label="收款户名"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="collection_account_number"
+              label="收款账号"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="bank_full_name"
+              label="收款银行全称"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column prop="bank_code" label="银行行号" width="180">
+            </el-table-column>
+          </el-table-column>
+          <el-table-column align="center" label="支付宝转账">
+            <el-table-column
+              prop="alipay_account"
+              label="支付宝账户"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="alipay_phone_number"
+              label="支付宝手机号码"
+              width="180"
+            >
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="create_time" label="创建时间" width="180">
+          </el-table-column>
+          <el-table-column fixed="right" label="操作" width="120">
+            <template slot-scope="scope">
+              <el-button
+                @click="editCollection(scope.row)"
+                style="color:#67C23A;"
+                type="text"
+                >编辑</el-button
+              >
+              <el-button
+                @click="delectCollection(scope.row.id)"
+                style="color:ec193a;"
+                type="text"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+        <!-- <collection-table @listensendMoidss="moneyid"></collection-table> -->
+        <span style="margin-top:20px;" slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="ticket">确 定</el-button>
+          <el-button @click="ticketClose">取 消</el-button>
+        </span>
+      </div>
+      <div v-else>
+        <div style="display:flex">
+          <span style="margin-right:10px;min-width:80px;line-height:40px;"
+            >付款备注</span
+          >
+          <el-input
+            placeholder="为方便核对收款，您可在此填写需要债务人在付款时填写的备注，例如：“付款时，请务必备注商户名称。”"
+            v-model="data.payment_remarks"
+          ></el-input>
+        </div>
+        <span style="margin-top:20px;" slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            @click="
+              data.collectionDialogVisible = false;
+              data.CollectionType = false;
+            "
+            >确 定</el-button
+          >
+          <el-button @click="quxiao">跳 过</el-button>
+        </span>
+      </div>
     </el-dialog>
 
     <!-- 新增收款信息 -->
@@ -473,55 +539,57 @@
     >
       <!-- <shoukuan-form ref="reference" @listenaddid="addcollid"></shoukuan-form> -->
       <el-form
+        class="form-zz"
         label-position="left"
-        label-width="110px"
+        label-width="140px"
         :model="collectList"
         :rules="data.addCollectionRuleForm"
         ref="addRuleRef"
       >
-        <!-- <el-form-item label="收款信息名称" prop="payment_channel_name">
+        <p style="color:#303033;">对公转账</p>
+        <el-form-item label="收款户名" prop="测试新增收款信息">
           <el-col :span="22">
-            <el-input v-model="collectList.payment_channel_name"></el-input>
-          </el-col>
-        </el-form-item> -->
-        <el-form-item label="联系人名称" prop="contacts_name">
-          <el-col :span="22">
-            <el-input v-model="collectList.contacts_name"></el-input>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="联系电话">
-          <el-col :span="22">
-            <el-input v-model="collectList.contacts_phone"></el-input>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="电子邮箱" prop="contacts_email">
-          <el-col :span="22">
-            <el-input v-model="collectList.contacts_email"></el-input>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="账户名称">
-          <el-col :span="22">
-            <el-input v-model="collectList.alipay_account"></el-input>
+            <el-input v-model="collectList.payee_account_name"></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="收款账号">
           <el-col :span="22">
-            <el-input v-model="collectList.payee_name"></el-input>
+            <el-input
+              v-model="collectList.collection_account_number"
+            ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="收款银行">
+        <el-form-item label="收款银行全称" prop="bank_full_name">
           <el-col :span="22">
-            <el-input v-model="collectList.bank_name"></el-input>
+            <el-input
+              placeholder="详细到支行"
+              v-model="collectList.bank_full_name"
+            ></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="企业支付宝">
+        <el-form-item label="银行行号">
           <el-col :span="22">
-            <el-input v-model="collectList.bank_account"></el-input>
+            <el-input v-model="collectList.bank_code"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="付款备注">
-          <el-col :span="22">
-            <el-input v-model="collectList.pay_remarks"></el-input>
+        <p style="color:#303033;">支付宝转账</p>
+        <el-form-item label="收款账户">
+          <el-col :span="10">
+            <el-input
+              placeholder="支付宝账户"
+              v-model="collectList.alipay_account"
+            ></el-input>
+          </el-col>
+          <el-col :span="1">
+            <span class="xian-box">
+              <span class="xian"></span>
+            </span>
+          </el-col>
+          <el-col :span="11">
+            <el-input
+              placeholder="手机号码"
+              v-model="collectList.alipay_phone_number"
+            ></el-input>
           </el-col>
         </el-form-item>
       </el-form>

@@ -1,7 +1,7 @@
 <view class="select2">
   <text class="title">律师费请款</text>
   <view class="content">
-    <van-radio-group value="{{ radio }}" bind:change="onChange">
+    <!-- <van-radio-group value="{{ radio }}" bind:change="onChange">
       <text>
         <text class="label">固定律师费额:</text> {{number}}元/人民币
       </text>
@@ -10,11 +10,34 @@
         <text class="label">请款金额:</text>
         <input class="input" bindinput="onChange" value="{{value1}}" type="number" placeholder="请输入请款金额" auto-focus />
       </view>
-    </van-radio-group>
+    </van-radio-group> !-->
+    <view class="weui-form__control-area">
+			<view class="weui-cells__group weui-cells__group_form">
+				<view style="margin:20px 0;" class="weui-cells">
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__hd">
+              <label class="weui-label">固定律师费额</label>
+            </view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" placeholder="填写本人微信号" disabled value="{{number}}元/人民币" placeholder-class="weui-input__placeholder" />
+						</view>
+					</view>
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__hd">
+                <label class="weui-label">请款金额</label>
+            </view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" bindinput="onChange" value="{{value1}}" type="number" placeholder="请输入请款金额" auto-focus placeholder-class="weui-input__placeholder" />
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
   </view>
   <view class="footer">
-    <text bindtap="close" class="btn">取消</text>
-    <text bindtap="next" class="btn">确定</text>
+    <text bindtap="next" class="btn">提交请款申请</text>
+   <!-- <text bindtap="close" class="btn">取消</text>
+    <text bindtap="next" class="btn">确定</text> !-->
   </view>
 </view>
 <slot></slot>

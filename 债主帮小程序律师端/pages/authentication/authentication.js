@@ -70,7 +70,7 @@ Page({
     isIPhoneX: false,
     authenticationType: 0, // 认证状态
     authenticationTypeNmaes: ['未认证', '待审核', '审核未通过', '已认证'],
-    editType: false //编辑状态
+    editType: true //编辑状态
   },
   onLoad: function () {
     var that = this
@@ -98,6 +98,7 @@ Page({
       })
     })
     that.getType()
+    this.getLawInfo()
   },
   /**
    * 用户点击右上角分享
@@ -112,7 +113,7 @@ Page({
   // },
   //小程序显示
   onShow() {
-    this.getLawInfo()
+    //
   },
   //获取律师认证详情
   getLawInfo: function (e) {
@@ -269,7 +270,7 @@ Page({
         if (res.state) {
           Toast.success(res.msg);
           setTimeout(() => {
-            wx.navigateTo({
+            app.router.navigateTo({
               url: '/pages/examine/examine?type=0'
             })
           }, 500);
@@ -281,7 +282,7 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //输入框绑定值
   onChange(e) {
@@ -393,6 +394,10 @@ Page({
         }
       },
     })
+  },
+  //上传文件预览
+  peview(event) {
+    console.log(event);
   },
   //上传文件删除
   updataDelet(event) {
@@ -734,7 +739,7 @@ Page({
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },

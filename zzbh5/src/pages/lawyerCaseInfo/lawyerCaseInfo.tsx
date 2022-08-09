@@ -1,7 +1,7 @@
 import React from 'react'
 import './lawyerCaseInfo.less'
 import Header from '../../components/Header/nav-header'
-import {GetCaseDetails,ServiceFeeSelection} from '../../api/https'
+import {GetCaseDetails,ServiceFeeSelection,GetQuotedPriceByDebtorNumber} from '../../api/https'
 import {MinusOutlined  } from '@ant-design/icons'
 import { Toast, List, Radio, Modal} from 'antd-mobile';
 import Offer from '../../components/offer/offer'
@@ -156,6 +156,7 @@ class LawyersCase extends React.Component<any,LawyersCaseState>{
   //初始化
   componentDidMount(){
    this.getCaseInfo()
+ 
   }
   //获取案件信息
   getCaseInfo(){
@@ -186,38 +187,53 @@ class LawyersCase extends React.Component<any,LawyersCaseState>{
                    break;
                 }
               }
-            }else{
+            }else{ 
               item.value = res.data.case_details[item.prop]
             } 
           }
         })
-        caseInfo.creditor.forEach((item:any) =>{
-          if (res.data.creditor[item.prop] !== '' && res.data.creditor[item.prop] !== null) {
-            item.value = res.data.creditor[item.prop]
-          }
-        })
-        caseInfo.obligor.forEach((item:any) =>{
-          if (res.data.debtor[item.prop] !== '' && res.data.debtor[item.prop] !== null) {
-            if (item.name === '约定付款日期' || item.name === '确认日期') {
-              let time:string =  res.data.debtor[item.prop]
-              time = time.replace('T',' ')
-              time = time.substring(0,time.lastIndexOf(":"));
-              item.value = time    
-            } else {
-              item.value = res.data.debtor[item.prop]
+        if (res.data.creditor) {
+          caseInfo.creditor.forEach((item:any) =>{
+            if (res.data.creditor[item.prop] !== '' && res.data.creditor[item.prop] !== null) {
+              item.value = res.data.creditor[item.prop]
             }
-          
-          }
-        })
+          })
+        }
+        if (caseInfo.obligor) {
+          caseInfo.obligor.forEach((item:any) =>{
+            if (res.data.debtor[item.prop] !== '' && res.data.debtor[item.prop] !== null) {
+              if (item.name === '约定付款日期' || item.name === '确认日期') {
+                let time:string =  res.data.debtor[item.prop]
+                time = time.replace('T',' ')
+                time = time.substring(0,time.lastIndexOf(":"));
+                item.value = time    
+              } else {
+                item.value = res.data.debtor[item.prop]
+              }
+            
+            }
+          })
+        }
         this.setState({
           case_progress: res.data.case_details.case_progress,
           caseInfo,
           debtor_type:res.data.debtor.debtor_type
         })
+        this.GetDebtorNumber()
       }else{
         Toast.offline(res.msg,2)
       }
     
+    })
+  }
+  //获取报告
+  GetDebtorNumber(){
+    GetQuotedPriceByDebtorNumber(this.props.match.params.debtor_number).then((res:any) =>{
+      let caseInfo = this.state.caseInfo
+      caseInfo.basic[3].value = res.data.case_report_file
+      this.setState({   
+        caseInfo,
+      })
     })
   }
   //返回

@@ -1,26 +1,15 @@
 {
   "setting": {},
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": -1,
           "name": "律师认证",
           "pathName": "pages/authentication/authentication",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "案件列表",
           "pathName": "pages/cases/cases",
           "query": "",
@@ -29,11 +18,11 @@
         {
           "name": "案件详情",
           "pathName": "pages/caseInfo/caseInfo",
-          "query": "debtor_number=WTB0000196_1",
+          "query": "debtor_number=WTB0000286_1",
+          "launchMode": "default",
           "scene": null
         },
         {
-          "id": -1,
           "name": "审核进度",
           "pathName": "pages/examine/examine",
           "query": "",
@@ -42,11 +31,10 @@
         {
           "name": "案件进展",
           "pathName": "pages/caseProgress/caseProgress",
-          "query": "debtor_number=WTB0000217_1",
+          "query": "debtor_number=WTB0000281_1",
           "scene": null
         },
         {
-          "id": -1,
           "name": "测试模板",
           "pathName": "pages/text/text",
           "query": "",
@@ -93,8 +81,15 @@
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/lvshiqingkuan/lvshiqingkuan",
+          "pathName": "pages/lvshiqingkuan/lvshiqingkuan",
+          "query": "debtor_number=WTB0000217_1",
+          "scene": null
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
 }

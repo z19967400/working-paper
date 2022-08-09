@@ -33,10 +33,15 @@
         <span
           style="margin-left:20px;font-size:12px;color:#606366;"
           v-show="ai_pay.length > 0"
-          >委托数：{{ ai_pay.length }}条
+          >委托批次数：{{ ai_pay.length }}条
+        </span>
+        <span
+          style="margin-left:20px;font-size:12px;color:#606366;"
+          v-show="ai_pay_total > 0"
+          >委托数：{{ ai_pay_total }}条
         </span>
         <span style="margin-left:20px;font-size:12px;color:#606366;"
-          >总计应付金额：{{ Amount.AmountPayable1 }} 元</span
+          >总计应付金额：{{ qianweifu(Amount.AmountPayable1) }} 元</span
         >
       </span>
       <el-table
@@ -58,8 +63,20 @@
         <el-table-column prop="create_time" label="创建时间" width="150">
         </el-table-column>
         <el-table-column prop="total_amount" label="单价" width="120">
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.unit_price) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="e_total" label="委托数/撤销数" width="120">
+          <template slot-scope="scope">
+            <span>{{ scope.row.e_total }} / {{ scope.row.cancel_total }}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="paid_amount" label="应付金额" width="120">
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.paid_amount) }}</span>
+          </template>
         </el-table-column>
 
         <el-table-column prop="execution_progress" label="执行状态" width="120">
@@ -91,7 +108,7 @@
           >委托数：{{ fixed_service_fee.length }}条
         </span>
         <span style="margin-left:20px;font-size:12px;color:#606366;"
-          >总计应付金额：{{ Amount.AmountPayable2 }} 元</span
+          >总计应付金额：{{ qianweifu(Amount.AmountPayable2) }} 元</span
         >
       </span>
       <el-table
@@ -144,6 +161,9 @@
           label="固定服务费"
           width="100"
         >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.fixed_service_fee) }}</span>
+          </template>
         </el-table-column>
         <el-table-column
           v-show="billType == 1 || billType == 2"
@@ -156,13 +176,21 @@
           prop="management_fee"
           label="平台管理费额"
           width="120"
-        ></el-table-column>
+        >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.management_fee) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           v-show="billType == 1"
           prop="lawyer_fee"
           label="应付律师费"
           width="120"
-        ></el-table-column>
+        >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.lawyer_fee) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="execution_progress" label="执行状态">
         </el-table-column>
         <!-- <el-table-column prop="back_remarks" label="后台备注" width="180px">
@@ -196,7 +224,7 @@
           >委托数：{{ float_service_fee.length }}条
         </span>
         <span style="margin-left:20px;font-size:12px;color:#606366;"
-          >总计应付金额：{{ Amount.AmountPayable3 }} 元</span
+          >总计应付金额：{{ qianweifu(Amount.AmountPayable3) }} 元</span
         >
       </span>
       <el-table
@@ -271,6 +299,9 @@
           </template>
         </el-table-column>
         <el-table-column prop="collection_amount" label="回款金额" width="100">
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.collection_amount) }}</span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="float_service_rate"
@@ -283,6 +314,9 @@
           label="风险服务费"
           width="100"
         >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.float_service_fee) }}</span>
+          </template>
         </el-table-column>
         <el-table-column
           v-show="billType == 1 || billType == 2"
@@ -295,13 +329,21 @@
           prop="management_fee"
           label="平台管理费额"
           width="120"
-        ></el-table-column>
+        >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.management_fee) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           v-show="billType == 1"
           prop="lawyer_fee"
           label="应付律师费"
           width="100"
-        ></el-table-column>
+        >
+          <template slot-scope="scope">
+            <span>{{ qianweifu(scope.row.lawyer_fee) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="execution_progress" label="执行状态">
         </el-table-column>
         <!-- <el-table-column prop="back_remarks" label="后台备注">
@@ -351,7 +393,7 @@
           <el-table-column prop="is_super" label="权限">
             <template slot-scope="scope">
               <span>{{
-                scope.row.is_super == '0' ? '普通会员' : '超级管理员'
+                scope.row.is_super == '0' ? '普通管理员' : '超级管理员'
               }}</span>
             </template>
           </el-table-column>

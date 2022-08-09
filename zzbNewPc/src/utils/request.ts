@@ -95,7 +95,9 @@ const requestFail = (res: AxiosResponse) => {
   if (res.data.status === 401) {
     removeToken("token");
     ElementUI.Message.warning("token失效重新登陆");
-    return router.replace({ name: "login" });
+    // router.replace({ name: "login" }).catch(() => { });
+    window.location.href = "https://www.debteehelper.com/views/login.html";
+    return false
   } else {
     ElementUI.Message.warning(res.data.msg);
   }

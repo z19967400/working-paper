@@ -19,6 +19,8 @@
                 ? '增值税普通发票(电子)'
                 : scope.row.invoice_type == 'Invoice_Type_1'
                 ? '增值税普通发票(纸质)'
+                : scope.row.invoice_type == 'Invoice_Type_3'
+                ? '增值税专用发票(电子)'
                 : '增值税专用发票(纸质)'
             }}</span>
           </template>
@@ -86,15 +88,17 @@
       </el-form-item>
       <!-- </el-col>
         <el-col :span="12"> -->
-      <el-form-item label="名称">
-        <el-input v-model="data.form.invoice_name"></el-input>
-      </el-form-item>
+
       <!-- </el-col>
       </el-row> -->
       <!-- <el-row>
         <el-col :span="12"> -->
       <el-form-item label="发票类型">
         <el-select v-model="data.form.invoice_type">
+          <el-option
+            value="Invoice_Type_3"
+            label="增值税专用发票(电子)"
+          ></el-option>
           <el-option
             value="Invoice_Type_2"
             label="增值税专用发票(纸质)"
@@ -103,11 +107,14 @@
             value="Invoice_Type_0"
             label="增值税普通发票(电子)"
           ></el-option>
-          <el-option
+          <!-- <el-option
             value="Invoice_Type_1"
             label="增值税普通发票(纸质)"
-          ></el-option>
+          ></el-option> -->
         </el-select>
+      </el-form-item>
+      <el-form-item label="名称">
+        <el-input v-model="data.form.invoice_name"></el-input>
       </el-form-item>
       <!-- </el-col>
         <el-col :span="12"> -->

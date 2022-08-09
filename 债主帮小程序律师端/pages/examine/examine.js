@@ -81,7 +81,7 @@ Page({
     let that = this
     http.getRequest(requstUrl.getlawInfo, {}, function (res) {
       if (res.code == 2) {
-        wx.navigateTo({
+        app.router.navigateTo({
           url: '/pages/authentication/authentication',
         })
       } else {
@@ -96,16 +96,16 @@ Page({
   },
   //审核失败重新提交
   reSubmit() {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/authentication/authentication'
     })
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },

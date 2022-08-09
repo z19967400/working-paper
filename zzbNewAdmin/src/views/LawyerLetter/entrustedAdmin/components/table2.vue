@@ -23,14 +23,12 @@
           <template slot-scope="scope">
             <div v-if="item.label == '地区'">
               <div>
-                <div
-                  style="cursor: pointer"
-                  @click="scope.row['isAddress'] = !scope.row['isAddress']"
-                  v-if="!scope.row['isAddress']"
-                >
+                <div>
+                  <!-- @click="scope.row['isAddress'] = !scope.row['isAddress']"
+                  v-if="!scope.row['isAddress']" -->
                   {{ scope.row[item.prop] || '未设置' }}
                 </div>
-                <div v-else>
+                <!-- <div v-else>
                   <el-col :span="18">
                     <comAddress
                       @emitAddress="addressEdit"
@@ -56,7 +54,7 @@
                       >取消</el-button
                     >
                   </el-col>
-                </div>
+                </div> -->
               </div>
             </div>
             <div

@@ -105,16 +105,7 @@ export default class Layout extends Vue {
     password_01: "",
     password_02: ""
   };
-  validPassword2: any = (rule: any, value: any, callback: any) => {
-    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,12}$/;
-    if (!reg.test(value)) {
-      callback(new Error("密码必须是由8-12位字母+数字组合"));
-    } else if (value !== this.form.password_01) {
-      callback(new Error("两次输入密码不一致!"));
-    } else {
-      callback();
-    }
-  };
+
   rules: any = {
     account_name: [
       { required: true, message: "请输入登录名", trigger: "blur" },
@@ -156,7 +147,17 @@ export default class Layout extends Vue {
       this.data.tags = JSON.parse(tags);
     }
   }
-
+  validPassword2(rule: any, value: any, callback: any) {
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,12}$/;
+    if (!reg.test(value)) {
+      callback(new Error("密码必须是由8-12位字母+数字组合"));
+    } else if (value !== this.form.password_01) {
+      callback(new Error("两次输入密码不一致!"));
+      // callback();
+    } else {
+      callback();
+    }
+  }
   // 初始化函数
   init() {
     //

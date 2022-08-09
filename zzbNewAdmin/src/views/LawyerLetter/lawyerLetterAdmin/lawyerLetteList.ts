@@ -119,7 +119,7 @@ export default class About extends Vue {
     receiving_phone: '', //收件人手机号
     send_time: `${getDate('yyyy')}-${getDate('MM')}-${getDate('dd')}`, //寄送日期
     ai_status: 'AI_State_2', //委托状态
-    express_status: '-1', //快递状态 -1:全部 0:待执行  1：执行中  3：执行成功 4：执行失败
+    express_status: '0', //快递状态 -1:全部 0:待执行  1：执行中  3：执行成功 4：执行失败
     courier_receipt: '-1', //快递底单状态 -1:全部 0：未收到 1：已收到
     courier_receipt_img: '-1' //快递底单状态 -1:全部 0：未收到 1：已收到
   }
@@ -129,8 +129,11 @@ export default class About extends Vue {
   height: any = 0
   dialogFormVisible: boolean = false
   dialogFormVisible2: boolean = false
+  dialogFormVisible3: boolean = false
   slectList: any = []
   radio: any = 0
+  radio2: any = 0
+  shibai: string = ''
   allCourierCompany: any = '' //全局快递公司
   selectTypes: any = [
     {
@@ -235,11 +238,11 @@ export default class About extends Vue {
   }
 
   activated() {
-    //
+    this.init()
   }
 
   mounted() {
-    this.init()
+    // this.init()
   }
   // 初始化函数
   init() {
@@ -272,7 +275,10 @@ export default class About extends Vue {
             : item.courier_receipt == 1
             ? '已收到'
             : '无需'
-        item.execution_status = label[0].label.replace('快递状态_', '')
+        item.execution_status =
+          item.error_prompt === '已终止' || item.error_prompt === '已撤销'
+            ? item.error_prompt
+            : label[0].label.replace('快递状态_', '')
         item.execution_progress = label2[0].label.replace('委托进度_', '')
         item.send_time = item.send_time.replace('T', ' ')
         item.send_time = item.send_time.substr(
@@ -352,7 +358,9 @@ export default class About extends Vue {
     const multipleTable: any = this.$refs.multipleTable
     const selection: any = multipleTable.selection
     if (selection.length > 0) {
-      this.slectList = selection
+      this.slectList = selection.sort(function(a: any, b: any) {
+        return a.row_number - b.row_number
+      })
       this.dialogFormVisible = true
     } else {
       this.$message.warning('请至少选中一列')
@@ -362,8 +370,23 @@ export default class About extends Vue {
     const multipleTable: any = this.$refs.multipleTable
     const selection: any = multipleTable.selection
     if (selection.length > 0) {
-      this.slectList = selection
+      this.slectList = selection.sort(function(a: any, b: any) {
+        return a.row_number - b.row_number
+      })
       this.dialogFormVisible2 = true
+    } else {
+      this.$message.warning('请至少选中一列')
+    }
+  }
+  //快递状态更新
+  openReceipt3() {
+    const multipleTable: any = this.$refs.multipleTable
+    const selection: any = multipleTable.selection
+    if (selection.length > 0) {
+      this.slectList = selection.sort(function(a: any, b: any) {
+        return a.row_number - b.row_number
+      })
+      this.dialogFormVisible3 = true
     } else {
       this.$message.warning('请至少选中一列')
     }
@@ -414,6 +437,29 @@ export default class About extends Vue {
       if (res.state) {
         this.$message.success(res.msg)
         this.dialogFormVisible2 = false
+        this.init()
+      } else {
+        this.$message.warning(res.msg)
+      }
+    })
+  }
+  //快递状态更新
+  upDataCourier3() {
+    let ids: any = []
+    this.slectList.forEach((item: any) => {
+      ids.push(item.id)
+    })
+    let parmas: any = {
+      logistics_id_list: ids,
+      courier_receipt: this.radio,
+      express_return_reason: this.shibai,
+      execution_status: this.radio2
+    }
+    Api.UpdateEMSStatus(parmas).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg)
+        this.dialogFormVisible3 = false
+        this.shibai = ''
         this.init()
       } else {
         this.$message.warning(res.msg)

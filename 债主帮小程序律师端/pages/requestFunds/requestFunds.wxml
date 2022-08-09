@@ -53,7 +53,7 @@
       </view>
       <view class="content">
           <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:{{height}}px">
-            <view class="item-box" wx:for="{{list}}" wx:key="index">
+              <!-- <view class="item-box" wx:for="{{list}}" wx:key="index">
                 <view class="item-box-header">
                   <text wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}">风险律师费</text>
                   <text wx:if="{{item.business_type === 'Entrust_type_6'||item.business_type === 'Entrust_type_8'}}">固定律师费</text>
@@ -84,6 +84,67 @@
                     <text wx:if="{{item.business_type === 'Entrust_type_8'}}" space="ensp">平台管理费额:  {{item.management_fee}} {{item.currency_4}}</text>
                   </view>
                 </view>
+            </view> !-->
+            <view class="weui-form-preview item-box" wx:for="{{list}}" wx:key="index">
+              <view class="weui-form-preview__hd" aria-role="option">
+                <view class="weui-form-preview__item">
+                  <label wx:if="{{item.business_type === 'Entrust_type_7'||item.business_type === 'Entrust_type_9'}}" class="weui-form-preview__label weui-form-preview__label_title">风险律师费</label>
+                  <label wx:else class="weui-form-preview__label weui-form-preview__label_title">固定律师费</label>
+                  <em class="weui-form-preview__value weui-form-preview__time">{{item.create_time}}</em>    
+                </view>
+              </view>
+              <view aria-labelledby="p1 js_a11y_comma p2 js_a11y_comma p3" class="weui-form-preview__bd" aria-role="option">
+                <text wx:if="{{payment_request_object == '1'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_2||'')}}</text>    
+                <text wx:if="{{payment_request_object == '2'}}" class="item-box-body-status">{{jisuan.getStatus(item.settlement_status_3||'')}}</text>      
+                <view wx:if="{{item.business_type === 'Entrust_type_7' || item.business_type === 'Entrust_type_9'}}">
+                  <view id="p1" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">回款金额</label>
+                    <text class="weui-form-preview__value">{{item.collection_amount}} {{item.currency_1}}</text>
+                  </view>
+                  <view id="p2" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">回款方式</label>
+                    <text class="weui-form-preview__value">{{item.collection_mode}}</text>
+                  </view>
+                  <view id="p3" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">回款日期</label>
+                    <text class="weui-form-preview__value">{{item.collection_date}}</text>
+                  </view>
+                  <view id="p4" wx:if="{{item.collection_remarks}}" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">回款备注</label>
+                    <text class="weui-form-preview__value">{{item.collection_remarks || ''}}</text>
+                  </view>
+                  <view id="p5" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">风险律师费率</label>
+                    <text class="weui-form-preview__value">{{item.float_service_rate - item.new_management_rate}}%</text>
+                  </view>
+                  <view id="p6" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">风险律师费额</label>
+                    <text class="weui-form-preview__value">{{item.lawyer_fee}} {{item.currency_1}}</text>
+                  </view>
+                  <view  wx:if="{{item.business_type === 'Entrust_type_9'}}"  id="p7" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">平台管理费率</label>
+                    <text class="weui-form-preview__value">{{item.new_management_rate}}%</text>
+                  </view>
+                  <view  wx:if="{{item.business_type === 'Entrust_type_9'}}"  id="p8" class="weui-form-preview__item">  
+                    <label class="weui-form-preview__label">平台管理费额</label>
+                    <text class="weui-form-preview__value">{{item.management_fee}} {{item.currency_4}}</text>
+                  </view>
+                </view>
+                <view wx:elif="{{item.business_type === 'Entrust_type_6' || item.business_type === 'Entrust_type_8'}}">
+                  <view id="p1" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">固定律师费额</label>
+                    <text class="weui-form-preview__value">{{item.lawyer_fee}} {{item.currency_5}}</text>
+                  </view>
+                  <view id="p2" wx:if="{{item.business_type === 'Entrust_type_8'}}" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">平台管理费率</label>
+                    <text class="weui-form-preview__value">{{item.new_management_rate}}%</text>
+                  </view>
+                  <view id="p3" wx:if="{{item.business_type === 'Entrust_type_8'}}" class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">平台管理费额</label>
+                    <text class="weui-form-preview__value">{{item.management_fee}} {{item.currency_4}}</text>
+                  </view>
+                </view>
+              </view>
             </view>
             <view wx:if="{{list.length == 0}}" class="noData">
               <text>---- 暂无请款记录,请先发起请款申请 ----</text>
@@ -103,7 +164,7 @@
             </view>
             <select1 wx:if="{{active === 1}}" bind:getSelectVal="getSelectVal1" bind:close="close" />
             <select2 wx:if="{{active === 2 && type === '1'}}" number="{{caseOff.final_lawyer_fixed_fee}}" bind:getSelectVal="getSelectVal2" bind:close="close" />
-            <select3 wx:if="{{active === 2 && type === '2'}}" time="{{time}}" riskFee="{{caseOff.final_lawyer_risk_fee}}" bind:getSelectVal="getSelectVal3" bind:openTimeBox="openTimeBox" list="{{Currency}}" bind:close="close" />
+            <!-- <select3 wx:if="{{active === 2 && type === '2'}}" time="{{time}}" riskFee="{{caseOff.final_lawyer_risk_fee}}" bind:getSelectVal="getSelectVal3" bind:openTimeBox="openTimeBox" list="{{Currency}}" bind:close="close" />!-->
           </view>
         </view>
         <view  class="select-time {{show2?'top':''}}">

@@ -38,7 +38,7 @@ class Header extends React.Component<PropsType,HeaderStates> {
               {
                 !isHome && <ArrowLeftOutlined onClick={this.goBack.bind(this)} className="icon" style={{color:"#fff",fontSize:'14px'}} />
               }
-              {/* <Marquee text={'尊敬的用户：由于春节假期，债主帮于2022年1月30日至2月6日期间暂停接受法催服务委托，请您提前安排委托服务，避免造成延误及损失。如需帮助请致电4006 321 918，提前祝您节日快乐。'}></Marquee> */}
+              {/* <Marquee text={'尊敬的用户，您好。由于受疫情影响，债主帮所在区域的邮政EMS暂停了寄件服务，故自2022年3月28日（周一）起，债主帮暂时无法寄送AI律师函服务中的EMS律师函，其他催收短信、电话、电子催款函、电子律师函照常执行。待邮政EMS恢复寄件服务后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，敬请谅解，谢谢。'}></Marquee> */}
               <p className={`title ${isHome?'Top':''}`}>{this.props.name}{ this.props.status && <span>({this.props.status})</span>}</p>
               {
                 this.props.number && 

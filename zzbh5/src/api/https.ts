@@ -555,7 +555,16 @@ function GetByid(id:number){
     })
   }) 
 }
-
+function GetFeedbackByDebtorNumber(debtor_number:string){
+  return new Promise((resolve, reject) => {
+    http("get",url.GetFeedbackByDebtorNumber,{debtor_number}).then(res => {
+      resolve (res);
+    },error => {
+      console.log("网络异常~",error);
+      reject(error)
+    })
+  }) 
+}
 export {
   getUserInfo,
   uploadFil,
@@ -598,5 +607,6 @@ export {
   GetAILawyerLetterReport,
   GetQuotedPriceByDebtorNumber,
   CustomerSelectQuotedPrice,
-  GetByid
+  GetByid,
+  GetFeedbackByDebtorNumber
 }

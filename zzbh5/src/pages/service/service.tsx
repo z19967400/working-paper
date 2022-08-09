@@ -3,7 +3,7 @@ import './service.less'
 import Footer from '../../components/Footer/nav-footer'
 import Select from '../../components/Select/select'
 import serviceBg from '../../images/serviceBg.png'
-import {Carousel, Toast} from 'antd-mobile'
+import {Carousel, Toast,Modal} from 'antd-mobile'
 import headImg from '../../images/u40241.png'
 import headLogo from '../../images/u40133.png'
 import AIImg from '../../images/u40157.png'
@@ -12,7 +12,27 @@ import susong from '../../images/u40217.png'
 import chadang from '../../images/u40237.png'
 import baoxian from '../../images/u40239.png'
 import Marquee from '../../components/Marquee/Marquee'
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { AddState } from '../../store/reducers/CreateLetter';
+import { CombinedState } from '../../store/reducers';
+import * as types from '../../store/action_types';
+import CreateAILawyerLetter from '../../store/types/CreateAILawyerLetter'
+//store配置
+const mapStateToProps = (state: CombinedState): AddState => state.CreateLetter;
+  const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+      delete() {
+        // payload为参数
+        dispatch({ type: types.DELETE });
+      },
+      add(parmas:CreateAILawyerLetter){
+        dispatch({ type: types.ADD, payload: parmas });
+      }
+    };
+  };
 
+const alert = Modal.alert;
 function FenleiComponent(props:any){
   return <div className="fenlei-item">
     { props.data.name === 'AI律师函' &&
@@ -96,7 +116,7 @@ class service extends React.Component<any,serviceState> {
     return(
       <div className="service">
         <img className="serviceBg" src={serviceBg} alt=""/>
-        {/* <Marquee text={'尊敬的用户：由于春节假期，债主帮于2022年1月30日至2月6日期间暂停接受法催服务委托，请您提前安排委托服务，避免造成延误及损失。如需帮助请致电4006 321 918，提前祝您节日快乐。'}></Marquee> */}
+        {/* <Marquee text={'尊敬的用户，您好。由于受疫情影响，债主帮所在区域的邮政EMS暂停了寄件服务，故自2022年3月28日（周一）起，债主帮暂时无法寄送AI律师函服务中的EMS律师函，其他催收短信、电话、电子催款函、电子律师函照常执行。待邮政EMS恢复寄件服务后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，敬请谅解，谢谢。'}></Marquee> */}
         <div className="box">
           <div className="head">
             <img className="headBg" src={headImg} alt=""/>
@@ -171,10 +191,43 @@ class service extends React.Component<any,serviceState> {
   }
   //打开遮罩
   openSelect(val:boolean){
+    const storage:any=window.localStorage;
+    const HC:any = JSON.parse(storage.getItem("HC"))||''
+    const HC2:any = JSON.parse(storage.getItem("HC2"))||''
+    if (HC || HC2) {
+      alert('提示', '您有一笔未提交的委托，是否继续提交?', [
+        { text: '重新发起', onPress: () => {
+          this.props.delete()
+          storage.removeItem("HC");
+          storage.removeItem("HC2");
+          storage.removeItem("Router");
+          this.setState({
+            show:val
+          })
+        } },
+        {
+          text: '继续提交',
+          onPress: () =>
+            new Promise((resolve) => {
+              // Toast.info('onPress Promise', 1);
+              // setTimeout(resolve, 1000);
+              setTimeout(resolve, 200);
+              const Router:string = storage.getItem('Router')
+              this.props.history.push(Router)
+               
+            }),
+        },
+      ])
+      return false
+    }
     this.setState({
       show:val
     })
   }
 }
 
-export default service
+// export default service
+export default  connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(service); 

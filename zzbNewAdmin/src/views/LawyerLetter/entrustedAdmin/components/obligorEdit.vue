@@ -18,19 +18,6 @@
               :span="12"
             >
               <el-form-item :label="item.label">
-                <el-col
-                  v-if="
-                    item.label != '欠费类型' &&
-                      item.label != '结算日期' &&
-                      item.label != '欠款币种'
-                  "
-                  :span="22"
-                >
-                  <el-input
-                    size="small"
-                    v-model="data.info2[item.prop]"
-                  ></el-input>
-                </el-col>
                 <el-col v-if="item.label == '欠费类型'" :span="22">
                   <el-select
                     size="small"
@@ -45,7 +32,7 @@
                     ></el-option>
                   </el-select>
                 </el-col>
-                <el-col v-if="item.label == '结算日期'" :span="22">
+                <el-col v-else-if="item.label == '结算日期'" :span="22">
                   <el-date-picker
                     size="small"
                     type="date"
@@ -54,7 +41,7 @@
                     style="width: 100%;"
                   ></el-date-picker>
                 </el-col>
-                <el-col v-if="item.label == '欠款币种'" :span="22">
+                <el-col v-else-if="item.label == '欠款币种'" :span="22">
                   <el-select
                     size="small"
                     v-model="data.info2['currency_id']"
@@ -67,6 +54,24 @@
                       :value="item2.id"
                     ></el-option>
                   </el-select>
+                </el-col>
+                <el-col
+                  style="position: relative;top:5px;"
+                  v-else-if="item.label == '债务人地区'"
+                  :span="22"
+                >
+                  <comAddress
+                    @emitAddress="addressEdit"
+                    :size="'small'"
+                    :id="data.info2.debtor_number"
+                    :address="data.info2.address_selected"
+                  ></comAddress>
+                </el-col>
+                <el-col v-else :span="22">
+                  <el-input
+                    size="small"
+                    v-model="data.info2[item.prop]"
+                  ></el-input>
                 </el-col>
               </el-form-item>
             </el-col>
@@ -81,7 +86,7 @@
               v-model="data.info.Collection"
             ></el-input>
           </el-row>
-          <el-row>
+          <el-row style="margin-bottom:20px;">
             <span style="margin-top:0;">律师函</span>
             <el-divider></el-divider>
             <el-input
@@ -110,13 +115,21 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import * as Api from '../../../../api/business'
 import * as Api2 from '../../../../api/settings'
-@Component({})
+import { comAddress } from '../../../../components/index'
+@Component({
+  components: {
+    comAddress
+  }
+})
 export default class About extends Vue {
   // prop
   @Prop() info!: any
   //Watch
   @Watch('info', { deep: true })
   tableDataChange(newVal: any, oldVal: any) {
+    // eslint-disable-next-line no-console
+    console.log(newVal)
+
     this.data.debtor_type_name = newVal['debtor_type_name']
     let code: string =
       newVal['debtor_type_name'] == 'Creditor_states_0'
@@ -127,6 +140,23 @@ export default class About extends Vue {
     Object.keys(this.data.info2).forEach((key: string) => {
       if (newVal.data[key] != undefined) {
         this.data.info2[key] = newVal.data[key]
+      }
+      if (key === 'address_Edit') {
+        this.data.info2.address_Edit = {
+          city: newVal.data.city,
+          country: newVal.data.country,
+          county: newVal.data.county,
+          debtor_number: newVal.data.debtor_number,
+          province: newVal.data.province
+        }
+      }
+      if (key === 'address_selected') {
+        this.data.info2.address_selected = [
+          newVal.data.country,
+          newVal.data.province,
+          newVal.data.city,
+          newVal.data.county
+        ]
       }
     })
   }
@@ -140,6 +170,7 @@ export default class About extends Vue {
       contact_person: '',
       phone_number: '',
       email: '',
+      address_selected: '',
       address_txt: '',
       arrearage_type: '',
       currency_id: '',
@@ -148,7 +179,8 @@ export default class About extends Vue {
       insurer_name: '',
       creditor_name: '',
       creditor_telphone: '',
-      creditor_email: ''
+      creditor_email: '',
+      address_Edit: ''
     },
     currencys: [],
     arrearsTypes: [],
@@ -165,6 +197,10 @@ export default class About extends Vue {
 
   mounted() {
     this.getCurrencys()
+  }
+  //地址修改
+  addressEdit(data: any) {
+    this.data.info2.address_Edit = data
   }
   //获取币种字典
   getCurrencys() {

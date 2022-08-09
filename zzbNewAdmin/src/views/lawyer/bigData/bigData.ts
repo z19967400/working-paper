@@ -46,11 +46,11 @@ export default class About extends Vue {
         prop: 'id',
         width: '90'
       },
-      {
-        label: '头像',
-        prop: 'photo',
-        width: '90'
-      },
+      // {
+      //   label: '头像',
+      //   prop: 'photo',
+      //   width: '90'
+      // },
       {
         label: '律师姓名',
         prop: 'name',
@@ -82,7 +82,8 @@ export default class About extends Vue {
     limit: this.$store.getters.limit,
     lawyer_name: '',
     lawyer_phone_number: '',
-    address: ''
+    address: '',
+    id: 0
   }
   list: any = []
   created() {

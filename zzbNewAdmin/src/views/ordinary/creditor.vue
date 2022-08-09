@@ -44,7 +44,7 @@
         </el-table-column>
         <el-table-column prop="creditor_name" label="债权人名称" width="">
         </el-table-column>
-        <el-table-column prop="agent_authorization" label="授权书" width="120">
+        <!-- <el-table-column prop="agent_authorization" label="授权书" width="120">
           <template slot-scope="scope">
             <el-button
               @click="open(scope.row.agent_authorization)"
@@ -54,7 +54,7 @@
               >查看</el-button
             >
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="audit_status" label="审核状态" width="120">
           <template slot-scope="scope">
             <span>{{

@@ -80,7 +80,7 @@
             style="margin-bottom:0px;"
             label="管理员授权书"
             :label-width="formLabelWidth"
-            prop="authorization_file"
+            class="is-required"
           >
             <el-link
               style="font-size:14px;letter-spacing: 2px;position: relative;top:-1px;"
@@ -374,8 +374,16 @@ export default class addAdmin extends Vue {
     self.$message.warning("请先删除已上传文件");
   }
   //图片预览
-  preview(url: string) {
-    window.open(url);
+  preview(file: any) {
+    if (file.url == undefined) {
+      let url: string =
+        "https://file.debteehelper.com" +
+        file.response.data.FileUrl +
+        file.response.data.FileExtension;
+      window.open(url);
+    } else {
+      window.open(file.url);
+    }
   }
 
   handleChange(file: any, fileList: any) {

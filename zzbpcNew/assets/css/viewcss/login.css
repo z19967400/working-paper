@@ -211,8 +211,18 @@
 }
 .upload-pdf-text{
   cursor: pointer;
-  color: #409EFF;
+  color: #67C23A;
   text-align: center;
+  display: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.upload-sucess-icon{
+  width: 20px;
+  height: 20px;
+  display: none;
+  margin-top: 4px;
 }
 .upload-right{
   text-align: justify;
@@ -256,7 +266,7 @@
   margin-bottom: 10px;
 }
 .disabled{
-  background:#606366
+  opacity: .65;
 }
 .declare{
   position: relative;

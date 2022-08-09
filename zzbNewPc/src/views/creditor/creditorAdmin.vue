@@ -38,11 +38,12 @@
         > -->
         <div class="cell-top">
           <div class="cell-top-left">
-            <img
-              @click="check(item.license_img_url)"
+            <el-image
+              style="width:350px;"
               :src="item.license_img_url"
-              alt=""
-            />
+              :preview-src-list="data.srcList"
+            >
+            </el-image>
           </div>
           <div class="cell-top-right">
             <p class="cell-top-right-row">
@@ -73,7 +74,17 @@
             </p>
             <p class="cell-top-right-row">
               <span class="label">审核反馈</span>
-              <span class="value">{{ item.audit_feedback || "未填写" }}</span>
+              <span class="value"
+                >{{ item.audit_feedback || "未填写" }}
+                <el-button
+                  v-show="item.audit_status == 'Audit_states_1'"
+                  style="margin-left:20px;"
+                  size="mini"
+                  type="primary"
+                  @click="openEditCreditor(item)"
+                  >点击修改</el-button
+                >
+              </span>
             </p>
           </div>
         </div>
@@ -122,8 +133,20 @@
               </template>
             </el-table-column>
             <el-table-column prop="audit_feedback" label="审核反馈">
+              <template slot-scope="scope">
+                <span class="value"
+                  >{{ scope.row.audit_feedback || "未填写" }}
+                </span>
+                <el-button
+                  v-show="scope.row.audit_status == '未通过'"
+                  style="display:block;"
+                  size="mini"
+                  type="primary"
+                  @click="xiugaishouquan(scope.row, item.creditor_name)"
+                  >点击修改</el-button
+                >
+              </template>
             </el-table-column>
-
             <!-- <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
                 <el-button
@@ -132,9 +155,14 @@
                   type="text"
                   size="small"
                   >编辑</el-button
-                > -->
-            <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button> -->
-            <!-- </template>
+                >
+                <el-button
+                  @click="handleClick(scope.row)"
+                  type="text"
+                  size="small"
+                  >删除</el-button
+                >
+              </template>
             </el-table-column> -->
           </el-table>
         </div>
@@ -158,6 +186,7 @@
         >新增授权管理员</el-button
       >
     </div>
+    <!-- 新增授权管理员 -->
     <addAdmin
       :creditor_name="creditor_name"
       :adminIds="adminIds"
@@ -165,6 +194,7 @@
       @hanlAddAdmin="hanlAddAdmin"
       @addAdminClose="addAdminClose"
     ></addAdmin>
+    <!-- 编辑授权管理员 -->
     <editAdmin
       :dialogFormVisible="dialogFormVisible2"
       :edit="data.edit"
@@ -312,6 +342,21 @@
         >
         <el-button @click="close">取消</el-button>
       </div>
+    </el-dialog>
+    <el-dialog
+      custom-class="addCreditor"
+      :visible.sync="dialogFormVisible4"
+      title="编辑债权人"
+    >
+      <editCreditor
+        @cancel="
+          () => {
+            dialogFormVisible4 = false;
+            this.GetCreditorAdmin();
+          }
+        "
+        :editCreditorData="data.editCreditorData"
+      ></editCreditor>
     </el-dialog>
   </div>
 </template>

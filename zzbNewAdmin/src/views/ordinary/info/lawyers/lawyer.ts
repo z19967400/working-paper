@@ -4,9 +4,11 @@ import { verifyPhone, verifyEmall } from '../../../../utils/common'
 import { baseURL } from '../../../../utils/request'
 import { comAddress } from '../../../../components/index'
 import * as Api2 from '@/api/finance'
+import remark from '@/components/remark/remark.vue'
 @Component({
   components: {
-    comAddress
+    comAddress,
+    remark
   }
 })
 export default class lawyer extends Vue {
@@ -30,6 +32,7 @@ export default class lawyer extends Vue {
   }
   // data
   data: any = {
+    srcList: [],
     rightH: 0,
     tabPosition: 'left',
     isVip: true,
@@ -187,6 +190,17 @@ export default class lawyer extends Vue {
           if (res.data.lawyer != null) {
             self.data.lawyer = Object.assign({}, res.data.lawyer)
             self.lawyerEdit = Object.assign({}, res.data.lawyer)
+            this.data.srcList = [
+              `${this.serchStr(res.data.lawyer.practice_license)
+                ? ''
+                : 'https://file.debteehelper.com'
+              }${res.data.lawyer.practice_license}`,
+              `${this.serchStr(res.data.lawyer.annual_inspection)
+                ? ''
+                : 'https://file.debteehelper.com'
+              }${res.data.lawyer.annual_inspection}`
+            ]
+
             self.shenhe.id = res.data.lawyer.id
             self.shenhe.audit_status = res.data.lawyer.audit_status
             let lawyer: any = res.data.lawyer

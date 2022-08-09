@@ -1,6 +1,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import * as Api from "@/api/Finance";
 import { Options } from "@/types/index";
+import { thousandBitSeparator } from "@/utils/common";
 @Component({
   components: {}
 })
@@ -16,7 +17,7 @@ export default class About extends Vue {
     title: "",
     addInvoiceData: {
       id: 0,
-      invoice_type: "",
+      invoice_type: "Invoice_Type_0",
       invoice_name: "",
       duty_paragraph: "",
       detailed_address: "",
@@ -38,11 +39,16 @@ export default class About extends Vue {
     invoice_type: [
       { required: true, message: "请选择发票类型", trigger: "blur" }
     ],
-    invoice_name: [
-      { required: true, message: "请输入发票名称", trigger: "blur" }
+    invoice_name: [{ required: true, message: "请输入抬头", trigger: "blur" }],
+    duty_paragraph: [{ required: true, message: "请输入税号", trigger: "blur" }]
+  };
+  rules3: any = {
+    invoice_type: [
+      { required: true, message: "请选择发票类型", trigger: "blur" }
     ],
+    invoice_name: [{ required: true, message: "请输入抬头", trigger: "blur" }],
     duty_paragraph: [
-      { required: true, message: "请输入发票税号", trigger: "blur" }
+      { required: true, message: "请输入税号", trigger: "blur" }
     ],
     detailed_address: [
       { required: true, message: "请选输入地址", trigger: "blur" }
@@ -60,10 +66,10 @@ export default class About extends Vue {
     phone: [{ required: true, message: "请输入收票人手机号", trigger: "blur" }],
     email: [
       { required: true, message: "请输入收票人电子邮箱", trigger: "blur" }
-    ],
-    detailed_address: [
-      { required: true, message: "请输入收票人地址", trigger: "blur" }
     ]
+    // detailed_address: [
+    //   { required: true, message: "请输入收票人地址", trigger: "blur" }
+    // ]
   };
   created() {
     let Wheight: number | null = document.body.offsetHeight;
@@ -71,11 +77,11 @@ export default class About extends Vue {
   }
 
   activated() {
-    this.init();
+    // this.init();
   }
 
   mounted() {
-    //
+    this.init();
   }
   // 初始化函数
   init() {
@@ -220,27 +226,56 @@ export default class About extends Vue {
     this.data.title = "新增收票信息";
     this.data.outerVisible = true;
   }
+  // 发票类型选择
+  select() {
+    // eslint-disable-next-line no-console
+    console.log(11);
+
+    if (
+      this.data.title == "新增发票信息" ||
+      this.data.title == "编辑发票信息"
+    ) {
+      const formName: any = this.$refs["ruleForm"];
+      setTimeout(() => {
+        formName.resetFields();
+      }, 100);
+    } else {
+      const formName2: any = this.$refs["ruleForm2"];
+      formName2.resetFields();
+    }
+  }
   //关闭弹窗
   handleClose() {
+    if (
+      this.data.title == "新增发票信息" ||
+      this.data.title == "编辑发票信息"
+    ) {
+      const formName: any = this.$refs["ruleForm"];
+      this.data.addInvoiceData = {
+        id: 0,
+        invoice_type: "Invoice_Type_0",
+        invoice_name: "",
+        duty_paragraph: "",
+        detailed_address: "",
+        telephone: "",
+        bank_of_deposit: "",
+        bank_account: "",
+        invoice_remarks: ""
+      };
+      formName.resetFields();
+    } else {
+      const formName2: any = this.$refs["ruleForm2"];
+      this.data.addTicketData = {
+        id: 0,
+        name: "",
+        phone: "",
+        email: "",
+        detailed_address: ""
+      };
+      formName2.resetFields();
+    }
+
     this.data.outerVisible = false;
-    this.data.addInvoiceData = {
-      id: 0,
-      invoice_type: "",
-      invoice_name: "",
-      duty_paragraph: "",
-      detailed_address: "",
-      telephone: "",
-      bank_of_deposit: "",
-      bank_account: "",
-      invoice_remarks: ""
-    };
-    this.data.addTicketData = {
-      id: 0,
-      name: "",
-      phone: "",
-      email: "",
-      detailed_address: ""
-    };
   }
   //弹窗确定
   submit() {
@@ -292,5 +327,9 @@ export default class About extends Vue {
         return false;
       }
     });
+  }
+  //千位符保留2位小数点
+  qianweifu(num: number) {
+    return thousandBitSeparator(num);
   }
 }

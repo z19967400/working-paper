@@ -13,7 +13,8 @@
     "pages/contract/contract",
     "pages/requestFunds/requestFunds",
     "pages/requestFundsInfo/requestFundsInfo",
-    "pages/Collection/Collection"
+    "pages/Collection/Collection",
+    "pages/lvshiqingkuan/lvshiqingkuan"
   ],
   "window": {
     "navigationStyle": "custom"
@@ -26,5 +27,8 @@
     "van-sidebar": "/miniprogram/miniprogram_npm/vant-weapp/slider/index",
     "van-sidebar-item": "/miniprogram/miniprogram_npm/vant-weapp/sidebar-item/index",
     "van-toast": "/miniprogram/miniprogram_npm/vant-weapp/toast/index"
+  },
+  "useExtendedLib": {
+    "weui": true
   }
 }

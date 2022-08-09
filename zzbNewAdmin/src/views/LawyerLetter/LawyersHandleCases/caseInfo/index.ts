@@ -537,8 +537,8 @@ export default class About extends Vue {
           item.is_allocated == 0
             ? '待分配'
             : item.is_allocated == 1
-            ? '已分配'
-            : '未分配'
+              ? '已分配'
+              : '未分配'
       })
       this.data.distributionLawyer.tabData = res.list
     })
@@ -594,7 +594,12 @@ export default class About extends Vue {
         upData.case_collectData.assessment_notes =
           res.data.case_collectionrate.assessment_notes
         upData.case_collectionrate.forEach((item: any) => {
-          item.score = res.data.case_collectionrate[item.prop]
+          if (item.weight === '人工评估调整') {
+            item.score = res.data.case_collectionrate[item.prop] * -1
+          } else {
+            item.score = res.data.case_collectionrate[item.prop]
+          }
+
         })
         upData.case_collectionrate.forEach((item: any) => {
           if (item.prop2) {
@@ -735,16 +740,16 @@ export default class About extends Vue {
             item.contract_type == 0
               ? '法律服务合同'
               : item.contract_type == 1
-              ? '委托律师代理合同'
-              : '律师解约合同'
+                ? '委托律师代理合同'
+                : '律师解约合同'
           item.contract_sign_method =
             item.contract_sign_method == 0 ? '线上签署' : '线下签署'
           item.sign_status =
             item.sign_status == 0
               ? '待签署'
               : item.sign_status == -1
-              ? '合同准备中'
-              : '已签署'
+                ? '合同准备中'
+                : '已签署'
         })
       })
     } else {
@@ -759,16 +764,16 @@ export default class About extends Vue {
             item.contract_type == 0
               ? '法律服务合同'
               : item.contract_type == 1
-              ? '委托律师代理合同'
-              : '律师解约合同'
+                ? '委托律师代理合同'
+                : '律师解约合同'
           item.contract_sign_method =
             item.contract_sign_method == 0 ? '线上签署' : '线下签署'
           item.sign_status =
             item.sign_status == 0
               ? '待签署'
               : item.sign_status == -1
-              ? '合同准备中'
-              : '已签署'
+                ? '合同准备中'
+                : '已签署'
         })
       })
     }
@@ -799,6 +804,45 @@ export default class About extends Vue {
   getCaseMatter() {
     let self: any = this
     Api.getCaseMatter(self.data.debtor_number).then((res: any) => {
+      res.data.matters.forEach((item: any, index: number) => {
+        // eslint-disable-next-line no-console
+        console.log(index, res.data.matters.length)
+
+        item['up'] = false
+        item['down'] = false
+        item['delect'] = false
+        if (index == 0) {
+          item['up'] = true
+          if (item.unexecuted_tasks_count != item.tasks_total) {
+            item['down'] = true
+            item['delect'] = true
+          }
+        } else if (index == res.data.matters.length - 1) {
+          item['down'] = true
+          if (item.unexecuted_tasks_count != item.tasks_total) {
+            item['up'] = true
+            item['delect'] = true
+          }
+        } else {
+          if (item.unexecuted_tasks_count != item.tasks_total) {
+            item['up'] = true
+            item['down'] = true
+            item['delect'] = true
+          }
+          if (
+            res.data.matters[index - 1].unexecuted_tasks_count !=
+            res.data.matters[index - 1].tasks_total
+          ) {
+            item['up'] = true
+          }
+          if (
+            res.data.matters[index + 1].unexecuted_tasks_count !=
+            res.data.matters[index + 1].tasks_total
+          ) {
+            item['down'] = true
+          }
+        }
+      })
       self.data.caseProgress.matters = res.data
     })
   }

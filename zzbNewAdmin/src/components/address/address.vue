@@ -1,6 +1,7 @@
 <template>
   <div class="address-wrap">
     <el-cascader
+      :size="size"
       @change="onChange"
       v-if="data.cascaderShow"
       v-model="data.detailed_address"
@@ -23,7 +24,8 @@ export default class About extends Vue {
   address!: string
   @Prop({})
   id?: number
-
+  @Prop({ default: 'medium' })
+  size?: string
   // data
   data: any = {
     detailed_address: '',

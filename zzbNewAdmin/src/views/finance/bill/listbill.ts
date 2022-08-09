@@ -8,6 +8,7 @@ import {
 import comtable from '@/components/table/comtable.vue'
 import { AdminOptions, finance } from '@/types/index'
 import * as Api from '@/api/finance'
+import { thousandBitSeparator } from '@/utils/common'
 @Component({
   components: {
     comtable,
@@ -175,10 +176,12 @@ export default class About extends Vue {
         data.list.forEach((item: any) => {
           item.settlement_status = this.toStr(item.settlement_status)
           item.bill_type = this.tostr2(item.bill_type)
-          item.bill_settled_amount =
-            item.bill_settled_amount.toLocaleString() + '.00'
-          item.bill_total_amount =
-            item.bill_total_amount.toLocaleString() + '.00'
+          item.bill_settled_amount = this.thousandBitSeparator(
+            item.bill_settled_amount
+          )
+          item.bill_total_amount = this.thousandBitSeparator(
+            item.bill_total_amount
+          )
         })
       })
       .catch(() => {
@@ -239,5 +242,9 @@ export default class About extends Vue {
     params.page = index
     params.limit = limit == null ? params.limit : limit
     self.init()
+  }
+  //千位符
+  thousandBitSeparator(num: any) {
+    return thousandBitSeparator(num)
   }
 }

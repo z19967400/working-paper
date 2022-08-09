@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "select":"../requestFunds/component/select/select"
+    "select":"../requestFunds/component/select/select",
+    "mp-form-page": "weui-miniprogram/form-page/form-page",
+    "mp-form": "weui-miniprogram/form/form"
   }
 }

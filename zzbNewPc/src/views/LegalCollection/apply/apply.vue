@@ -8,15 +8,20 @@
         ref="ruleForm"
         label-width="140px"
       >
-        <el-form-item v-show="type == '逾期贷款'" label="贷款利率（年息%）">
+        <el-form-item
+          v-show="type == '逾期贷款'"
+          label="贷款利率"
+          prop="lending_rate"
+        >
           <el-input
             size="small"
             style="width:280px;"
+            placeholder="(年息%)"
             v-model="data.lending_rate"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="约定付款日期">
+        <el-form-item label="约定还款日期" prop="agreed_payment_date">
           <el-date-picker
             style="width:280px;"
             size="small"
@@ -28,7 +33,16 @@
           >
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="担保类型" prop="guarantee_type">
+        <el-form-item prop="guarantee_type">
+          <span slot="label"
+            >担保类型
+            <img
+              style="width:18px;cursor: pointer;position:relative ;top:3px;left:3px;"
+              src="../../../assets/images/tips.svg"
+              alt=""
+              @click="dialogVisible = true"
+          /></span>
+
           <el-select
             style="width:280px;"
             size="small"
@@ -69,7 +83,11 @@
             <el-option label="失联" value="失联"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="债务人财产线索" prop="property_clues">
+        <el-form-item
+          style="height:auto;max-heigt:80px;min-height:40px;"
+          label="债务人财产线索"
+          prop="property_clues"
+        >
           <el-checkbox-group v-model="data.property_clues">
             <el-checkbox label="房产" name="房产"></el-checkbox>
             <el-checkbox label="车辆" name="车辆"></el-checkbox>
@@ -91,7 +109,10 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="最后一次催款日期">
+        <el-form-item
+          style="height:auto;max-heigt:80px;min-height:40px;"
+          label="最后一次催款日期(有证据证明)"
+        >
           <el-date-picker
             style="width:280px;"
             size="small"
@@ -174,7 +195,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="欠款是否存在争议">
+        <el-form-item label="欠款是否存在争议" prop="is_dispute">
           <el-radio-group v-model="data.is_dispute">
             <el-radio label="是"></el-radio>
             <el-radio label="否"></el-radio>
@@ -204,7 +225,11 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="委托事项" prop="entrusted_matters">
+        <el-form-item
+          style="height:auto;max-heigt:80px;min-height:40px;"
+          label="委托事项"
+          prop="entrusted_matters"
+        >
           <el-checkbox-group v-model="data.entrusted_matters">
             <el-checkbox label="全案委托" name="全案委托"></el-checkbox>
             <el-checkbox label="非诉催收" name="非诉催收"></el-checkbox>
@@ -235,6 +260,35 @@
         </el-form-item>
       </el-form>
     </div>
+    <el-dialog
+      title="释义"
+      custom-class="tipsBox"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
+      <el-divider></el-divider>
+      <!-- <p>请您知晓</p> -->
+      <p><b>保证-</b>保证人与债权人约定,债务人不付款时,保证人代为偿还债务</p>
+      <p>
+        <b>银行履约保函-</b
+        >债务人通过银行向债权人提供的保证认真履行合同的一种经济担保
+      </p>
+      <p><b>抵押-</b>指用房屋、车辆等财产提供担保,但财产不交付给债权人</p>
+      <p>
+        <b>质押-</b
+        >指用车辆、股权等财产提供担保且财产交付给债权人或对财产权利进行出质登记
+      </p>
+      <p><b>留置-</b>债权人因合同关系占有债务人的财物</p>
+      <p><b>无-</b>相当于应收账款没有担保</p>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          style="width:100px;"
+          type="primary"
+          @click="dialogVisible = false"
+          >关 闭</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script lang="ts">
@@ -261,6 +315,7 @@ export default class apply extends Vue {
     entrusted_matters: [],
     other_entrustment: ""
   };
+  dialogVisible: boolean = false;
   type: string = "";
   obligorType: string = ""; //Creditor_states_0:企业 Creditor_states_1：个人
   loading: boolean = false;
@@ -270,6 +325,9 @@ export default class apply extends Vue {
     ],
     debtor_status: [
       { required: true, message: "请选择债务人状态", trigger: "change" }
+    ],
+    agreed_payment_date: [
+      { required: true, message: "请选择约定还款日期", trigger: "change" }
     ],
     property_clues: [
       {
@@ -294,6 +352,9 @@ export default class apply extends Vue {
         message: "请至少选择一个委托事项",
         trigger: "change"
       }
+    ],
+    is_dispute: [
+      { required: true, message: "请选择是否存在争议", trigger: "blur" }
     ]
   };
   created() {
@@ -302,6 +363,13 @@ export default class apply extends Vue {
     self.obligorType = self.$route.query.obligorType;
     self.data.creditor_id = Number(self.$route.query.creditor_id);
     self.data.debtor_number = self.$route.query.debtor_number;
+    if (self.type == "逾期贷款") {
+      self.rules["lending_rate"] = [
+        { required: true, message: "请输入贷款利率", trigger: "blur" }
+      ];
+      // eslint-disable-next-line no-console
+      console.log(self.rules);
+    }
   }
   submitForm(formName: string) {
     const self: any = this;
@@ -345,6 +413,22 @@ export default class apply extends Vue {
   & .box {
     overflow-y: auto;
     height: 100%;
+  }
+  & .el-form-item {
+    height: 40px;
+  }
+  & .tipsBox {
+    border-radius: 10px;
+    padding: 10px;
+    & .el-dialog__body {
+      padding-top: 0;
+    }
+    & .el-divider {
+      margin: 5px 0 15px 0;
+    }
+    & .el-dialog__footer {
+      text-align: center;
+    }
   }
 }
 </style>

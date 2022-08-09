@@ -61,8 +61,8 @@ export default class About extends Vue {
   };
   settlements: any = [
     { value: "Settlement_Status_0", label: "审核中" },
-    { value: "Settlement_Status_1", label: "用户确认" },
-    { value: "Settlement_Status_2", label: "客服确认" },
+    { value: "Settlement_Status_1", label: "待确认账单" },
+    { value: "Settlement_Status_2", label: "账单复核中" },
     { value: "Settlement_Status_3", label: "开票中" },
     { value: "Settlement_Status_4", label: "结算中" },
     { value: "Settlement_Status_5", label: "已结算" },
@@ -152,10 +152,10 @@ export default class About extends Vue {
         val = "审核中";
         break;
       case "Settlement_Status_1":
-        val = "用户确认";
+        val = "待确认账单";
         break;
       case "Settlement_Status_2":
-        val = "客服确认";
+        val = "账单复核中";
         break;
       case "Settlement_Status_3":
         val = "开票中";
@@ -174,8 +174,27 @@ export default class About extends Vue {
     }
     return val;
   }
+  //数字千位符保留小数点后两位
   thousandBitSeparator(num: number) {
-    return num.toLocaleString();
+    let val: string = num.toString();
+    //不含小数点
+    if (val.indexOf(".") == -1) {
+      return num.toLocaleString() + ".00";
+    } else {
+      //含有小数点
+      let ws: string = val.substring(val.lastIndexOf(".") + 1, val.length);
+      if (ws.length == 1) {
+        //小数点后有一位
+        return num.toLocaleString() + "0";
+      } else if (ws.length == 2) {
+        //小数点后有两位
+        return num.toLocaleString();
+      } else {
+        let val2: string = num.toLocaleString();
+        let val3: number = Number(val2);
+        return val3.toFixed(2);
+      }
+    }
   }
   //时间选中回调
   timeChange(val: any) {

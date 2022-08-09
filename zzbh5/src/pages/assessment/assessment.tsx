@@ -57,7 +57,7 @@ class Assessment extends React.Component<any,assessmentStates>{
         {label:'财产线索补充',value:'',isRequired:false, placeholder:'请补充财产线索',prop:'property_clues_bc'},
         // {label:'欠款的确认方式',value:'',isRequired:false, placeholder:'请选择欠款确认方式',prop:'confirmation_method'},
         // {label:'确认日期',value:'',isRequired:false, placeholder:'请选择确认日期',prop:'confirmation_date'},
-        {label:'最后一次催款日期',isRequired:false, placeholder:'请选择催款日期',prop:'confirmation_date'},
+        {label:'最后一次催款日期',isRequired:false, placeholder:'请选择催款日期（有证据证明）',prop:'confirmation_date'},
         {label:'现有证据',value:'',isRequired:true, placeholder:'请选择现有证据',prop:'available_evidence'},
         {label:'其他证据',value:'',isRequired:false, placeholder:'其他证据',prop:'other_evidence'},
         {label:'欠款是否存在争议',value:'',isRequired:true, placeholder:'请选择是否存在争议',prop:"is_dispute"},
@@ -95,24 +95,67 @@ class Assessment extends React.Component<any,assessmentStates>{
   }
   //初始化
   componentDidMount(){
+    const storage:any=window.localStorage;
+    const HC:any = JSON.parse(storage.getItem("HC2"))||''
+    if (HC) {
+      let debtorInfo:any = this.state.debtorInfo
+      debtorInfo.forEach((item:any) =>{
+        if (HC[item.prop]) {
+          item.value = HC[item.prop]
+        }
+      })
+      this.setState({
+        debtorInfo,
+        key:1
+      })
+    }
     getUserInfo().then((res:any) =>{
+      let shuju:any = ''
+      if (HC) {
+        shuju = HC
+      }else if(this.props.location.state.creditor_id !== 0){
+        shuju = this.props.location.state
+      }else{
+        shuju = this.props.parmas
+      }
+      console.log(this.props.location.state);
       this.setState({
         userData:res.data,
-        parmas:this.props.location.state
+        parmas:shuju
       })
     })
   }
   //获取面板组件返回的值
   getPanelSet(res:any){  
     let parmas:any = this.state.parmas || {}
+    console.log(parmas);
+    
     let debtorInfo:any = [...this.state.debtorInfo]
     const prop:string = res.prop
+    const storage:any=window.localStorage;
     if (typeof(res[prop]) === 'object') {
       if (prop === '​jurisdiction_01') {
+        let value2:string = ''
         parmas['jurisdiction_01_country'] = 3752
         parmas['jurisdiction_01_province'] = res[prop][0]
         parmas['jurisdiction_01_city'] = res[prop][1]
         parmas['jurisdiction_01_area'] = res[prop][2]
+        res.option.forEach((item:any) =>{
+          if (item.value === res[prop][0]) {
+            value2 = item.label
+            item.children.forEach((item2:any) =>{
+              if (item2.value === res[prop][1]) {
+                value2 += ','+item2.label
+                item2.children.forEach((item3:any) =>{
+                  if (item3.value === res[prop][2]) {
+                    value2 += ','+item3.label
+                  }
+                })
+              }
+            })
+          }
+        })
+        parmas['​jurisdiction_01'] = value2
       }else if(prop === 'agreed_payment_date' || prop === 'confirmation_date'){
         parmas[prop] = res[prop]
       }else{
@@ -129,6 +172,8 @@ class Assessment extends React.Component<any,assessmentStates>{
     this.setState({
       parmas,
       debtorInfo,
+    },() =>{
+      storage.setItem('HC2',JSON.stringify(parmas))
     })
   }
   //打开免责声明
@@ -156,9 +201,9 @@ class Assessment extends React.Component<any,assessmentStates>{
       title2:'释义',
       text2:`
           <span class="blod">保证</span>-保证人与债权人约定，债务人不付款时，保证人代为偿还债务<p></p>
-          <span class="blod">银行履约保函</span>-乙方通过银行向甲方提供的保证认真履行合同的一种经济担保<p></p>
-          <span class="blod">抵押</span>-抵押指用房屋、车辆等财产提供担保，但财产不交付给债权人<p></p>
-          <span class="blod">质押</span>-质押指用车辆、股权等财产提供担保且财产交付给债权人或对财产权利进行出质登记<p></p>
+          <span class="blod">银行履约保函</span>-债务人通过银行向债权人提供的保证认真履行合同的一种经济担保<p></p>
+          <span class="blod">抵押</span>-指用房屋、车辆等财产提供担保，但财产不交付给债权人<p></p>
+          <span class="blod">质押</span>-指用车辆、股权等财产提供担保且财产交付给债权人或对财产权利进行出质登记<p></p>
           <span class="blod">留置</span>-债权人因合同关系占有债务人的财物<p></p>
           <span class="blod">无</span>-相当于应收账款没有担保<p></p>
       `
@@ -181,6 +226,8 @@ class Assessment extends React.Component<any,assessmentStates>{
     })
     if (isok) {
       let parmas = Object.assign({},this.state.parmas)
+      console.log(parmas);
+      
       let parmas2:any = {
         debt_type:parmas.debt_type,
         creditor_id:parmas.creditor_id,
@@ -235,12 +282,14 @@ class Assessment extends React.Component<any,assessmentStates>{
          entrusted_matters:"",
          other_entrustment:""
       }
+      
       Object.keys(parmas3).forEach((key:string) =>{
         if (parmas[key] !== undefined) {
           parmas3[key] = parmas[key]
         }
       })
       parmas2.debtor = parmas3
+      console.log(parmas2);
       prompt('发送报告', '评估报告将发送至您的邮箱',
       [
         {
@@ -259,13 +308,16 @@ class Assessment extends React.Component<any,assessmentStates>{
               parmas.email = value
               UserEdit(parmas).then((res:any) =>{
                 if (res.state) {
-                  resolve(value);
-                  Createcase(parmas2).then((res:any) =>{
-                    if (res.state) {
-                    this.props.delete()
-                     this.props.history.push(`/lawyerCase/${res.data}`)
+                  Createcase(parmas2).then((res2:any) =>{
+                    if (res2.state) {
+                      this.props.delete()
+                      const storage:any=window.localStorage;
+                      storage.removeItem("HC2");
+                      storage.removeItem("Router");
+                      this.props.history.push(`/lawyerCase/${res2.data}`)
+                      resolve(value);
                     } else {
-                     Toast.offline(res.msg,2);
+                     Toast.offline(res2.msg,2);
                     }
                    })
                 } else {

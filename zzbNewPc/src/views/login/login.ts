@@ -116,7 +116,11 @@ export default class About extends Vue {
             };
             setToken(token);
             setCookie("userName", res.data.userInfo.name);
-            setCookie("headImg", res.data.userInfo.head_img);
+            // setCookie("headImg", res.data.userInfo.head_img);
+            setCookie(
+              "headImg",
+              "https://file.debteehelper.com/weapp-img/default_head_img.png"
+            );
             this.$store.commit("UPDATE_LOGIN_STATE", dta);
             this.UPDATE_LAYOUY_STATE(parmas);
             getAsyncRoute();

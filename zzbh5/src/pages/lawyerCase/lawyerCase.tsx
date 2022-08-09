@@ -300,10 +300,13 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
       })
     })
   }
-  hide(){
+  hide(state:string){
     this.setState({
       show3:false
     })
+    if (state === 'ok') {
+      this.getInfo()
+    }
   }
   //返回
   goHome(){

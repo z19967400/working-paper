@@ -110,15 +110,15 @@ Page({
   authentication() {
     let code = this.data.lawInfo.code
     if (code == -1) { //未认证
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/authentication/authentication'
       })
     } else if (code == 2) { //认证通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/cases/cases'
       })
     } else { //待审核 或 未通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/examine/examine?type=' + code
       })
     }
@@ -153,7 +153,7 @@ Page({
     this.setData({
       show: false
     })
-    wx.navigateTo({
+    app.router.navigateTo({
       url: e.currentTarget.dataset.path
     })
   },
@@ -199,13 +199,13 @@ Page({
   //跳转订单详情
   caseInfo(e) {
     let debtor_number = e.currentTarget.dataset.debtor_number
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/caseInfo/caseInfo?debtor_number=' + debtor_number,
     })
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
@@ -216,6 +216,6 @@ Page({
   // },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
 })

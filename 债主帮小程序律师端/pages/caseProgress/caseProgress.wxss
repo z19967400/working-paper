@@ -162,16 +162,23 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
-.overlay-text > view {
+/* .overlay-content > .overlay-text {
   height: 60rpx;
   line-height: 60rpx;
-}
+} */
 .overlay-text > view > text {
   font-size: 28rpx;
   color: #515151;
 }
 .overlay-text > view > text:first-child {
   margin-right: 10rpx;
+}
+.weui-cell__hd{
+  font-size: 14px;
+}
+.weui-cell__bd{
+  font-size: 14px;
+  color: #606366;
 }
 .courtSubmit {
   font-size: 28rpx;
@@ -208,10 +215,11 @@
   width: 100%;
   box-shadow: 4px 0px 4px #909399;
   text-align: center;
+  background: #ec193a;
 }
 .QKBtn{
-  border: 1px solid #ec193a;
-  color: #ec193a;
+  /* border: 1px solid #ec193a; */
+  color: white;
   display: inline-block;
   height: 60rpx;
   line-height: 60rpx;
@@ -219,4 +227,53 @@
   border-radius: 5px;
   padding: 0 36rpx;
   margin-top: 18rpx;
+}
+.weui-label{
+  width: 70px;
+}
+.weui-label,
+.weui-input{
+  font-size: 12px;
+}
+.weui-cells{
+  margin-top: 0;
+}
+.weui-cells::after{
+  /* background: chocolate; */
+  display: none;
+}
+.weui-cells:last-child::after{
+  display: block;
+}
+.weui-cell{
+  height: 45px;
+  line-height: 45px;
+  padding: 0;
+}
+.cross{
+  position: absolute!important;
+  right: 20rpx;
+  display: inline-block;
+  top: 20rpx;
+}
+.other > view{
+  height: 45px;
+  line-height: 45px;
+  position: relative;
+}
+.other > view::after{
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid var(--weui-FG-3);
+  color: var(--weui-FG-3);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  left: 0px;
+  z-index: 2;
 }

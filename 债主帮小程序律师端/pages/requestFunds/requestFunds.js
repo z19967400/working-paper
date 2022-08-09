@@ -116,9 +116,9 @@ Page({
   GetFinancialRecords() {
     const that = this
     http.getRequest(requstUrl.GetFinancialRecords, { debtor_number: that.data.debtor_number }, function (res) {
-      res.data.forEach((item =>{
-        item.create_time = item.create_time.replace('T',' ')
-        item.create_time  = item.create_time.substring(0,  item.create_time.lastIndexOf(':'))
+      res.data.forEach((item => {
+        item.create_time = item.create_time.replace('T', ' ')
+        item.create_time = item.create_time.substring(0, item.create_time.lastIndexOf(':'))
       }))
       that.setData({
         list: res.data
@@ -127,11 +127,11 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
@@ -157,6 +157,12 @@ Page({
   },
   //获取选择组件返回值1
   getSelectVal1(e) {
+    if (e.detail == 2) {
+      app.router.navigateTo({
+        url: '/pages/lvshiqingkuan/lvshiqingkuan?debtor_number=' + this.data.debtor_number
+      })
+      return false
+    }
     this.setData({
       type: e.detail,
       active: 2
@@ -233,7 +239,7 @@ Page({
       } else {
         Toast('请完善发票信息和收票信息')
         setTimeout(() => {
-          wx.navigateTo({
+          app.router.navigateTo({
             url: '/pages/requestFundsInfo/requestFundsInfo?debtor_number=' + that.data.debtor_number
           })
         }, 2000);

@@ -6,7 +6,7 @@
  /**
   * 测试环境
   */
- export const QAHOST: string = "http://localhost:3000/api";
+ export const QAHOST: string = "http://localhost:3456/api";
  
  /**
   * 线上mock

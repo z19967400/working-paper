@@ -5,21 +5,29 @@
   & .btn-fanhui {
     margin-top: 20px;
   }
-  & .el-table .warning-row,
-  & .el-table .warning-row:hover > td {
-    background: #f56c6c;
-    color: white;
+  & .el-table .warning-row {
+    & .el-table__cell {
+      background: #f56c6c !important;
+      color: white;
+    }
     & span {
       color: white;
     }
   }
+  & .el-table .warning-row:hover {
+    opacity: 0.8;
+  }
 
-  & .el-table .success-row,
-  & .el-table .success-row:hover > td {
-    background: #67c23a;
-    color: white !important;
+  & .el-table .success-row {
     & span {
       color: white;
     }
+    & .el-table__cell {
+      background: #67c23a;
+      color: white !important;
+    }
+  }
+  & .el-table .success-row:hover {
+    opacity: 0.8;
   }
 }

@@ -373,6 +373,7 @@
 <script>
   $(function () {
     let isOk = true
+    let val = ''
     getUrlParam = function (name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
       var r = window.location.search.substr(1).match(reg);
@@ -381,7 +382,7 @@
     const debtor_number = getUrlParam('debtor_number')
     let debtor_type = "" //债务类型
     $('input[name="is_dissent"]').click(function () {
-      let val = $(this).val()
+      val = $(this).val()
       if (val == 0) { //无异议
         $('#select2').show()
         $('#select1').hide()
@@ -412,7 +413,7 @@
           debtor_number: debtor_number,
           member_remarks: $('#member_remarks').val(),
           member_phone: $('#creditor_contacts_telphone').text(),
-          is_dissent: $('input[name="is_dissent"]').val(),
+          is_dissent: val,
           dissent_content: dissent_content.substring(0, dissent_content.length - 1)
         },
         success: function (res) {

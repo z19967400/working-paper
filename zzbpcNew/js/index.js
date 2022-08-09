@@ -1,5 +1,6 @@
 const url = window.location.href;
 const head = url.split(":")[0];
+$('#goTop').hide()
 // if (head === "http") {
 //   window.location.href = url.replace("http", "https");
 // }
@@ -99,6 +100,12 @@ $('#index_main').fullpage({
     }
   },
   onLeave: function (index, direction) {
+    console.log(direction);
+    if (direction == 1) {
+      $('#goTop').hide()
+    } else {
+      $('#goTop').show()
+    }
     let video = document.getElementById('video');
     let h = document.body.clientHeight
     let w = document.body.clientWidth
@@ -191,4 +198,19 @@ $('#weChat').mouseover(function () {
   $('#weChat-img').show()
 }).mouseout(function () {
   $('#weChat-img').hide()
+})
+$('#goTop').click(function () {
+  window.location.hash = "hero"
+  $('body,html').animate({
+    scrollTop: 0
+  }, 800);
+})
+
+$(window).scroll(function () {
+  let winPos = $(document).scrollTop()
+  if (winPos >= 500) {
+    $('#goTop').show()
+  } else {
+    $('#goTop').hide()
+  }
 })

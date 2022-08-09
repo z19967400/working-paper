@@ -2,6 +2,8 @@
   "component": true,
   "usingComponents": {
     "van-radio": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio",
-    "van-radio-group": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio-group"
+    "van-radio-group": "../../../../miniprogram/miniprogram_npm/vant-weapp/radio-group",
+    "mp-form-page": "weui-miniprogram/form-page/form-page",
+    "mp-form": "weui-miniprogram/form/form"
   }
 }

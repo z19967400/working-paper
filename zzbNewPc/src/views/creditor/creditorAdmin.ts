@@ -2,6 +2,7 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import * as Api from "@/api/creditor";
 import addAdmin from "./components/addAdmin.vue";
 import editAdmin from "./components/editAdmin.vue";
+import editCreditor from "./components/editCreditor.vue";
 import { getCookie } from "../../utils/common";
 import addForms from "./editcedrior.vue";
 import { baseURL, pp } from "../../utils/request";
@@ -9,13 +10,15 @@ import { baseURL, pp } from "../../utils/request";
   components: {
     addAdmin,
     editAdmin,
-    addForms
+    addForms,
+    editCreditor
   }
 })
 export default class creditorAdmin extends Vue {
   dialogFormVisible: boolean = false;
   dialogFormVisible2: boolean = false;
   dialogFormVisible3: boolean = false;
+  dialogFormVisible4: boolean = false;
   creditor_id: number = 0;
   creditor_name: string = "";
   parentId: number = 0;
@@ -23,8 +26,10 @@ export default class creditorAdmin extends Vue {
   is_super: any = "";
   searchVal: string = "";
   data: any = {
+    srcList: [],
     list: [],
     edit: {},
+    editCreditorData: {},
     creditorList: [],
     search: "",
     show: false,
@@ -113,6 +118,7 @@ export default class creditorAdmin extends Vue {
   editAdminClose(val: any) {
     this.dialogFormVisible2 = val;
     this.data.edit = {};
+    this.GetCreditorAdmin();
   }
   //新增授权管理员
   hanlAddAdmin(parmas: any) {
@@ -146,6 +152,7 @@ export default class creditorAdmin extends Vue {
         item.admin_list.forEach((item2: any) => {
           item2.audit_status = this.getAuditstatusText(item2.audit_status);
         });
+        this.data.srcList.push(item.license_img_url);
       });
       this.data.list = res.data;
     });
@@ -346,5 +353,19 @@ export default class creditorAdmin extends Vue {
         break;
     }
     return value;
+  }
+  //修改授权管理员
+  xiugaishouquan(row: any, creditor_name: string) {
+    Api.GetAuthorizationTimes(row.creditor_admin_id).then((res: any) => {
+      this.dialogFormVisible2 = true;
+      this.data.edit = row;
+      this.data.edit["type"] = res.data;
+      this.data.edit["creditor_name"] = creditor_name;
+    });
+  }
+  //打开编辑债权人弹窗
+  openEditCreditor(row: any) {
+    this.data.editCreditorData = row;
+    this.dialogFormVisible4 = true;
   }
 }

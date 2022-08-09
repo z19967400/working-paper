@@ -75,13 +75,13 @@ Page({
     this.getLawInfo()
   },
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
   toInfo(e) {
     let path = e.currentTarget.dataset.path
-    wx.navigateTo({
+    app.router.navigateTo({
       url: path,
     })
   },
@@ -113,19 +113,19 @@ Page({
   authentication(e) {
     let code = app.globalData.lawInfo.code
     if (code == -1) { //未认证
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/authentication/authentication'
       })
     } else if (code == 2) { //认证通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/cases/cases'
       })
     } else { //待审核 或 未通过
-      wx.navigateTo({
+      app.router.navigateTo({
         url: '/pages/examine/examine?type=' + code
       })
     }
-    wx.navigateTo({
+    app.router.navigateTo({
       url: path,
     })
   }

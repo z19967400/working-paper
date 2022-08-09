@@ -78,6 +78,9 @@
           >
         </div>
         <div class="nav-right">
+          <el-button size="small" @click="openReceipt3()" type="primary"
+            >快递状态更新</el-button
+          >
           <el-button size="small" @click="download()" type="primary"
             >寄送信息下载</el-button
           >
@@ -167,6 +170,63 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="upDataCourier()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 快递状态更新 -->
+    <el-dialog
+      custom-class="letteDialog"
+      title="快递状态更新"
+      center
+      :visible.sync="dialogFormVisible3"
+    >
+      <el-table height="400px" style="width:100%;" center :data="slectList">
+        <el-table-column
+          v-for="(item, index) in selectTypes"
+          :key="index"
+          :label="item.label"
+          :prop="item.prop"
+          :width="item.width"
+        ></el-table-column>
+        <el-table-column width="80px" label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" @click="delect(scope.$index)"
+              >移除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+      <div style="margin-top:20px;margin-left:10px;">
+        <span style="width:120px;display:inline-block;">快递状态</span>
+        <el-radio-group v-model="radio">
+          <el-radio :label="0">待投递</el-radio>
+          <el-radio :label="1">快递中</el-radio>
+          <el-radio :label="2">投递成功</el-radio>
+          <el-radio :label="3">投递失败</el-radio>
+        </el-radio-group>
+      </div>
+      <div style="margin-top:20px;margin-left:10px;">
+        <span style="width:120px;display:inline-block;">投递失败原因</span>
+        <el-input style="width:620px;" size="small" v-model="shibai"></el-input>
+      </div>
+      <div style="margin-top:20px;margin-left:10px;">
+        <span style="width:120px;display:inline-block;">快递底单状态</span>
+        <el-radio-group v-model="radio2">
+          <el-radio :label="0">未收到</el-radio>
+          <el-radio :label="1">已收到</el-radio>
+          <!-- <el-radio :label="2">无需</el-radio> -->
+        </el-radio-group>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button
+          @click="
+            () => {
+              dialogFormVisible3 = false
+              shibai = ''
+            }
+          "
+          >取 消</el-button
+        >
+        <el-button type="primary" @click="upDataCourier3()">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 上传单号 -->

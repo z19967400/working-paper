@@ -47,7 +47,7 @@
         <el-row>
           <span style="font-size:14px;margin-right:20px;">账单名称</span>
           <el-input
-            style="width:420px;"
+            style="width:680px;"
             size="small"
             v-model="createData.bill_title"
           ></el-input>

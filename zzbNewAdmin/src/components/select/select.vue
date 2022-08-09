@@ -12,23 +12,7 @@
               :value="item.value"
             ></el-option>
           </el-select>
-          <el-input
-            v-if="
-              data.value != 'api_type' &&
-                data.value != 'project_name' &&
-                data.value != 'start_time' &&
-                data.value != 'end_time' &&
-                data.value != 'executing_states' &&
-                data.value != 'create_time' &&
-                data.value != 'audit_status' &&
-                data.value != 'entrust_type' &&
-                data.value != 'collations'
-            "
-            size="small"
-            v-model="data.input"
-            @keyup.enter.native="search"
-            placeholder="请输入内容"
-          ></el-input>
+
           <el-select
             v-if="
               data.value == 'api_type' ||
@@ -36,7 +20,11 @@
                 data.value == 'executing_states' ||
                 data.value == 'audit_status' ||
                 data.value == 'entrust_type' ||
-                data.value == 'collations'
+                data.value == 'collations' ||
+                data.value == 'bill_status' ||
+                data.value == 'pay_method' ||
+                data.value == 'm_type' ||
+                data.value == 'pay_status'
             "
             size="small"
             v-model="data.input"
@@ -55,6 +43,14 @@
                 ? option.opt6
                 : data.value == 'collations'
                 ? option.opt7
+                : data.value == 'm_type'
+                ? option.opt8
+                : data.value == 'bill_status'
+                ? option.opt9
+                : data.value == 'pay_method'
+                ? option.opt10
+                : data.value == 'pay_status'
+                ? option.opt11
                 : option.opt2"
               :key="item.value"
               :label="item.label"
@@ -62,7 +58,7 @@
             ></el-option>
           </el-select>
           <el-date-picker
-            v-if="
+            v-else-if="
               data.value == 'start_time' ||
                 data.value == 'end_time' ||
                 data.value == 'create_time'
@@ -76,6 +72,25 @@
             :picker-options="pickerOptions"
           >
           </el-date-picker>
+          <el-date-picker
+            size="small"
+            v-else-if="data.value == 'time'"
+            v-model="data.input"
+            type="daterange"
+            range-separator="至"
+            value-format="yyyy-MM-dd"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            style="margin-right:20px;position: relative;top: 1px;"
+          >
+          </el-date-picker>
+          <el-input
+            v-else
+            size="small"
+            v-model="data.input"
+            @keyup.enter.native="search"
+            placeholder="请输入内容"
+          ></el-input>
           <el-button
             @click="search"
             size="small"
@@ -106,6 +121,18 @@
                 "
               >
                 {{ extract2(tag.label, tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'pay_status'">
+                {{ extract3(tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'm_type'">
+                {{ extract4(tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'pay_method'">
+                {{ extract5(tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'bill_status'">
+                {{ extract6(tag.value) }}
               </span>
               <span v-else>
                 {{ tag.value }}
@@ -271,6 +298,34 @@ export default class About extends Vue {
       value = val == 0 ? '时间排序' : '委托金额'
     }
     return value
+  }
+  //支付状态取值
+  extract3(val: string) {
+    let data: any = this.option.opt11.filter((item: any) => {
+      return item.value == val
+    })
+    return data[0].label
+  }
+  //用户类别取值
+  extract4(val: string) {
+    let data: any = this.option.opt8.filter((item: any) => {
+      return item.value == val
+    })
+    return data[0].label
+  }
+  //支付方式取值
+  extract5(val: string) {
+    let data: any = this.option.opt10.filter((item: any) => {
+      return item.value == val
+    })
+    return data[0].label
+  }
+  //账单状态取值
+  extract6(val: string) {
+    let data: any = this.option.opt9.filter((item: any) => {
+      return item.value == val
+    })
+    return data[0].label
   }
 }
 </script>

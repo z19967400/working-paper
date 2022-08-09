@@ -57,6 +57,11 @@
             >查看</el-button
           >
           <el-button
+            v-show="name != '法院信息'"
+            :disabled="
+              scope.row.completion_time == '已完成' ||
+                scope.row.completion_time == '进行中'
+            "
             type="text"
             class="delete"
             size="small"
@@ -79,6 +84,7 @@ export default class About extends Vue {
   // prop
   @Prop({}) public tableType!: any
   @Prop({}) public tableData!: any
+  @Prop({}) public name?: string
   //watch
   @Watch('tableData', { immediate: true, deep: true })
   onChangeValue(newVal: any, oldVal: any) {
@@ -104,7 +110,7 @@ export default class About extends Vue {
 
   mounted() {
     let self: any = this
-    self.data.width = '80px'
+    self.data.width = '120px'
   }
   //初始化
   init() {
@@ -151,11 +157,14 @@ export default class About extends Vue {
 .table1-wrap {
   width: 100%;
   position: relative;
-  .el-table th:last-child > .cell {
-    text-align: center;
-  }
-  .el-table tr td:last-child > .cell {
-    text-align: center;
+  // .el-table th:last-child > .cell {
+  //   text-align: center;
+  // }
+  // .el-table tr td:last-child > .cell {
+  //   text-align: center;
+  // }
+  .el-table tr td > .cell {
+    padding: 0 10px;
   }
   .edit {
     color: #55a3f4;
@@ -197,6 +206,9 @@ export default class About extends Vue {
   }
   & .el-table__body tr.current-row > td {
     background-color: #f5f7fa;
+  }
+  .el-button.is-disabled {
+    color: #c0c4cc !important;
   }
 }
 </style>

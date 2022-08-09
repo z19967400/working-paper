@@ -59,7 +59,7 @@
             <el-select v-model="data.form.express_fee">
               <el-option :value="1" label="诚收付款"></el-option>
               <el-option :value="2" label="用户付款"></el-option>
-              <el-option :value="0" label="无需"></el-option>
+              <el-option :value="-1" label="无需"></el-option>
             </el-select>
           </el-form-item>
         </el-col>

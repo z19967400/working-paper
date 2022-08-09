@@ -1,4 +1,5 @@
 @import "/miniprogram/miniprogram_npm/vant-weapp/common/index.wxss";
+
 /**app.wxss**/
 page {
   min-height: 100%;

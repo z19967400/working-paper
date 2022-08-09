@@ -48,9 +48,14 @@
         </el-table-column>
         <el-table-column prop="admin_email" label="电子邮箱" width="250">
         </el-table-column>
-        <el-table-column align="center" prop="is_super" label="权限" width="60">
+        <el-table-column
+          align="center"
+          prop="is_super"
+          label="管理员类型"
+          width="120"
+        >
           <template slot-scope="scope">
-            <span>{{ scope.row.is_super == 0 ? '否' : '是' }}</span>
+            <span>{{ scope.row.is_super == 0 ? '普通' : '超级' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="create_time" label="创建时间" width="150">

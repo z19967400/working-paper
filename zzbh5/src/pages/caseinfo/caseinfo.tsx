@@ -9,7 +9,8 @@ import {
   StopOrder,
   GetTaskContentById,
   GetAILawyerLetterReport,
-  GenerateReport
+  GenerateReport,
+  GetLogisticsByDebtorNumber
 } from '../../api/https'
 import { Toast } from 'antd-mobile';
 import { Modal } from 'antd-mobile';
@@ -27,6 +28,9 @@ interface CaseInfoStates{
   execution_progress:string
   executing_states:string
   reportBtnText:string
+  record:any,
+  feedback_total:number|undefined,
+  logistics:any
 }
 class CaseInfo extends React.Component<any,CaseInfoStates>{
   constructor(props:any){
@@ -41,15 +45,18 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
       execution_progress:'',
       executing_states:'',
       reportBtnText:'下载执行报告',
+      logistics:{}, //律师函信息
+      record:[], //物流信息
+      feedback_total:undefined //债务反馈数量
     }
   }
   render (){
-    const {title,show,text,list,execution_progress,alertTitle,btnText,reportBtnText} = this.state
+    const {title,show,text,list,execution_progress,alertTitle,btnText,reportBtnText,record,feedback_total} = this.state
     return(
       <div className="caseInfo">
         <Header openToast2={this.openToast2.bind(this)} number={this.props.match.params.debtor_number} status={execution_progress} name={title}></Header>
         <div className='content'>
-          <Steps infoName={'查看详情'} list={list} openToast={this.openToast.bind(this)}></Steps>
+          <Steps infoName={'查看详情'} toFeekback={this.toFeekback.bind(this)} list={list} feedback_total={feedback_total} openToast={this.openToast.bind(this)}></Steps>
           <div className="footer">
             { execution_progress === '已完成' || execution_progress === '已终止' || execution_progress === '执行中' || execution_progress === '待审核' ?  <div onClick={this.Report.bind(this)}>{reportBtnText}</div>:'' }
             { execution_progress === '执行中' && <span className='xian'></span> }
@@ -62,12 +69,13 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
               { execution_progress === '已撤销' || execution_progress === '审核未通过' ? <div onClick={this.goHome.bind(this)}>返回</div>:''}
           </div>
         </div>
-        <Alert closeToast={this.closeToast.bind(this)} title={alertTitle} btnText={btnText} show={show} text={text}></Alert>
+        <Alert closeToast={this.closeToast.bind(this)} record={record} title={alertTitle} btnText={btnText} show={show} text={text}></Alert>
       </div>
     )
   }
   componentDidMount(){
     this.getInfo()
+    this.GetLogistics()
   }
   //获取AI律师函详情
   getInfo(){
@@ -75,7 +83,8 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
       this.setState({
         list:res.data.task_list,
         title:`向${res.data.debtor_name}的催收`,
-        execution_progress:res.data.execution_progress
+        execution_progress:res.data.execution_progress,
+        feedback_total:res.data.feedback_total>0?res.data.feedback_total:undefined
       })
     })
   }
@@ -119,13 +128,14 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
           cont = `
             <div class="alertBox">
             <p><span>律师函编号：</span> ${this.props.match.params.debtor_number || '暂无'}</p>
-            <p><span>寄送方式：</span> ${data.courier_company || '暂无'}</p>
-            <p><span>收件人：</span> ${data.receiving_name || '暂无'}</p>
-            <p><span>电话号码：</span> ${data.phone_number || '暂无'}</p>
-            <p><span>收件地址：</span> ${data.receiving_address || '暂无'}</p>
+            <p><span>律师函内容：</span> <a href="${data.content}" class="btn  ${!data.content?'notClick':''}">${data.content?'点击查看':'未生成'}</a></p>
             <p><span>执行结果：</span> ${data.run_status_name || '暂无'}</p>
+            <p><span>收件人姓名：</span> ${data.receiving_name || '暂无'}</p>
+            <p><span>收件人电话：</span> ${data.phone_number || '暂无'}</p>
+            <p><span>收件人地址：</span> ${data.receiving_address || '暂无'}</p>
+            <p><span>快递公司：</span> ${data.courier_company || '暂无'}</p>
             <p><span>快递单号：</span> ${data.courier_number || '暂无'}</p>
-            <p><span>律师函内容：</span> <a href="${data.content}" class="btn">${data.content?'点击查看':'未生成'}</a></p>
+            <p><span>快递底单：</span> <a href="${data.courier_receipt_img}" class="btn ${!data.courier_receipt_img?'notClick':''}">${data.courier_receipt_img?'点击查看':'暂未上传'}</a></p> 
             </div>
           `
         }else if(content.task_type === 3){
@@ -135,7 +145,7 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
               <p><span>电子邮箱：</span> ${data.email}</p>
               <p><span>发送时间：</span> ${data.send_time}</p>
               <p><span>执行结果：</span> ${data.run_status_name}</p>
-              <p><span>催款函内容：</span> <a href="${data.content}" class="btn">${data.content?'点击查看':'未生成'}</a></p>
+              <p><span>催款函内容：</span> <a href="${data.content}" class="btn ${!data.content?'notClick':''}">${data.content?'点击查看':'未生成'}</a></p>
             </div>
           `
         }else if(content.task_type === 4){
@@ -145,7 +155,7 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
               <p><span>电子邮箱：</span> ${data.email}</p>
               <p><span>发送时间：</span> ${data.send_time}</p>
               <p><span>执行结果：</span> ${data.run_status_name}</p>
-              <p><span>律师函内容：</span> <a href="${data.content}" class="btn">${data.content?'点击查看':'未生成'}</a></p>
+              <p><span>律师函内容：</span> <a href="${data.content}" class="btn ${!data.content?'notClick':''}">${data.content?'点击查看':'未生成'}</a></p>
             </div>
           `
         }
@@ -156,6 +166,7 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
         })
       })
   }
+ 
   //打开弹窗2
   openToast2(){
     let cont:any = `
@@ -246,6 +257,19 @@ class CaseInfo extends React.Component<any,CaseInfoStates>{
       }
     })
    
+  }
+  //获取律师函快递进度
+  GetLogistics(){
+    GetLogisticsByDebtorNumber(this.props.match.params.debtor_number).then((res:any)=>{
+      this.setState({
+        record:res.data.record,
+        logistics:res.data.logistics
+      })
+    })
+  }
+  //跳转债务反馈
+  toFeekback(){
+    this.props.history.push(`/Feekback/${this.props.match.params.debtor_number}`)
   }
 }
 

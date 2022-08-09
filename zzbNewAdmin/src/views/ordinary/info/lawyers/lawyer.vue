@@ -302,49 +302,35 @@
                 <span class="lable">执业证照</span>
               </el-col>
               <el-col :span="5">
-                <img
+                <el-image
                   class="img"
-                  @click="
-                    preview(
-                      `${
-                        serchStr(data.lawyer.practice_license)
-                          ? ''
-                          : 'https://file.debteehelper.com'
-                      }${data.lawyer.practice_license}`
-                    )
-                  "
                   :src="
                     `${
-                      serchStr(data.lawyer.practice_license)
+                      serchStr(lawyerEdit.practice_license)
                         ? ''
                         : 'https://file.debteehelper.com'
-                    }${data.lawyer.practice_license}`
+                    }${lawyerEdit.practice_license}`
                   "
-                />
+                  :preview-src-list="data.srcList"
+                >
+                </el-image>
               </el-col>
               <el-col :span="1">
                 <span class="lable">年检页照</span>
               </el-col>
               <el-col :span="5">
-                <img
+                <el-image
                   class="img"
-                  @click="
-                    preview(
-                      `${
-                        serchStr(data.lawyer.annual_inspection)
-                          ? ''
-                          : 'https://file.debteehelper.com'
-                      }${data.lawyer.annual_inspection}`
-                    )
-                  "
                   :src="
                     `${
-                      serchStr(data.lawyer.annual_inspection)
+                      serchStr(lawyerEdit.annual_inspection)
                         ? ''
                         : 'https://file.debteehelper.com'
-                    }${data.lawyer.annual_inspection}`
+                    }${lawyerEdit.annual_inspection}`
                   "
-                />
+                  :preview-src-list="data.srcList"
+                >
+                </el-image>
               </el-col>
             </el-row>
             <el-row>
@@ -446,26 +432,7 @@
           </el-form>
         </div>
         <div v-if="data.lawyer != null" class="section">
-          <span style="margin-top:0;">
-            <span class="title">后台备注</span>
-          </span>
-          <el-divider></el-divider>
-          <el-form>
-            <el-form-item label="备注">
-              <el-input
-                type="textarea"
-                :rows="24"
-                v-model="data.back_remarks"
-              ></el-input>
-            </el-form-item>
-            <el-button
-              style="margin-left:40px;"
-              type="primary"
-              @click="SaveNotes"
-              size="small"
-              >保存</el-button
-            >
-          </el-form>
+          <remark :id="this.$route.params.id" :remarks_type="3"></remark>
         </div>
       </div>
     </div>

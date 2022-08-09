@@ -19,8 +19,8 @@
     </view>
     <view style="top:{{isIPhoneX?'150px':'135px'}} ;" class="tabs">
       <van-row custom-class="row">
-        <van-col wx:for="{{caseTabs}}" wx:key="index" custom-class="col" span="6">
-          <text bindtap="tab" class="tab-text" data-index="{{index}}">{{item}}</text>
+        <van-col wx:for="{{caseTabs}}" bindtap="tab" data-index="{{index}}" wx:key="index" custom-class="col" span="6">
+          <text  class="tab-text" >{{item}}</text>
         </van-col>
       </van-row>
     </view>
@@ -62,28 +62,39 @@
         </view>
       </view>
     </view>
-    <view class="footer-box" wx:if="{{payment_request_object == '1' && sign_status}}">
+    <view class="footer-box" bindtap="QKBtn"  wx:if="{{payment_request_object == '1' && sign_status}}">
       <text class="QKBtn">律师费请款</text>
     </view>
     <view wx:if="{{show}}" class="overlay" bindtap="onClickHide" catchtouchmove='true'></view>
     <view wx:if="{{show}}" class="overlay-content" catchtouchmove="preventD">
       <view class="overlay-title">{{overlayTitle}}</view>
-      <view wx:if="{{infoType==2}}" wx:for="{{info.court}}" wx:key="index" class="overlay-text">
-        <view wx:for="{{item.children}}" wx:key="index2" class="court-item" wx:for-index="index2" wx:for-item="twodata">
+      <view  class="cross" bindtap="onClickHide">
+        <van-icon  name="cross" />
+      </view>
+      <view wx:if="{{infoType==2}}" wx:for="{{info.court}}" wx:key="index" >
+        <view wx:for="{{item.children}}" wx:key="index2" wx:for-index="index2" wx:for-item="twodata" class="weui-cells">
+          <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__hd"><label  class="weui-label">{{twodata.name}}</label></view>
+            <view class="weui-cell__bd">
+              <input  data-name="{{twodata.prop}}" value="{{twodata.value}}" placeholder="{{twodata.placeholder}}" bindinput="courtInput" data-index="{{index}}" class="weui-input"  placeholder-class="weui-input__placeholder" />
+            </view>
+          </view>
+        </view>
+        <!--  <view wx:for="{{item.children}}" wx:key="index2" class="court-item" wx:for-index="index2" wx:for-item="twodata">
           <text>{{twodata.name}}:</text>
-          <!-- <text>{{item.value}}</text> -->
+          <text>{{item.value}}</text> 
           <input type="text" class="court-input" bindinput="courtInput" data-index="{{index}}"
             data-name="{{twodata.prop}}" value="{{twodata.value}}" />
-        </view>
+        </view>-->
       </view>
       <button wx:if="{{infoType==2}}" class="courtSubmit" bindtap="courtSubmit">提交</button>
-      <view wx:if="{{infoType==1}}" wx:for="{{info.customer}}" wx:key="index" class="overlay-text">
+      <view wx:if="{{infoType==1}}" wx:for="{{info.customer}}" wx:key="index" class="overlay-text other">
         <view>
           <text>{{item.name||'待分配'}}:</text>
           <text>{{item.value||'待分配'}}</text>
         </view>
       </view>
-      <view wx:if="{{infoType==0}}" wx:for="{{info.creditor}}" wx:key="index" class="overlay-text">
+      <view wx:if="{{infoType==0}}" wx:for="{{info.creditor}}" wx:key="index" class="overlay-text other">
         <view>
           <text>{{item.name}}:</text>
           <text>{{item.value}}</text>

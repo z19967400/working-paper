@@ -188,9 +188,11 @@
         <p style="text-align: right;">债主帮法催服务平台</p>
         <p style="text-align: right;">2021年2月22日</p>
       </div>
-      <span style="line-height: 1.8" v-else>{{
-        adminData.noticeInfo.text
-      }}</span>
+      <div
+        style="line-height: 1.8"
+        v-else
+        v-html="adminData.noticeInfo.text"
+      ></div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handClose">取 消</el-button>
         <el-button type="primary" @click="handClose">确 定</el-button>

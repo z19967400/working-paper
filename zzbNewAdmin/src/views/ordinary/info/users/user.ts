@@ -4,9 +4,11 @@ import { verifyPhone, verifyEmall } from '../../../../utils/common'
 import { enterpriseCreditor } from '../../../../components/index'
 import { baseURL } from '../../../../utils/request'
 import * as Api2 from '@/api/finance'
+import remark from '@/components/remark/remark.vue'
 @Component({
   components: {
-    enterpriseCreditor
+    enterpriseCreditor,
+    remark
   }
 })
 export default class user extends Vue {
@@ -32,6 +34,7 @@ export default class user extends Vue {
   data: any = {
     rightH: 0,
     tabPosition: 'left',
+    srcList: [],
     isVip: true,
     BasicInfoType: false,
     BasicInfo: [
@@ -153,6 +156,17 @@ export default class user extends Vue {
       Api.getCreditorInfoByid(id).then((res: any) => {
         if (res.state) {
           self.userData = res.data
+          if (res.data.creditor_type == 'Creditor_states_1') {
+            this.data.srcList = [
+              res.data.id_card_img_01,
+              res.data.id_card_img_02
+            ]
+          } else {
+            this.data.srcList = [
+              res.data.license_img_url,
+              res.data.agent_authorization
+            ]
+          }
           resovle(res.data)
         } else {
           reject()
@@ -305,8 +319,8 @@ export default class user extends Vue {
               item.audit_status == 'Audit_states_0'
                 ? '待审核'
                 : item.audit_status == 'Audit_states_1'
-                ? '未通过'
-                : '已通过'
+                  ? '未通过'
+                  : '已通过'
             item.creditor_type =
               item.creditor_type == 'Creditor_states_0' ? '企业' : '个人'
             item.create_time = item.create_time.replace('T', ' ')

@@ -1,7 +1,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import * as Api from "@/api/AIlvshihan";
+import axios from "axios";
 import pay from "@/components/pay/pay.vue";
 import { Action, Mutation } from "vuex-class";
+import { getToken } from "@/utils/common";
+import { baseURL } from "@/utils/request";
 import {
   comselect,
   comtable,
@@ -307,12 +310,41 @@ export default class About extends Vue {
   openPays() {
     this.data.dialogVisible = true;
   }
+  //导出列表数据
+  exportBtn() {
+    let params: any =
+      JSON.stringify(this.data.select) == "{}"
+        ? this.options
+        : this.data.select;
+    const baseURL: string = "https://api2.debteehelper.com";
+    // let downloadFil = `${baseURL}/api/AILawyerLetter/ExportExcel?create_time=${
+    //   params.create_time
+    // }&debtor_number=${params.debtor_number}&creditor_name=${
+    //   params.creditor_name
+    // }&debtor_name=${params.debtor_name}&executing_status=${
+    //   params.executing_status
+    // }&create_name=${params.create_name}&tokey=${getToken()}`;
+    // window.open(downloadFil);
+    let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportExcel?create_time=${
+      params.create_time
+    }&debtor_number=${params.debtor_number}&creditor_name=${
+      params.creditor_name
+    }&debtor_name=${params.debtor_name}&executing_status=${
+      params.executing_status
+    }&create_name=${params.create_name}&tokey=${getToken()}`;
+
+    var elemIF = document.createElement("iframe");
+    elemIF.src = downloadFileUrl;
+    elemIF.style.display = "none";
+    document.body.appendChild(elemIF);
+  }
   //待支付管理
   handleClick(val: any) {
     this.data.dialogVisible = false;
     setTimeout(() => {
       Api.getPaySet().then((res2: any) => {
         val["is_postpaid"] = res2.data.is_postpaid;
+        val["present_quantity"] = res2.data.present_quantity;
         this.payinfo = val;
         this.payShow = true;
       });

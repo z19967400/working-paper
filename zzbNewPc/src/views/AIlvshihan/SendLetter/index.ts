@@ -14,6 +14,8 @@ import comSetTwo from "./components/form/stepTwo.vue";
 import pay from "@/components/pay/pay.vue";
 import addForms from "../../creditor/editcedrior.vue";
 import { getCookie } from "@/utils/common";
+// import { Swiper, SwiperSlide } from "Swiper/vue";
+// import "swiper/swiper.scss";
 @Component({
   components: {
     "menu-raido": menuRaido,
@@ -24,6 +26,8 @@ import { getCookie } from "@/utils/common";
     comSetTwo,
     pay,
     addForms
+    // Swiper,
+    // SwiperSlide
   }
 })
 export default class About extends Vue {
@@ -31,21 +35,22 @@ export default class About extends Vue {
   // data
   // 表格加载
   loading: boolean = true;
+  loadingText: string = "上传中";
   collectList: any = {
-    payment_channel_name: "",
-    contacts_name: "",
-    contacts_phone: "",
-    contacts_email: "",
+    id: 0,
+    payee_account_name: "",
+    collection_account_number: "",
+    bank_full_name: "",
+    bank_code: "",
     alipay_account: "",
-    payee_name: "",
-    bank_name: "",
-    bank_account: "",
-    pay_remarks: ""
+    alipay_phone_number: ""
   };
 
   data: any = {
     creditor_serch: "",
     user_code: "AI_1005",
+    CollectionType: false,
+    payment_remarks: "", //付款备注
     height: 0,
     Creditor_states_0: "Creditor_states_0",
     //债务人类别选择
@@ -131,6 +136,8 @@ export default class About extends Vue {
     columnTableName: "",
     // 识别明细返回值
     collTabless: [],
+    //明细返回头
+    collTablessss: [],
     //明细表命名
     columnTableNamess: "",
     //修改弹框
@@ -204,19 +211,16 @@ export default class About extends Vue {
       //     trigger: "blur"
       //   }
       // ],
-      contacts_name: [
-        { required: true, message: "请输入联系人名称", trigger: "blur" },
-        {
-          min: 2,
-          max: 10,
-          message: "联系人的长度在2~10个字符之间",
-          trigger: "blur"
-        }
-      ],
-      contacts_email: [
-        { required: true, message: "请输入邮箱", trigger: "blur" },
-        { validator: validateEmall, trigger: "blur" }
-      ]
+      // payee_account_name: [
+      //   { required: true, message: "请输入收款户名", trigger: "blur" }
+      // ],
+      // bank_full_name: [
+      //   { required: true, message: "收款银行全称", trigger: "blur" }
+      // ]
+      // contacts_email: [
+      //   { required: true, message: "请输入邮箱", trigger: "blur" },
+      //   { validator: validateEmall, trigger: "blur" }
+      // ]
     },
     // 配置请求的基准URL地址
     basurl: "",
@@ -238,7 +242,9 @@ export default class About extends Vue {
     // 债务信息识别表格标题
     columnName: [],
     // 债务明细标题表格
-    columnNamess: []
+    columnNamess: [],
+    //债务人编号验证列表
+    number_list: []
   };
   left: number = 0;
   right: boolean = false;
@@ -357,6 +363,15 @@ export default class About extends Vue {
   openShouKuang() {
     this.getshoukuanTableData().then(() => {
       if (this.data.shoukuanTableData.length == 0) {
+        this.collectList = {
+          id: 0,
+          payee_account_name: "",
+          collection_account_number: "",
+          bank_full_name: "",
+          bank_code: "",
+          alipay_account: "",
+          alipay_phone_number: ""
+        };
         this.data.addCollectionDialogVisible = true;
       } else {
         this.data.collectionDialogVisible = true;
@@ -367,11 +382,19 @@ export default class About extends Vue {
   getshoukuanTableData() {
     return new Promise(resolve => {
       Api.getshoukuanTableData().then((res: any) => {
+        res.data.forEach((item: any) => {
+          item.create_time = item.create_time.replace("T", " ");
+          item.create_time = item.create_time.substring(
+            0,
+            item.create_time.lastIndexOf(":")
+          );
+        });
         this.data.shoukuanTableData = res.data;
         resolve(res);
       });
     });
   }
+
   //获取选择债权ID
   redListenMoid(moid: number | string) {
     this.data.collid = moid;
@@ -453,6 +476,13 @@ export default class About extends Vue {
       });
     }
   }
+  //取消选择债权人
+  chacakClose() {
+    if (this.selectCreditors == "请选择债权人") {
+      this.data.collid = "";
+    }
+    this.data.dialogVisible = false;
+  }
   // 上传成功钩子函数
   handleAvatarSuccess(res: any) {
     if (res.data.State == true) {
@@ -480,31 +510,102 @@ export default class About extends Vue {
   //收款信息选择
   ticket() {
     let self: any = this;
-    self.data.collectionDialogVisible = false;
+    // self.data.collectionDialogVisible = false;
     let act: any = self.data.shoukuanTableData.filter((item: any) => {
       return item.id == self.data.moneids;
     });
-    if (self.data.moneids != 0) {
+    if (self.data.moneids != 0 && self.data.moneids != "") {
       self.$message.success("选择收款信息成功");
-      self.selectTicket = act[0].payee_name;
+      self.selectTicket = act[0].payee_account_name;
+      self.data.CollectionType = true;
     } else {
       self.$message.warning("你未选择收款信息");
     }
   }
+  //收款信息取消
+  ticketClose() {
+    if (this.selectTicket == "请选择收款信息") {
+      this.data.moneids = "";
+    }
+    this.data.collectionDialogVisible = false;
+  }
+  //付款备注跳过
+  quxiao() {
+    this.data.collectionDialogVisible = false;
+    this.data.CollectionType = false;
+  }
+  //打开新增收款信息弹窗
+  openAddCollection() {
+    this.collectList = {
+      id: 0,
+      payee_account_name: "",
+      collection_account_number: "",
+      bank_full_name: "",
+      bank_code: "",
+      alipay_account: "",
+      alipay_phone_number: ""
+    };
+    this.data.addCollectionDialogVisible = true;
+  }
+  //编辑收款信息
+  editCollection(row: any) {
+    this.data.collectionDialogVisible = false;
+    Object.keys(this.collectList).forEach((key: string) => {
+      this.collectList[key] = row[key];
+    });
+    this.data.addCollectionDialogVisible = true;
+  }
   // 新增收款信息
   getAddCollection() {
     let self: any = this;
+
+    if (
+      this.collectList.payee_account_name == "" &&
+      this.collectList.collection_account_number == "" &&
+      this.collectList.bank_full_name == "" &&
+      this.collectList.bank_code == "" &&
+      this.collectList.alipay_account == "" &&
+      this.collectList.alipay_phone_number == ""
+    ) {
+      self.$message.warning("不可全为空");
+      return false;
+    }
     Api.addgetmaney(this.collectList).then((res: any) => {
       if (res.state) {
-        self.moneyid(res.data);
-        self.getshoukuanTableData().then(() => {
-          self.ticket();
-        });
+        // self.moneyid(res.data);
+        // self.getshoukuanTableData().then(() => {
+        //   self.ticket();
+        // });
+        self.$message.success(res.msg);
       } else {
         self.$message.error("添加收款信息失败");
       }
     });
     self.data.addCollectionDialogVisible = false;
+  }
+  //删除收款信息
+  delectCollection(id: number) {
+    this.$confirm("您确定删除该收款信息吗?", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        Api.collectionDelete(id).then((res: any) => {
+          if (res.state) {
+            this.$message.success(res.msg);
+            this.getshoukuanTableData();
+          } else {
+            this.$message.warning(res.msg);
+          }
+        });
+      })
+      .catch(() => {
+        this.$message({
+          type: "info",
+          message: "已取消删除"
+        });
+      });
   }
   //收款信息id
   moneyid(moneyid: any) {
@@ -548,6 +649,8 @@ export default class About extends Vue {
               item.width = "530px";
             } else if (item.column_name == "债务人企业负责人邮箱") {
               item.width = "220px";
+            } else if (item.column_name.length < 5) {
+              item.width = "220px";
             } else {
               item.width = item.column_name.length * 16 + "px";
             }
@@ -558,12 +661,15 @@ export default class About extends Vue {
         // this.data.columnNamess = res.data.sheet[1].column;
         this.data.columnNamess =
           res.data.sheet.length == 0 ? "" : res.data.sheet[1].column;
+        // eslint-disable-next-line no-console
+        console.log(this.data.collTablessss);
+
         if (this.data.columnNamess.length != 0) {
-          let newColumnName: any = this.data.collTabless[0];
+          let newColumnName: any = this.data.collTablessss[0];
           if (newColumnName == undefined) {
             return false;
           }
-          this.data.collTabless = this.data.collTabless.filter(
+          this.data.collTabless = this.data.collTablessss.filter(
             (item: any, index: number) => {
               return index != 0;
             }
@@ -588,10 +694,12 @@ export default class About extends Vue {
       }
     }
     this.data.flag = !this.data.flag;
+    this.loadingText = "提交中";
     this.getTemplateType();
   }
   //上一步
   gohistry() {
+    this.loadingText = "上传中";
     this.data.flag = !this.data.flag;
   }
   //下载催收模板
@@ -647,8 +755,10 @@ export default class About extends Vue {
               ? ress.data[1].fail_count - 1
               : ress.data[1].fail_count
         };
+        this.data.number_list = ress.number_list;
         this.data.collTable = [];
         this.data.collTabless = [];
+        this.data.collTablessss = [];
         if (ress.data[0].row.length == 0) {
           this.$notify({
             title: "文件不能为空",
@@ -662,11 +772,19 @@ export default class About extends Vue {
           this.data.collTable.push(JSON.parse(ress.data[0].row[item]));
         }
         for (var items in ress.data[1].row) {
+          // let row: any = JSON.parse(ress.data[1].row[items]);
+          // eslint-disable-next-line no-console
+          // console.log(ress.data[1].row[items]);
           this.data.collTabless.push(JSON.parse(ress.data[1].row[items]));
+          this.data.collTablessss.push(JSON.parse(ress.data[1].row[items]));
         }
         this.$notify({
           title: "文件上传成功",
-          message: res.data.FileName,
+          message: res.data.FileName.substring(
+            0,
+            res.data.FileName.indexOf(" ")
+          ),
+          dangerouslyUseHTMLString: true,
           type: "success"
         });
         this.fullscreenLoading = false;
@@ -689,6 +807,10 @@ export default class About extends Vue {
     })
       .then(() => {
         this.fullscreenLoading = true;
+        if (this.data.failcount.fail1 + this.data.failcount.fail2 > 0) {
+          this.fullscreenLoading = false;
+          return this.$message.warning("表格内还有错误未修改");
+        }
         let data: any = [];
         this.data.collTabless.forEach((item: any) => {
           let data2: any = {};
@@ -733,14 +855,11 @@ export default class About extends Vue {
           collTablelist.push(collTablelistss);
         });
         this.data.collTablelistss = collTablelist;
-        if (this.data.failcount.fail1 + this.data.failcount.fail2 > 0) {
-          this.fullscreenLoading = false;
-          return this.$message.warning("表格内还有错误未修改");
-        }
+
         this.btnType = true;
         let parmas: any = {
           creditor_id: this.data.collid,
-          collect_money_id: this.data.moneids,
+          collect_money_id: 0,
           debt_type: this.data.collection_scene,
           send_type: this.data.send_type,
           logo_type: this.data.logo_type,
@@ -750,7 +869,9 @@ export default class About extends Vue {
           debtor_type: this.data.Radio,
           debtor: this.data.collTablelistss,
           debtor_details: this.data.smileData,
-          lawyer_letter_file: this.data.file.exlurl
+          lawyer_letter_file: this.data.file.exlurl,
+          collection_account_id: this.data.moneids,
+          payment_remarks: this.data.payment_remarks
         };
         // eslint-disable-next-line no-console
         console.log(JSON.stringify(parmas));
@@ -765,6 +886,8 @@ export default class About extends Vue {
             setTimeout(() => {
               Api.getPaySet().then((res2: any) => {
                 res.data["is_postpaid"] = res2.data.is_postpaid;
+                res.data["present_quantity"] = res2.data.present_quantity;
+                res.data["e_total"] = res.data.entrusted_quantity;
                 this.payinfo = res.data;
                 this.payShow = true;
                 this.btnType = true;
@@ -797,10 +920,9 @@ export default class About extends Vue {
       this.data.errorForm.msg =
         // this.data.columnName[parmas.index].column_name + "错误";
         parmas.data[parmas.item].msg;
+    } else {
+      this.data.errorForm.msg = "";
     }
-    // else {
-    //   this.data.errorForm.msg = parmas.data[parmas.item].msg;
-    // }
     this.data.errorForm.textNum = parmas.textindex.verify_conditions;
     this.data.errorForm.rownum = parmas.rownum;
     this.data.errorForm.texname = parmas.item;
@@ -815,15 +937,24 @@ export default class About extends Vue {
     textname: any,
     colltable: any
   ) {
+    if (textname == "debtor_no") {
+      if (this.data.number_list.indexOf(val) == -1) {
+        return this.$message.warning("请填写债务信息对应的债务人编号");
+      }
+    }
     Api.sendTextVal(val, verify).then((res: any) => {
-      if (val == "") return this.$message.warning("请输入内容");
+      if (val == "") return;
       if (res.state == true) {
-        // eslint-disable-next-line no-console
-        console.log(colltable, rownum, textname);
+        if (colltable[rownum][textname].bol == "False") {
+          if (this.data.errorForm.type == "主表") {
+            this.data.failcount.fail1 -= 1;
+          } else {
+            this.data.failcount.fail2 -= 1;
+          }
+        }
         colltable[rownum][textname].value = res.data;
         colltable[rownum][textname].bol = "True";
         this.$message.success("修改成功");
-        this.data.failcount -= 1;
         this.data.errorDialogVisible = false;
       } else {
         this.$message.warning("请按正确格式修改");
@@ -912,5 +1043,16 @@ export default class About extends Vue {
     window.open(
       "https://file.debteehelper.com/template/授权委托书模板-新增管理员-V6.docx"
     );
+  }
+  //括号中文转化’
+  kuohao(str: string) {
+    // eslint-disable-next-line no-useless-escape
+    var reg = /[\（]/g;
+    // eslint-disable-next-line no-useless-escape
+    var reg2 = /[\）]/g;
+    // eslint-disable-next-line no-console
+    console.log(str.replace(reg, "(").replace(reg2, ")"));
+
+    return str.replace(reg, "(").replace(reg2, ")");
   }
 }

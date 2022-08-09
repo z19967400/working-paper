@@ -246,7 +246,9 @@ export default {
   getContractInfo: '/CaseContract/GetContractById', //获取合同详情
   getCaseCourtInfo: '/CaseProcess/GetCaseCourt', //获取案件法院信息
   getCaseMatter: '/CaseProcess/GetCaseMatters', //获取案件事项
+  getAllCaseMatter: '/CaseProcess/GetAllCaseMatters', //获取所有案件事项
   getCaseFormInfo: '/CaseProcess/GetCaseMattersFromDetails', //获取案件进程表单详情
+  GetAllCaseMattersFrom: '/CaseProcess/GetAllCaseMattersFrom', //获取所有案件事项流程表单
   updataCaseStatus: '/Cases/UpdateCaseStatus', //案件结案无律师状态更新
   getAllMatters: '/Cases/GetAllCaseMatters', //获取所有办案事项
   getAllAdmin: '/admin/GetAdmin_EmailDto', //获取所有管理员
@@ -391,5 +393,31 @@ export default {
   SendBillNotice: '/Bill/SendBillNotice', //发送账单通知
   GetCreditorByAdminId: '/MemberV2/GetCreditorByAdminId', //根据管理员id获取债权人
   GetCreditorPagingData: '/CreditorV2/GetCreditorPagingData', //债权人管理分页数据
-  GetCreditorAdminByCreditorId: '/MemberV2/GetCreditorAdminByCreditorId' //根据债权人ID获取管理员列表
+  GetCreditorAdminByCreditorId: '/MemberV2/GetCreditorAdminByCreditorId', //根据债权人ID获取管理员列表
+  GetStatisticsAdminData: '/StatisticsAdmin/GetStatisticsAdminData', //获取后台统计数据 数字部分
+  GetPendingWork: '/StatisticsAdmin/GetPendingWork', //获取待办工作
+  GetCaseQuotedPriceByAdmin: '/Cases/GetCaseQuotedPriceByAdmin', //获取管理员需要审核的报价
+  GetStatisticsAdminChartsData: '/StatisticsAdmin/GetStatisticsAdminChartsData', //获取统计数据 图标部分
+  UpdatePresent: '/MemberV2/UpdatePresent', //更新赠送数据
+  UpdateEMSStatus: '/LawyerLetterExpress/UpdateEMSStatus', //快递状态更新
+  AllStop: '/AILawyerLetter/AllStop', //AI律师函全部终止
+  UpdateBillTitle: '/Bill/UpdateBillTitle', //更新账单标题名称
+  UpdateContractNumber: '/CaseContract/UpdateContractNumber', //更新合同编号
+  StopSingleTask: '/AILawyerLetter/StopSingleTask', //终止单个任务
+  StopAllTask: '/AILawyerLetter/StopAllTask', //终止单个委托所有任务
+  StopBatchTask: '/AILawyerLetter/StopBatchTask', //终止或撤销 批次任务
+  GetBillFileByBillNumber: '/Bill/GetBillFileByBillNumber', //获取账单pdf文件
+  AddCaseMattersFrom: '/CaseProcess/AddCaseMattersFrom', //新增案件事项流程
+  DeleteCaseMattersById: '/CaseProcess/DeleteCaseMattersById', //删除办案事项
+  AddCaseMatters: '/CaseProcess/AddCaseMatters', //新增案件事项
+  DeleteCaseMattersFromById: '/CaseProcess/DeleteCaseMattersFromById', //删除办案事项流程
+  CaseMattersSort: '/CaseProcess/CaseMattersSort', //事项排序
+  GetAILawyerLetterExportData: '/AILawyerLetter/GetAILawyerLetterExportData', //获取AI律师函导出数据
+  GetAllAuthorizationFileRecord: '/CreditorV2/GetAllAuthorizationFileRecord', //获取所有授权书记录
+  AddRemarks: '/CustomerServiceRemarks/AddRemarks', //新增备注(改：2022/8/8)
+  GetRemarksByTypeAndNumber: '/CustomerServiceRemarks/GetRemarksByTypeAndNumber',//获取备注(改：2022/8/8)
+  DeleteRemarksFileByID: '/CustomerServiceRemarks/DeleteRemarksFileByID', //根据ID删除备注文件(改：2022/8/8)
+  UpdateRemarksContent: '/CustomerServiceRemarks/UpdateRemarksContent', //更新备注内容(改：2022/8/8)
+  AddRemarksFile: '/CustomerServiceRemarks/AddRemarksFile', //新增备注文件(改：2022/8/8)
+  DeleteRemarksByID: '/CustomerServiceRemarks/DeleteRemarksByID' //根据ID删除备注
 }

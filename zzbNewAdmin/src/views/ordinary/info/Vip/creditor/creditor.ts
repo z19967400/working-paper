@@ -9,7 +9,18 @@ export default class creditor extends Vue {
   @Prop() burl!: string
   @Watch('Creditors', { deep: true })
   CreditorsChange(newVal: any, oldVal: any) {
+    this.data.srcList = []
     this.data.list = [...newVal]
+    if (newVal) {
+      newVal.forEach((item: any) => {
+        if (item.license_img_url) {
+          this.data.srcList.push(item.license_img_url)
+        } else {
+          this.data.srcList.push(item.id_card_img_01)
+          this.data.srcList.push(item.id_card_img_02)
+        }
+      })
+    }
     // this.data.list.forEach((item: any) => {
     //   item.create_time = item.create_time.replace("T", " ");
     //   if (item.admin_list.length != 0) {
@@ -32,6 +43,7 @@ export default class creditor extends Vue {
   data: any = {
     list: [],
     adminList: [],
+    srcList: [], //图片预览数组
     adminList2: [],
     setAdmin: {
       admin_id: '',
@@ -67,8 +79,12 @@ export default class creditor extends Vue {
     window.open(url)
   }
   //授权管理员审核
-  handleEdit(row: any) {
-    this.$emit('openAdminSh', row)
+  handleEdit(row: any, creditor_name: string) {
+    let data: any = {
+      row,
+      creditor_name
+    }
+    this.$emit('openAdminSh', data)
   }
   //授权管理员删除
   handleClick(row: any) {

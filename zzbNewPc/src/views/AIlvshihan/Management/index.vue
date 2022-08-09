@@ -14,6 +14,14 @@
       @click="openPays"
       >待支付</el-button
     >
+    <el-button
+      class="exportBtn"
+      type="primary"
+      size="small"
+      plain
+      @click="exportBtn"
+      >导出</el-button
+    >
     <comOperation :totalize="data.totalize" @add="add"></comOperation>
     <comtable
       class="right-table"

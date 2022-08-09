@@ -27,10 +27,16 @@
       color: #409eff;
     }
   }
-  .openPays {
+  & .openPays {
     position: relative;
     top: 32px;
     left: 230px;
+  }
+  & .exportBtn {
+    position: relative;
+    top: 32px;
+    float: right;
+    right: 20px;
   }
   .el-dialog {
     border-radius: 10px !important;
@@ -99,5 +105,8 @@
         }
       }
     }
+  }
+  .table-wrap .info {
+    font-size: 14px !important;
   }
 }

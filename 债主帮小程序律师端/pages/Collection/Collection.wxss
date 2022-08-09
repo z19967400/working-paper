@@ -29,7 +29,7 @@
    color: #606366;
  }
  .box{
-   width: 90%;
+   width: 100%;
    margin: auto;
    margin-top:60rpx;
  }
@@ -114,4 +114,11 @@
   margin: 0 10rpx;
   margin-top: 10rpx;
   text-align: center;
+}
+
+.weui-label{
+  font-size: 28rpx;
+}
+.weui-cell__bd{
+  font-size: 28rpx !important;
 }

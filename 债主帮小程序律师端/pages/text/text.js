@@ -16,13 +16,13 @@ Page({
   },
   //返回首页
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //获取粉丝
   WechatFans(prams) {
@@ -65,7 +65,7 @@ Page({
           },
           success(res) {
             app.globalData.lawInfo = res.data
-            wx.navigateTo({
+            app.router.navigateTo({
               url: "/pages/index/index",
             })
           }

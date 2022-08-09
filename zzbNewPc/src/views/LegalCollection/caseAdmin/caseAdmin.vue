@@ -5,6 +5,14 @@
       @select="search"
       @clear="clearSelection"
     ></comselect>
+    <el-button
+      class="exportBtn"
+      type="primary"
+      size="small"
+      plain
+      @click="exportBtn"
+      >导出</el-button
+    >
     <comOperation
       :totalize="data.totalize"
       :addText="'批量签约'"

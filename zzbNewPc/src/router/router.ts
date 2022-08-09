@@ -556,7 +556,7 @@ export const routes = [
         component: () => import("@/views/finance/invoice/index.vue"),
         meta: {
           icon: "",
-          keepAlive: true,
+          keepAlive: false,
           title: "发票管理",
           index: "8-3"
         }

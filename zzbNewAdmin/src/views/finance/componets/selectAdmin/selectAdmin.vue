@@ -15,7 +15,7 @@
       <el-table-column prop="is_super" label="权限">
         <template slot-scope="scope">
           <span>{{
-            scope.row.is_super == '0' ? '普通用户' : '超级管理员'
+            scope.row.is_super == '0' ? '普通管理员' : '超级管理员'
           }}</span>
         </template>
       </el-table-column>

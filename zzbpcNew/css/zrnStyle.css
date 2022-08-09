@@ -243,7 +243,8 @@ a:hover {
 }
 .customer .right{
   width: 75px;
-  height: 215px;
+  /* height: 215px; */
+  padding-bottom: 18px;
   background: white;
   font-size: 12px;
   border-radius: 5px;

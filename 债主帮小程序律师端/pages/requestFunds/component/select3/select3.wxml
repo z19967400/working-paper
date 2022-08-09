@@ -1,7 +1,7 @@
 <view class="select2">
   <text class="title">律师费请款</text>
   <view class="content">
-    <view class="cell">
+    <!-- <view class="cell">
       <text class="label">回款币种:</text>
       <view class="input2">
         <select id="select" options="{{list}}" key="id" text="currency_name" bind:change="onChange2"></select>
@@ -43,7 +43,31 @@
         <text class="label2">风险律师费额:</text>
         <text class="value">{{lawyerFee}} 元/{{collection_currency_name}}</text>
       </view>
-    </view>
+    </view> !-->
+    <view class="weui-form__control-area">
+			<view class="weui-cells__group weui-cells__group_form">
+				<view style="margin:40px 0;" class="weui-cells">
+					<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+            <view class="weui-cell__hd">
+              <label class="weui-label" >回款币种</label>
+            </view>
+            <view class="weui-cell__bd">
+                <picker aria-role="combobox" value="{{index}}" bindchange="onChange" data-id='{{list[index].id}}' range-key="name" range="{{arrList}}">
+                    <view class="weui-select">{{arrList[index].name}}</view>
+                </picker>
+            </view>
+          </view>
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__hd">
+                <label class="weui-label">请款金额</label>
+            </view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" bindinput="onChange" value="{{value1}}" type="number" placeholder="请输入请款金额" auto-focus placeholder-class="weui-input__placeholder" />
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
   </view>
   <view wx:if="{{show2}}" class="footer">
     <text bindtap="close" class="btn">取消</text>

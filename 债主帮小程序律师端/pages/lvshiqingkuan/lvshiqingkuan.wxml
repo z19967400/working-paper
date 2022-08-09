@@ -1,0 +1,101 @@
+<!--pages/lvshiqingkuan/lvshiqingkuan.wxml-->
+<view class="container">
+  <view class="lvshiqingkuan">
+    <view style="padding-top:{{isIPhoneX?'18px':'0px'}};" class="nav">
+      <view class="title">
+        <!-- <van-icon bindtap="goBack" custom-class="left" name="arrow-left" /> -->
+        <!-- <image style="top: {{isIPhoneX?'10px':'15px'}};" mode="widthFix" bindtap="goHome" class="logo"
+          src="http://file.debteehelper.com/logo/logo_zzbang_03.png"> </image>-->
+        <view style="top:{{isIPhoneX?'50px':'30px'}}" class="nav-left">
+          <van-icon bindtap="goBack" name="arrow-left" />
+          <view class="shu"></view>
+          <van-icon bindtap="goHome" name="wap-home" />
+        </view>
+      </view>
+      <view class="text">
+        <text>律师费请款</text>
+      </view>
+    </view>
+    <scroll-view scroll-y class="scroll {{show?'stop':''}}" style="height:{{height}}px">
+      <view style="margin:0;height:100%;" class="weui-form__control-area">
+        <view class="weui-cells__group weui-cells__group_form">
+          <view style="margin:0;" class="weui-cells">
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" >回款币种</label>
+              </view>
+              <view class="weui-cell__bd">
+                  <picker aria-role="combobox" value="{{index}}" bindchange="onChange" disabled="{{show2}}" data-id='{{Currency[index].id}}' range-key="currency_name" range="{{Currency}}">
+                      <view class="weui-select">{{Currency[index].currency_name}}</view>
+                  </picker>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">回款金额</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" disabled="{{show2}}" bindinput="onChange3" data-prop="collection_amount" value="{{parmas.collection_amount}}" type="number" placeholder="请输入请款金额" auto-focus placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" >回款方式</label>
+              </view>
+              <view class="weui-cell__bd">
+                  <picker aria-role="combobox" disabled="{{show2}}" value="{{index2}}" bindchange="onChange2" range="{{fangshi}}">
+                      <view class="weui-select">{{parmas.collection_mode}}</view>
+                  </picker>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" >请款日期</label>
+              </view>
+              <view class="weui-cell__bd">
+                  <picker mode="date" disabled="{{show2}}" value="{{parmas.collection_date}}" start="1960-09-01" end="2060-09-01" bindchange="bindDateChange">
+                      <view class="weui-select">{{parmas.collection_date}}</view>
+                  </picker>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">备注</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" disabled="{{show2}}" bindinput="onChange3" data-prop="collection_remarks" value="{{parmas.collection_remarks}}"  placeholder="请填写备注" auto-focus placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view wx:if="{{show2}}" class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">风险律师费率</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input"  value="{{FxRiskFee}} %" disabled  placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+            <view wx:if="{{show2}}" class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd">
+                  <label class="weui-label">风险律师费额</label>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" value="{{lawyerFee+' 元/'+ Currency[index].currency_name}}" disabled auto-focus placeholder-class="weui-input__placeholder" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="btn-box">
+          <text bindtap="shangyibu" wx:if="{{show2}}" class="btn">上一步</text>
+          <text wx:if="{{show2}}" class="xian"></text>
+          <text bindtap="next" class="btn">{{show2?'提交请款申请':'下一步'}}</text>
+        </view>
+      </view>  
+    </scroll-view>
+  </view>
+  <view aria-role="alert" class="fadeIn {{hideTextToast ? 'fadeOut' : ''}}" wx:if="{{textToast}}">
+		<view class="weui-mask_transparent"></view>
+		<view class="weui-toast weui-toast_text">
+			<view class="weui-toast__content">{{ToastText}}</view>
+		</view>
+	</view>
+</view>

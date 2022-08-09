@@ -20,11 +20,12 @@
       </el-row>
       <el-row>
         <el-col :span="4">执行状态</el-col>
-        <el-col :span="20">{{ data.info.execution_status }}</el-col>
-      </el-row>
-      <el-row v-if="data.info.execution_status == '执行失败'">
-        <el-col :span="4">异常反馈</el-col>
-        <el-col :span="20">{{ data.info.execution_err_msg }}</el-col>
+        <el-col :span="20">
+          {{ data.info.execution_status }}
+          <span style="display:block;" v-show="data.info.stop_reason"
+            >({{ data.info.stop_reason }})</span
+          ></el-col
+        >
       </el-row>
       <el-row v-if="data.name == '首次催收电话' || data.name == '末次催收电话'">
         <el-col :span="4">拨打次数</el-col>
@@ -40,6 +41,11 @@
           data.info.call_send_time || data.info.execution_time
         }}</el-col>
       </el-row>
+      <el-row v-if="data.info.execution_status == '执行失败'">
+        <el-col :span="4">异常反馈</el-col>
+        <el-col :span="20">{{ data.info.execution_err_msg }}</el-col>
+      </el-row>
+
       <el-row>
         <el-col
           style="color:#909399;"
@@ -72,7 +78,7 @@
           <el-link
             @click="
               chakan2(
-                'https://api1.debteehelper.com/AILawyerLetter/LawyerLetter?debtor_number=' +
+                'https://api1.debteehelper.com/AILawyerLetter/LawyerLetterV2?debtor_number=' +
                   data.info.debtor_number,
                 data.name
               )

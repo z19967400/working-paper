@@ -55,6 +55,7 @@
         <handCase
           :height="data.height"
           :handCase="data.caseProgress"
+          @init="getCaseMatter"
         ></handCase>
       </el-tab-pane>
       <el-tab-pane label="财务结算" name="six">

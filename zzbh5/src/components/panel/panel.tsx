@@ -13,9 +13,18 @@ const CustomChildren = (props:any) => (
     onClick={props.onClick}
     style={{ backgroundColor: '#fff', paddingLeft: 11 }}
   >
+    {/* {console.log(props)} */}
     <div className="test" style={{ display: 'flex', height: '50px', lineHeight: '50px' }}>
       <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{props.children}</div>
-      <div style={{ textAlign: 'right', color:props.value?'#333': props.extra === '请选择币种'|| props.extra ==='请选择省市区' ?'#888':'#333', marginRight: 15,fontSize:'12px' }}>{props.value || props.extra}</div>
+      {
+        (() =>{
+          if (props.defaultValue && props.extra ==='请选择省市区' ) {
+            return <div style={{fontSize:'12px',color:'#303133' }}>{ props.defaultValue||props.value}</div>
+          } else {
+            return <div style={{ textAlign: 'right', color:props.value?'#333': props.extra === '请选择币种'|| props.extra ==='请选择省市区' ?'#888':'#333', marginRight: 15,fontSize:'12px' }}>{props.value || props.extra}</div>
+          }
+        })()
+      }
     </div>
   </div>
 );
@@ -107,12 +116,12 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                   <Picker
                                     title="选择地区"
                                     extra="请选择省市区"
-                                    value={item.value}
+                                    value={item.value}                                  
                                     data={option}
                                     onOk = {this.RegionChange(item.prop)}
                                     {...getFieldProps('value')}
                                   > 
-                                  <CustomChildren></CustomChildren>
+                                  <CustomChildren  defaultValue={item.value} ></CustomChildren>
                                 </Picker>
                                   <Input onChange={(e) => this.inputOnChange(e,'detailed_address2')} defaultValue={item.value2} placeholder={'请输入详细邮寄地址(精确到门牌号)'} bordered={false} size={'large'} style={{width:'100%',textAlign:'left',fontSize:'12px'}}></Input>
                                 </div>                     
@@ -195,12 +204,33 @@ class Panel extends React.Component<PanelProps,PanelState>{
   }
   //地址栏选中事件
   RegionChange(prop:string|undefined){
-    let value = this.props.form.getFieldsValue()['value']
+    let value:any = this.props.form.getFieldsValue()['value']
+    let value2:string = ''
     if (value !== undefined) {
-     setTimeout(() => {
-      this.props.getData({prop,value})
-      return false
-     }, 200);
+      this.state.option.forEach((item:any) =>{
+        if (item.value === value[0]) {
+          value2 = item.label
+          this.state.option.forEach((item:any) =>{
+            if (item.value === value[0]) {
+              value2 = item.label
+              item.children.forEach((item2:any) =>{
+                if (item2.value === value[1]) {
+                  value2 += ','+item2.label
+                  item2.children.forEach((item3:any) =>{
+                    if (item3.value === value[2]) {
+                      value2 += ','+item3.label
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+      setTimeout(() => {
+        this.props.getData({prop,value,value2})
+        return false
+      }, 200);
     }
   }
   //币种选中事件

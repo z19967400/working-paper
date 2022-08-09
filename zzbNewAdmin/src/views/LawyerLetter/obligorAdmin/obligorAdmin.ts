@@ -40,6 +40,10 @@ export default class About extends Vue {
         label: '委托类型'
       },
       {
+        value: 'creditor_name',
+        label: '债权人名称'
+      },
+      {
         value: 'debtor_name',
         label: '债务人名称'
       },
@@ -63,51 +67,68 @@ export default class About extends Vue {
     dataType: [
       {
         label: '委托编号',
-        prop: 'debtor_number'
+        prop: 'debtor_number',
+        width: '150'
       },
       {
         label: '委托类型',
-        prop: 'entrust_type'
+        prop: 'entrust_type',
+        width: '100'
+      },
+      {
+        label: '债权人名称',
+        prop: 'creditor_name_v2',
+        width: '330'
       },
       {
         label: '债务人名称',
-        prop: 'debtor_name'
+        prop: 'debtor_name',
+        width: '330'
       },
       {
         label: '手机号码',
-        prop: 'phone_number'
+        prop: 'phone_number',
+        width: '150'
       },
       {
         label: '电子邮箱',
-        prop: 'email'
+        prop: 'email',
+        width: '200'
       },
       {
         label: '联系地址',
-        prop: 'address_txt'
+        prop: 'address_txt',
+        width: '300'
       },
       {
         label: '欠款币种',
-        prop: 'currency_name'
+        prop: 'currency_name',
+        width: '100'
       },
       {
         label: '欠款本金',
-        prop: 'arrears_principal'
+        prop: 'arrears_principal',
+        width: '150'
       },
       {
         label: '违约金/利息/滞纳金',
-        prop: 'arrears_interest'
+        prop: 'arrears_interest',
+        width: '150'
       },
       {
         label: '执行进度',
-        prop: 'progress_name'
+        prop: 'progress_name',
+        width: '100'
       },
       {
         label: '创建人',
-        prop: 'create_name'
+        prop: 'create_name',
+        width: '150'
       },
       {
         label: '创建时间',
-        prop: 'create_time'
+        prop: 'create_time',
+        width: '150'
       }
     ]
   }
@@ -116,6 +137,7 @@ export default class About extends Vue {
     limit: this.$store.getters.limit,
     member_id: 0,
     member_name: '',
+    creditor_name: '',
     debtor_number: '',
     entrust_type: '',
     debtor_name: '',

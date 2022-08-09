@@ -36,7 +36,7 @@ class Steps extends React.Component<StepsProps,any>{
                               <span>{item.completion_time || '已完成'}</span>
                             }
                             {
-                              item.execution_status !== -1 &&
+                              item.execution_status !== -1 && item.type !== -3 &&
                               <span>{this.props.infoName}</span>
                             }
                           </div>

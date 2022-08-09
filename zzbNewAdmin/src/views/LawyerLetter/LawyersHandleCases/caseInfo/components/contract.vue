@@ -91,7 +91,7 @@
             </el-col>
             <el-col v-show="form1.contract_sign_method == '1'" :span="14">
               <el-upload
-                class="upload-demo"
+                class="upload-demo upload-demo2"
                 :action="
                   'http://api1.debteehelper.com/api/Upload/UploadImage?type=5&original_name=true'
                 "
@@ -109,6 +109,21 @@
               </el-upload>
             </el-col>
           </el-row>
+        </el-form-item>
+        <el-form-item
+          v-show="form1.contract_sign_method == '1'"
+          label="合同编号"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            style="width:50%;"
+            v-model="form1.contract_number"
+            placeholder="可自定义合同的编号"
+            autocomplete="off"
+          ></el-input>
+          <!-- <p style="margin:0;font-size:12px;color:#909399;">
+            可自定义合同的编号
+          </p> -->
         </el-form-item>
         <!-- <el-form-item label="签署状态" :label-width="formLabelWidth">
           <el-radio-group v-model="form1.sign_status">
@@ -164,7 +179,7 @@
             </el-col>
             <el-col v-show="form2.contract_sign_method == '1'" :span="14">
               <el-upload
-                class="upload-demo"
+                class="upload-demo "
                 :action="
                   'http://api1.debteehelper.com/api/Upload/UploadImage?type=5&original_name=true'
                 "
@@ -189,6 +204,21 @@
             <el-radio :label="1">已签署</el-radio>
           </el-radio-group>
         </el-form-item> -->
+        <el-form-item
+          v-show="form2.contract_sign_method == '1'"
+          label="合同编号"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            style="width:50%;"
+            v-model="form2.contract_number"
+            placeholder="可自定义合同的编号"
+            autocomplete="off"
+          ></el-input>
+          <!-- <p style="margin:0;font-size:12px;color:#909399;">
+            可自定义合同的编号
+          </p> -->
+        </el-form-item>
         <el-form-item :label-width="formLabelWidth">
           <div slot="label">
             <p style="margin:0;padding:0;">补充条款</p>
@@ -303,7 +333,31 @@
       <div class="info-box">
         <el-row>
           <el-col :span="4">合同编号</el-col>
-          <el-col :span="8">{{ infoData.contract_number }}</el-col>
+          <el-col v-show="!data.editType" :span="8"
+            >{{ infoData.contract_number
+            }}<i
+              @click="data.editType = true"
+              style="margin-left:10px;cursor: pointer;color:#409EFF;"
+              class="el-icon-edit-outline"
+            ></i
+          ></el-col>
+          <el-col v-show="data.editType" :span="18">
+            <el-input
+              size="small"
+              style="width:220px;"
+              v-model="infoData.contract_number"
+            ></el-input>
+            <el-button
+              style="margin-left:10px;"
+              @click="ConfirmModification"
+              size="small"
+              type="primary"
+              >确定</el-button
+            >
+            <el-button size="small" @click="data.editType = false" plain
+              >取消</el-button
+            >
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="4">合同类别</el-col>
@@ -413,6 +467,7 @@ export default class About extends Vue {
   }
   // data
   data: any = {
+    editType: false,
     baseUrl: '',
     debtor_number: '', //债务编号
     contract: [], //父组件传过来的数据
@@ -438,6 +493,7 @@ export default class About extends Vue {
     signer_name: '',
     signer_phone_bumber: '',
     contract_sign_method: 0,
+    contract_number: '',
     // sign_status: 0,
     supplementary_provisions: '',
     admin_notes: '',
@@ -449,6 +505,7 @@ export default class About extends Vue {
     signer_name: '',
     signer_phone_bumber: '',
     contract_sign_method: 0,
+    contract_number: '',
     // sign_status: 0,
     supplementary_provisions: '',
     admin_notes: '',
@@ -604,6 +661,21 @@ export default class About extends Vue {
         this.form3.signer_phone_bumber = this.data.signerData.signer_phone_bumber
         this.form3.signer_type = this.data.signerData.signer_type
         this.form3.contract_type = val
+      }
+    })
+  }
+  //修改合同编号
+  ConfirmModification() {
+    let parmas: any = {
+      contract_id: this.infoData.id,
+      contract_number: this.infoData.contract_number
+    }
+    Api.UpdateContractNumber(parmas).then((res: any) => {
+      if (res.state) {
+        this.data.editType = false
+        this.$message.success(res.msg)
+      } else {
+        this.$message.warning(res.msg)
       }
     })
   }
@@ -950,6 +1022,14 @@ export default class About extends Vue {
       display: inline-block;
       position: relative;
       top: -115px;
+    }
+  }
+  .upload-demo2 {
+    & .el-upload-list {
+      width: 200px;
+      display: inline-block;
+      position: relative;
+      top: -195px;
     }
   }
   & .cell button:nth-child(2) {

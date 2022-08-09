@@ -69,6 +69,12 @@
             </el-radio-group>
           </el-col>
         </el-row>
+        <el-row v-show="data.lawyerLette.execution_status === 4">
+          <el-col>
+            <span>异常反馈</span>
+            <span>{{ data.lawyerLette.error_prompt }}</span>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="8">
             <span>快递公司</span>

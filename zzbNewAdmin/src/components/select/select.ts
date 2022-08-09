@@ -124,7 +124,99 @@ const option: any = {
       label: '委托金额',
       value: '1'
     }
-  ]
+  ],
+  opt8: [
+    {
+      label: '普通用户',
+      value: '普通用户'
+    },
+    {
+      label: 'VIP',
+      value: 'VIP'
+    }
+  ],
+  opt9: [
+    {
+      label: '未生成',
+      value: '0'
+    },
+    {
+      label: '已生成',
+      value: '1'
+    }
+  ],
+  opt10: [
+    {
+      label: '先催后付',
+      value: 'Pay_Manner_0'
+    },
+    {
+      label: '银行转账',
+      value: 'Pay_Manner_1'
+    },
+    {
+      label: '微信线上',
+      value: 'Pay_Manner_2'
+    },
+    {
+      label: '支付宝线上',
+      value: 'Pay_Manner_3'
+    },
+    {
+      label: '微信线下',
+      value: 'Pay_Manner_4'
+    },
+    {
+      label: '支付宝线下',
+      value: 'Pay_Manner_5'
+    },
+    {
+      label: '现金',
+      value: 'Pay_Manner_6'
+    },
+    {
+      label: '支票',
+      value: 'Pay_Manner_7'
+    },
+    {
+      label: '组合',
+      value: 'Pay_Manner_8'
+    },
+    {
+      label: '其他',
+      value: 'Pay_Manner_9'
+    },
+    {
+      label: '赠送',
+      value: 'Pay_Manner_10'
+    },
+    {
+      label: '免费-非诉',
+      value: 'Pay_Manner_11'
+    },
+    {
+      label: '免费-诉讼',
+      value: 'Pay_Manner_12'
+    },
+    {
+      label: '免费-全案委托',
+      value: 'Pay_Manner_13'
+    }
+  ],
+  opt11: [
+    {
+      label: '待支付',
+      value: 'Pay_Status_0'
+    },
+    {
+      label: '已支付',
+      value: 'Pay_Status_1'
+    },
+    {
+      label: '已退款',
+      value: 'Pay_Status_2'
+    }
+  ],
 }
 
 export default option

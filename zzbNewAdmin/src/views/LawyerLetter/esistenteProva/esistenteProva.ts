@@ -29,7 +29,8 @@ export default class esistenteProva extends Vue {
     dataType: [
       {
         label: 'ID',
-        prop: 'id'
+        prop: 'id',
+        width: '80'
       },
       {
         label: '存证编号',
@@ -37,15 +38,18 @@ export default class esistenteProva extends Vue {
       },
       {
         label: '文件数量',
-        prop: 'file_count'
+        prop: 'file_count',
+        width: '180'
       },
       {
         label: '文件大小',
-        prop: 'file_size'
+        prop: 'file_size',
+        width: '180'
       },
       {
         label: '创建时间',
-        prop: 'create_time'
+        prop: 'create_time',
+        width: '180'
       }
     ]
   }

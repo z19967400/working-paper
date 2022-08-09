@@ -43,6 +43,28 @@
             >{{ item }}</el-radio
           >
         </el-radio-group>
+        <el-input
+          size="small"
+          placeholder="律师ID"
+          class="input"
+          v-model="data.id"
+        ></el-input>
+        <el-input
+          size="small"
+          placeholder="律师姓名"
+          class="input"
+          v-model="data.name"
+        ></el-input>
+        <el-input
+          size="small"
+          placeholder="手机号"
+          class="input"
+          v-model="data.phone_number"
+        ></el-input>
+        <el-button size="small" @click="init" type="primary">搜索</el-button>
+        <el-button size="small" plain @click="Reset" type="primary"
+          >重置</el-button
+        >
       </el-row>
       <el-row style="line-height:40px;height:40px;margin-top:20px;">
         <el-col :span="16">
@@ -217,7 +239,10 @@ export default class About extends Vue {
     count: 0,
     loading: false,
     title: '',
-    phone: ''
+    phone: '',
+    id: '', //律师ID
+    name: '', //律师姓名
+    phone_number: '' //律师手机号码
   }
   options: any = [
     {
@@ -293,15 +318,22 @@ export default class About extends Vue {
       this.getOtherLawyer()
     }
   }
+  //重置搜索栏
+  Reset() {
+    this.data.id = ''
+    this.data.name = ''
+    this.data.phone_number = ''
+    this.init()
+  }
   //获取平台律师分页数据
   getPinTaiLawyer() {
     this.data.loading = true
     let parmas: any = {
       page: this.data.page,
       limit: this.data.limit,
-      id: 0,
-      lawyer_name: '',
-      lawyer_phone_number: '',
+      id: this.data.id || 0,
+      lawyer_name: this.data.name,
+      lawyer_phone_number: this.data.phone_number,
       address: this.data.address,
       audit_status: ''
     }
@@ -317,9 +349,10 @@ export default class About extends Vue {
     let parmas: any = {
       page: this.data.page,
       limit: this.data.limit,
-      lawyer_name: '',
-      lawyer_phone_number: '',
-      address: this.data.address
+      lawyer_name: this.data.name,
+      lawyer_phone_number: this.data.phone_number,
+      address: this.data.address,
+      id: this.data.id || 0
     }
     Api.GetOtherLawyerPagingData(parmas).then((res: any) => {
       this.data.list = res.data
@@ -511,6 +544,10 @@ export default class About extends Vue {
   & .dialog {
     & .el-dialog {
       width: 1080px !important;
+    }
+    & .input {
+      width: 120px;
+      margin-right: 25px;
     }
   }
   & .distribute {

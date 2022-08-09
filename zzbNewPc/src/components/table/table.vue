@@ -476,7 +476,7 @@ export default class About extends Vue {
   }
   .info {
     color: #409eff;
-    font-size: 14px;
+    font-size: 12px;
   }
   .delete {
     color: #f56c6c;

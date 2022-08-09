@@ -17,6 +17,8 @@ const increment = lazy(() => import('./increment/increment'))
 const incrementInfo = lazy(() =>import('./incrementInfo/incrementInfo'))
 const incrementInfoPenle = lazy(() =>import('./incrementInfo/incrementInfoPenle'))
 const Wechat = lazy(() =>import('./wechat/index'))
+const Feekback = lazy(() =>import('./feedback/feedback'))
+const UserInfo = lazy(() =>import('./User/userInfo'))
 export {
   Home,
   overbooking,
@@ -34,5 +36,7 @@ export {
   increment,
   incrementInfo,
   incrementInfoPenle,
-  Wechat
+  Wechat,
+  Feekback,
+  UserInfo
 }

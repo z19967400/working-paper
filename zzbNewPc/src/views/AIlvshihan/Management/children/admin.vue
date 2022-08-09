@@ -123,17 +123,77 @@
           </div>
         </div>
         <div ref="section5" class="section">
-          <span :class="{ act: data.actIndex == 5 }">债务反馈</span>
+          <span :class="{ act: data.actIndex == 5 }">收款信息</span>
           <el-divider></el-divider>
           <div class="box">
+            <div style="width:100%;">
+              <el-table :data="data.collection_account">
+                <el-table-column label="对公转账">
+                  <el-table-column
+                    label="收款户名"
+                    prop="payee_account_name"
+                  ></el-table-column>
+                  <el-table-column
+                    label="收款账号"
+                    prop="collection_account_number"
+                  ></el-table-column>
+                  <el-table-column
+                    label="收款银行全称"
+                    prop="bank_full_name"
+                  ></el-table-column>
+                  <el-table-column
+                    label="银行行号"
+                    prop="bank_code"
+                  ></el-table-column>
+                </el-table-column>
+                <el-table-column label="支付宝转账">
+                  <el-table-column
+                    label="支付宝账户"
+                    prop="alipay_account"
+                  ></el-table-column>
+                  <el-table-column
+                    label="手机号码"
+                    prop="alipay_phone_number"
+                  ></el-table-column>
+                </el-table-column>
+                <el-table-column prop="payment_remarks" label="付款备注">
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </div>
+        <div ref="section6" class="section">
+          <span :class="{ act: data.actIndex == 6 }">债务反馈</span>
+          <el-divider></el-divider>
+          <div class="box">
+            <!-- <el-table border :data="data.feedbackList" style="width: 100%">
+              <af-table-column prop="is_dissent" label="是否有异议">
+              </af-table-column>
+              <af-table-column prop="dissent_content" label="异议内容">
+              </af-table-column>
+              <af-table-column
+                prop="member_remarks"
+                show-overflow-tooltip
+                label="债务反馈"
+              >
+              </af-table-column>
+              <af-table-column prop="feedback_source" label="反馈来源">
+              </af-table-column>
+              <el-table-column
+                prop="create_time"
+                label="反馈时间"
+                show-overflow-tooltip
+              >
+              </el-table-column>
+            </el-table> -->
             <table1
               :tableOption="data.feedbackOption"
               :tableData="data.feedbackList"
             ></table1>
           </div>
         </div>
-        <div ref="section6" class="section">
-          <span :class="{ act: data.actIndex == 6 }">债权人</span>
+        <div ref="section7" class="section">
+          <span :class="{ act: data.actIndex == 7 }">债权人</span>
           <el-divider></el-divider>
           <div class="box">
             <table1
@@ -202,6 +262,7 @@
       </el-button>
       <el-button
         size="small"
+        plain
         v-show="
           data.BasicInfo[0][1].value == '企业应收账款' ||
             data.BasicInfo[0][1].value == '逾期贷款'
@@ -297,6 +358,7 @@ export default class About extends Vue {
       { name: "执行进度" },
       { name: "债务人" },
       { name: "债务明细" },
+      { name: "收款信息" },
       { name: "债务反馈" },
       { name: "债权人" }
     ],
@@ -316,6 +378,7 @@ export default class About extends Vue {
         { name: "创建时间", value: "", prop: "create_time" }
       ]
     ],
+    collection_account: [], //收款信息
     payment: [
       //支付信息
       [{ name: "支付金额", value: "" }],
@@ -354,12 +417,12 @@ export default class About extends Vue {
     ],
     feedbackList: [],
     feedbackOption: [
-      { prop: "debtor_number", label: "委托编号" },
-      { prop: "is_dissent", label: "是否有异议" },
+      // { prop: "debtor_number", label: "委托编号", width: "180" },
+      { prop: "is_dissent", label: "是否有异议", width: "120" },
       { prop: "dissent_content", label: "异议内容" },
-      { prop: "member_remarks", label: "用户备注" },
-      { prop: "feedback_source", label: "反馈来源" },
-      { prop: "create_time", label: "反馈时间" }
+      { prop: "member_remarks", label: "债务反馈" },
+      { prop: "feedback_source", label: "反馈来源", width: "120" },
+      { prop: "create_time", label: "反馈时间", width: "180" }
     ],
     shenhe: {
       //审核反馈
@@ -436,6 +499,16 @@ export default class About extends Vue {
   }
   // 支付详情
   paymentInfo() {}
+  //执行时间筛选
+  timeStr(str: string) {
+    let val: string = "";
+    if (str.indexOf(",") != -1) {
+      val = str.substring(str.lastIndexOf(",") + 1, str.length);
+    } else {
+      val = str;
+    }
+    return val;
+  }
   //获取管理详情
   getInfo(id: any) {
     this.data.creditorList = [];
@@ -448,16 +521,34 @@ export default class About extends Vue {
         this.execution_progress = res.data.overview.execution_progress;
         this.executing_status = res.data.overview.executing_status;
         this.data.creditor_id = res.data.overview.creditor_id;
-        if (
-          this.execution_progress == "已终止" ||
-          this.execution_progress == "已撤销"
-        ) {
-          this.data.implementList.forEach((item: any) => {
-            if (item.execution_status == "待执行") {
-              item.execution_status = this.execution_progress;
-            }
-          });
+        if (res.data.collection_account) {
+          this.data.collection_account.push(res.data.collection_account);
         }
+
+        this.data.implementList.forEach((item: any) => {
+          if (
+            item.task_code == "AI_Task_Code_2" ||
+            item.task_code == "AI_Task_Code_7"
+          ) {
+            item.execution_time =
+              item.execution_status == "执行成功"
+                ? this.timeStr(item.call_send_time)
+                : item.execution_time;
+          }
+        });
+        // if (
+        //   this.execution_progress == "已终止" ||
+        //   this.execution_progress == "已撤销"
+        // ) {
+        this.data.implementList.forEach((item: any) => {
+          if (
+            item.execution_err_msg == "已撤销" ||
+            item.execution_err_msg == "已终止"
+          ) {
+            item.execution_status = item.execution_err_msg;
+          }
+        });
+        // }
         // 债权人
         if (res.data.creditor != null) {
           res.data.creditor.audit_status =
@@ -588,7 +679,8 @@ export default class About extends Vue {
         //债务反馈
         if (res.data.feedback_list.length > 0) {
           res.data.feedback_list.forEach((item: any) => {
-            item.is_dissent = item.is_dissent == 1 ? "有" : "无";
+            item.is_dissent =
+              item.is_dissent == 1 ? "有" : item.is_dissent == 0 ? "无" : " ";
             item.feedback_source =
               item.feedback_source == 1 ? "债务人提交" : "客服添加";
             item.create_time = item.create_time
@@ -621,10 +713,12 @@ export default class About extends Vue {
     // 个人
     if (obligorType == "Creditor_states_1") {
       let currency: any = [
-        { prop: "debtor_name", label: "债务人", width: "120px" },
+        { prop: "debtor_name", label: "债务人", width: "180px" },
         { prop: "phone_number", label: "债务人手机", width: "200px" },
         { prop: "email", label: "债务人邮箱", width: "220px" },
-        { prop: "address_txt", label: "债务人地址", width: "330px" }
+        { prop: "receiving_name", label: "收件人姓名", width: "180px" },
+        { prop: "receiving_phone", label: "收件人电话", width: "180px" },
+        { prop: "receiving_address", label: "收件人地址", width: "330px" }
       ];
       if (debtorType == "Debt_type_7") {
         let item: any = {
@@ -656,19 +750,17 @@ export default class About extends Vue {
         {
           prop: "contact_person",
           label: "企业负责人",
-          width: "120px"
+          width: "180px"
         },
         {
           prop: "phone_number",
           label: "债务人手机",
-          width: "120px"
+          width: "180px"
         },
         { prop: "email", label: "债务人邮箱", width: "250px" },
-        {
-          prop: "address_txt",
-          label: "债务人地址",
-          width: "330px"
-        }
+        { prop: "receiving_name", label: "收件人姓名", width: "180px" },
+        { prop: "receiving_phone", label: "收件人电话", width: "180px" },
+        { prop: "receiving_address", label: "收件人地址", width: "330px" }
       ];
       if (debtorType == "Debt_type_7") {
         let item: any = {
@@ -831,6 +923,7 @@ export default class About extends Vue {
     this.infoData.execution_err_msg = data.execution_err_msg;
     this.infoData.call_send_time = data.call_send_time;
     this.infoData.call_send_count = data.call_send_count;
+    this.infoData.stop_reason = data.stop_reason || "";
     this.getSmsInfo(ai_task_code, debtor_number, data);
     if (data.task_name == "EMS律师函") {
       setTimeout(() => {
@@ -990,8 +1083,8 @@ export default class About extends Vue {
       display: flex;
       & > .text {
         div {
-          color: $Main-characters;
-          font-size: $Text-font;
+          color: #909399;
+          font-size: 12px;
           height: 40px;
           line-height: 40px;
           padding: 0 25px 0 0;
@@ -1072,7 +1165,10 @@ export default class About extends Vue {
   .btn-box {
     position: absolute;
     bottom: 0;
-    left: 10%;
+    left: 120px;
+  }
+  .el-table thead.is-group th.el-table__cell {
+    background: white;
   }
   .report {
     width: 300px;

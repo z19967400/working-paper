@@ -20,26 +20,27 @@
     <el-divider content-position="left">委托信息核验</el-divider>
     <el-table
       v-loading="this.data.loading"
-      height="500px"
+      :height="500"
       :data="data.list"
       border
-      style="width: 100%"
+      style="width: 100%;height:500px;"
       :row-class-name="tableRowClassName"
+      :key="data.tableKey"
     >
       <el-table-column label="序号" width="50">
         <template slot-scope="scope">
           <span>{{ scope.$index + 1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="debtor_number" label="委托编号" width="120">
+      <el-table-column prop="debtor_number" label="委托编号" width="150">
       </el-table-column>
-      <el-table-column prop="debtor_name" label="债务人名称" width="120">
+      <el-table-column prop="debtor_name" label="债务人名称" width="250">
       </el-table-column>
-      <el-table-column prop="executing_states" label="收件人" width="120">
+      <el-table-column prop="receiving_name" label="收件人" width="120">
       </el-table-column>
       <el-table-column prop="receiving_phone" label="收件人电话" width="120">
       </el-table-column>
-      <el-table-column prop="receiving_address" label="收件人地址" width="320">
+      <el-table-column prop="receiving_address" label="收件人地址" width="350">
       </el-table-column>
       <el-table-column
         prop="execution_progress"
@@ -47,13 +48,13 @@
         width="120"
       >
       </el-table-column>
-      <el-table-column prop="send_time" label="寄送日期" width="130">
+      <el-table-column prop="send_time" label="寄送日期" width="150">
       </el-table-column>
       <el-table-column prop="courier_receipt" label="快递底单状态" width="120">
       </el-table-column>
       <el-table-column label="快递公司" prop="courier_company" width="120">
       </el-table-column>
-      <el-table-column label="快递单号" prop="courier_number" width="120">
+      <el-table-column label="快递单号" prop="courier_number" width="125">
       </el-table-column>
       <el-table-column label="上传提示" width="150">
         <template slot-scope="scope">
@@ -74,7 +75,7 @@
         fixed="right"
         prop="courier_receipt"
         label="操作"
-        width="50"
+        width="60"
       >
         <template slot-scope="scope">
           <el-button @click="handleDelect(scope.$index)" type="text"

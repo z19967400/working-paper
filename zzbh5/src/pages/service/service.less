@@ -1,13 +1,16 @@
 .service{
   width: 100%;
-  height: 100%;
+  // height: 100%;
+  min-height: 100%;
   position: absolute;
-  overflow: hidden;
+  // overflow: hidden;
+  overflow-x: hidden;
   & > .serviceBg{
     position: absolute;
-    // width: 100%;
-    max-height: 100%;
-    width: auto;
+    width: 100%;
+    // max-height: 100%;
+    // width: auto;
+    height: 100%;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
@@ -19,6 +22,7 @@
     z-index: 2;
     height: 100%;
     width: 100%;
+    top: -15px;
     & > .head{
       position: relative;
       text-align: center;

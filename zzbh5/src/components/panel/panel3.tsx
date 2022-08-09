@@ -36,7 +36,7 @@ const CustomChildren = (props:any) => (
   >
     <div className="test" style={{ display: 'flex', height: '50px', lineHeight: '50px' }}>
       <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{props.children}</div>
-      <div style={{ textAlign: 'right', color:props.value?'#333': props.extra === '请选择币种'|| props.extra ==='请选择省市区'|| props.extra ==='请选择'  ?'#888':'#333', marginRight: 15,fontSize:'12px' }}>{props.value || props.extra}</div>
+      <div style={{ textAlign: 'right', color:props.value?'#333': props.extra === '请选择币种'|| props.extra ==='请选择省市区'|| props.extra ==='请选择' ||props.extra ==='请选择案件阶段' ?'#ccc':'#333', marginRight: 15,fontSize:'12px' }}>{props.value || props.extra}</div>
     </div>
   </div>
 );
@@ -93,6 +93,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
           {label:'当事人户籍地址',value:'当事人户籍地址',cheeked:false},
           {label:'房产具体地址',value:'房产具体地址',cheeked:false},
           {label:'公司名称',value:'公司名称',cheeked:false},
+          {label:'当事人授权委托书',value:'当事人授权委托书',cheeked:false},
           {label:'法院立案通知书',value:'法院立案通知书',cheeked:false},
           {label:'执行通知书',value:'执行通知书',cheeked:false},
           {label:'法院判决',value:'法院判决',cheeked:false},
@@ -114,6 +115,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
           {label:'工商内档',value:'工商内档',cheeked:false},
           {label:'婚姻信息',value:'婚姻信息',cheeked:false},
           {label:'房产信息',value:'房产信息',cheeked:false},
+          {label:'工商内档',value:'工商外档',cheeked:false},
           {label:'车辆信息',value:'车辆信息',cheeked:false},
           {label:'身份信息',value:'身份信息',cheeked:false},
           {label:'社保信息',value:'社保信息',cheeked:false},
@@ -134,6 +136,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
           {label:'当事人户籍地址',value:'当事人户籍地址',cheeked:false},
           {label:'房产具体地址',value:'房产具体地址',cheeked:false},
           {label:'公司名称',value:'公司名称',cheeked:false},
+          {label:'当事人授权委托书',value:'当事人授权委托书',cheeked:false},
           {label:'法院立案通知书',value:'法院立案通知书',cheeked:false},
           {label:'执行通知书',value:'执行通知书',cheeked:false},
           {label:'法院判决',value:'法院判决',cheeked:false},
@@ -183,7 +186,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                               item.label === '现有资料'?
                                 <Multiple title="现有资料" value={item.value}  propName={item.prop} placeholder={item.placeholder} options={selects.information} getMultipleVal={this.getMultipleVal.bind(this)}></Multiple>                                            
                               :item.placeholder === '点击上传'?
-                                <div style={{textAlign:"left"}}>
+                                <div style={{textAlign:"left",paddingLeft:11}}>
                                   <Upload {...uploadAction} onChange={(info) =>this.onChange(info,item.prop,index)} fileList={this.state.files['file'+index]}>
                                     <Button icon={<UploadOutlined />}><span style={{fontSize:"12px"}}>{item.placeholder}</span></Button>
                                   </Upload>
@@ -218,11 +221,13 @@ class Panel extends React.Component<PanelProps,PanelState>{
                               :item.label === '查档类型'?
                                 <Multiple title="查档类型" value={item.value}  propName={item.prop} placeholder={item.placeholder} options={selects.a_type} getMultipleVal={this.getMultipleVal.bind(this)}></Multiple>  
                                 :item.label === '债务人财产线索'?
-                                <Multiple title="债务人财产线索" value={item.value}  propName={item.prop} placeholder={item.placeholder} options={type === '2'?selects.xiansuo2:selects.xiansuo} getMultipleVal={this.getMultipleVal.bind(this)}></Multiple>  
+                                <Multiple title="债务人财产线索" value={item.value}  propName={item.prop} placeholder={item.placeholder} options={type === '2'||type ==='3'?selects.xiansuo:selects.xiansuo2} getMultipleVal={this.getMultipleVal.bind(this)}></Multiple>  
                               :item.label === '备注'?
-                                <TextArea rows={4} onChange={(e) => this.inputOnChange(e,item.prop)} placeholder={item.placeholder}  disabled={item.disabled || false} defaultValue={item.value} bordered={false} size={'large'} style={{width:'100%',textAlign:'left',fontSize:'12px'}}></TextArea>
-                              :
-                                <Input  onChange={(e) => this.inputOnChange(e,item.prop)} placeholder={item.placeholder}  disabled={item.disabled || false} defaultValue={item.value} bordered={false} size={'large'} style={{width:'100%',textAlign:'left',fontSize:'12px'}}></Input>
+                                <TextArea rows={4} onChange={(e) => this.inputOnChange(e,item.prop)} placeholder={item.placeholder}  disabled={item.disabled || false} defaultValue={item.value} bordered={false} size={'large'} style={{width:'100%',textAlign:'left',fontSize:'12px',paddingTop:15}}></TextArea>
+                              :item.label === '案件标的'?
+                              <Input suffix="人民币元"  onChange={(e) => this.inputOnChange(e,item.prop)} placeholder={item.placeholder}  disabled={item.disabled || false} defaultValue={item.value} bordered={false} size={'large'} style={{textAlign:'left',fontSize:'12px'}}></Input>
+                              : <Input  onChange={(e) => this.inputOnChange(e,item.prop)} placeholder={item.placeholder}  disabled={item.disabled || false} defaultValue={item.value} bordered={false} size={'large'} style={{width:'100%',textAlign:'left',fontSize:'12px'}}></Input>
+                               
                             }
                           </Col>
                         </Row>

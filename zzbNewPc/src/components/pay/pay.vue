@@ -7,6 +7,24 @@
         <span @click="close" class="el-icon-close close"></span>
       </div>
       <div v-show="!data.isCode" class="pay-content">
+        <div v-show="data.info.present_quantity > 0">
+          <span>
+            <img src="../../assets/images/pay/zenson.png" alt="" />
+            赠送AI律师函 * {{ data.info.present_quantity }}</span
+          >
+          <span>
+            <span
+              v-show="data.info.present_quantity < data.info.e_total"
+              style="font-size:12px;color:#ec193a;margin-right:10px;"
+              >委托数量超过赠送额度</span
+            >
+            <el-radio
+              :disabled="data.info.present_quantity < data.info.e_total"
+              v-model="data.radio"
+              label="0"
+            ></el-radio>
+          </span>
+        </div>
         <div>
           <span>
             <img src="../../assets/images/pay/VipPay.png" alt="" />
@@ -135,6 +153,16 @@ export default class About extends Vue {
   @Watch("info", { immediate: true, deep: true })
   infoChange(newVal: any, oldVal: any) {
     this.data.info = newVal;
+    // eslint-disable-next-line no-console
+    console.log(newVal);
+    if (
+      newVal.present_quantity > 0 &&
+      newVal.present_quantity >= newVal.e_total
+    ) {
+      this.data.radio = "0";
+      return false;
+    }
+    //默认先催后付
     if (newVal.is_postpaid == 1) {
       this.data.radio = "4";
     }
@@ -180,7 +208,9 @@ export default class About extends Vue {
   //立即支付
   pay() {
     this.data.loading = true;
-    if (this.data.radio == "1") {
+    if (this.data.radio == "0") {
+      this.zenson(this.data.info.pay_number);
+    } else if (this.data.radio == "1") {
       this.WeChat(this.data.info.pay_number);
     } else if (this.data.radio == "2") {
       this.Alipay(this.data.info.pay_number);
@@ -276,6 +306,21 @@ export default class About extends Vue {
         self.$notify({
           title: "先催后付支付成功",
           message: "VIP会员专享先催后付特权",
+          type: "success"
+        });
+        self.callbackTO();
+      }
+    });
+  }
+  //赠送支付
+  zenson(pay_number: string) {
+    let self: any = this;
+    Api.PresentPay(pay_number).then((res: any) => {
+      self.data.loading = false;
+      if (res.state) {
+        self.$notify({
+          title: "支付成功",
+          message: "本次委托已使用赠送次数抵扣",
           type: "success"
         });
         self.callbackTO();
@@ -425,6 +470,7 @@ export default class About extends Vue {
         display: flex;
         justify-content: space-between;
         padding: 12px 40px;
+        line-height: 24px;
         & > span:nth-child(1) {
           color: $General-colors;
           & img {

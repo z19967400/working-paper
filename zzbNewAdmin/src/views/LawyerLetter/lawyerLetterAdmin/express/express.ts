@@ -10,7 +10,8 @@ export default class Express extends Vue {
     burl: '',
     height: '',
     loading: false,
-    beforUpload: []
+    beforUpload: [],
+    tableKey: 1
   }
   mounted() {
     this.data.burl = baseURL
@@ -44,6 +45,13 @@ export default class Express extends Vue {
     // if (this.data.beforUpload.length === 0) {
     //   this.data.loading = true;
     // }
+    new Promise((resolve, reject) => {
+      if (file) {
+        resolve(file)
+      } else {
+        reject()
+      }
+    })
   }
   //文件超出数量的钩子
   handleExceed(files: any, fileList: any) {
@@ -53,6 +61,7 @@ export default class Express extends Vue {
       } 个文件，共选择了 ${files.length + fileList.length} 个文件`
     )
   }
+
   //上传
   haldOnSuccess(res: any, file: any) {
     let list: any = JSON.parse(JSON.stringify(this.data.list))
@@ -82,6 +91,7 @@ export default class Express extends Vue {
         list = list.concat(res.data)
       }
       this.data.list = list
+      this.data.tableKey = this.data.tableKey++
       // if (this.data.list.length === this.data.beforUpload.length) {
       //   this.data.loading = false;
       // }

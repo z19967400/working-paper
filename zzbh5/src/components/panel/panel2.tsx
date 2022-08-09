@@ -35,20 +35,35 @@ const CustomChildren = (props:any) => (
     <div className="test" style={{ display: 'flex', height: '50px', lineHeight: '50px' }}>
       <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{props.children}</div>
       { 
-        (() =>{
-          if (props.value) {
-            return <div style={{fontSize:'12px',color:'#303133' }}>{ props.value}</div>
-          } else {
-            if (props.value === undefined) {
-              if (props.extra === '请选择约定付款日期' || props.extra === '请选择催款日期' || props.extra === '请选择省市区') {
-                return  <div style={{fontSize:'12px',color:'#ccc' }}>{ props.extra}</div>
-              } else {
-                return  <div style={{fontSize:'12px',color:'#303133' }}>{ props.extra}</div>
+        (() =>{   
+          // console.log(props)
+          if (props.title === '请选择省市区') {
+            if (props.extra === '请选择省市区' &&  !props.dataValue ) {
+              return <div style={{fontSize:'12px',color:'#ccc' }}>{ props.extra}</div>
+            }else{
+              if(props.address){
+                return <div style={{fontSize:'12px',color:'#303133' }}>{ props.extra}</div>
+              }else{
+                return <div style={{fontSize:'12px',color:'#303133' }}>{ props.dataValue||props.value}</div>
               }
+            }
+           
+          }else{
+            if (props.value || props.dataValue) {
+              return <div style={{fontSize:'12px',color:'#303133' }}>{ props.dataValue||props.value}</div>
             } else {
-              return  <div style={{fontSize:'12px',color:'#ccc' }}>{ props.extra}</div>
-            }            
+              if (props.value === undefined) {
+                if (props.extra === '请选择约定付款日期' || props.extra === '请选择催款日期（有证据证明）') {
+                  return  <div style={{fontSize:'12px',color:'#ccc' }}>{ props.extra}</div>
+                } else {
+                  return  <div style={{fontSize:'12px',color:'#303133' }}>{ props.extra}</div>
+                }
+              } else {
+                return  <div style={{fontSize:'12px',color:'#ccc' }}>{ props.extra}</div>
+              }            
+            }
           }
+           
         })()
       }
      
@@ -238,7 +253,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                 value={this.state.date}
                                 onChange={date =>{ this.setState({ date:date});this.props.getData({'agreed_payment_date':time(date),prop:item.prop})}}
                               >
-                                <CustomChildren></CustomChildren>
+                                <CustomChildren dataValue={item.value}></CustomChildren>
                               </DatePicker>
                               </div>
                               // 最后一次催款日期
@@ -251,7 +266,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                 value={this.state.date2}
                                 onChange={date =>{ this.setState({ date2:date});this.props.getData({'confirmation_date':time(date),prop:item.prop})}}
                               >
-                                <CustomChildren></CustomChildren>
+                                <CustomChildren dataValue={item.value}></CustomChildren>
                               </DatePicker>
                               </div>
                               :item.label === '担保类型'? 
@@ -264,7 +279,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                   value={this.state.guarantee_type}
                                   onOk = {v => {this.setState({ guarantee_type:v });this.props.getData({'guarantee_type':v,prop:item.prop})}}
                                   >
-                                    <CustomChildren value={this.state.guarantee_type}></CustomChildren>
+                                    <CustomChildren dataValue={item.value} value={this.state.guarantee_type}></CustomChildren>
                                   </Picker>                        
                                </div>
                               :item.label === '债务人状态'? 
@@ -277,7 +292,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                  value={this.state.debtor_status}
                                  onOk = {v => {this.setState({ debtor_status:v });this.props.getData({'debtor_status':v,prop:item.prop})}}
                                  >
-                                   <CustomChildren value={this.state.debtor_status}></CustomChildren>
+                                   <CustomChildren dataValue={item.value} value={this.state.debtor_status}></CustomChildren>
                                  </Picker>                        
                               </div> 
                               :item.label === '借款方式'? 
@@ -290,7 +305,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                  value={this.state.borrow_money_mode}
                                  onOk = {v => {this.setState({ borrow_money_mode:v });this.props.getData({'borrow_money_mode':v,prop:item.prop})}}
                                  >
-                                   <CustomChildren value={this.state.borrow_money_mode}></CustomChildren>
+                                   <CustomChildren dataValue={item.value} value={this.state.borrow_money_mode}></CustomChildren>
                                  </Picker>                        
                               </div> 
                               :item.label === '债务人财产线索'? 
@@ -305,7 +320,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                    value={this.state.confirmation_method}
                                    onOk = {v => {this.setState({ confirmation_method:v });this.props.getData({'confirmation_method':v,prop:item.prop})}}
                                    >
-                                     <CustomChildren value={this.state.confirmation_method}></CustomChildren>
+                                     <CustomChildren dataValue={item.value} value={this.state.confirmation_method}></CustomChildren>
                                    </Picker>                        
                                 </div>
                               :item.label === '现有证据'?
@@ -320,7 +335,7 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                   value={this.state.is_dispute}
                                   onOk = {v => {this.setState({ is_dispute:v });this.props.getData({'is_dispute':v,prop:item.prop})}}
                                  >
-                                   <CustomChildren value={this.state.is_dispute}></CustomChildren>
+                                   <CustomChildren dataValue={item.value} value={this.state.is_dispute}></CustomChildren>
                                  </Picker>                        
                               </div>  
                               :item.label === '委托事项'? 
@@ -332,9 +347,9 @@ class Panel extends React.Component<PanelProps,PanelState>{
                                   extra="请选择省市区"
                                   data={option}
                                   value={this.state.address}
-                                  onOk = {v => {this.setState({ address:v });this.props.getData({'​jurisdiction_01':v,prop:item.prop})}}
+                                  onOk = {v => {this.setState({ address:v });this.props.getData({'​jurisdiction_01':v,prop:item.prop,option})}}
                                   > 
-                                   <CustomChildren ></CustomChildren>
+                                   <CustomChildren title="请选择省市区" address={this.state.address} dataValue={item.value}></CustomChildren>
                                   </Picker>
                                 </div>                     
                               :

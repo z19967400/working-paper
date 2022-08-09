@@ -1,6 +1,6 @@
 <template>
   <div class="morebill-wrap">
-    <div class="morebill-box">
+    <div v-loading="data.loading" class="morebill-box">
       <div :style="{ height: data.labers.length * 40 + 'px' }" class="left">
         <div class="text">
           <div
@@ -56,12 +56,22 @@
                   :value="item2.value"
                   @init="init"
                   :bill_id="data.id"
-                  :type="item.prop == 'create_time' ? 0 : 1"
+                  :type="
+                    item2.prop == 'create_time'
+                      ? 0
+                      : item2.prop == 'bill_title'
+                      ? 2
+                      : 1
+                  "
                   v-else-if="
                     item2.prop == 'create_time' ||
-                      item2.prop == 'last_payment_date'
+                      item2.prop == 'last_payment_date' ||
+                      item2.prop === 'bill_title'
                   "
                 ></payDate>
+                <span v-else-if="item2.prop === 'bill_total_amount'">{{
+                  qianweifu(item2.value)
+                }}</span>
                 <span v-else>{{ item2.value }}</span>
               </p>
             </div>
@@ -157,7 +167,7 @@
             >{{ data.labers[4].name }}
             <span
               v-if="
-                data.billData.m_type == '普通用户' &&
+                data.billData.m_type == '普通管理员' &&
                   data.billData.invoice.length > 0
               "
               @click="openDialog('更换', data.labers[4].name)"
@@ -176,12 +186,12 @@
             <el-table border :data="data.billData.invoice">
               <el-table-column prop="id" label="发票信息ID" width="100">
               </el-table-column>
+              <el-table-column prop="invoice_name" label="名称" width="220">
+              </el-table-column>
               <el-table-column prop="invoice_type" label="发票类型" width="180">
                 <template slot-scope="scope">
                   {{ getInvoicName(scope.row.invoice_type) }}
                 </template>
-              </el-table-column>
-              <el-table-column prop="invoice_name" label="名称" width="220">
               </el-table-column>
               <el-table-column prop="duty_paragraph" label="税号" width="180">
               </el-table-column>
@@ -236,7 +246,7 @@
             {{ data.labers[5].name }}
             <span
               v-if="
-                data.billData.m_type == '普通用户' &&
+                data.billData.m_type == '普通管理员' &&
                   data.billData.ticket.length > 0
               "
               @click="openDialog('更换', data.labers[5].name)"
@@ -261,8 +271,8 @@
               </el-table-column>
               <el-table-column prop="detailed_address" label="收票人地址">
               </el-table-column>
-              <!-- <el-table-column prop="name" label="收票人电子邮箱">
-              </el-table-column> -->
+              <el-table-column prop="email" label="收票人电子邮箱">
+              </el-table-column>
               <el-table-column prop="create_name" label="创建人">
               </el-table-column>
               <el-table-column prop="create_time" label="创建时间">
@@ -340,7 +350,7 @@
             {{ data.labers[6].name }}
             <span
               v-show="data.billData.open_invoices.length <= 0"
-              @click="openDialog2"
+              @click="openDialog2()"
               style="color:#67C23A;"
             >
               新增
@@ -358,6 +368,13 @@
                 label="发票税率(%)"
                 width="150"
               >
+                <template slot-scope="scope">
+                  <span>{{
+                    scope.row.invoice_tax_rate == 0
+                      ? ''
+                      : scope.row.invoice_tax_rate
+                  }}</span>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="invoice_amount"
@@ -365,7 +382,7 @@
                 width="150"
               >
                 <template slot-scope="scope">
-                  <span>{{ scope.row.invoice_amount.toLocaleString() }}</span>
+                  <span>{{ qianweifu(scope.row.invoice_amount) }}</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -374,7 +391,11 @@
                 width="300"
               >
               </el-table-column>
-              <el-table-column prop="billing_date" label="开票日期" width="150">
+              <el-table-column
+                prop="Invoicing_requirements"
+                label="开票要求"
+                width="300"
+              >
               </el-table-column>
               <el-table-column
                 prop="invoice_number"
@@ -382,6 +403,27 @@
                 width="150"
               >
               </el-table-column>
+              <el-table-column prop="billing_date" label="开票日期" width="150">
+              </el-table-column>
+              <!-- <el-table-column
+                prop="invoicing_status"
+                label="开票状态"
+                width="150"
+              >
+              </el-table-column> -->
+              <el-table-column label="发票备份" width="120">
+                <template slot-scope="scope">
+                  <img
+                    v-if="scope.row.invoice_img"
+                    @click="open(scope.row.invoice_img)"
+                    style="width:100%;cursor: pointer;"
+                    :src="scope.row.invoice_img"
+                    alt=""
+                  />
+                  <span v-else>无</span>
+                </template>
+              </el-table-column>
+
               <el-table-column
                 prop="courier_services_company"
                 label="快递公司"
@@ -394,56 +436,24 @@
                 width="150"
               >
               </el-table-column>
-              <el-table-column
-                prop="invoice_remarks"
-                label="发票备注"
-                width="250"
-              >
-                <template slot-scope="scope">
-                  <el-popover
-                    placement="bottom"
-                    trigger="click"
-                    :content="tostr(scope.row.invoice_remarks)"
-                    popper-class="table-click"
-                    :visible-arrow="false"
-                  >
-                    <div slot="reference" class="remarks">
-                      {{ scope.row.invoice_remarks }}
-                    </div>
-                  </el-popover>
-                </template>
-              </el-table-column>
               <el-table-column prop="express_fee" label="快递费用" width="150">
                 <template slot-scope="scope">
                   <span>{{
                     scope.row.express_fee == 0
+                      ? ''
+                      : scope.row.express_fee == -1
                       ? '无需'
                       : scope.row.express_fee == 1
                       ? '诚收付款'
                       : scope.row.express_fee == 2
                       ? '用户付款'
-                      : ' '
+                      : scope.row.express_fee == -2
+                      ? ' '
+                      : ''
                   }}</span>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="invoicing_status"
-                label="开票状态"
-                width="150"
-              >
-              </el-table-column>
-              <el-table-column label="发票底单" width="120">
-                <template slot-scope="scope">
-                  <img
-                    v-if="scope.row.invoice_img"
-                    @click="open(scope.row.invoice_img)"
-                    style="width:100%;cursor: pointer;"
-                    :src="scope.row.invoice_img"
-                    alt=""
-                  />
-                  <span v-else>无</span>
-                </template>
-              </el-table-column>
+
               <!-- <el-table-column prop="name" label="创建人"> </el-table-column> -->
               <el-table-column prop="create_time" label="创建时间" width="150">
               </el-table-column>
@@ -509,12 +519,12 @@
             <p style="font-size:14px;color:#606366;width:100%;">
               <span
                 >应结算金额：{{
-                  data.billData.bill_total_amount.toLocaleString()
+                  qianweifu(data.billData.bill_total_amount)
                 }}</span
               >
               <span style="margin-left:50px;"
                 >已结算金额：{{
-                  data.billData.bill_settled_amount.toLocaleString()
+                  qianweifu(data.billData.bill_settled_amount)
                 }}</span
               >
             </p>
@@ -529,7 +539,7 @@
               </el-table-column>
               <el-table-column prop="settlement_amount" label="结算金额">
                 <template slot-scope="scope">
-                  {{ scope.row.settlement_amount.toLocaleString() }}
+                  {{ qianweifu(scope.row.settlement_amount) }}
                 </template>
               </el-table-column>
               <el-table-column prop="settlement_time" label="结算时间">
@@ -594,7 +604,7 @@
               </el-table-column>
               <el-table-column prop="refund_amount" label="退款金额">
                 <template slot-scope="scope">
-                  {{ scope.row.refund_amount.toLocaleString() }}
+                  {{ qianweifu(scope.row.refund_amount) }}
                 </template>
               </el-table-column>
               <el-table-column prop="refund_time" label="退款时间">
@@ -640,7 +650,7 @@
         </div>
         <!-- 后台备注 -->
         <div ref="section10" class="section">
-          <span :class="{ act: data.actIndex == 10 }">{{
+          <!-- <span :class="{ act: data.actIndex == 10 }">{{
             data.labers[10].name
           }}</span>
           <el-divider></el-divider>
@@ -664,7 +674,12 @@
                 >保存</el-button
               >
             </div>
-          </div>
+          </div> -->
+          <remark
+            :class="{ act: data.actIndex == 10 }"
+            :id="this.$route.params.id"
+            :remarks_type="6"
+          ></remark>
         </div>
       </div>
       <div class="footer-bins">
@@ -674,7 +689,15 @@
         <el-button
           v-show="data.bill_file == ''"
           size="small"
-          @click="createBill()"
+          @click="
+            () => {
+              if (data.billData.bill_type != 'Bill_Type_0') {
+                this.createBill()
+              } else {
+                this.download()
+              }
+            }
+          "
           type="primary"
           plain
           >生成账单</el-button
@@ -819,54 +842,58 @@
       :visible.sync="dialogVisible8"
       title="账单文件下载"
     >
-      <p>
-        法律服务费请款单：{{ data.bill_file ? '已生成' : '未生成' }}
-        <el-button
-          @click="createBill()"
-          style="color:#67C23A;margin-left:10px;"
-          type="text"
-          >{{ data.bill_file ? '重新生成' : '立即生成' }}</el-button
-        >
-        <el-button
-          v-show="data.bill_file"
-          @click="open(data.bill_file)"
-          style="color:#67C23A;"
-          type="text"
-          >下载</el-button
-        >
-      </p>
-      <p>
-        AI律师函服务请款单：{{ data.bill_file_ai ? '已生成' : '未生成' }}
-        <el-button
-          @click="createBill('Bill_Type_3')"
-          style="color:#67C23A;margin-left:10px;"
-          type="text"
-          >{{ data.bill_file_ai ? '重新生成' : '立即生成' }}</el-button
-        >
-        <el-button
-          @click="open(data.bill_file_ai)"
-          style="color:#67C23A;"
-          type="text"
-          v-show="data.bill_file_ai"
-          >下载</el-button
-        >
-      </p>
-      <p>
-        律师办案法律服务请款单：{{ data.bill_file_case ? '已生成' : '未生成' }}
-        <el-button
-          @click="createBill('Bill_Type_4')"
-          style="color:#67C23A;margin-left:10px;r"
-          type="text"
-          >{{ data.bill_file_case ? '重新生成' : '立即生成' }}</el-button
-        >
-        <el-button
-          v-show="data.bill_file_case"
-          @click="open(data.bill_file_case)"
-          style="color:#67C23A;"
-          type="text"
-          >下载</el-button
-        >
-      </p>
+      <div v-loading="data.dowloadloading">
+        <p>
+          法律服务费请款单：{{ data.bill_file ? '已生成' : '未生成' }}
+          <el-button
+            @click="createBill2()"
+            style="color:#67C23A;margin-left:10px;"
+            type="text"
+            >{{ data.bill_file ? '重新生成' : '立即生成' }}</el-button
+          >
+          <el-button
+            v-show="data.bill_file"
+            @click="open(data.bill_file)"
+            style="color:#67C23A;"
+            type="text"
+            >下载</el-button
+          >
+        </p>
+        <p>
+          AI律师函服务请款单：{{ data.bill_file_ai ? '已生成' : '未生成' }}
+          <el-button
+            @click="createBill2('Bill_Type_3')"
+            style="color:#67C23A;margin-left:10px;"
+            type="text"
+            >{{ data.bill_file_ai ? '重新生成' : '立即生成' }}</el-button
+          >
+          <el-button
+            @click="open(data.bill_file_ai)"
+            style="color:#67C23A;"
+            type="text"
+            v-show="data.bill_file_ai"
+            >下载</el-button
+          >
+        </p>
+        <p>
+          律师办案法律服务请款单：{{
+            data.bill_file_case ? '已生成' : '未生成'
+          }}
+          <el-button
+            @click="createBill2('Bill_Type_4')"
+            style="color:#67C23A;margin-left:10px;r"
+            type="text"
+            >{{ data.bill_file_case ? '重新生成' : '立即生成' }}</el-button
+          >
+          <el-button
+            v-show="data.bill_file_case"
+            @click="open(data.bill_file_case)"
+            style="color:#67C23A;"
+            type="text"
+            >下载</el-button
+          >
+        </p>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -887,6 +914,8 @@ import settlementInfo from './compenent/settlementInfo/settlementInfo.vue'
 import refundInfo from './compenent/refundInfo/refundInfo.vue'
 import collection from './compenent/collection.vue'
 import payDate from './compenent/paydate.vue'
+import { thousandBitSeparator } from '../../../../utils/common'
+import remark from '../../../../components/remark/remark.vue'
 @Component({
   components: {
     billList,
@@ -901,7 +930,8 @@ import payDate from './compenent/paydate.vue'
     settlementInfo,
     refundInfo,
     collection,
-    payDate
+    payDate,
+    remark
   }
 })
 export default class About extends Vue {
@@ -909,6 +939,8 @@ export default class About extends Vue {
   data: any = {
     actIndex: 0,
     visible: false,
+    dowloadloading: false,
+    loading: false,
     sendstates: [],
     editShow: false,
     id: '',
@@ -1000,6 +1032,7 @@ export default class About extends Vue {
   ]
   invoice_types: any = [
     { name: '增值税普通发票（电子）', prop: 'Invoice_Type_0' },
+    { name: '增值税专用发票（电子）', prop: 'Invoice_Type_3' },
     { name: '增值税普通发票（纸质）', prop: 'Invoice_Type_1' },
     { name: '增值税专用发票（纸质）', prop: 'Invoice_Type_2' }
   ]
@@ -1041,7 +1074,7 @@ export default class About extends Vue {
       if (res.data.bill_details.start_time) {
         this.settingTime =
           res.data.bill_details.start_time +
-          ' - ' +
+          ' 至 ' +
           res.data.bill_details.end_time
       }
 
@@ -1072,16 +1105,25 @@ export default class About extends Vue {
         0,
         res.data.bill_details.create_time.lastIndexOf(':')
       )
-      res.data.bill_details.last_payment_date = res.data.bill_details.last_payment_date.replace(
-        'T',
-        ' '
-      )
-      res.data.bill_details.last_payment_date = res.data.bill_details.last_payment_date.substring(
-        0,
-        res.data.bill_details.last_payment_date.lastIndexOf(':')
-      )
+      if (res.data.bill_details.last_payment_date) {
+        res.data.bill_details.last_payment_date = res.data.bill_details.last_payment_date.replace(
+          'T',
+          ' '
+        )
+        res.data.bill_details.last_payment_date = res.data.bill_details.last_payment_date.substring(
+          0,
+          res.data.bill_details.last_payment_date.lastIndexOf(':')
+        )
+      }
       this.data.billData.push_object = res.data.push_object
-      this.data.billData.m_type = res.data.bill_details.m_type
+      this.data.billData.m_type =
+        res.data.bill_details.m_type == '普通用户'
+          ? '普通管理员'
+          : res.data.bill_details.m_type
+      res.data.ai_pay.forEach((item: any) => {
+        item.paid_amount = this.qianweifu(item.paid_amount)
+        item.total_amount = this.qianweifu(item.total_amount)
+      })
       this.data.billData.ai_pay = res.data.ai_pay
       this.data.billData.case_pay = res.data.case_pay
       this.data.billData.invoice = res.data.invoice || []
@@ -1233,10 +1275,17 @@ export default class About extends Vue {
     this.dialogVisible = true
   }
   //打开开票操作
-  openDialog2(row: any) {
+  openDialog2(row?: any) {
     if (row) {
+      row['invoice_amount'] = this.data.billData.bill_total_amount
       this.data.openInvoiceData = row
       this.dialogVisible2 = true
+      // if (row['express_fee'] == -1) {
+      //   this.data.openInvoiceData['express_fee'] = 0
+      // }
+      if (row['express_fee'] == -2) {
+        this.data.openInvoiceData['express_fee'] = ''
+      }
     } else {
       this.dialogVisible2 = true
     }
@@ -1497,6 +1546,7 @@ export default class About extends Vue {
       this.$message.warning('请设置结算周期')
       return false
     }
+    this.data.loading = true
     // if (this.data.billData.invoice.length == 0) {
     //   this.$message.warning('请选择发票信息')
     //   return false
@@ -1505,15 +1555,58 @@ export default class About extends Vue {
       bill_number: this.data.billData.bill_number,
       bill_type: type || this.data.billData.bill_type
     }
+    // Api.GenerateBillPdf(parmas).then((res: any) => {
+    //   if (res.state) {
+    //     this.init()
+    //     this.$message.success(res.msg)
+    //   } else {
+    //     this.$message.warning(res.msg)
+    //   }
+    // })
     Api.GenerateBillPdf(parmas).then((res: any) => {
       if (res.state) {
-        this.init()
-        this.$message.success(res.msg)
+        let timer: any = window.setInterval(() => {
+          Api.GetBillFileByBillNumber(parmas).then((respones: any) => {
+            if (respones.state) {
+              clearInterval(timer)
+              this.data.loading = false
+              this.init()
+            }
+          })
+        }, 3000)
       } else {
         this.$message.warning(res.msg)
       }
     })
   }
+  //重新生成账单
+  createBill2(type?: string) {
+    if (this.settingTime == '' && this.data.billData.ai_pay.length > 0) {
+      this.$message.warning('请设置结算周期')
+      return false
+    }
+    this.data.dowloadloading = true
+    let parmas: any = {
+      bill_number: this.data.billData.bill_number,
+      bill_type: type || this.data.billData.bill_type
+    }
+    Api.GenerateBillPdf(parmas).then((res: any) => {
+      if (res.state) {
+        let timer: any = window.setInterval(() => {
+          Api.GetBillFileByBillNumber(parmas).then((respones: any) => {
+            if (respones.state) {
+              clearInterval(timer)
+              this.data.dowloadloading = false
+              this.init()
+            }
+          })
+        }, 3000)
+      } else {
+        this.$message.warning(res.msg)
+      }
+    })
+  }
+
   //下载账单
   download() {
     if (this.data.billData.bill_type == 'Bill_Type_0') {
@@ -1560,6 +1653,15 @@ export default class About extends Vue {
       return ''
     }
     return row[0].name
+  }
+  //千位符
+  qianweifu(val: any) {
+    let num: number = Number(val)
+    if (num != 0) {
+      return thousandBitSeparator(num)
+    } else {
+      return ''
+    }
   }
 }
 </script>
@@ -1618,6 +1720,9 @@ export default class About extends Vue {
       padding-right: 20px;
       .act {
         color: #ec193a !important;
+        & .title {
+          color: #ec193a !important;
+        }
       }
       & .section {
         margin-bottom: 20px;
@@ -1640,11 +1745,24 @@ export default class About extends Vue {
             cursor: pointer;
           }
         }
+        & .title {
+          font-size: 15px;
+          color: #606266;
+          font-weight: bold;
+          display: inline-block;
+          border-left: 3px solid #e01f3c;
+          height: 15px;
+          line-height: 15px;
+          padding-left: 10px;
+          position: relative;
+          width: 100%;
+        }
         .box {
           display: flex;
           flex-wrap: wrap;
           .text {
             width: 33.33%;
+
             p {
               color: $General-colors;
               font-size: 14px;
@@ -1652,6 +1770,7 @@ export default class About extends Vue {
               margin-bottom: 10px;
               line-height: 32px;
               height: 32px;
+
               & > span:first-child {
                 margin-right: 20px;
                 font-size: 12px;

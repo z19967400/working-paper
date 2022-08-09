@@ -13,9 +13,14 @@
     <div v-for="(item, index) in data.tabList" class="section" :key="index">
       <span style="margin-top:0;">
         <span class="title">{{ item.title }}</span>
-        <span @click="application(item)" class="generate">{{
-          item.generate
-        }}</span>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus-outline"
+          @click="application(item)"
+          class="generate"
+          >{{ item.generate }}</el-button
+        >
       </span>
       <el-divider></el-divider>
       <comTab4
@@ -60,7 +65,7 @@
       "
     >
       <form2
-        v-if="this.data.title == '申请固定服务费请款'"
+        v-if="this.data.title == '新增固定服务费请款'"
         :rate="rate"
         :settlement="data.settlement"
         :radio="data.radio"
@@ -70,7 +75,7 @@
         @close="quxiao"
       ></form2>
       <form3
-        v-if="this.data.title == '申请风险服务费请款'"
+        v-if="this.data.title == '新增风险服务费请款'"
         :rate="rate2"
         :radio="data.radio"
         :settlement="data.settlement"
@@ -132,6 +137,7 @@ import * as Api2 from '../../../../../api/finance'
 import form2 from './from2.vue'
 import form3 from './from3.vue'
 import { filter } from 'vue/types/umd'
+import { thousandBitSeparator } from '../../../../../utils/common'
 @Component({
   components: {
     comTab4,
@@ -264,19 +270,23 @@ export default class About extends Vue {
     res.forEach((item: any) => {
       let val: any = item.create_time.replace('T', ' ')
       item.create_time = val.substring(0, 16)
-      item.collection_amount = `${item.collection_amount.toLocaleString()}${
-        item.currency_1
-      }`
-      item.fixed_service_fee = `${item.fixed_service_fee.toLocaleString()}${
-        item.currency_2
-      }`
-      item.float_service_fee = `${item.float_service_fee.toLocaleString()}${
-        item.currency_3
-      }`
-      item.management_fee = `${item.management_fee.toLocaleString()}${
-        item.currency_4
-      }`
-      item.lawyer_fee = `${item.lawyer_fee.toLocaleString()}${item.currency_5}`
+      item.float_service_rate = item.float_service_rate + '%'
+      item.new_management_rate = item.new_management_rate + '%'
+      item.collection_amount = `${item.currency_1} ${thousandBitSeparator(
+        item.collection_amount
+      )}`
+      item.fixed_service_fee = `${item.currency_2} ${thousandBitSeparator(
+        item.fixed_service_fee
+      )}`
+      item.float_service_fee = `${item.currency_3} ${thousandBitSeparator(
+        item.float_service_fee
+      )}`
+      item.management_fee = `${item.currency_4} ${thousandBitSeparator(
+        item.management_fee
+      )}`
+      item.lawyer_fee = `${item.currency_5} ${thousandBitSeparator(
+        item.lawyer_fee
+      )}`
     })
     if (radio === 0) {
       if (service_fee_mode === 1) {
@@ -308,7 +318,7 @@ export default class About extends Vue {
       }
     }
   }
-  //打开申请请款弹窗
+  //打开新增请款弹窗
   application(item: any) {
     this.data.title = item.generate
     this.data.form.debtor_number = this.data.settlement.quoted_price.debtor_number
@@ -395,7 +405,7 @@ export default class About extends Vue {
       //    || this.data.tabList[1].list.length != 0
       //    ||  this.data.tabList[2].list.length != 0
       // ) {
-      //   this.$message.warning('请先申请请款')
+      //   this.$message.warning('请先新增请款')
       //   return false
       // }
       self.$router.push({
@@ -411,7 +421,7 @@ export default class About extends Vue {
       //   // this.data.tabList[1].list.length == 0 &&
       //   this.data.tabList[0].list.length == 0
       // ) {
-      //   this.$message.warning('请先申请请款')
+      //   this.$message.warning('请先新增请款')
       //   return false
       // }
       self.$router.push({
@@ -424,7 +434,7 @@ export default class About extends Vue {
       parmas['member_id'] = this.data.settlement.case_detail.lawyer_member_id
       parmas['lawyer_id'] = this.data.settlement.case_detail.lawyer_id
       // if (this.data.tabList[0].list.length == 0) {
-      //   this.$message.warning('请先申请请款')
+      //   this.$message.warning('请先新增请款')
       //   return false
       // }
       self.$router.push({
@@ -548,12 +558,14 @@ export default class About extends Vue {
     vertical-align: bottom;
   }
   .generate {
-    color: white;
+    // color: white;
     float: right;
-    cursor: pointer;
-    background: #ec193a;
-    padding: 4px 8px;
-    border-radius: 2px;
+    // cursor: pointer;
+    // background: #ec193a;
+    // padding: 4px 8px;
+    // border-radius: 2px;
+    position: relative;
+    top: -5px;
   }
   .title {
     font-size: 14px;

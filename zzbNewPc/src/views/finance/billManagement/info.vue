@@ -41,7 +41,9 @@
               </p>
               <p>
                 <span>应付金额</span>
-                <span>{{ data.survey.bill_total_amount }}</span>
+                <span>{{
+                  thousandBitSeparator(data.survey.bill_total_amount)
+                }}</span>
               </p>
             </div>
             <div class="text">
@@ -51,7 +53,9 @@
                 <span>{{ timeStr(data.survey.create_time) }}</span>
               </p>
               <p>
-                <span>{{ data.survey.bill_total_amount_x }}</span>
+                <span style="font-size:14px;">{{
+                  data.survey.bill_total_amount_x
+                }}</span>
               </p>
             </div>
             <div class="text">
@@ -59,6 +63,10 @@
               <p>
                 <span>最后付款日期</span>
                 <span>{{ timeStr(data.survey.last_payment_date) }}</span>
+              </p>
+              <p>
+                <span>货币单位</span>
+                <span>人民币元</span>
               </p>
             </div>
           </div>
@@ -77,6 +85,7 @@
               border
               style="width: 100%"
               class="table1"
+              :max-height="500"
             >
               <el-table-column prop="index" label="序号" width="60">
               </el-table-column>
@@ -94,9 +103,15 @@
               </el-table-column>
               <el-table-column prop="create_time" label="创建时间" width="150">
               </el-table-column>
-              <el-table-column prop="unit_price" label="单价" width="80">
+              <el-table-column prop="unit_price" label="单价" width="120">
+                <template slot-scope="scope">
+                  <span>{{ thousandBitSeparator(scope.row.unit_price) }}</span>
+                </template>
               </el-table-column>
-              <el-table-column prop="unit_price" label="应付金额" width="80">
+              <el-table-column prop="unit_price" label="应付金额" width="120">
+                <template slot-scope="scope">
+                  <span>{{ thousandBitSeparator(scope.row.unit_price) }}</span>
+                </template>
               </el-table-column>
               <el-table-column prop="bill_remarks" label="备注">
               </el-table-column>
@@ -117,6 +132,7 @@
               :summary-method="getSummaries"
               border
               style="width: 100%"
+              :max-height="500"
             >
               <el-table-column prop="index" label="序号" width="60">
               </el-table-column>
@@ -279,19 +295,19 @@
 
         <div class="section" ref="section5">
           <span style="margin-top:0;" :class="{ act: data.actIndex == 5 }"
-            >债主帮开票信息
+            >发票开具状态
           </span>
           <el-divider></el-divider>
           <div class="box">
             <el-descriptions :column="2" border style="width:100%;">
               <el-descriptions-item label="发票类型">{{
-                data.open_invoice.invoice_type
+                getInvoceName(data.open_invoice.invoice_type)
               }}</el-descriptions-item>
               <el-descriptions-item label="快递公司">{{
                 data.open_invoice.courier_services_company
               }}</el-descriptions-item>
               <el-descriptions-item label="发票金额">{{
-                data.open_invoice.invoice_amount
+                thousandBitSeparator(data.open_invoice.invoice_amount)
               }}</el-descriptions-item>
               <el-descriptions-item label="快递单号">{{
                 data.open_invoice.courier_number
@@ -355,7 +371,7 @@
 
         <div style="padding-bottom:80px;" class="section" ref="section8">
           <span style="margin-top:0;" :class="{ act: data.actIndex == 8 }"
-            >账单客服
+            >专属客服
           </span>
           <el-divider></el-divider>
           <div class="box">
@@ -376,9 +392,10 @@
 
       <div class="zhezhao" v-show="data.ApplyForInvoiceShow"></div>
       <el-popover
-        :title="data.actIndex2 == 0 ? '选择发票信息' : '选择收票信息'"
+        :title="data.actIndex2 == 0 ? '选择/新增发票信息' : '选择/新增收票信息'"
         popper-class="editData"
         v-model="data.ApplyForInvoiceShow"
+        :width="!data.addInvoiceShow ? 880 : 580"
       >
         <span @click="close" class="el-icon-close close"></span>
         <div v-show="data.actIndex2 == 0" class="table-list1">
@@ -416,6 +433,7 @@
                 size="small"
                 @click="data.addInvoiceShow = true"
                 type="primary"
+                icon="el-icon-circle-plus-outline"
                 >新增发票信息</el-button
               >
             </div>
@@ -474,9 +492,10 @@
               ref="ruleForm"
             >
               <el-row>
-                <el-col :span="12">
+                <el-col :span="24">
                   <el-form-item label="发票类型" prop="invoice_type">
                     <el-select
+                      style="width:400px;"
                       v-model="data.addInvoiceData.invoice_type"
                       placeholder="请选择发票类型"
                     >
@@ -485,11 +504,11 @@
                         value="Invoice_Type_0"
                       >
                       </el-option>
-                      <el-option
+                      <!-- <el-option
                         label="增值税普通发票（纸质）"
                         value="Invoice_Type_1"
                       >
-                      </el-option>
+                      </el-option> -->
                       <el-option
                         label="增值税专用发票（纸质）"
                         value="Invoice_Type_2"
@@ -498,30 +517,30 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
-                <el-col :span="12">
-                  <el-form-item label="发票名称" prop="invoice_name">
+                <el-col style="margin-top:20px;" :span="24">
+                  <el-form-item label="抬头" prop="invoice_name">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.invoice_name"
-                      placeholder="请输入发票名称"
+                      placeholder="请输入抬头"
                     ></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
-                <el-col :span="12">
+                <el-col :span="24">
                   <el-form-item label="税号" prop="duty_paragraph">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.duty_paragraph"
                       placeholder="请输入税号"
                     ></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col style="margin-top:20px;" :span="24">
                   <el-form-item label="地址" prop="detailed_address">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.detailed_address"
                       placeholder="请输入地址"
                     ></el-input>
@@ -529,19 +548,19 @@
                 </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
-                <el-col :span="12">
+                <el-col :span="24">
                   <el-form-item label="电话" prop="telephone">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.telephone"
                       placeholder="请输入电话"
                     ></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col style="margin-top:20px;" :span="24">
                   <el-form-item label="开户行" prop="bank_of_deposit">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.bank_of_deposit"
                       placeholder="请输入开户行"
                     ></el-input>
@@ -549,10 +568,10 @@
                 </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
-                <el-col :span="12">
+                <el-col :span="24">
                   <el-form-item label="银行账号" prop="bank_account">
                     <el-input
-                      style="width:220px"
+                      style="width:400px"
                       v-model="data.addInvoiceData.bank_account"
                       placeholder="请输入银行账号"
                     ></el-input>
@@ -603,6 +622,7 @@
                 size="small"
                 @click="data.addTicketShow = true"
                 type="primary"
+                icon="el-icon-circle-plus-outline"
                 >新增收票信息</el-button
               >
             </div>
@@ -668,15 +688,15 @@
               </el-row>
               <el-row style="margin-top:20px;">
                 <el-col :span="12">
-                  <el-form-item label="收票人地址" prop="email">
-                    <el-input v-model="data.addTicketData.email"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="收票人电子邮箱" prop="detailed_address">
+                  <el-form-item label="收票人地址" prop="detailed_address">
                     <el-input
                       v-model="data.addTicketData.detailed_address"
                     ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="收票人电子邮箱" prop="email">
+                    <el-input v-model="data.addTicketData.email"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

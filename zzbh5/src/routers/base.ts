@@ -1,3 +1,4 @@
+import Feedback from '../pages/feedback/feedback'
 import { 
   overbooking, 
   User,
@@ -13,7 +14,9 @@ import {
   increment,
   incrementInfo,
   incrementInfoPenle,
-  Wechat
+  Wechat,
+  Feekback,
+  UserInfo
 } from '../pages/index'
 
 
@@ -33,7 +36,9 @@ const baseUrl = {
   increment:"/increment/:type", //增值服务
   incrementInfo:"/incrementInfo/:number/:type", //增值服务进度
   incrementInfoPenle:"/incrementInfoPenle", //增值服务委托详情
-  Wechat:"/Wechat/:number" //小程序中间页
+  Wechat:"/Wechat/:number", //小程序中间页
+  feekback:'/Feekback/:debtor_number', //债务反馈
+  UserInfo:'/User/UserInfo' //设置
 }
 
 const baseRouters = [
@@ -111,8 +116,17 @@ const baseRouters = [
     path:baseUrl.Wechat,
     component:Wechat,
     root:[]
+  },
+  {
+    path:baseUrl.feekback,
+    component:Feekback,
+    root:[]
+  },
+  {
+    path:baseUrl.UserInfo,
+    component:UserInfo,
+    root:[]
   }
-  
 ]
 
 export default baseRouters

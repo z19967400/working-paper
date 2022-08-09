@@ -18,17 +18,17 @@
       >
       <div class="cell-top">
         <div class="cell-top-left">
-          <img
-            @click="check(item.license_img_url || item.id_card_img_01)"
+          <el-image
             :src="item.license_img_url || item.id_card_img_01"
-            alt=""
-          />
-          <img
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
+          <el-image
             v-if="!item.license_img_url"
-            @click="check(item.id_card_img_01)"
             :src="item.id_card_img_02"
-            alt=""
-          />
+            :preview-src-list="data.srcList"
+          >
+          </el-image>
         </div>
         <div class="cell-top-right">
           <p class="cell-top-right-row">
@@ -122,6 +122,13 @@
           </el-table-column>
           <el-table-column prop="admin_email" label="电子邮箱" width="250px">
           </el-table-column>
+          <el-table-column prop="is_super" label="权限" width="100">
+            <template slot-scope="scope">
+              <span>{{
+                scope.row.is_super == 0 ? '普通管理员' : '超级管理员'
+              }}</span>
+            </template>
+          </el-table-column>
           <el-table-column label="授权书" width="80px">
             <template slot-scope="scope">
               <el-button
@@ -145,7 +152,7 @@
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <el-button
-                @click="handleEdit(scope.row)"
+                @click="handleEdit(scope.row, item.creditor_name)"
                 class="edit"
                 type="text"
                 size="small"

@@ -116,7 +116,7 @@ Page({
   },
   //返回上一页
   goBack() {
-    wx.navigateBack({ changed: true });//返回上一页
+    app.router.navigateBack({ changed: true });//返回上一页
   },
   //接案
   meetCase(e) {
@@ -133,7 +133,7 @@ Page({
         // let code = app.globalData.lawInfo.code
         let code = res.data.code
         if (code == -1) { //未认证
-          wx.navigateTo({
+          app.router.navigateTo({
             url: '/pages/authentication/authentication'
           })
         } else if (code == 2) { //认证通过
@@ -142,7 +142,7 @@ Page({
             show: true
           })
         } else { //待审核 或 未通过
-          wx.navigateTo({
+          app.router.navigateTo({
             url: '/pages/examine/examine?type=' + code
           })
         }
@@ -217,6 +217,14 @@ Page({
                 item.value = res.data.debtor[item.prop].toLocaleString() + ' 元'
               } else if (item.name == '案件管辖地区' || item.name == '案件管辖地区一' || item.name == '案件管辖地区二') {
                 item.value = res.data.debtor[item.prop] || res.data.debtor[item.prop2] || '-'
+              } else if (item.prop === 'confirmation_date') {
+                if (res.data.debtor[item.prop].indexOf('T') != -1) {
+                  let val = res.data.debtor[item.prop].replace('T', ' ')
+                  item.value = val.substring(0, val.lastIndexOf('.'))
+                } else {
+                  item.value = res.data.debtor[item.prop]
+                }
+
               } else {
                 item.value = res.data.debtor[item.prop] || '-'
               }
@@ -307,7 +315,7 @@ Page({
       if (res.state) {
         Toast.success(res.msg);
         setTimeout(() => {
-          wx.navigateTo({
+          app.router.navigateTo({
             url: '/pages/cases/cases'
           })
         }, 1000);
@@ -319,7 +327,7 @@ Page({
   //跳转进程
   goProcess(e) {
     let debtor_number = e.currentTarget.dataset.debtor_number
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/caseProgress/caseProgress?debtor_number=' + debtor_number
     })
   },
@@ -359,7 +367,7 @@ Page({
     return value
   },
   goHome(e) {
-    wx.navigateTo({
+    app.router.navigateTo({
       url: '/pages/index/index',
     })
   },

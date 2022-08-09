@@ -66,22 +66,24 @@
               "
               >{{ item.form_value }}</span
             >
-            <img
-              @click="preview(item.form_value)"
+
+            <el-image
               v-if="item.control_type == 'Control_type_8'"
               :src="item.form_value"
-              width="120px"
-              alt=""
-            />
+              :preview-src-list="data.srcList"
+              style="width:120px;"
+            >
+            </el-image>
+
             <div v-if="item.control_type == 'Control_type_9'">
-              <img
-                @click="preview(item2)"
-                style="margin-right:20px;"
+              <el-image
                 v-for="(item2, index2) in item.form_value.split(',')"
-                width="120px"
-                :key="index2"
                 :src="item2"
-              />
+                :preview-src-list="data.srcList"
+                style="margin-right:20px;width:120px;"
+                :key="index2"
+              >
+              </el-image>
             </div>
           </div>
         </el-step>
@@ -169,6 +171,7 @@ export default class About extends Vue {
     // this.data.casePross.matters_from = newVal.matters_from
   }
   data: any = {
+    srcList: [],
     contractVisible: false,
     casePross: {
       lawyer: [],
@@ -201,6 +204,10 @@ export default class About extends Vue {
             arr = item.form_value.split(",");
           }
           item["arr"] = arr;
+          this.data.srcList = item.form_value.split(",");
+        }
+        if (item.control_type === "Control_type_8") {
+          this.data.srcList = [item.form_value];
         }
       });
       this.data.contractData = res.data;

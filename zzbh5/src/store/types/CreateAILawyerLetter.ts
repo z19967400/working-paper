@@ -29,6 +29,7 @@ export default interface CreateParmas{
   debtor_type:string
   contact_person:string
   phone_number:string
+  address:string
   email:string
   country:number
   province:number

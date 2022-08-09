@@ -27,7 +27,7 @@
           placement="right"
           v-show="data.failcount <= 0"
         >
-          <span style="color:#67c23a;" class="textred el-icon-warning-outline">
+          <span style="color:#67c23a;" class="textred el-icon-circle-check">
             <span style="color: #ec193a;" class="textred3"
               >上传成功，请核对无误后提交委托</span
             >
@@ -107,7 +107,7 @@
       </el-tab-pane>
     </el-tabs>
     <el-row :gutter="20" class="buttonbb">
-      <el-col :span="3">
+      <el-col :span="2">
         <el-button type="primary" :disabled="data.btnType" @click="sendPlace"
           >提交委托</el-button
         >
@@ -264,6 +264,14 @@ export default class About extends Vue {
   & .el-table th {
     font-weight: normal !important;
     color: #999;
+  }
+  & .el-table td .cell {
+    width: 100%;
+    min-height: 30px;
+    & div {
+      width: 100%;
+      min-height: 30px;
+    }
   }
   & .el-row {
     margin-bottom: 0 !important;

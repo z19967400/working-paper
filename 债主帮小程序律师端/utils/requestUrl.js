@@ -27,6 +27,7 @@ const requstUrl = {
   AddCaseFinance: baseUrl + "/api/Finance/AddCaseFinance", //添加请款记录
   GetInvoiceAndTicketAddress: baseUrl + "/api/Finance/GetInvoiceAndTicketAddress", //获取用户发票和收票信息
   AddInvoiceAndTicketAddress: baseUrl + "/api/Finance/AddInvoiceAndTicketAddress", //新增编辑用户发票收票信息
+  AddCollectionInfo: baseUrl + '/api/Finance/AddCollectionInfo' //新增编辑用户收票信息
 }
 export {
   requstUrl

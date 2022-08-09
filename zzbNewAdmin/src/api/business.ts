@@ -249,11 +249,15 @@ export const getCaseCourtInfo = (debtor_number: string) => {
 export const getCaseMatter = (debtor_number: string) => {
   return Api.getCaseMatter({ debtor_number }, 'GET')
 }
+//获取所有案件事项
+export const GetAllCaseMatters = () => {
+  return Api.GetAllCaseMatters({}, 'GET')
+}
 //无律师接案
 export const updataCaseStatus = (parmas: any) => {
   return Api.updataCaseStatus(parmas, 'GET')
 }
-//获取所以办案事项
+//获取所有办案事项
 export const getAllMatters = () => {
   return Api.getAllMatters({}, 'GET')
 }
@@ -304,6 +308,10 @@ export const sandReport = (parmas: any) => {
 //获取案件进程详情
 export const getCaseFormInfo = (id: any) => {
   return Api.getCaseFormInfo({ matters_from_id: id }, 'GET')
+}
+//获取所有案件事项流程表单
+export const GetAllCaseMattersFrom = () => {
+  return Api.GetAllCaseMattersFrom({}, 'GET')
 }
 //删除案件
 export const deleteCaseById = (id: any) => {
@@ -512,4 +520,52 @@ export const CustomerSelectQuotedPrice = (parmas: any) => {
 //发送债务反馈通知至客户
 export const SendFeedbackNotice = (id: any) => {
   return Api.SendFeedbackNotice({ id }, 'GET')
+}
+//快递状态更新
+export const UpdateEMSStatus = (parmas: any) => {
+  return Api.UpdateEMSStatus(parmas, 'POST')
+}
+//AI律师函批量终止
+export const AllStop = (batch_no: string) => {
+  return Api.AllStop({ batch_no }, 'GET')
+}
+//AI律师函批量终止
+export const UpdateContractNumber = (parmas: any) => {
+  return Api.UpdateContractNumber(parmas, 'POST')
+}
+//终止单个任务
+export const StopSingleTask = (parmas: any) => {
+  return Api.StopSingleTask(parmas, 'GET')
+}
+//终止单个所有委托
+export const StopAllTask = (debtor_number: string, stop_reason: string) => {
+  return Api.StopAllTask({ debtor_number, stop_reason }, 'GET')
+}
+//终止或撤销
+export const StopBatchTask = (parmas: any) => {
+  return Api.StopBatchTask(parmas, 'GET')
+}
+//新增案件事项流程
+export const AddCaseMattersFrom = (parmas: any) => {
+  return Api.AddCaseMattersFrom(parmas, 'GET')
+}
+//删除办案事项
+export const DeleteCaseMattersById = (parmas: any) => {
+  return Api.DeleteCaseMattersById(parmas, 'GET')
+}
+//新增办案事项
+export const AddCaseMatters = (parmas: any) => {
+  return Api.AddCaseMatters(parmas, 'GET')
+}
+//删除事项流程
+export const DeleteCaseMattersFromById = (parmas: any) => {
+  return Api.DeleteCaseMattersFromById(parmas, 'GET')
+}
+//事项排序
+export const CaseMattersSort = (parmas: any) => {
+  return Api.CaseMattersSort(parmas, 'GET')
+}
+//获取AI律师函导出数据
+export const GetAILawyerLetterExportData = (parmas: any) => {
+  return Api.GetAILawyerLetterExportData(parmas, 'GET')
 }
