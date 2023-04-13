@@ -470,6 +470,11 @@ export default class entrustAdmin extends Vue {
         })
       }
       this.data.ai_log = res.data.ai_log
+      if (res.data.ai_log.length > 0) {
+        res.data.ai_log.forEach((item: any) => {
+          item.create_time = item.create_time.replace('T', ' ')
+        })
+      }
       this.data.implementList = res.data.tasks_list
       if (res.data.collection_account) {
         this.data.collection_account = [res.data.collection_account]

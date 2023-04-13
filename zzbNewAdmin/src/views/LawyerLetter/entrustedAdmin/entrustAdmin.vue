@@ -487,15 +487,25 @@
           <span :class="{ act: data.actIndex == 11 }">
             <span class="title">操作日志</span>
           </span>
-          <div>
-            <el-steps direction="vertical" :active="1">
-              <el-step title="步骤 1"></el-step>
-              <el-step title="步骤 2"></el-step>
-              <el-step
-                title="步骤 3"
-                description="这是一段很长很长很长的描述性文字"
-              ></el-step>
-            </el-steps>
+          <el-divider></el-divider>
+          <div class="block">
+            <span
+              style="color:#909399;font-size:14px;"
+              v-show="data.ai_log == 0"
+              >暂无日志</span
+            >
+            <el-timeline
+              v-for="(item, index) in data.ai_log"
+              :key="index"
+              style="padding-left:0;margin-top:20px;"
+            >
+              <el-timeline-item :timestamp="item.create_time" placement="top">
+                <el-card>
+                  <h5>{{ item.operation_content }}</h5>
+                  <p>{{ item.admin_name }} 提交于 {{ item.create_time }}</p>
+                </el-card>
+              </el-timeline-item>
+            </el-timeline>
           </div>
         </div>
       </div>
