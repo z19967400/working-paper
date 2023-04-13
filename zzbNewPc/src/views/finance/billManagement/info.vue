@@ -62,7 +62,7 @@
               <p style="opacity:0">111111111</p>
               <p>
                 <span>最后付款日期</span>
-                <span>{{ timeStr(data.survey.last_payment_date) }}</span>
+                <span>{{ timeStr(data.survey.last_payment_date) || "-" }}</span>
               </p>
               <p>
                 <span>货币单位</span>

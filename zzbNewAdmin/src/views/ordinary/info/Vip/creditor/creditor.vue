@@ -147,7 +147,14 @@
               {{ timeStr(scope.row.create_time) }}
             </template>
           </el-table-column>
-          <el-table-column prop="audit_status" label="状态" width="100">
+          <el-table-column prop="audit_status" label="状态" width="150">
+            <template slot-scope="scope">
+              <span>{{
+                scope.row.delete_state == -1
+                  ? `已删除(${scope.row.delete_time || '暂无'})`
+                  : scope.row.audit_status
+              }}</span>
+            </template>
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
@@ -162,6 +169,7 @@
                 @click="handleClick(scope.row)"
                 type="text"
                 size="small"
+                :disabled="scope.row.delete_state == -1"
                 >删除</el-button
               >
             </template>

@@ -1,4 +1,3 @@
-】】、】、】】、】、
 <!DOCTYPE html>
 <html>
 
@@ -29,6 +28,7 @@
   <link rel="stylesheet" href="/css/msgbox.css">
   <link rel="stylesheet" href="/css/zrnStyle.css?v=20211105">
   <link rel="stylesheet" href="/css/calculator.css">
+  <link rel="stylesheet" href="../assets/jqueryljxz/css/qrm-pinming.css">
 </head>
 <style>
 
@@ -128,7 +128,16 @@
       <div class="left">
         <p class="act fenlei">诉讼费计算器</p>
         <p class="fenlei">律师费计算器</p>
-        <!-- <p class="fenlei">利息计算器</p> -->
+        <p class="fenlei">利息计算器</p>
+        <p class="fenlei">司法鉴定</p>
+        <p class="fenlei">公证费</p>
+        <p class="fenlei">仲裁费</p>
+        <p class="fenlei">房屋还贷</p>
+        <p class="fenlei">拍卖佣金</p>
+        <p class="fenlei">工伤赔偿</p>
+        <p class="fenlei">房产分割</p>
+        <p class="fenlei">违约金</p>
+        <!-- <p class="fenlei">天数计算</p> -->
         <div class="xian">
           <div class="xian"></div>
         </div>
@@ -225,7 +234,7 @@
               <div class="value">
                 <p>本诉讼费计算器的计算方法按照现行<a
                     href="http://service.shanghai.gov.cn/XingZhengWenDangKuJyh/XZGFDetails.aspx?docid=REPORT_NDOC_002818"
-                    target="_blank">《上海市律师服务收费管理办法》</a>(20017年4月1日起施行)施行</p>
+                    target="_blank">《上海市律师服务收费管理办法》</a></p>
               </div>
             </div>
             <div class="row">
@@ -257,7 +266,7 @@
               <div class="label"><span>利率倍数：</span></div>
               <div class="value">
                 <input id="Magnification" class="input" type="text" value="1">
-                <span style="margin-left: 10px;">倍倍率</span>
+                <span style="margin-left: 10px;">倍</span>
               </div>
             </div>
             <div class="row">
@@ -284,11 +293,537 @@
               </div>
             </div>
           </div>
-          <!-- 计算 -->
-          <div class="buttons">
-            <button id="start">开始计算</button>
-            <button id="reset">重置</button>
+          <!-- 司法鉴定 -->
+          <div id="four" class="yinchang">
+            <p class="title"><span class="shu"></span>司法鉴定:</p>
+            <div class="row">
+              <div class="label"><span>省份：</span></div>
+              <div class="value">
+                <select id="province2" class="select" placeholder="请选择">
+                  <option value="上海">上海</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>鉴定类别：</span></div>
+              <div class="value">
+                <div class="qrm-pinming">
+                  <div class="qrm-input-border">
+                    <!--<span class="title">品名</span>-->
+                    <input id="leibie" type="text" placeholder="请选择" class="qrm-input" style="width: 450px">
+                  </div>
+                  <!--<div class="qrm-pinming-panel" style="display:none">-->
+                  <div class="qrm-border1" style="display:none">
+                    <ul class="qrm-lev-1 qrm-lev">
+                      <!--统料-->
+                      <li class="active">
+                        <span>法医类</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>法医病理鉴定</span>
+                          </li>
+                          <li>
+                            <span>法医临床鉴定</span>
+                          </li>
+                          <li>
+                            <span>法医物证鉴定</span>
+                          </li>
+                          <li>
+                            <span>法医毒物鉴定</span>
+                          </li>
+                          <li>
+                            <span>法医人类学鉴定</span>
+                          </li>
+                          <li>
+                            <span>法医精神病鉴定</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>物证类</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>文书鉴定</span>
+                          </li>
+                          <li>
+                            <span>痕迹鉴定</span>
+                          </li>
+                          <li>
+                            <span>微量物证理化检验鉴定</span>
+                          </li>
+
+                        </ul>
+                      </li>
+                      <li>
+                        <span>声像资料类</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>电子数据鉴定</span>
+                          </li>
+                          <li>
+                            <span>声像资料鉴定</span>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <div class="qrm-border2" style="display:none">
+                    <ul class="qrm-lev-2 qrm-lev">
+
+                    </ul>
+
+                  </div>
+                  <div class="qrm-border3" style="display:none">
+                    <ul class="qrm-lev-3 qrm-lev">
+
+                    </ul>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
           </div>
+          <!-- 公证费 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>公证费:</p>
+            <div class="row">
+              <div class="label"><span>省份：</span></div>
+              <div class="value">
+                <select id="province3" class="select" placeholder="请选择">
+                  <option value="上海">上海</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>公证类型：</span></div>
+              <div class="value">
+                <div class="qrm-pinming">
+                  <div class="qrm-input-border">
+                    <!--<span class="title">品名</span>-->
+                    <input id="leibie1" type="text" placeholder="请选择" class="qrm-input" style="width: 450px">
+                  </div>
+                  <!--<div class="qrm-pinming-panel" style="display:none">-->
+                  <div class="qrm-border1" style="display:none;width: 300px;">
+                    <ul class="qrm-lev-1 qrm-lev">
+                      <!--统料-->
+                      <li class="active">
+                        <span>证明法律行为</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>证明土地使用权、房屋、股权等出让、转让、买卖</span>
+                          </li>
+                          <li>
+                            <span>证明其它经济合同</span>
+                          </li>
+                          <li>
+                            <span>证明民事协议（不涉及财产)</span>
+                          </li>
+                          <li>
+                            <span>证明民事协议（涉及财产)</span>
+                          </li>
+                          <li>
+                            <span>证明收养关系.生父母共同送养</span>
+                          </li>
+                          <li>
+                            <span>证明收养关系.生父母单方送养</span>
+                          </li>
+                          <li>
+                            <span>证明收养关系.其他监护人送养</span>
+                          </li>
+                          <li>
+                            <span>证明财产继承、赠与和遗赠</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>证明有法律意义的事实</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>证明出生、生存、死亡、身份、经历、学历、国籍等</span>
+                          </li>
+                          <li>
+                            <span>证明婚姻状况、亲属关系、未受(受过)刑事处分等</span>
+                          </li>
+                          <li>
+                            <span>证明法人和其他组织的资格、资信</span>
+                          </li>
+                          <li>
+                            <span>证明不可抗力事件</span>
+                          </li>
+                          <li>
+                            <span>证人证言及书证保全</span>
+                          </li>
+                          <li>
+                            <span>声像资料、电脑软件保全</span>
+                          </li>
+                          <li>
+                            <span>不动产保全</span>
+                          </li>
+                          <li>
+                            <span>其他物证保全</span>
+                          </li>
+                          <li>
+                            <span>侵权行为和事实证据保全</span>
+                          </li>
+                          <li>
+                            <span>制作票据拒绝证书</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>证明有法律意义的文书</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>证明知识产权的享有、转让和使用许可文书</span>
+                          </li>
+                          <li>
+                            <span>证证明法人等的授权委托书、公司章程、会议决议等</span>
+                          </li>
+                          <li>
+                            <span>证明其他有法律意义的文书</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>提存公证</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>提存公证</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>赋予债权文书具有强制执行效力</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>赋予债权文书具有强制执行效力</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>遗嘱相关</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>遗嘱公证</span>
+                          </li>
+                          <li>
+                            <span>保管遗嘱</span>
+                          </li>
+                          <li>
+                            <span>清点遗产</span>
+                          </li>
+                          <!-- <li>
+                            <span>清点遗产.法人</span>
+                          </li> -->
+                          <li>
+                            <span>保管遗产</span>
+                          </li>
+                          <li>
+                            <span>确认遗嘱效力</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>证明对财产的清点、清算、评估和估损</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>证明对财产的清点、清算.公民</span>
+                          </li>
+                          <li>
+                            <span>证明对财产的清点、清算.法人</span>
+                          </li>
+                          <li>
+                            <span>证明对财产的评估、估损.公民</span>
+                          </li>
+                          <li>
+                            <span>证明对财产的评估、估损.法人</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>其他民事法律行为的设立、变更、终止</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>公证监督类.拍卖</span>
+                          </li>
+                          <li>
+                            <span>公证监督类.招、投标</span>
+                          </li>
+                          <li>
+                            <span>公证监督类.评奖、开奖类公证</span>
+                          </li>
+                          <li>
+                            <span>证公证监督类.商品抽样检测</span>
+                          </li>
+                          <!-- <li>
+                            <span>公证监督类.其它</span>
+                          </li> -->
+                          <li>
+                            <span>声明书、委托书等公民个人的单方民事法律行为</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>其他</span><i class="qrm-arrow-right"></i>
+                        <ul class="li-zi-1" style="display: none">
+                          <li>
+                            <span>保管文书</span>
+                          </li>
+                          <!-- <li>
+                            <span>公证抵押登记</span>
+                          </li> -->
+                          <li>
+                            <span>与公证事项相关的登记代办费</span>
+                          </li>
+                          <li>
+                            <span>与公证事项相关的认证代办费</span>
+                          </li>
+                          <!-- <li>
+                            <span>译文代办费</span>
+                          </li> -->
+                          <li>
+                            <span>公证书副本.无译文的副本</span>
+                          </li>
+                          <li>
+                            <span>公证书副本.有译文的副本</span>
+                          </li>
+                          <!-- <li>
+                            <span>公证卷宗查档</span>
+                          </li> -->
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <div class="qrm-border2" style="display:none;left: 300px;width: 400px;">
+                    <ul class="qrm-lev-2 qrm-lev">
+
+                    </ul>
+
+                  </div>
+                  <div class="qrm-border3" style="display:none">
+                    <ul class="qrm-lev-3 qrm-lev">
+
+                    </ul>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>标的：</span></div>
+              <div class="value">
+                <input id="Subject3" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 仲裁费 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>仲裁费:</p>
+            <div class="row">
+              <div class="label"><span>类型：</span></div>
+              <div class="value">
+                <select id="province4" class="select" placeholder="请选择">
+                  <option value="案件受理费">案件受理费</option>
+                  <option value="案件处理费">案件处理费</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>标的：</span></div>
+              <div class="value">
+                <input id="Subject4" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 房屋还贷 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>房屋还贷:</p>
+            <div class="row">
+              <div class="label"><span>贷款类型</span></div>
+              <div class="value">
+                <select id="province5" class="select" placeholder="请选择">
+                  <option value="公积金贷款">公积金贷款</option>
+                  <option value="商业贷款">商业贷款</option>
+                  <option value="组合贷款">组合贷款</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>贷款金额(万)</span></div>
+              <div class="value">
+                <input placeholder="公积金贷款金额" id="Subject5" class="input" type="text" value="">
+                <input placeholder="商业贷款金额" style="display: none;" id="Subject5-4" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>贷款期限</span></div>
+              <div class="value">
+                <select id="Subject5-1" class="select" placeholder="请选择">
+                  <option value="5">5年期限</option>
+                  <option value="10">10年期限</option>
+                  <option value="15">15年期限</option>
+                  <option value="20">20年期限</option>
+                  <option value="25">25年期限</option>
+                  <option value="30">30年期限</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>年利率(%)</span></div>
+              <div class="value">
+                <input id="Subject5-2" class="input" type="text" value="3.25">
+                <input style="display: none;" id="Subject5-3" class="input" type="text" value="4.9">
+              </div>
+            </div>
+            <!-- <div style="display: none;" id="dk-2" class="row">
+              <div class="label"><span>贷款折扣(%)</span></div>
+              <div class="value">
+                <input id="Subject5-4" class="input" type="text" value="100">
+              </div>
+            </div> -->
+          </div>
+          <!-- 拍卖佣金 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>拍卖佣金:</p>
+            <div class="row">
+              <div class="label"><span>标的额(元)</span></div>
+              <div class="value">
+                <input id="Subject6" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 工伤赔偿 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>工伤赔偿:</p>
+            <div class="row">
+              <div class="label"><span>伤残等级</span></div>
+              <div class="value">
+                <select id="Subject7-1" class="select" placeholder="请选择">
+                  <option value="1">一级伤残</option>
+                  <option value="2">二级伤残</option>
+                  <option value="3">三级伤残</option>
+                  <option value="4">四级伤残</option>
+                  <option value="5">五级伤残</option>
+                  <option value="6">六级伤残</option>
+                  <option value="7">七级伤残</option>
+                  <option value="8">八级伤残</option>
+                  <option value="9">九级伤残</option>
+                  <option value="10">十级伤残</option>
+                  <option value="11">死亡</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>月平均工资</span></div>
+              <div class="value">
+                <input id="Subject7-2" class="input" type="text" value="0">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>受诉法庭地址</span></div>
+              <div class="value">
+                <select id="Subject7-3" class="select" placeholder="请选择">
+                  <option value="上海">上海</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>医疗费用</span></div>
+              <div class="value">
+                <input id="Subject7-4" class="input" type="text" value="0">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>辅助器材费</span></div>
+              <div class="value">
+                <input id="Subject7-5" class="input" type="text" value="0">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>停工留薪天数</span></div>
+              <div class="value">
+                <input id="Subject7-6" class="input" type="text" value="0">
+              </div>
+            </div>
+          </div>
+          <!-- 房产分割 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>房产分割:</p>
+            <div class="row">
+              <div class="label"><span>结婚时房产价格</span></div>
+              <div class="value">
+                <input id="Subject8-1" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>离婚时房产价格</span></div>
+              <div class="value">
+                <input id="Subject8-2" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>共同已还利息</span></div>
+              <div class="value">
+                <input id="Subject8-3" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>契税等其他费用</span></div>
+              <div class="value">
+                <input id="Subject8-4" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>共同还贷部分</span></div>
+              <div class="value">
+                <input id="Subject8-5" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <!-- 违约金 -->
+          <div class="yinchang">
+            <p class="title"><span class="shu"></span>违约金:</p>
+            <div class="row">
+              <div class="label"><span>标的(元)</span></div>
+              <div class="value">
+                <input id="Subject9-1" class="input" type="text" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>逾期时间</span></div>
+              <div class="value">
+                <input id="Subject9-2" class="input date" type="date" value="">
+                <span style="margin: 0 7px;">~</span>
+                <input id="Subject9-3" class="input date" type="date" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>利率方式</span></div>
+              <div class="value">
+                <select id="Subject9-4" class="select" placeholder="请选择">
+                  <option value="1">每逾期一天</option>
+                  <option value="30">每逾期一月</option>
+                  <option value="365">每逾期一年</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label"><span>利率</span></div>
+              <div class="value">
+                <input id="Subject9-5" class="input" type="text" value="">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 计算 -->
+        <div class="buttons">
+          <button id="start">开始计算</button>
+          <button id="reset">重置</button>
         </div>
         <div class="fenge"></div>
         <div>
@@ -362,6 +897,9 @@
             <p class="title"><span class="shu"></span>计算过程:</p>
             <div id="process" class="process">
             </div>
+          </div>
+          <div class="other yinchang">
+            <table id="table" class="table2 table-bordered"></table>
           </div>
         </div>
       </div>
@@ -473,6 +1011,7 @@
 <script src="/js/msgbox.js"></script>
 <script src="/assets/js/js.js"></script>
 <script src="../js/calculator.js"></script>
+<script src="../assets/jqueryljxz/js/qrm-pinming.js"></script>
 <script type='text/javascript'
   src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=9284ed30-cb74-11e8-b094-ffcbf0de5a60&autoShow=false&language=ZHCN'
   async='async'>

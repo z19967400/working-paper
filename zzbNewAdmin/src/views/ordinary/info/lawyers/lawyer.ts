@@ -190,14 +190,29 @@ export default class lawyer extends Vue {
           if (res.data.lawyer != null) {
             self.data.lawyer = Object.assign({}, res.data.lawyer)
             self.lawyerEdit = Object.assign({}, res.data.lawyer)
+            // self.data.lawyer.practice_license = this.serchStr(
+            //   res.data.lawyer.practice_license
+            // )
+            //   ? ''
+            //   : 'https://file.debteehelper.com' +
+            //     res.data.lawyer.practice_license
+            // self.data.lawyer.annual_inspection = this.serchStr(
+            //   res.data.lawyer.annual_inspection
+            // )
+            //   ? ''
+            //   : 'https://file.debteehelper.com' +
+            //     res.data.lawyer.annual_inspection
+
             this.data.srcList = [
-              `${this.serchStr(res.data.lawyer.practice_license)
-                ? ''
-                : 'https://file.debteehelper.com'
+              `${
+                this.serchStr(res.data.lawyer.practice_license)
+                  ? ''
+                  : 'https://file.debteehelper.com'
               }${res.data.lawyer.practice_license}`,
-              `${this.serchStr(res.data.lawyer.annual_inspection)
-                ? ''
-                : 'https://file.debteehelper.com'
+              `${
+                this.serchStr(res.data.lawyer.annual_inspection)
+                  ? ''
+                  : 'https://file.debteehelper.com'
               }${res.data.lawyer.annual_inspection}`
             ]
 

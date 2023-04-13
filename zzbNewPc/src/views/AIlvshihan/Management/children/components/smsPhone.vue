@@ -78,7 +78,7 @@
           <el-link
             @click="
               chakan2(
-                'https://api1.debteehelper.com/AILawyerLetter/LawyerLetterV2?debtor_number=' +
+                'https://api1.debteehelper.com/AILawyerLetter/LawyerLetter?debtor_number=' +
                   data.info.debtor_number,
                 data.name
               )

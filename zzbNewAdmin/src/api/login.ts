@@ -11,3 +11,12 @@ export const login = (userName: string, password: string) => {
 export const getCode = (phoneNumber: string) => {
   return Api.getCode({ phoneNumber }, 'GET')
 }
+
+export const GetMyMenu = () => {
+  return Api.GetMyMenu({}, 'GET')
+}
+
+//获取当前管理员角色
+export const GetMyAdminRole = () => {
+  return Api.GetMyAdminRole({}, 'GET')
+}

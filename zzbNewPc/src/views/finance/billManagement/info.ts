@@ -32,7 +32,7 @@ export default class About extends Vue {
       member_name: "xx", //用户名称
       bill_numebr: "xx", //账单编号
       create_time: "xx", //请款日期
-      last_payment_date: "", //最后付款日期
+      last_payment_date: "-", //最后付款日期
       bill_total_amount: "", //应付金额
       bill_total_amount_x: "", //总金额大写
       customer_service_name: "-", //客服姓名
@@ -203,7 +203,8 @@ export default class About extends Vue {
           type: "warning"
         })
           .then(() => {
-            this.data.ApplyForInvoiceShow = true;
+            // this.data.ApplyForInvoiceShow = true;
+            this.open();
           })
           .catch(() => {
             //
@@ -324,6 +325,10 @@ export default class About extends Vue {
     columns.forEach((column: any, index: number) => {
       if (index === 0) {
         sums[index] = "总计";
+        return;
+      }
+      if (index === 3) {
+        sums[index] = "";
         return;
       }
       if (
@@ -486,6 +491,10 @@ export default class About extends Vue {
   }
   //数字千位符保留小数点后两位
   thousandBitSeparator(num: any) {
-    return thousandBitSeparator(num);
+    if (num && num != "-") {
+      return thousandBitSeparator(num);
+    } else {
+      return "-";
+    }
   }
 }

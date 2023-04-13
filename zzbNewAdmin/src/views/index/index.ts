@@ -21,6 +21,7 @@ export default class About extends Vue {
   // data
   data: any = {
     pageName: 'index',
+    is_super: false,
     chart1: null,
     chart2: null,
     chart3: null,
@@ -54,8 +55,9 @@ export default class About extends Vue {
   // 初始化函数
   init() {
     this.getData()
-    this.getData2()
+    // this.getData2()
     this.getData3()
+    this.GetMyAdminRole()
   }
   //获取统计数据
   getData() {
@@ -66,6 +68,16 @@ export default class About extends Vue {
         0,
         this.data.update_time.lastIndexOf('.')
       )
+    })
+  }
+  //跳转待办
+  daiban() {
+    this.$router.push({ path: '/work' })
+  }
+  //获取当前管理员权限
+  GetMyAdminRole() {
+    Api.GetMyAdminRole().then((res: any) => {
+      this.data.is_super = res.data
     })
   }
   //获取待办工作

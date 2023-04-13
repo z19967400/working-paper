@@ -745,6 +745,7 @@
         :mId="data.billData.member_id"
         :list="data.pushObj"
         :selectList="data.billData.push_object"
+        :name="data.member_name"
         v-if="dialogName == '新增账单推送对象'"
       ></selectAdmin>
       <invoice
@@ -963,6 +964,7 @@ export default class About extends Vue {
       { name: '退款记录' },
       { name: '后台备注' }
     ],
+    member_name: '', //账单推送对象
     BasicInfo: [
       //账单概括
       [
@@ -1200,6 +1202,7 @@ export default class About extends Vue {
               item2.name = '律师姓名'
               item2.value = `${res.data.bill_details['lawyer_name']} (ID：${res.data.bill_details['lawyer_id']})`
             }
+            this.data.member_name = item2.value
           } else {
             item2.value = res.data.bill_details[item2.prop]
           }
@@ -1405,7 +1408,7 @@ export default class About extends Vue {
     let parmas: any = {
       id: row.id,
       bill_number: row.bill_number,
-      email: row.member_email
+      email: row.admin_email
     }
     this.$confirm('确定发送新账单吗？', '提示', {
       confirmButtonText: '确定',

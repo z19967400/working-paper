@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>上海嘉厚律师事务所</title>
+  <meta name="keywords"
+    content=" 催收 应收账款 应收账款催收 欠款 欠款催收 借款 借款催收 商账催收 债务催收 贷款 贷款催收 消费贷款催收 逾期催收 逾期贷款催收 信用卡催收 物业费催收 取暖费催收 催收律师函 催款律师函 催收函 催款函 要账 清账 讨账 清收 清欠 债务诉讼 代理执行 批量催收 物业费批量催收 怎样发催收律师函 律师函哪家最便宜 水费催收 电费催收 律师催收 催收律师 催收专家" />
+  <meta name="description"
+    content="上海嘉厚律师事务所是一家立足上海，覆盖全国的大型综合性律师事务所，分布在全国各地的律师团队不受地理位置的限制，通过协同、共享、创新向客户提供全方位、全领域、全地域的一站式现代法律服务" />
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="./views/index/index.css?v=20230306">
+  <link rel="stylesheet" href="./assets/swiper.min.css">
+  <link rel="icon" href='./img/907(1).ico' />
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="content">
+        <a class="title" href="./index.html">
+          <!-- 上海嘉厚律师事务所 -->
+          <img src="./img/lg1.png" alt="">
+          <!-- <img  src="./img/lg2.png" alt=""> -->
+        </a>
+        <div class="nav pc">
+          <a href="#"><b data-locale="nav-1"></b><span class="active"></span></a>
+          <a href="./views/Specialty/Specialty.html"><b data-locale="nav-2"></b><span></span></a>
+          <a href="./views/Solution/Solution.html"><b data-locale="nav-3"></b><span></span></a>
+          <a href="./views/JoinUs/JoinUs.html"><b data-locale="nav-4"></b><span></span></a>
+          <span data-locale="language" class="language">EN</span>
+        </div>
+        <span data-locale="language" class="language mb">EN</span>
+        <img @click="navOpenRight" class="nav-right mb" src="./img/daohang.png" alt="">
+      </div>
+    </div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide ">
+          <div class="banner bannerBg1">
+            <img src="./img/banner/1.jpg" alt="">
+            <div class="text">
+              <div class="text-top">
+                <img src="./img/banner-left.png" alt="">
+                <h1 data-locale="banner-1">通过互联互通推进法律服务</h1>
+                <img src="./img/banner-right.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide ">
+          <div class="banner bannerBg2">
+            <img src="./img/banner/2.jpg" alt="">
+            <div class="text">
+              <div class="text-top">
+                <img src="./img/banner-left.png" alt="">
+                <h1 data-locale="banner-2">更自由的律师、更满意的客户</h1>
+                <img src="./img/banner-right.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add Pagination -->
+      <!-- <div class="swiper-pagination"></div> -->
+      <!-- Add Arrows -->
+      <div class="swiper-button-prev swiper-button-white"></div>
+      <div class="swiper-button-next swiper-button-white"></div>
+    </div>
+
+
+    <div class="fenge">
+      <h2 data-locale="index-title-1">了解我们的与众不同之处</h2>
+    </div>
+
+    <div class="section section1 pc">
+      <div class="left ">
+        <div class="text">
+          <h2 data-locale="differences-h3-0">客户只为优质的法律服务支付律师费，不再为律所支付高档写字楼的房租</h2>
+          <p data-locale="differences-p-0" style="margin-top: 35px">
+
+            “我们在业务模式上识别和消除传统律师事务所的劣势，我们坚守处理法律事务的复杂性、广度深度经验方面的优势，同时利用技术和人才而不是规模化的办公场所和奢侈的装修为客户提供法律服务。”
+          </p>
+
+        </div>
+      </div>
+      <div class="right">
+        <div>
+          <div v-for="(item,index) in list" :index="index" class="p">
+            <h3 :data-locale="'differences-h3-'+(index+1)">{{item.title}}</h3>
+            <p :data-locale="'differences-p-'+(index+1)">{{item.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section section11 mb">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div v-for="(item,index) in list3" :index="index" class="swiper-slide">
+            <div class="p">
+              <h3 :data-locale="'differences-h3-'+index">{{item.title}}</h3>
+              <p :data-locale="'differences-p-'+index">{{item.text}}</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+        <div class="swiper-button-next swiper-button-white"></div>
+      </div>
+    </div>
+
+    <div class="section section12 ">
+      <div class="bg">
+        <div class="fenge">
+          <h2 data-locale="index-title-2">成功案例</h2>
+        </div>
+        <div class="content pc">
+          <div style="top: 45%;" class="maxwidthbox pc">
+            <ul class="left">
+              <li data-locale="success-1" class="option active">企业应收</li>
+              <li data-locale="success-2" class="option">贷款逾期</li>
+              <li data-locale="success-3" class="option">应收账款</li>
+              <li data-locale="success-4" class="option">交通事故</li>
+              <li data-locale="success-5" class="option">电商平台</li>
+              <!-- <li class="option">公益法催</li> -->
+            </ul>
+            <div class="right">
+              <div class="tab-item show animate__animated animate__fadeIn animate__delay-0.5s">
+                <!-- <h3>企业应收</h3>
+                <div class="xiao"></div> -->
+                <p data-locale="success-6">
+                  <b data-locale="success-6-1">用户：XX国际大型时装零售公司</b><br>
+                  <b data-locale="success-6-2">法催方案：AI律师函</b><br>
+                  <b data-locale="success-6-3">案件量：101件</b> <br>
+                  <b data-locale="success-6-4">平均账龄：＞12月</b> <br>
+                  <b data-locale="success-6-5">分布城市：27 个</b> <br>
+                  <b data-locale="success-6-6">回款周期：15天</b> <br>
+                  <b data-locale="success-6-7">回款金额：2,030万元</b> <br>
+                  <b data-locale="success-6-8">回款率：31% </b> <br>
+                  <b data-locale="success-6-9">回款成本：99元/件</b> <br>
+                </p>
+              </div>
+              <div style="z-index: 99;" class="tab-item animate__animated animate__fadeIn animate__delay-0.5s">
+                <!-- <h3>贷款逾期</h3>
+                <div class="xiao"></div> -->
+                <p>
+                  <b data-locale="success-7-1">用户：XX汽车金融公司</b><br>
+                  <b data-locale="success-7-2">案件类型：逾期车贷</b> <br>
+                  <b data-locale="success-7-3">法催方案：AI律师函+仲裁+财产保全+强制执行</b> <br>
+                  <b data-locale="success-7-4">服务费：固定部分（前期办案费）+ 风险部分（后期回款提成）</b> <br>
+                  <b data-locale="success-7-5">案件数量：200件+ </b> <br>
+                  <b data-locale="success-7-6">分布城市：50个+</b> <br>
+                  <b data-locale="success-7-7">债权总额：5,000余万元</b> <br>
+                  <b data-locale="success-7-8">平均账龄：＞6个月</b> <br>
+                  <b data-locale="success-7-9">优选律师接案天数（平均）： ＜3天</b> <br>
+                  <b data-locale="success-7-10">立案天数（平均）：＜30天</b> <br>
+                  <b data-locale="success-7-11">一年内案件回款率：＞45%</b> <br>
+                  <b data-locale="success-7-12"> 回款率：提高33%</b> <br>
+                  <b data-locale="success-7-13">回款周期：减少57天</b><br>
+                  <b data-locale="success-7-14">回款成本：降低42%</b><br>
+                </p>
+                <!-- <p style="width: 450px;">
+                  随着国家监管和审查的不断加强，运营庞大的人工催收部门不仅要承受巨大的财务压力，更要谨慎控制相应的法律与合规风险，委外社催合规风险大、投诉多、形象坏。小额、异地、批量诉讼立案难、成本高、效果差。</p> -->
+              </div>
+              <div class="tab-item animate__animated animate__fadeIn animate__delay-0.5s">
+                <!-- <h3>保险追偿</h3>
+                <div class="xiao"></div> -->
+                <p>
+                  <b data-locale="success-8-1">客户：某500强上市公司</b> <br>
+                  <b data-locale="success-8-2">应收账款：千万以上</b><br>
+                  <b data-locale="success-8-3">分布地点：全国40余家</b><br>
+                  <b data-locale="success-8-4">解决方案：调、诉、执行全流程服务</b><br>
+                  <b data-locale="success-8-5">服务成效：回款率高达55%</b><br>
+                </p>
+                <p style="width: 450px;">
+                  <!-- 大量的保险追偿案件成为保险公司整体运营中效率极低的部分。保险追偿的管理完善与否,直接关系到保险公司营运资金的周转速度和经济效益的优劣程度。</p> -->
+              </div>
+              <div class="tab-item animate__animated animate__fadeIn animate__delay-0.5s">
+                <!-- <h3>物业欠费</h3>
+                <div class="xiao"></div> -->
+                <p>
+                  <b data-locale="success-9-1">客户：某保险公司</b><br />
+                  <b data-locale="success-9-2">地点：分散在全国各地</b><br />
+                  <b data-locale="success-9-3">数量：年处理近20000个</b><br />
+                  <b data-locale="success-9-4">方案：全流程规模化交付</b><br />
+                  <b data-locale="success-9-5">结案率：81%</b><br />
+                  <b data-locale="success-9-6">减赔律：16.2%</b> <br />
+                  <b data-locale="success-9-7">减赔案件占比：78%</b><br />
+                  <b data-locale="success-9-8">减损金额：2000万元/年</b><br />
+                </p>
+                <p style="width: 450px;">
+                  <!-- 某小区物业管理人员：“物业欠费既不符合社会公德也会影响个人征信。每季度都有几十户业主迟迟不付物业费甚至有拖欠了两年多的..., 如果都这样,我们怎能保障小区里其他业主的权益？！”</p> -->
+              </div>
+              <div class="tab-item animate__animated animate__fadeIn animate__delay-0.5s">
+                <!-- <h3>民间借贷</h3>
+                <div class="xiao"></div> -->
+                <p>
+                  <b data-locale="success-10-1">客户：某电商平台</b><br />
+                  <b data-locale="success-10-2">数量：每年超一万件</b><br />
+                  <b data-locale="success-10-3">地点：分散在全国各地</b><br />
+                  <b data-locale="success-10-4">方案：诉调一体化</b><br />
+                  <b data-locale="success-10-5">调解率：35%</b><br />
+                  <b data-locale="success-10-6">胜诉律：99%</b><br />
+                  <b data-locale="success-10-7">成本降低：61%</b><br />
+                  <b data-locale="success-10-8">提升效能：52%</b><br />
+                </p>
+                <!-- <p>欠钱不还 不必难以启齿 律师出面有礼有节</p> -->
+              </div>
+              <!-- <div class="tab-item animate__animated animate__fadeIn animate__delay-0.5s"> -->
+              <!-- <h3>公益法催</h3>
+                <div class="xiao"></div> -->
+              <!-- <p>
+                  案件类型：农民工欠薪<br>
+                  用户：李x强<br>
+                  城市：东莞 <br>
+                  法催方案：AI律师函<br>
+                  欠款金额：4.3万<br>
+                  账龄：＞12月 <br>
+                  回款周期：＜30天 <br>
+                  回款金额：4.3万元<br>
+                </p>
+                <p>赡养费 抚养费 农民工欠薪...法律赋能 让弱势群体强势起来</p>
+              </div> -->
+              <a href="./views/Specialty/Specialty.html">
+                <div data-locale="more" class="btn">查看更多</div>
+              </a>
+            </div>
+
+            <div class="right-img">
+              <img class="tab-item show" src="../../img/u342.png" alt="">
+              <img class="tab-item" src="../../img/u342.png" alt="">
+              <img class="tab-item" src="../../img/u342.png" alt="">
+              <img class="tab-item" src="../../img/u342.png" alt="">
+              <img class="tab-item" src="../../img/u342.png" alt="">
+              <img class="tab-item" src="../../img/u342.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section12b mb">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <!-- <h3>企业应收</h3> -->
+            <img src="../../img/u342.png" alt="">
+            <p> <b data-locale="success-6-1">用户：XX国际大型时装零售公司</b><br>
+              <b data-locale="success-6-2">法催方案：AI律师函</b><br>
+              <b data-locale="success-6-3">案件量：101件</b> <br>
+              <b data-locale="success-6-4">平均账龄：＞12月</b> <br>
+              <b data-locale="success-6-5">分布城市：27 个</b> <br>
+              <b data-locale="success-6-6">回款周期：15天</b> <br>
+              <b data-locale="success-6-7">回款金额：2,030万元</b> <br>
+              <b data-locale="success-6-8">回款率：31% </b> <br>
+              <b data-locale="success-6-9">回款成本：99元/件</b> <br>
+            </p>
+          </div>
+          <div class="swiper-slide">
+            <!-- <h3>企业应收</h3> -->
+            <img src="../../img/u342.png" alt="">
+            <p><b data-locale="success-7-1">用户：XX汽车金融公司</b><br>
+              <b data-locale="success-7-2">案件类型：逾期车贷</b> <br>
+              <b data-locale="success-7-3">法催方案：AI律师函+仲裁+财产保全+强制执行</b> <br>
+              <b data-locale="success-7-4">服务费：固定部分（前期办案费）+ 风险部分（后期回款提成）</b> <br>
+              <b data-locale="success-7-5">案件数量：200件+ </b> <br>
+              <b data-locale="success-7-6">分布城市：50个+</b> <br>
+              <b data-locale="success-7-7">债权总额：5,000余万元</b> <br>
+              <b data-locale="success-7-8">平均账龄：＞6个月</b> <br>
+              <b data-locale="success-7-9">优选律师接案天数（平均）： ＜3天</b> <br>
+              <b data-locale="success-7-10">立案天数（平均）：＜30天</b> <br>
+              <b data-locale="success-7-11">一年内案件回款率：＞45%</b> <br>
+              <b data-locale="success-7-12"> 回款率：提高33%</b> <br>
+              <b data-locale="success-7-13">回款周期：减少57天</b><br>
+              <b data-locale="success-7-14">回款成本：降低42%</b><br>
+            </p>
+            <!-- <p> 随着国家监管和审查的不断加强，运营庞大的人工催收部门不仅要承受巨大的财务压力，更要谨慎控制相应的法律与合规风险，委外社催合规风险大、投诉多、形象坏。小额、异地、批量诉讼立案难、成本高、效果差。</p> -->
+          </div>
+          <div class="swiper-slide">
+            <!-- <h3>企业应收</h3> -->
+            <img src="../../img/u342.png" alt="">
+            <p>
+              <b data-locale="success-8-1">客户：某500强上市公司</b> <br>
+              <b data-locale="success-8-2">应收账款：千万以上</b><br>
+              <b data-locale="success-8-3">分布地点：全国40余家</b><br>
+              <b data-locale="success-8-4">解决方案：调、诉、执行全流程服务</b><br>
+              <b data-locale="success-8-5">服务成效：回款率高达55%</b><br>
+            </p>
+          </div>
+          <div class="swiper-slide">
+            <!-- <h3>企业应收</h3> -->
+            <img src="../../img/u342.png" alt="">
+            <p> <b data-locale="success-9-1">客户：某保险公司</b><br />
+              <b data-locale="success-9-2">地点：分散在全国各地</b><br />
+              <b data-locale="success-9-3">数量：年处理近20000个</b><br />
+              <b data-locale="success-9-4">方案：全流程规模化交付</b><br />
+              <b data-locale="success-9-5">结案率：81%</b><br />
+              <b data-locale="success-9-6">减赔律：16.2%</b> <br />
+              <b data-locale="success-9-7">减赔案件占比：78%</b><br />
+              <b data-locale="success-9-8">减损金额：2000万元/年</b><br />
+            </p>
+          </div>
+          <div class="swiper-slide">
+            <!-- <h3>企业应收</h3> -->
+            <img src="../../img/u342.png" alt="">
+            <p><b data-locale="success-10-1">客户：某电商平台</b><br />
+              <b data-locale="success-10-2">数量：每年超一万件</b><br />
+              <b data-locale="success-10-3">地点：分散在全国各地</b><br />
+              <b data-locale="success-10-4">方案：诉调一体化</b><br />
+              <b data-locale="success-10-5">调解率：35%</b><br />
+              <b data-locale="success-10-6">胜诉律：99%</b><br />
+              <b data-locale="success-10-7">成本降低：61%</b><br />
+              <b data-locale="success-10-8">提升效能：52%</b><br />
+            </p>
+          </div>
+        </div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+        <div class="swiper-button-next swiper-button-white"></div>
+      </div>
+    </div>
+
+    <div class="section section2">
+      <div class="bg">
+        <div class="fenge">
+          <h2 data-locale="index-title-3">服务成果</h2>
+        </div>
+        <div class="content">
+          <div v-for="(item,index) in list2" :index="index" class="fagtrue">
+            <img :src="item.url" alt="">
+            <h2>{{item.num}}</h2>
+            <p :data-locale="'service-'+(index+1)">{{item.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fenge">
+      <h2 data-locale="index-title-4">我们的客户</h2>
+    </div>
+
+    <div class="section section3">
+      <div class="content" :class="isMore?'showMore':''">
+        <div v-for="index of 36" class="fagtrue">
+          <img :src="'../../img/kehu/u'+index+'.png'" alt="">
+        </div>
+      </div>
+      <div class="more mb" :class="isMore?'hidden':''">
+        <p data-locale="more" v-on:click="more">查看更多</p>
+      </div>
+    </div>
+    <div :class="{mskOpen:isRight}" class="right-mask mb">
+      <img @click="navCloseRight" class="close" src="http://www.debteehelper.com/image/closed.png" alt="">
+      <div class="logo"> <img src="./img/logo2.png" alt=""></div>
+      <div class="content">
+        <a href="./index.html"><b data-locale="nav-1">首页</b></a>
+        <a href="./views/Specialty/Specialty.html"><b data-locale="nav-2">专业领域</b></a>
+        <a href="./views/Solution/Solution.html"><b data-locale="nav-3">解决方案</b></a>
+        <a href="./views/JoinUs/JoinUs.html"><b data-locale="nav-4">加入我们</b></a>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="content">
+        <img class="footer-logo" src="../../img/u338.png" alt="">
+        <div class="footer-text">
+          <p><img src="../../img/u171.svg" alt=""><b data-locale="footer-text">上海市徐汇区宜山路1009创新大楼18楼</b></p>
+          <p>
+            <span><img src="../../img/u177.svg" alt="">service@legallinks.net</span>
+            <span><img src="../../img/u173.svg" alt="">021-5426-4687</span>
+          </p>
+        </div>
+        <p><a style="color: #ccc;" href="https://beian.miit.gov.cn">沪ICP备19010278号-2</a>号 上海嘉厚律师事务所版权所有</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script src="./assets/vue@2.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+<script src="./assets/jquery.min.js"></script>
+<script src="./assets/jquery.i18n.properties.min.js"></script>
+<script src="./assets/swiper.jquery.min.js"></script>
+<script src="./assets/swiper.min.js"></script>
+<script src="./assets/js.js"></script>
+<script src="./assets/mui.min.js"></script>
+<script src="./views/index/index.js"></script>

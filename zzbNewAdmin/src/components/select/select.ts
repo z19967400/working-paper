@@ -217,6 +217,16 @@ const option: any = {
       value: 'Pay_Status_2'
     }
   ],
+  opt12: [
+    {
+      label: 'H5',
+      value: '1'
+    },
+    {
+      label: 'PC',
+      value: '0'
+    }
+  ]
 }
 
 export default option

@@ -69,8 +69,7 @@ export default class About extends Vue {
   //编辑
   handleEdit(data: any) {
     this.$router.push({
-      path: '/settings/rouleEdit',
-      query: { id: data.row.id }
+      path: `/settings/rouleEdit/${data.row.id}`
     })
   }
   //删除

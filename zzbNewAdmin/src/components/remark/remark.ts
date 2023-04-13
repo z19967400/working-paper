@@ -17,9 +17,9 @@ export default class remark extends Vue {
     list: [],
     editData: {
       remarkText: '',
-      fileList2: [],//上传的图片集合
-      fileList3: [],//上传的列表集合
-      newFileList: [], //编辑时新增的图片参数
+      fileList2: [], //上传的图片集合
+      fileList3: [], //上传的列表集合
+      newFileList: [] //编辑时新增的图片参数
     }
   }
   created() {
@@ -36,8 +36,21 @@ export default class remark extends Vue {
     Api.GetRemarksByTypeAndNumber(params).then((res: any) => {
       if (res.state) {
         res.data.remarks.forEach((item: any) => {
-          let fileList: any = res.data.remarks_file.filter((item2: any) => { item2['url'] = item2.file_path; return item2.remarks_id == item.id && this.judgeImg(this.substr2(item2.file_path)) })
-          let file_list2: any = res.data.remarks_file.filter((item2: any) => { item2['url'] = item2.file_path; item2['name'] = this.substr(item2.file_path); return item2.remarks_id == item.id && !this.judgeImg(this.substr2(item2.file_path)) })
+          let fileList: any = res.data.remarks_file.filter((item2: any) => {
+            item2['url'] = item2.file_path
+            return (
+              item2.remarks_id == item.id &&
+              this.judgeImg(this.substr2(item2.file_path))
+            )
+          })
+          let file_list2: any = res.data.remarks_file.filter((item2: any) => {
+            item2['url'] = item2.file_path
+            item2['name'] = this.substr(item2.file_path)
+            return (
+              item2.remarks_id == item.id &&
+              !this.judgeImg(this.substr2(item2.file_path))
+            )
+          })
           item['fileList'] = fileList
           item['file_list2'] = file_list2
           item['type'] = false
@@ -57,17 +70,16 @@ export default class remark extends Vue {
   //截取/之后字符串
   substr(str: string) {
     if (str) {
-      var index = str.lastIndexOf("/")
+      var index = str.lastIndexOf('/')
       return str.substring(index + 1, str.length)
     } else {
       return false
     }
-
   }
   //截取.之后字符串
   substr2(str: string) {
     if (str) {
-      var index = str.lastIndexOf(".")
+      var index = str.lastIndexOf('.')
       return str.substring(index + 1, str.length)
     } else {
       return ''
@@ -80,40 +92,50 @@ export default class remark extends Vue {
   }
   //图片文件删除
   handleRemove(file: any) {
-    this.$confirm('您确定删除该图片吗?', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      if (file.id) {
-        Api.DeleteRemarksFileByID(file.id).then((res: any) => {
-          if (res.state) {
-            this.$message.success(res.msg)
-            this.data.editData.fileList2 = this.data.editData.fileList2.filter((item: any) => { return item.id != file.id })
-          } else {
-            this.$message.warning(res.msg)
-            return false
-          }
+    if (file.id) {
+      this.$confirm('您确定删除该图片吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          Api.DeleteRemarksFileByID(file.id).then((res: any) => {
+            if (res.state) {
+              this.$message.success(res.msg)
+              this.data.editData.fileList2 = this.data.editData.fileList2.filter(
+                (item: any) => {
+                  return item.id != file.id
+                }
+              )
+            } else {
+              this.$message.warning(res.msg)
+              return false
+            }
+          })
         })
-      } else {
-        this.data.editData.fileList2 = this.data.editData.fileList2.filter((item: any) => { return item.uid != file.uid })
-      }
-    }).catch(() => {
-      this.$message({
-        type: 'info',
-        message: '已取消删除'
-      });
-    });
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+    } else {
+      this.data.editData.fileList2 = this.data.editData.fileList2.filter(
+        (item: any) => {
+          return item.uid != file.uid
+        }
+      )
+    }
   }
   //图片查看
   handlePictureCardPreview(file: any) {
-    this.dialogImageUrl = file.url;
-    this.dialogVisible = true;
+    this.dialogImageUrl = file.url
+    this.dialogVisible = true
   }
   // 图片查看2
   handlePictureCardPreview2(url: string) {
-    this.dialogImageUrl = url;
-    this.dialogVisible = true;
+    this.dialogImageUrl = url
+    this.dialogVisible = true
   }
   //文件查看
   openFile(url: string) {
@@ -121,7 +143,7 @@ export default class remark extends Vue {
   }
   handleDownload(file: any) {
     // eslint-disable-next-line no-console
-    console.log(file);
+    console.log(file)
   }
   //图片文件上传
   updataFuc(file: any, type?: string) {
@@ -147,7 +169,11 @@ export default class remark extends Vue {
         }
       })
     } else {
-      this.data.editData.fileList3 = this.data.editData.fileList3.filter((item: any) => { return item.uid != file.uid })
+      this.data.editData.fileList3 = this.data.editData.fileList3.filter(
+        (item: any) => {
+          return item.uid != file.uid
+        }
+      )
     }
   }
   //文件列表查看
@@ -155,10 +181,14 @@ export default class remark extends Vue {
     window.open(file.url)
   }
   handleExceed(files: any, fileList: any) {
-    this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    this.$message.warning(
+      `当前限制选择 10 个文件，本次选择了 ${
+        files.length
+      } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+    )
   }
   beforeRemove(file: any, fileList: any) {
-    return this.$confirm(`确定移除 ${file.name}？`);
+    return this.$confirm(`确定移除 ${file.name}？`)
   }
   //列表文件上传
   updataFuc2(file: any, type?: string) {
@@ -219,16 +249,16 @@ export default class remark extends Vue {
       this.data.list[index].type = false
       this.data.editData = {
         remarkText: '',
-        fileList2: [],//上传的图片集合
-        fileList3: [],//上传的列表集合
+        fileList2: [], //上传的图片集合
+        fileList3: [], //上传的列表集合
         newFileList: []
       }
       this.getData()
     } else {
       this.data.editData = {
         remarkText: row.remarks_content,
-        fileList2: row.fileList,//上传的图片集合
-        fileList3: row.file_list2,//上传的列表集合
+        fileList2: row.fileList, //上传的图片集合
+        fileList3: row.file_list2, //上传的列表集合
         newFileList: []
       }
       this.data.list.forEach((item: any) => {
@@ -240,29 +270,41 @@ export default class remark extends Vue {
   //编辑提交
   editSubmit(id: string) {
     if (this.data.editData.newFileList.length == 0) {
-      this.getData()
-      return false
-    }
-    this.UpdateRemarksContent(id).then((res: any) => {
-      let parmas: any = {
-        id: id,
-        file_path: this.data.editData.newFileList
-      }
-      Api.AddRemarksFile(parmas).then((res2: any) => {
-        if (res2.state) {
-          this.$message.success(res2.msg)
+      this.UpdateRemarksContent(id).then((res: any) => {
+        if (res.state) {
+          this.$message.success(res.msg)
           this.getData()
         } else {
-          this.$message.warning(res2.msg)
+          this.$message.warning(res.msg)
         }
       })
-    }, (error: any) => {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    }).catch((error: any) => {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    })
+    } else {
+      this.UpdateRemarksContent(id)
+        .then(
+          (res: any) => {
+            let parmas: any = {
+              id: id,
+              file_path: this.data.editData.newFileList
+            }
+            Api.AddRemarksFile(parmas).then((res2: any) => {
+              if (res2.state) {
+                this.$message.success(res2.msg)
+                this.getData()
+              } else {
+                this.$message.warning(res2.msg)
+              }
+            })
+          },
+          (error: any) => {
+            // eslint-disable-next-line no-console
+            console.log(error)
+          }
+        )
+        .catch((error: any) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+        })
+    }
   }
   //修改备注文字
   UpdateRemarksContent(id: string) {
@@ -287,20 +329,21 @@ export default class remark extends Vue {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning'
-    }).then(() => {
-      Api.DeleteRemarksByID(id).then((res: any) => {
-        if (res.state) {
-          this.getData()
-        } else {
-          this.$message.warning(res.msg)
-        }
+    })
+      .then(() => {
+        Api.DeleteRemarksByID(id).then((res: any) => {
+          if (res.state) {
+            this.getData()
+          } else {
+            this.$message.warning(res.msg)
+          }
+        })
       })
-    }).catch(() => {
-      this.$message({
-        type: 'info',
-        message: '已取消删除'
-      });
-    });
-
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
   }
 }

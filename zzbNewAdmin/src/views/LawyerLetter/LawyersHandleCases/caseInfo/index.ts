@@ -480,7 +480,13 @@ export default class About extends Vue {
           res.data.case_daetails.close_case_remarks
         self.data.caseoverview.information.forEach((item: any) => {
           item.forEach((item2: any) => {
-            item2.value = res.data.case_daetails[item2.prop]
+            if (item2.prop == 'entrust_time') {
+              let isPc: string = this.data.m_type == 'VIP' ? 'PC' : '移动端'
+              item2.value =
+                res.data.case_daetails[item2.prop] + ' (' + isPc + ')'
+            } else {
+              item2.value = res.data.case_daetails[item2.prop]
+            }
           })
         })
       }
@@ -537,8 +543,8 @@ export default class About extends Vue {
           item.is_allocated == 0
             ? '待分配'
             : item.is_allocated == 1
-              ? '已分配'
-              : '未分配'
+            ? '已分配'
+            : '未分配'
       })
       this.data.distributionLawyer.tabData = res.list
     })
@@ -599,7 +605,6 @@ export default class About extends Vue {
           } else {
             item.score = res.data.case_collectionrate[item.prop]
           }
-
         })
         upData.case_collectionrate.forEach((item: any) => {
           if (item.prop2) {
@@ -740,16 +745,16 @@ export default class About extends Vue {
             item.contract_type == 0
               ? '法律服务合同'
               : item.contract_type == 1
-                ? '委托律师代理合同'
-                : '律师解约合同'
+              ? '委托律师代理合同'
+              : '律师解约合同'
           item.contract_sign_method =
             item.contract_sign_method == 0 ? '线上签署' : '线下签署'
           item.sign_status =
             item.sign_status == 0
               ? '待签署'
               : item.sign_status == -1
-                ? '合同准备中'
-                : '已签署'
+              ? '合同准备中'
+              : '已签署'
         })
       })
     } else {
@@ -764,16 +769,16 @@ export default class About extends Vue {
             item.contract_type == 0
               ? '法律服务合同'
               : item.contract_type == 1
-                ? '委托律师代理合同'
-                : '律师解约合同'
+              ? '委托律师代理合同'
+              : '律师解约合同'
           item.contract_sign_method =
             item.contract_sign_method == 0 ? '线上签署' : '线下签署'
           item.sign_status =
             item.sign_status == 0
               ? '待签署'
               : item.sign_status == -1
-                ? '合同准备中'
-                : '已签署'
+              ? '合同准备中'
+              : '已签署'
         })
       })
     }

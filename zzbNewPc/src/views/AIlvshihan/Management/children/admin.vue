@@ -1,5 +1,5 @@
 <template>
-  <div class="entrustAdmin-wrap">
+  <div v-loading="allloading" class="entrustAdmin-wrap">
     <div class="entrustAdmin-box">
       <div :style="{ height: data.labers.length * 40 + 'px' }" class="left">
         <div class="text">
@@ -60,7 +60,10 @@
                       : data.shenhe.audit_status == "Audit_states_1"
                       ? "未通过"
                       : "待审核"
-                  }}</span
+                  }}
+                  <span v-show="data.shenhe.audit_status == 'Audit_states_1'"
+                    >（可编辑债务信息后点击再次审核）</span
+                  ></span
                 >
               </p>
               <p v-show="data.shenhe.desc != null">
@@ -108,6 +111,8 @@
             <table1
               :tableOption="data.obligorOption"
               :tableData="data.obligorList"
+              :btn="data.shenhe.audit_status == 'Audit_states_1'"
+              @edit="debtorEdit"
             ></table1>
           </div>
         </div>
@@ -119,11 +124,13 @@
               class="right-table"
               :tableOption="data.debtDetailsOption"
               :tableData="data.debtDetailsList"
+              :btn="data.shenhe.audit_status == 'Audit_states_1'"
+              @edit="debtDetailsEdit"
             ></table1>
           </div>
         </div>
         <div ref="section5" class="section">
-          <span :class="{ act: data.actIndex == 5 }">收款信息</span>
+          <span :class="{ act: data.actIndex == 5 }">收款信息 </span>
           <el-divider></el-divider>
           <div class="box">
             <div style="width:100%;">
@@ -157,6 +164,23 @@
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column prop="payment_remarks" label="付款备注">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  fixed="right"
+                  label="操作"
+                  width="100"
+                  v-if="data.shenhe.audit_status == 'Audit_states_1'"
+                >
+                  <template slot-scope="scope">
+                    <el-button
+                      style="color:#67C23A;"
+                      @click="updataCollection(scope.row)"
+                      type="text"
+                      size="small"
+                      >编辑</el-button
+                    >
+                  </template>
                 </el-table-column>
               </el-table>
             </div>
@@ -271,6 +295,14 @@
         type="primary"
         >发起律师办案
       </el-button>
+      <el-button
+        size="small"
+        plain
+        v-show="data.shenhe.audit_status == 'Audit_states_1'"
+        @click="again"
+        type="primary"
+        >再次审核
+      </el-button>
     </div>
     <div class="zhezhao" @click="reportShow = false" v-show="reportShow"></div>
     <el-popover
@@ -326,6 +358,129 @@
         >
       </span>
     </el-dialog>
+    <el-dialog
+      title="债务人编辑"
+      custom-class="editBox"
+      :visible.sync="dialogVisible2"
+      width="680px"
+    >
+      <debtorEditor
+        :info="debtorEditData"
+        @edit="editSubmit"
+        @close="editClose"
+      ></debtorEditor>
+    </el-dialog>
+    <el-dialog
+      title="更新收款信息"
+      custom-class="editBox"
+      :visible.sync="dialogVisible3"
+    >
+      <!-- <shoukuan-form ref="reference" @listenaddid="addcollid"></shoukuan-form> -->
+      <el-form
+        class="form-zz"
+        label-position="right"
+        label-width="140px"
+        :model="collectList"
+        ref="addRuleRef"
+      >
+        <p style="color:#303033;">对公转账</p>
+        <el-form-item label="收款户名" prop="测试新增收款信息">
+          <el-col :span="22">
+            <el-input v-model="collectList.payee_account_name"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="收款账号">
+          <el-col :span="22">
+            <el-input
+              v-model="collectList.collection_account_number"
+            ></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="收款银行全称" prop="bank_full_name">
+          <el-col :span="22">
+            <el-input
+              placeholder="详细到支行"
+              v-model="collectList.bank_full_name"
+            ></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="银行行号">
+          <el-col :span="22">
+            <el-input v-model="collectList.bank_code"></el-input>
+          </el-col>
+        </el-form-item>
+        <p style="color:#303033;">支付宝转账</p>
+        <el-form-item label="收款账户">
+          <el-col :span="10">
+            <el-input
+              placeholder="支付宝账户"
+              v-model="collectList.alipay_account"
+            ></el-input>
+          </el-col>
+          <el-col :span="1">
+            <span class="xian-box">
+              <span class="xian"></span>
+            </span>
+          </el-col>
+          <el-col :span="11">
+            <el-input
+              placeholder="手机号码"
+              v-model="collectList.alipay_phone_number"
+            ></el-input>
+          </el-col>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="getAddCollection">确 定</el-button>
+        <el-button @click="dialogVisible3 = false">取 消</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="债务明细编辑"
+      custom-class="editBox"
+      :visible.sync="dialogVisible4"
+      width="680px"
+    >
+      <el-form
+        ref="form"
+        style="width:100%"
+        :inline="true"
+        :model="zhaiwuData"
+        class="demo-form-inline"
+        label-width="125px"
+      >
+        <el-row>
+          <el-col
+            v-for="(item, index) in data.debtDetailsOption"
+            :key="index"
+            :span="item.label == '备注' ? 24 : 12"
+          >
+            <el-form-item style=" display: flex;" :label="item.label">
+              <el-col>
+                <el-input
+                  v-if="item.label != '备注'"
+                  size="small"
+                  v-model="zhaiwuData[item.prop]"
+                ></el-input>
+                <el-input
+                  v-else
+                  size="small"
+                  style="width:320px;"
+                  :rows="6"
+                  type="textarea"
+                  v-model="zhaiwuData[item.prop]"
+                ></el-input>
+              </el-col>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submit2">确 定</el-button>
+        <el-button @click="dialogVisible4 = false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -338,11 +493,13 @@ import * as Api2 from "../../../../api/layout";
 import table1 from "./components/table1.vue";
 import table2 from "./components/table2.vue";
 import smsPhone from "./components/smsPhone.vue";
+import debtorEditor from "./components/debtorEditor.vue";
 @Component({
   components: {
     table1,
     table2,
-    smsPhone
+    smsPhone,
+    debtorEditor
   }
 })
 export default class About extends Vue {
@@ -351,6 +508,7 @@ export default class About extends Vue {
     actIndex: 0,
     infoTitle: "",
     operation_authority: false,
+    batch_no: "",
     labers: [
       { name: "委托概况" },
       // { name: '支付信息' },
@@ -432,7 +590,19 @@ export default class About extends Vue {
     obligorType: "", //债务人类别
     creditor_id: "" //债权人ID
   };
+  collectList: any = {
+    id: 0,
+    payee_account_name: "",
+    collection_account_number: "",
+    bank_full_name: "",
+    bank_code: "",
+    alipay_account: "",
+    alipay_phone_number: ""
+  };
   dialogVisible: boolean = false;
+  dialogVisible2: boolean = false; //债务人编辑控制显影
+  dialogVisible3: boolean = false;
+  dialogVisible4: boolean = false;
   height: number = 0;
   sectionDom: any = {};
   infoData: any = {
@@ -463,8 +633,18 @@ export default class About extends Vue {
   reportStatus: string = "";
   executing_status: string = "";
   loading: boolean = false;
+  allloading: boolean = false;
   reportID: any = "";
   timer: any = "";
+  debtorEditData: any = {
+    list: [],
+    data: {}
+  };
+  zhaiwuData: any = {
+    prop1: "",
+    prop2: ""
+  };
+  detailedId: any = "";
   created() {
     //
   }
@@ -513,6 +693,7 @@ export default class About extends Vue {
   getInfo(id: any) {
     this.data.creditorList = [];
     this.data.obligorList = [];
+    this.data.collection_account = [];
     Api.getAdmin(id)
       .then((res: any) => {
         this.data.operation_authority = res.data.operation_authority;
@@ -521,6 +702,7 @@ export default class About extends Vue {
         this.execution_progress = res.data.overview.execution_progress;
         this.executing_status = res.data.overview.executing_status;
         this.data.creditor_id = res.data.overview.creditor_id;
+        this.data.batch_no = res.data.debtor.batch_no;
         if (res.data.collection_account) {
           this.data.collection_account.push(res.data.collection_account);
         }
@@ -569,6 +751,7 @@ export default class About extends Vue {
         }
         // 债务人
         this.setObligorOption(res);
+
         // 支付信息
         // this.data.payment[0][0].value = res.Order.order_amount
         // this.data.payment[1][0].value = res.Order.pay_number
@@ -597,7 +780,9 @@ export default class About extends Vue {
                 item2.value =
                   res.data.overview[item2.prop] == "Debt_type_0"
                     ? "民间借贷"
-                    : res.data.overview[item2.prop] == "Debt_type_4"
+                    : res.data.overview[item2.prop] == "Debt_type_4" ||
+                      res.data.overview[item2.prop] == "Debt_type_13" ||
+                      res.data.overview[item2.prop] == "Debt_type_14"
                     ? "企业应收账款"
                     : res.data.overview[item2.prop] == "Debt_type_5"
                     ? "逾期贷款"
@@ -662,7 +847,9 @@ export default class About extends Vue {
             let debtDetailsList: any = [];
             body.forEach((item: any, index: number) => {
               let list: any = item.debt_content.split("╫");
-              let obj: any = {};
+              let obj: any = {
+                id: item.id
+              };
               // obj["batch_no"] = item.batch_no;
               list.forEach((item2: any, index2: number) => {
                 // if (index2 === 3) {
@@ -1061,6 +1248,110 @@ export default class About extends Vue {
       }
     });
   }
+  //债务人编辑
+  debtorEdit(row: any) {
+    // let data: object = {
+    //   data: {
+    //     debtor: row
+    //   }
+    // };
+    this.debtorEditData.list = this.data.obligorOption;
+    this.debtorEditData.data = row;
+    this.dialogVisible2 = true;
+  }
+  //债务人编辑提交
+  editSubmit(data: any) {
+    Api.UpdateDebtorInfo(data.data).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg);
+        this.dialogVisible2 = false;
+        this.init();
+      } else {
+        this.$message.warning(res.msg);
+      }
+    });
+  }
+  //编辑弹窗关闭
+  editClose() {
+    this.dialogVisible2 = false;
+  }
+  //打开更新收款弹窗
+  updataCollection() {
+    if (this.data.collection_account.length != 0) {
+      this.collectList = this.data.collection_account[0];
+    }
+    this.dialogVisible3 = true;
+  }
+  //确定更新收款信息
+  getAddCollection() {
+    let parmas: any = {
+      id: this.collectList.id,
+      payee_account_name: this.collectList.payee_account_name,
+      collection_account_number: this.collectList.collection_account_number,
+      bank_full_name: this.collectList.bank_full_name,
+      bank_code: this.collectList.bank_code,
+      alipay_account: this.collectList.alipay_account,
+      alipay_phone_number: this.collectList.alipay_phone_number,
+      payment_remarks: this.collectList.payment_remarks
+    };
+    Api.UpdateCollectionAccount(parmas).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg);
+        this.dialogVisible3 = false;
+        this.init();
+      } else {
+        this.$message.warning(res.msg);
+      }
+    });
+  }
+  //打开债务明细编辑
+  debtDetailsEdit(row: any) {
+    this.detailedId = row.id;
+    let data: any = {};
+    this.data.debtDetailsOption.forEach((item: any) => {
+      data[item.prop] = row[item.prop];
+    });
+    this.zhaiwuData = data;
+    this.dialogVisible4 = true;
+  }
+  //债务明细编辑确认
+  submit2() {
+    let data: any = this.zhaiwuData;
+    let val: string = "";
+    Object.keys(data).forEach((key: string) => {
+      val += data[key] + "╫";
+    });
+    let parmas: any = {
+      id: this.detailedId,
+      debt_content: val
+    };
+    Api.UpdateDebtordetails(parmas).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg);
+        this.dialogVisible4 = false;
+        this.init();
+      } else {
+        this.$message.warning(res.msg);
+      }
+    });
+  }
+  //再次审核
+  again() {
+    let parmas: any = {
+      batch_no: this.data.batch_no,
+      debtor_number: this.data.BasicInfo[0][0].value
+    };
+    this.allloading = true;
+    Api.SendAuditNotice(parmas).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg);
+        this.init();
+      } else {
+        this.$message.warning(res.msg);
+      }
+      this.allloading = false;
+    });
+  }
 }
 </script>
 
@@ -1194,6 +1485,32 @@ export default class About extends Vue {
     & .el-dialog__footer {
       text-align: center;
     }
+  }
+  & .editBox {
+    border-radius: 10px;
+    width: 680px;
+    & .el-dialog__footer {
+      text-align: center;
+    }
+    & .xian-box {
+      display: inline-block;
+      width: 100%;
+      height: 40px;
+      position: relative;
+      & .xian {
+        width: 1px;
+        height: 20px;
+        background: #909399;
+        transform: rotate(15deg);
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 10px;
+      }
+    }
+    // & .el-form-item__content {
+    //   width: 60%;
+    // }
   }
 }
 </style>

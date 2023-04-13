@@ -2,7 +2,6 @@ import { Component, Vue } from "vue-property-decorator";
 import { Getter, Action, State } from "vuex-class";
 import { IndexData } from "@/types/views/index.interface";
 import * as Api from "@/api/index";
-import { setCookie, getCookie } from "@/utils/common";
 // import {  } from "@/components" // 组件
 
 // 引入 ECharts 主模块
@@ -32,40 +31,7 @@ export default class About extends Vue {
     aI_lawyer_end_tatol: "", //律师函完成数量
     case_total: "", //律师办案全部数量
     case_end_total: "", //律师办案
-    notice: [
-      // {
-      //   send_name: "债主帮",
-      //   send_time: "2022-03-28 13:12",
-      //   status: "已读",
-      //   title: "债主帮春节假期通知",
-      //   text: `<p>尊敬的用户，您好。</p>
-      //     <p>由于受疫情影响，债主帮所在地区的EMS暂停了寄件服务，故自2022年3月28日起，EMS律师函暂停寄送，其他委托项目照常执行。</p>
-      //     <p>待EMS恢复寄件后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，谢谢。</p>`
-      // },
-      {
-        send_name: "债主帮",
-        send_time: "2022-01-25 13:12",
-        status: "已读",
-        title: "债主帮春节假期通知",
-        text:
-          "尊敬的用户：由于春节假期，债主帮于2022年1月30日至2月6日期间暂停接受法催服务委托，请您提前安排委托服务，避免造成延误及损失。如需帮助请致电4006 321 918，提前祝您节日快乐。"
-      },
-      {
-        send_name: "债主帮",
-        send_time: "2021-09-24 17:12",
-        status: "已读",
-        title: "债主帮国庆假期通知",
-        text:
-          "尊敬的用户：由于国庆假期，EMS在2021年10月1日至7日期间停止收件，请您提前安排AI律师函的委托下单。如需帮助请致电4006 321 918，提前祝您节日快乐。"
-      },
-      {
-        send_name: "债主帮",
-        send_time: "2021-02-22 17:12",
-        status: "已读",
-        title: "债主帮新版上线通知",
-        text: ""
-      }
-    ], //通知
+    notice: [], //通知
     noticeInfo: {}
   };
   pageList: any = [
@@ -132,6 +98,7 @@ export default class About extends Vue {
     //   this.handleClick(this.adminData.notice[0]);
     // }
     this.init();
+    this.GetPlatformNotice();
   }
 
   // 初始化函数
@@ -184,13 +151,68 @@ export default class About extends Vue {
     this.dialogVisible = true;
   }
   //关闭通知
-  handClose() {
+  handClose(index: number) {
+    let storage: any = window.localStorage;
     this.dialogVisible = false;
     this.adminData.noticeInfo = {};
-    setCookie("isNotice", "true");
+    // setCookie("isNotice", "true");
+    if (storage.getItem("isNotice")) {
+      if (storage.getItem("isNotice").indexOf(index) == -1) {
+        // eslint-disable-next-line no-console
+        console.log(storage.getItem("isNotice"));
+        let val: any = storage.getItem("isNotice") + "," + index;
+
+        storage.setItem("isNotice", val);
+        this.adminData.notice[index].status = "已读";
+      } else {
+        this.adminData.notice[index].status = "已读";
+      }
+    } else {
+      storage.setItem("isNotice", index);
+      this.adminData.notice[index].status = "已读";
+    }
   }
   //跳转页面
   toWeb(url: string) {
     window.open(url);
+  }
+  //获取通知
+  GetPlatformNotice() {
+    let storage: any = window.localStorage;
+    let isNotice: any = storage.getItem("isNotice");
+    Api.GetPlatformNotice().then((res: any) => {
+      res.data.forEach((item: any, index: number) => {
+        item["send_name"] = "债主帮";
+        if (isNotice) {
+          item["status"] = isNotice.indexOf(index) == -1 ? "未读" : "已读";
+        } else {
+          item["status"] = "未读";
+        }
+        item["index"] = index;
+        item.start_time = item.start_time.replace("T", " ");
+        item.start_time = item.start_time.substring(
+          0,
+          item.start_time.lastIndexOf(":")
+        );
+        item.end_time = item.end_time.replace("T", " ");
+        item.end_time = item.end_time.substring(
+          0,
+          item.end_time.lastIndexOf(":")
+        );
+      });
+      this.adminData.notice = res.data;
+
+      let d1: any = new Date();
+      let d2: any = new Date(
+        this.adminData.notice[0].end_time.replace(/-/g, "/")
+      );
+
+      if (
+        this.adminData.notice[0].status === "未读" &&
+        d2.valueOf() > d1.valueOf()
+      ) {
+        this.handleClick(this.adminData.notice[0]);
+      }
+    });
   }
 }

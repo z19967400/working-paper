@@ -78,6 +78,23 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column
+          v-if="btn"
+          align="center"
+          fixed="right"
+          label="操作"
+          width="100"
+        >
+          <template slot-scope="scope">
+            <el-button
+              style="color:#67C23A;"
+              @click="handleClick(scope.row)"
+              type="text"
+              size="small"
+              >编辑</el-button
+            >
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -92,6 +109,7 @@ export default class About extends Vue {
   // prop
   @Prop() tableData!: any;
   @Prop() tableOption!: any;
+  @Prop() btn?: boolean;
   //Watch
   @Watch("tableData", { deep: true, immediate: true })
   tableDataChange(newVal: any, oldVal: any) {
@@ -153,6 +171,10 @@ export default class About extends Vue {
     if (str) {
       return str.replace("\n", `<br/>`);
     }
+  }
+  //编辑
+  handleClick(row: any) {
+    this.$emit("edit", row);
   }
 }
 </script>

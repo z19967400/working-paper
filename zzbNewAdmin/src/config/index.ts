@@ -2,7 +2,8 @@
  * 线上环境
  */
 export const ONLINEHOST: string = 'http://api1.debteehelper.com/api'
-
+export const QIANTAIHOST: string = 'https://api2.debteehelper.com'
+export const PAYHOST: string = 'https://pay.debteehelper.com' //支付端口
 /**
  * 测试环境
  */

@@ -10,6 +10,14 @@
       <comOperation :totalize="data.totalize" @add="add"></comOperation>
       <el-button
         size="small"
+        @click="GetAILawyerLetter"
+        class="faqi"
+        type="primary"
+        plain
+        >创建律师函</el-button
+      >
+      <el-button
+        size="small"
         @click="GetAILawyerLetterExportData"
         class="daochu"
         type="primary"

@@ -37,6 +37,7 @@
       // overflow-y: auto;
       .section {
         margin-bottom: 20px;
+        position: relative;
         & .el-row {
           min-height: 32px;
           line-height: 32px;
@@ -55,6 +56,11 @@
         }
         & .el-textarea {
           width: 80%;
+        }
+        & > .el-button{
+          position: absolute;
+          right: 0;
+          top: -10px;
         }
         .box {
           display: flex;

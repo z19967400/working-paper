@@ -69,11 +69,13 @@ export default class About extends Vue {
       },
       {
         label: '债权人名称',
-        prop: 'creditor_name'
+        prop: 'creditor_name',
+        width: '220px'
       },
       {
         label: '债务人名称',
-        prop: 'debtor_name'
+        prop: 'debtor_name',
+        width: '220px'
       },
       {
         label: '收件人名称',
@@ -87,7 +89,8 @@ export default class About extends Vue {
       },
       {
         label: '收件人地址',
-        prop: 'receiving_address'
+        prop: 'receiving_address',
+        width: '330px'
       },
       {
         label: '委托执行进度',

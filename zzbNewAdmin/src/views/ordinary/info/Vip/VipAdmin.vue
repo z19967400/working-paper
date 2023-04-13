@@ -222,6 +222,15 @@
           <span style="margin-top:0;">
             <span class="title">账号管理员</span>
           </span>
+          <el-button
+            type="primary"
+            style="float: right"
+            size="small"
+            icon="el-icon-circle-plus-outline"
+            @click="VipAdminEdit('add')"
+            plain
+            >新增管理员</el-button
+          >
           <el-divider></el-divider>
           <el-table
             :data="data.admin_list"
@@ -248,6 +257,15 @@
             </el-table-column>
             <el-table-column prop="is_super" label="权限" width="100">
             </el-table-column>
+            <el-table-column prop="delete_state" label="状态" width="150">
+              <template slot-scope="scope">
+                <span>{{
+                  scope.row.delete_state == -1
+                    ? `已删除(${scope.row.delete_time})`
+                    : '正常'
+                }}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="create_time" label="创建时间" width="150">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
@@ -270,6 +288,7 @@
                   @click="deleteAdmin(scope.row.admin_id)"
                   type="text"
                   style="color:#ec193a;"
+                  :disabled="scope.row.delete_state == -1"
                   size="small"
                   >删除</el-button
                 >
@@ -286,6 +305,15 @@
               >
             </span>
           </span>
+          <el-button
+            type="primary"
+            style="float: right"
+            size="small"
+            icon="el-icon-circle-plus-outline"
+            @click="creditorEditFc('add')"
+            plain
+            >新增债权人</el-button
+          >
           <el-divider></el-divider>
           <creditor
             @setAdmin="setAdmin"
@@ -326,7 +354,7 @@
       <!-- 弹窗 -->
       <el-dialog
         custom-class="creditorDialog"
-        title="管理员编辑"
+        :title="adminEditData.admin_id == 0 ? '新增管理员' : '管理员编辑'"
         :visible.sync="adminEditType"
         center
       >
@@ -433,7 +461,7 @@
       <!-- 编辑债权人 -->
       <el-dialog
         custom-class="creditorDialog"
-        title="债权人编辑"
+        :title="creditorEdit.id == 0 ? '新增债权人' : '债权人编辑'"
         :visible.sync="creditorEditShow"
         center
       >
@@ -444,6 +472,25 @@
           class="demo-form-inline demo-ruleForm"
           label-width="135px"
         >
+          <el-form-item
+            style="display:flex;"
+            v-if="creditorEdit.id == 0"
+            label="管理员"
+          >
+            <el-select
+              style="width:330px;"
+              v-model="data.adminSelectData"
+              value-key="id"
+              @change="adminSelect"
+            >
+              <el-option
+                v-for="item in data.admin_list2"
+                :key="item.id"
+                :label="item.admin_name"
+                :value="item"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item style="display:flex;" label="营业执照">
             <el-col class="upBox" :span="20">
               <el-upload

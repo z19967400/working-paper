@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>上海嘉厚律师事务所</title>
+  <meta name="keywords"
+    content=" 催收 应收账款 应收账款催收 欠款 欠款催收 借款 借款催收 商账催收 债务催收 贷款 贷款催收 消费贷款催收 逾期催收 逾期贷款催收 信用卡催收 物业费催收 取暖费催收 催收律师函 催款律师函 催收函 催款函 要账 清账 讨账 清收 清欠 债务诉讼 代理执行 批量催收 物业费批量催收 怎样发催收律师函 律师函哪家最便宜 水费催收 电费催收 律师催收 催收律师 催收专家" />
+  <meta name="description"
+    content="上海嘉厚律师事务所是一家立足上海，覆盖全国的大型综合性律师事务所，分布在全国各地的律师团队不受地理位置的限制，通过协同、共享、创新向客户提供全方位、全领域、全地域的一站式现代法律服务" />
+  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="stylesheet" href="./Solution.css">
+  <!-- <link rel="stylesheet" href="../../assets/swiper.min.css"> -->
+  <link rel="icon" href="../../img/907(1).ico" />
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="content">
+        <a class="title" href="../../index.html">
+          <!-- 上海嘉厚律师事务所 -->
+          <img src="../../img/lg1.png" alt="">
+        </a>
+        <div class="nav pc">
+          <a href="../../index.html"><b data-locale="nav-1"></b><span></span></a>
+          <a href="../Specialty/Specialty.html"><b data-locale="nav-2"></b><span></span></a>
+          <a href="../Solution/Solution.html"><b data-locale="nav-3"></b><span class="active"></span></a>
+          <a href="../JoinUs/JoinUs.html"><b data-locale="nav-4"></b><span></span></a>
+          <span data-locale="language" class="language">EN</span>
+        </div>
+        <span data-locale="language" class="language mb">EN</span>
+        <img @click="navOpenRight" class="nav-right mb" src="../../img/daohang.png" alt="">
+      </div>
+    </div>
+    <div class="banner">
+      <!-- <img src="../../img/u751.jpg" alt=""> -->
+      <div class="bg"></div>
+      <p data-locale="banner-4" class="title">全方位、全领域、全地域的一站式法律服务</p>
+    </div>
+
+    <div class="content">
+      <div class="fenge">
+        <h2 data-locale="Solution-title-1">解决方案</h2>
+      </div>
+
+      <div class="collapse">
+        <div @click="open1 = !open1" class="top">
+          <img src="../../img/Solution/u403.svg" alt="">
+          <span data-locale="collapse-title-1">电商</span>
+          <div class="top-right">{{open1?'－':'＋'}}</div>
+        </div>
+        <div :class="{show:open1}" class="bottom">
+          <p>
+            <span data-locale="label-1" class="label">客户：</span>
+            <span data-locale="value-1-1" class="value">某电商平台</span>
+          </p>
+          <p>
+            <span data-locale="label-2" class="label">案件类型：</span>
+            <span data-locale="value-1-2" class="value">案件较为同质化，主要是消费纠纷和知识产权纠纷</span>
+          </p>
+          <p>
+            <span data-locale="label-3" class="label">地点：</span>
+            <span data-locale="value-1-3" class="value">分散在全国各地</span>
+          </p>
+          <p>
+            <span data-locale="label-4" class="label">数量：</span>
+            <span data-locale="value-1-4" class="value">每年超一万件</span>
+          </p>
+          <p>
+            <span data-locale="label-5" class="label">痛点：</span>
+            <span data-locale="value-1-5"
+              class="value">企业法务面临处理过程中存在案件处理质量波动大、风险不可预知、管控难度大、成本高、效率低等问题。不同案件由不同律师或律师团队处理，案件经验难以沉淀、分享。</span>
+          </p>
+          <p>
+            <span data-locale="label-6" class="label">解决方案：</span>
+            <span data-locale="value-1-6" class="value">各地线上律师匹配方案；诉调一体化解决方案；案件风险预估；调解前置；关键节点质量控制等。</span>
+          </p>
+          <p data-locale="label-7" class="label">服务成效：</p>
+          <p data-locale="value-1-7" class="value">调解前置 , 35%以上案件庭前化解；</p>
+          <p data-locale="value-1-8" class="value">诉讼胜率提升至99%以上</p>
+          <p data-locale="value-1-9" class="value">法务成本降低61%</p>
+          <p data-locale="value-1-10" class="value">有效提高52%的企业法务效能</p>
+          <p data-locale="value-1-11" class="value">每年上万个同类型案件数据沉淀，为后续案件提供了预判依据。</p>
+        </div>
+      </div>
+
+      <div class="collapse">
+        <div @click="open2 = !open2" class="top">
+          <img src="../../img/Solution/u401.svg" alt="">
+          <span data-locale="collapse-title-2">交通事故</span>
+          <div class="top-right">{{open2?'－':'＋'}}</div>
+        </div>
+        <div :class="{show:open2}" class="bottom">
+          <p>
+            <span data-locale="label-1" class="label">客户：</span>
+            <span data-locale="value-2-1" class="value">某保险公司</span>
+          </p>
+          <p>
+            <span data-locale="label-2" class="label">案件类型：</span>
+            <span data-locale="value-2-2" class="value">道路交通案件中理赔纠纷</span>
+          </p>
+          <p>
+            <span data-locale="label-3" class="label">地点：</span>
+            <span data-locale="value-2-3" class="value">分散在全国各地</span>
+          </p>
+          <p>
+            <span data-locale="label-4" class="label">数量：</span>
+            <span data-locale="value-2-4" class="value">年处理近20,000个</span>
+          </p>
+          <p>
+            <span data-locale="label-5" class="label">痛点：</span>
+            <span data-locale="value-2-5" class="value">企业内部法务团队需要对案件本身及供应商进行管理，难度大，效率低，案件处理结果难以保障，公司运营成本高。</span>
+          </p>
+          <p>
+            <span data-locale="label-6" class="label">解决方案：</span>
+            <span data-locale="value-2-6" class="value">各地线上律师匹配方案；提供全流程运营模式（非诉+诉讼）实现规模化交付服务成效：结案率81%</span>
+          </p>
+          <p data-locale="label-7" class="label">服务成效：</p>
+          <p data-locale="value-2-7" class="value">结案率81%</p>
+          <p data-locale="value-2-8" class="value">减赔率高达16.2%</p>
+          <p data-locale="value-2-9" class="value">实现减赔案件占比78%</p>
+          <p data-locale="value-2-10" class="value">减损金额近2,000万元/年</p>
+        </div>
+      </div>
+
+      <div class="collapse">
+        <div @click="open3 = !open3" class="top">
+          <img src="../../img/Solution/u423.svg" alt="">
+          <span data-locale="collapse-title-3">汽车金融</span>
+          <div class="top-right">{{open3?'－':'＋'}}</div>
+        </div>
+        <div :class="{show:open3}" class="bottom">
+          <p>
+            <span data-locale="label-1" class="label">客户：</span>
+            <span data-locale="value-3-1" class="value">某头部汽车企业</span>
+          </p>
+          <p>
+            <span data-locale="label-2" class="label">案件类型：</span>
+            <span data-locale="value-3-2" class="value">集团下汽车金融、租赁、财务、保险等业务主诉类案件</span>
+          </p>
+          <p>
+            <span data-locale="label-3" class="label">地点：</span>
+            <span data-locale="value-3-3" class="value">业务遍布中国所有省份</span>
+          </p>
+          <p>
+            <span data-locale="label-4" class="label">数量：</span>
+            <span data-locale="value-3-4" class="value">每年超一万件</span>
+          </p>
+          <p>
+            <span data-locale="label-5" class="label">痛点：</span>
+            <span data-locale="value-3-5"
+              class="value">主诉案件数量巨大，分散在全国所有省份和地区，管理全国各地的律师资源困难，诉讼成本高；判决生效后执行涉及到车辆拍卖等环节，诉讼周期长，执行回款变现困难；被诉案件类型繁多，专业要求高，法院分散。</span>
+          </p>
+          <p>
+            <span data-locale="label-6" class="label">解决方案：</span>
+            <span data-locale="value-3-6" class="value">催收、精准触达、诉调、诉讼
+              、执行拍卖全程化服务。灵活选择管辖法院，批量化立案，缩短案件处理周期。选择车辆存放地法院，便于后续执行车辆拍卖回款。全国案件的全程跟踪案件进展
+              ，每周，每月的案件处理状态实时汇报更新。系统对接，数据打通，IT赋能</span>
+          </p>
+          <p data-locale="label-7" class="label">服务成效：</p>
+          <p data-locale="value-3-7" class="value">帮助客户实现了全国范围内所有省份和地区的律师资源统一管控、诉讼流程的管理、服务质量的管控、执行环节的对接，帮助客户大幅降低了诉讼管理成本。
+          </p>
+          <p data-locale="value-3-8" class="value">催收和诉讼相结合的方式，大幅提升了客户的回款效率和时间周期。</p>
+          <p data-locale="value-3-9" class="value">通过对批量案件的诉讼大数据分析，便于了解各区域的案件量占比、各类型案件量占比、各地法院对客户案件的审判倾向和裁判观点，欠款人的标签识别等；
+          </p>
+          <p data-locale="value-3-10" class="value">
+            通过对批量化诉讼案件的运营分析，定期给客户提交服务运营报告，帮助客户贷后管理部门更好地将诉讼中发现的问题及时地反馈给业务前端，改进和优化业务流程；</p>
+          <p data-locale="value-3-11" class="value">选择合适的管辖法院，将风险控制管理前置，通过诉讼反哺客户公司的业务发展，从业成就客户在行业竞争中占据优势。</p>
+        </div>
+      </div>
+
+      <div class="collapse">
+        <div @click="open4 = !open4" class="top">
+          <img src="../../img/Solution/u421.svg" alt="">
+          <span data-locale="collapse-title-4">应收账款</span>
+          <div class="top-right">{{open4?'－':'＋'}}</div>
+        </div>
+        <div :class="{show:open4}" class="bottom">
+          <p>
+            <span data-locale="label-1" class="label">客户：</span>
+            <span data-locale="value-4-1" class="value">某500强上市公司</span>
+          </p>
+          <p>
+            <span data-locale="label-2" class="label">案件类型：</span>
+            <span data-locale="value-4-2" class="value">千万应收帐款</span>
+          </p>
+          <p>
+            <span data-locale="label-3" class="label">地点：</span>
+            <span data-locale="value-4-3" class="value">该客户全国有40余家分公司，客户遍布全国。</span>
+          </p>
+          <!-- <p>
+            <span class="label">数量：</span>
+            <span class="value">每年超一万件</span>
+          </p> -->
+          <p>
+            <span data-locale="label-5" class="label">痛点：</span>
+            <span data-locale="value-4-4" class="value">应收账款催收诉讼工作量大，面临管辖地选择的两难：如在原告所在地管辖，则涉及异地执行，难以推动；
+              如在被告所在地管辖，则在匹配律师资源以及案件诉讼管理中存在困难。
+            </span>
+          </p>
+          <p>
+            <span data-locale="label-6" class="label">解决方案：</span>
+            <span data-locale="value-4-5" class="value">各地线上律师匹配，对“调解、诉讼、执行”全程跟踪服务；
+              SaaS直接对接该客户公司内部OA流程，案件材料一键推送，案件进展一键同步；
+              制定全套起诉文书，规范律师管理，运营先行审核，减轻该公司法务工作；所有案件争取诉前或诉中保全，利于调解及执行； 协助客户查询企业工商内档； 异地应诉案件及时匹配律师并参与应诉。</span>
+          </p>
+          <p data-locale="label-7" class="label">服务成效：</p>
+          <p data-locale="value-4-6" class="value">通过诉讼为该客户追回应收账款数千万元；</p>
+          <p data-locale="value-4-7" class="value">回款率高达85%</p>
+          <!-- <p class="value">法务成本降低61%</p>
+          <p class="value">有效提高52%的企业法务效能</p>
+          <p class="value">每年上万个同类型案件数据沉淀，为后续案件提供了预判依据。</p> -->
+        </div>
+      </div>
+
+    </div>
+    <div :class="{mskOpen:isRight}" class="right-mask mb">
+      <img @click="navCloseRight" class="close" src="http://www.debteehelper.com/image/closed.png" alt="">
+      <div class="logo"> <img src="../../img/logo2.png" alt=""></div>
+      <div class="content">
+        <a data-locale="nav-1" href="../../index.html">首页</a>
+        <a data-locale="nav-2" href="../../views/Specialty/Specialty.html">专业领域</a>
+        <a data-locale="nav-3" href="../../views/Solution/Solution.html">解决方案</a>
+        <a data-locale="nav-4" href="../../views/JoinUs/JoinUs.html">加入我们</a>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="content">
+        <img class="footer-logo" src="../../img/u338.png" alt="">
+        <div class="footer-text">
+          <p><img src="../../img/u171.svg" alt=""><b data-locale="footer-text">上海市徐汇区宜山路1009创新大楼18楼</b></p>
+          <p>
+            <span><img src="../../img/u177.svg" alt="">service@legallinks.net</span>
+            <span><img src="../../img/u173.svg" alt="">021-5426-4687</span>
+          </p>
+        </div>
+        <p><a style="color: #ccc;" href="https://beian.miit.gov.cn">沪ICP备19010278号-2</a>号 上海嘉厚律师事务所版权所有</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script src="../../assets/vue@2.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+<!-- <script src="../../assets/swiper.min.js"></script> -->
+<script src="../../assets/jquery.min.js"></script>
+<script src="../../assets/jquery.i18n.properties.min.js"></script>
+<script src="../../assets/js.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      open1: false,
+      open2: false,
+      open3: false,
+      open4: false,
+      isRight: false,
+    },
+    methods: {
+      navOpenRight() {
+        this.isRight = true
+      },
+      navCloseRight() {
+        this.isRight = false
+      }
+    }
+  })
+</script>

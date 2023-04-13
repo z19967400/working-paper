@@ -61,6 +61,19 @@ export const routes = [
               index: '1-1-1',
               isBread: true
             }
+          },
+          {
+            path: '/work',
+            name: 'work',
+            ismenu: false,
+            component: () => import('@/views/work/work.vue'),
+            meta: {
+              icon: '',
+              keepAlive: false,
+              title: '首页',
+              index: '1-1-2',
+              isBread: true
+            }
           }
         ]
       }
@@ -174,13 +187,13 @@ export const asyncRoute = [
           },
           //角色权限设置
           {
-            path: '/settings/rouleEdit',
+            path: '/settings/rouleEdit/:id',
             name: 'settings/rouleEdit',
             ismenu: false,
             component: () => import('@/views/settings/role/roleEdit.vue'),
             meta: {
               icon: '',
-              keepAlive: true,
+              keepAlive: false,
               title: '权限编辑',
               index: '2-2-1',
               isTag: false,
@@ -329,7 +342,7 @@ export const asyncRoute = [
             meta: {
               icon: '',
               keepAlive: true,
-              title: '新闻中心',
+              title: '通知管理',
               index: '2-2-8',
               isBread: true
             }
@@ -343,7 +356,7 @@ export const asyncRoute = [
             meta: {
               icon: '',
               keepAlive: true,
-              title: '新闻编辑',
+              title: '通知编辑',
               index: '2-2-8',
               isTag: false,
               isBread: true
@@ -1083,6 +1096,24 @@ export const asyncRoute = [
               isBread: true
             }
           },
+          //创建律师函
+          {
+            path: '/LawyerLetter/createAIlawyer',
+            name: 'LawyerLetter/createAIlawyer',
+            ismenu: false,
+            component: () =>
+              import(
+                '@/views/LawyerLetter/entrustedAdmin/createAIlawyer/createAIlawyer.vue'
+              ),
+            meta: {
+              icon: '',
+              keepAlive: false,
+              title: '创建律师函',
+              index: '4-1-1',
+              isTag: false,
+              isBread: true
+            }
+          },
           {
             path: '/LawyerLetter/entrustAdmin/:id/:executing_states',
             name: 'LawyerLetter/entrustAdmin',
@@ -1230,6 +1261,20 @@ export const asyncRoute = [
               keepAlive: false,
               title: '案件详情',
               index: '4-2-1',
+              isTag: false,
+              isBread: true
+            }
+          },
+          {
+            path: '/LawyersHandleCases/create',
+            name: 'create',
+            ismenu: true,
+            component: () => import('@/views/sass/creatLaywerCase.vue'),
+            meta: {
+              icon: '',
+              keepAlive: false,
+              title: '创建办案',
+              index: '4-2-2',
               isTag: false,
               isBread: true
             }

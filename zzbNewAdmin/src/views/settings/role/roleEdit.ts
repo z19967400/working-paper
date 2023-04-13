@@ -2,13 +2,14 @@ import { Component, Vue } from 'vue-property-decorator'
 import { SettingsOptions } from '@/types'
 import * as Api from '@/api/settings'
 @Component({})
-export default class About extends Vue {
+export default class roleEdit extends Vue {
   // data
   data: SettingsOptions['roleEdit'] = {
     role_name: '',
     id: 0,
     menu_ids: []
   }
+  halfCheckedKeys: any = []
   rules: any = {
     role_name: [
       { required: true, message: '请输入角色名称', trigger: 'blur' },
@@ -27,17 +28,17 @@ export default class About extends Vue {
   }
 
   activated() {
-    this.init()
+    // this.init()
   }
 
   mounted() {
-    //
+    this.init()
   }
 
   // 初始化函数
   init() {
     let self: any = this
-    self.data.id = self.$route.query.id
+    self.data.id = self.$route.params.id
     self.getMenu()
     if (self.data.id != 0 && self.data.id != null) {
       self.getRoleInfo(self.data.id)
@@ -50,7 +51,7 @@ export default class About extends Vue {
       if (valid) {
         this.btnLoad = true
         this.getCheckedKeys()
-        this.RoleEdit(this.data)
+        this.RoleEdit()
       } else {
         // eslint-disable-next-line no-console
         console.log('error submit!!')
@@ -99,31 +100,37 @@ export default class About extends Vue {
       data.role_name = res.data.role.role_name
     })
   }
-  //权限树的选择
+  //权限树点击事件
+  check(event: any, data: any) {
+    if (data.halfCheckedKeys.length > 0) {
+      this.halfCheckedKeys = data.halfCheckedKeys
+    }
+  }
+  // 权限树的选择
   getCheckedKeys() {
     let self: any = this
     let Tree: any = self.$refs.tree
-    let data: any = JSON.parse(JSON.stringify(Tree.getCheckedNodes()))
-    self.data.menu_ids = []
-    data.forEach((item: any) => {
-      self.data.menu_ids.push(item.id)
-      if (item.children != undefined && item.children.length != 0) {
-        item.children.forEach((item2: any) => {
-          self.data.menu_ids.push(item2.id)
-          if (item2.children != undefined && item.children.length != 0) {
-            item2.children.forEach((item3: any) => {
-              self.data.menu_ids.push(item3.id)
-            })
-          }
-        })
-      }
-    })
-    // eslint-disable-next-line no-console
-    console.log(self.data.menu_ids)
+    let data: any = JSON.parse(JSON.stringify(Tree.getCheckedKeys()))
+    self.data.menu_ids = data
   }
   //权限修改/新增
-  RoleEdit(params: SettingsOptions['roleEdit']) {
-    Api.RoleEdit(params).then((res: any) => {
+  RoleEdit() {
+    let self: any = this
+    let parmas: any = {
+      role_name: self.data.role_name,
+      id: self.data.id,
+      menu_ids: self.data.menu_ids
+    }
+    // if (self.halfCheckedKeys.length > 0) {
+    //   self.halfCheckedKeys.forEach((id: number) => {
+    //     parmas.menu_ids.push(id)
+    //   })
+    // }
+    parmas.menu_ids = parmas.menu_ids.reduce(
+      (prev: any, cur: any) => (prev.includes(cur) ? prev : [...prev, cur]),
+      []
+    )
+    Api.RoleEdit(parmas).then((res: any) => {
       if (res.data != 0) {
         this.$message.success(res.msg)
         this.resetForm('ruleForm')

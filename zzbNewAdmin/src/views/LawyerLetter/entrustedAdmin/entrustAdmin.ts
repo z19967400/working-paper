@@ -63,6 +63,7 @@ export default class entrustAdmin extends Vue {
     detailedShow: false,
     member_id: 0,
     m_type: '',
+    ai_log: [],
     labers: [
       { name: '委托概况' },
       { name: '执行进度' },
@@ -74,7 +75,8 @@ export default class entrustAdmin extends Vue {
       { name: '债权人' },
       { name: '支付信息' },
       { name: '审核/反馈' },
-      { name: '后台备注' }
+      { name: '后台备注' },
+      { name: '操作日志' }
     ],
     BasicInfo: [
       //基础信息
@@ -128,8 +130,18 @@ export default class entrustAdmin extends Vue {
     obligorOption: [
       { prop: 'debtor_number', label: '委托编号', width: '180px' },
       { prop: 'debtor_name', label: '债务人名称', width: '330px' },
-      { prop: 'contact_person', label: '企业负责人姓名', width: '180px', show: false },
-      { prop: 'receiving_phone', label: '企业负责人手机号码', width: '180px', show: false },
+      {
+        prop: 'contact_person',
+        label: '企业负责人姓名',
+        width: '180px',
+        show: false
+      },
+      {
+        prop: 'receiving_phone',
+        label: '企业负责人手机号码',
+        width: '180px',
+        show: false
+      },
       { prop: 'receiving_name', label: 'EMS收件人', width: '180px' },
       { prop: 'phone_number', label: 'EMS收件人电话', width: '220px' },
       { prop: 'email', label: '债务人电子邮箱', width: '220px' },
@@ -419,14 +431,13 @@ export default class entrustAdmin extends Vue {
             value: item.real_name
           })
           arr2.push({
-            label: item.real_name, value: item.phone_no
+            label: item.real_name,
+            value: item.phone_no
           })
         }
-
       })
       this.Signature.lawyers = arr1
       this.Signature.phones = arr2
-
     })
   }
   //获取管理详情
@@ -440,16 +451,16 @@ export default class entrustAdmin extends Vue {
             item.task_execution_status == 0
               ? '未执行'
               : item.task_execution_status == 1
-                ? '执行中'
-                : item.task_execution_status == 2
-                  ? '已结束'
-                  : item.task_execution_status == 3
-                    ? '已撤销'
-                    : item.task_execution_status == 4
-                      ? '已终止'
-                      : item.task_execution_status == 5
-                        ? '执行中'
-                        : '已终止'
+              ? '执行中'
+              : item.task_execution_status == 2
+              ? '已结束'
+              : item.task_execution_status == 3
+              ? '已撤销'
+              : item.task_execution_status == 4
+              ? '已终止'
+              : item.task_execution_status == 5
+              ? '执行中'
+              : '已终止'
           item.send_time = item.send_time.replace('T', ' ')
           item.send_time = item.send_time.substring(
             0,
@@ -458,6 +469,7 @@ export default class entrustAdmin extends Vue {
           item['effect'] = item.task_total + '/' + item.task_success_total
         })
       }
+      this.data.ai_log = res.data.ai_log
       this.data.implementList = res.data.tasks_list
       if (res.data.collection_account) {
         this.data.collection_account = [res.data.collection_account]
@@ -468,8 +480,8 @@ export default class entrustAdmin extends Vue {
           res.data.creditor.audit_status == 'Audit_states_0'
             ? '待审核'
             : res.data.creditor.audit_status == 'Audit_states_1'
-              ? '未通过'
-              : '已通过'
+            ? '未通过'
+            : '已通过'
         res.data.creditor.create_time = res.data.creditor.create_time.replace(
           'T',
           ' '
@@ -483,9 +495,13 @@ export default class entrustAdmin extends Vue {
         this.data.creditorList = arr
         this.data.creditorList[0]['admin_list'] = res.data.creditor_admin
         this.data.creditor_admin = res.data.creditor_admin
-        this.data.creditor_type = res.data.creditor.creditor_type
+        this.data.creditor_type = res.data.debtor_list[0].debtor_type
         if (this.data.creditor_type == 'Creditor_states_1') {
-          this.data.obligorOption = this.data.obligorOption.filter((item: any) => { return item.show != false })
+          this.data.obligorOption = this.data.obligorOption.filter(
+            (item: any) => {
+              return item.show != false
+            }
+          )
         }
       }
       this.data.payment.pay_status =
@@ -532,17 +548,19 @@ export default class entrustAdmin extends Vue {
               item2.value =
                 item2.value == 'Debt_type_0'
                   ? '个人欠款'
-                  : item2.value == 'Debt_type_4'
-                    ? '企业应收款'
-                    : item2.value == 'Debt_type_5'
-                      ? '逾期贷款'
-                      : item2.value == 'Debt_type_6'
-                        ? '信用卡逾期'
-                        : item2.value == 'Debt_type_7'
-                          ? '保险追偿'
-                          : item2.value == 'Debt_type_8'
-                            ? '物业/采暖欠费'
-                            : '不当得利'
+                  : item2.value == 'Debt_type_4' ||
+                    item2.value == 'Debt_type_13' ||
+                    item2.value == 'Debt_type_14'
+                  ? '企业应收款'
+                  : item2.value == 'Debt_type_5'
+                  ? '逾期贷款'
+                  : item2.value == 'Debt_type_6'
+                  ? '信用卡逾期'
+                  : item2.value == 'Debt_type_7'
+                  ? '保险追偿'
+                  : item2.value == 'Debt_type_8'
+                  ? '物业/采暖欠费'
+                  : '不当得利'
             }
           }
         })
@@ -584,8 +602,10 @@ export default class entrustAdmin extends Vue {
       }
       arr.forEach((item: any) => {
         item['isAddress'] = false
-        item.arrears_principal = item.arrears_principal.toLocaleString()
-        item.arrears_interest = item.arrears_interest.toLocaleString()
+        item.arrears_principal = this.thousandBitSeparator(
+          item.arrears_principal
+        )
+        item.arrears_interest = this.thousandBitSeparator(item.arrears_interest)
         if (item.sms_01_msg == '已终止' || item.sms_01_msg == '已撤销') {
           item.sms_01_status = item.sms_01_msg
         } else {
@@ -593,12 +613,12 @@ export default class entrustAdmin extends Vue {
             item.sms_01_id == 0
               ? '未委托'
               : item.sms_01_status == -1
-                ? '待执行'
-                : item.sms_01_status == 0
-                  ? '执行成功'
-                  : item.sms_01_status == 1
-                    ? '执行失败'
-                    : '未委托'
+              ? '待执行'
+              : item.sms_01_status == 0
+              ? '执行成功'
+              : item.sms_01_status == 1
+              ? '执行失败'
+              : '未委托'
         }
         if (item.call_01_msg == '已终止' || item.call_01_msg == '已撤销') {
           item.call_01_status = item.call_01_msg
@@ -607,14 +627,14 @@ export default class entrustAdmin extends Vue {
             item.call_01_id == 0
               ? '未委托'
               : item.call_01_status == -1
-                ? '待执行'
-                : item.call_01_status == 0
-                  ? '执行中'
-                  : item.call_01_status == 1
-                    ? '执行成功'
-                    : item.call_01_status == 5
-                      ? '执行中'
-                      : '执行失败'
+              ? '待执行'
+              : item.call_01_status == 0
+              ? '执行中'
+              : item.call_01_status == 1
+              ? '执行成功'
+              : item.call_01_status == 5
+              ? '执行中'
+              : '执行失败'
         }
         if (item.email_01_msg == '已终止' || item.email_01_msg == '已撤销') {
           item.email_01_status = item.email_01_msg
@@ -623,10 +643,10 @@ export default class entrustAdmin extends Vue {
             item.email_01_id == 0
               ? '未委托'
               : item.email_01_status == -1
-                ? '待执行'
-                : item.email_01_status == 0
-                  ? '执行成功'
-                  : '执行失败'
+              ? '待执行'
+              : item.email_01_status == 0
+              ? '执行成功'
+              : '执行失败'
         }
         if (item.email_02_msg == '已终止' || item.email_02_msg == '已撤销') {
           item.email_02_status = item.email_02_msg
@@ -635,10 +655,10 @@ export default class entrustAdmin extends Vue {
             item.email_02_id == 0
               ? '未委托'
               : item.email_02_status == -1
-                ? '待执行'
-                : item.email_02_status == 0
-                  ? '执行成功'
-                  : '执行失败'
+              ? '待执行'
+              : item.email_02_status == 0
+              ? '执行成功'
+              : '执行失败'
         }
         if (
           item.logistics_msg === '已终止' ||
@@ -650,12 +670,12 @@ export default class entrustAdmin extends Vue {
             item.log_logistics_id == 0
               ? '未委托'
               : item.logistics_status == 0
-                ? '待执行'
-                : item.logistics_status == 1
-                  ? '执行中'
-                  : item.logistics_status == 3
-                    ? '执行成功'
-                    : '执行失败'
+              ? '待执行'
+              : item.logistics_status == 1
+              ? '执行中'
+              : item.logistics_status == 3
+              ? '执行成功'
+              : '执行失败'
         }
         if (item.sms_02_msg == '已终止' || item.sms_02_msg == '已撤销') {
           item.sms_02_status = item.sms_02_msg
@@ -664,10 +684,10 @@ export default class entrustAdmin extends Vue {
             item.sms_02_id == 0
               ? '未委托'
               : item.sms_02_status == -1
-                ? '待执行'
-                : item.sms_02_status == 0
-                  ? '执行成功'
-                  : '执行失败'
+              ? '待执行'
+              : item.sms_02_status == 0
+              ? '执行成功'
+              : '执行失败'
         }
         if (item.call_02_msg == '已终止' || item.call_02_msg == '已撤销') {
           item.call_02_status = item.call_02_msg
@@ -676,14 +696,14 @@ export default class entrustAdmin extends Vue {
             item.call_02_id == 0
               ? '未委托'
               : item.call_02_status == -1
-                ? '待执行'
-                : item.call_02_status == 0
-                  ? '执行中'
-                  : item.call_02_status == 1
-                    ? '执行成功'
-                    : item.call_01_status == 5
-                      ? '执行中'
-                      : '执行失败'
+              ? '待执行'
+              : item.call_02_status == 0
+              ? '执行中'
+              : item.call_02_status == 1
+              ? '执行成功'
+              : item.call_01_status == 5
+              ? '执行中'
+              : '执行失败'
         }
       })
       arr.forEach((item: any) => {
@@ -888,8 +908,8 @@ export default class entrustAdmin extends Vue {
             item.is_dissent == 1
               ? '有'
               : item.is_dissent == -1
-                ? '未选择'
-                : '无'
+              ? '未选择'
+              : '无'
           item.feedback_source =
             item.feedback_source == 1 ? '债务人提交' : '客服添加'
         })
@@ -1583,8 +1603,9 @@ export default class entrustAdmin extends Vue {
   //快递信息下载
   DownLoadEMS() {
     const baseURL: string = 'http://api1.debteehelper.com/api'
-    let downloadFil = `${baseURL}/LawyerLetterExpress/DownLoadEMS?batch_no=${this.$route.params.id
-      }&debtor_number=&receiving_name=&receiving_phone=&send_time=&ai_status=all&express_status=${'-1'}&courier_receipt=${'-1'}&courier_receipt_img=${'-1'}`
+    let downloadFil = `${baseURL}/LawyerLetterExpress/DownLoadEMS?batch_no=${
+      this.$route.params.id
+    }&debtor_number=&receiving_name=&receiving_phone=&send_time=&ai_status=all&express_status=${'-1'}&courier_receipt=${'-1'}&courier_receipt_img=${'-1'}`
     window.open(downloadFil)
   }
   //通知

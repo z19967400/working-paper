@@ -1,6 +1,6 @@
 <template>
   <div class="selectAdmin">
-    <p class="header">用户名称：上海诚收信息科技有限公司</p>
+    <p class="header">用户名称：{{ name || '上海诚收信息科技有限公司' }}</p>
     <el-table
       @selection-change="handleSelectionChange"
       :data="data.list"

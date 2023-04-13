@@ -17,10 +17,10 @@
         @Edit="handleEdit"
         @Delete="handleDelete"
       ></comtable>
-      <comPaging
+      <!-- <comPaging
         :totalize="data.totalize"
         @watchChange="watchChange"
-      ></comPaging>
+      ></comPaging> -->
     </div>
   </div>
 </template>

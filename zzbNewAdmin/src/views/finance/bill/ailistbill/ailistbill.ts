@@ -4,6 +4,7 @@ import selectUser from '../../componets/selectUser/selectUser.vue'
 import selectBill from '../../componets/selectBill/selectBill.vue'
 import selectAdmin from '../../componets/selectAdmin/selectAdmin.vue'
 import selectLayer from '../../componets/selectLayer/selectLayer.vue'
+import { setCookie, getCookie } from '@/utils/common'
 @Component({
   components: {
     selectUser,
@@ -12,7 +13,7 @@ import selectLayer from '../../componets/selectLayer/selectLayer.vue'
     selectLayer
   }
 })
-export default class About extends Vue {
+export default class ailistbill extends Vue {
   data: any = {
     active: 0, //进度条步骤
     billType: 0, //账单类别
@@ -27,7 +28,7 @@ export default class About extends Vue {
     member_id: 0, //用户ID
     lawyer_id: 0, //律师ID
     bill_type: '', //账单类别
-    bill_title: '', //账单名称
+    bill_title: getCookie('bill_title') || '', //账单名称
     currency_id: 1, //币种
     ai_pay: [], //AI律师函数组
     fixed_service_fee: [], //律师办案_固定 数组
@@ -172,6 +173,7 @@ export default class About extends Vue {
           : 'Bill_Type_2'
       Api.CreateBill(this.createData).then((res: any) => {
         if (res.state) {
+          setCookie('bill_title', this.createData.bill_title)
           this.$router.push(`/business/listbill/getadmindata/${res.data}`)
         } else {
           this.$message.warning(res.msg)
@@ -196,6 +198,30 @@ export default class About extends Vue {
   }
   //取消
   cancel() {
+    const self: any = this
+    // eslint-disable-next-line no-console
+    console.log(self.$vnode)
+
+    //  const cache = this.$vnode.parent.parent.componentInstance.cache
+
+    //  const keys = this.$vnode.parent.parent.componentInstance.keys
+
+    //  const key = this.$vnode.parent.key == null
+    //                                 ? this.$vnode.parent.componentOptions.Ctor.cid + (this.$vnode.parent.componentOptions.tag ? `::${this.$vnode.parent.componentOptions.tag}` : '')
+    //                                 : this.$vnode.parent.key;
+
+    //  const flag = this.$store.state.tagsView.visitedViews.find(tag => tag.name === "examManagement")
+    //     if(!flag){
+    //       if(keys.length) {
+    //         let index = keys.indexOf(key)
+
+    //         if(index > -1) keys.splice(index,1)
+    //       }
+
+    //       delete cache[key]
+    //       this.$destroy();
+    //     }
+
     this.$router.push('/business/listbill')
   }
 }

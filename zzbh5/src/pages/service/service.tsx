@@ -18,6 +18,7 @@ import { AddState } from '../../store/reducers/CreateLetter';
 import { CombinedState } from '../../store/reducers';
 import * as types from '../../store/action_types';
 import CreateAILawyerLetter from '../../store/types/CreateAILawyerLetter'
+import {GetPlatformNotice} from '../../api/https'
 //store配置
 const mapStateToProps = (state: CombinedState): AddState => state.CreateLetter;
   const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -91,7 +92,8 @@ interface serviceState{
   data:any
   imgHeight:any
   show:boolean
-  type:any
+  type:any,
+  marquee:string
 }
 
 class service extends React.Component<any,serviceState> {
@@ -100,6 +102,7 @@ class service extends React.Component<any,serviceState> {
     this.state={
       show:false,
       slideIndex:0,
+      marquee:'',
       data: [
         {name:'AI律师函',img:AIImg,text:""},
         {name:'律师办案',img:lawyerCase,text:""},
@@ -112,11 +115,13 @@ class service extends React.Component<any,serviceState> {
     }
   }
   render(){
-    const { show,type } = this.state
+    const { show,type,marquee } = this.state
     return(
       <div className="service">
         <img className="serviceBg" src={serviceBg} alt=""/>
-        {/* <Marquee text={'尊敬的用户，您好。由于受疫情影响，债主帮所在区域的邮政EMS暂停了寄件服务，故自2022年3月28日（周一）起，债主帮暂时无法寄送AI律师函服务中的EMS律师函，其他催收短信、电话、电子催款函、电子律师函照常执行。待邮政EMS恢复寄件服务后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，敬请谅解，谢谢。'}></Marquee> */}
+        { marquee &&
+          <Marquee text={marquee}></Marquee>
+        }
         <div className="box">
           <div className="head">
             <img className="headBg" src={headImg} alt=""/>
@@ -128,7 +133,7 @@ class service extends React.Component<any,serviceState> {
             frameOverflow="visible"
             cellSpacing={20}
             slideWidth={0.65}
-            autoplayInterval={5000}
+            autoplayInterval={500000000}
             dots={false}
             autoplay
             infinite
@@ -177,7 +182,9 @@ class service extends React.Component<any,serviceState> {
       </div>
     )
   }
-  componentDidMount(){}
+  componentDidMount(){
+    this.getNotices()
+  }
   //获取选择值
   getSelect(val:number,val2:number,val3:number){
     this.props.history.push(`/overbooking/${val}/${val2}/${val3}`)
@@ -222,6 +229,16 @@ class service extends React.Component<any,serviceState> {
     }
     this.setState({
       show:val
+    })
+  }
+  //获取通知
+  getNotices(){
+    GetPlatformNotice().then((res:any) =>{
+      if (res.data.length > 0) {
+        this.setState({
+          marquee:res.data[0]
+        })
+      }
     })
   }
 }

@@ -6,6 +6,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import logo from '../../images/logo.png'
 import Marquee from '../Marquee/Marquee'
 import tips from '../../images/tips2.svg'
+import {GetPlatformNotice} from '../../api/https'
 interface PropsType{
   name:string,
   isHome?:boolean,
@@ -14,13 +15,15 @@ interface PropsType{
   openToast2?:any
 }
 interface HeaderStates{
-  isHeader:boolean
+  isHeader:boolean,
+  marquee:string
 }
 class Header extends React.Component<PropsType,HeaderStates> {
   constructor(props:PropsType) {
     super(props)
     this.state = {
-      isHeader:false
+      isHeader:false,
+      marquee:''
     }
   }
   goBack(){
@@ -28,7 +31,7 @@ class Header extends React.Component<PropsType,HeaderStates> {
     history.goBack();
   }
   render(){
-    const {isHeader} = this.state
+    const {isHeader,marquee} = this.state
     const {isHome} = this.props || false
       return(
         <div>
@@ -38,7 +41,9 @@ class Header extends React.Component<PropsType,HeaderStates> {
               {
                 !isHome && <ArrowLeftOutlined onClick={this.goBack.bind(this)} className="icon" style={{color:"#fff",fontSize:'14px'}} />
               }
-              {/* <Marquee text={'尊敬的用户，您好。由于受疫情影响，债主帮所在区域的邮政EMS暂停了寄件服务，故自2022年3月28日（周一）起，债主帮暂时无法寄送AI律师函服务中的EMS律师函，其他催收短信、电话、电子催款函、电子律师函照常执行。待邮政EMS恢复寄件服务后，我们将立即为您寄出律师函。由此给您带来的不便，深表歉意，敬请谅解，谢谢。'}></Marquee> */}
+              { marquee &&
+                <Marquee text={marquee}></Marquee>
+              }
               <p className={`title ${isHome?'Top':''}`}>{this.props.name}{ this.props.status && <span>({this.props.status})</span>}</p>
               {
                 this.props.number && 
@@ -69,6 +74,7 @@ class Header extends React.Component<PropsType,HeaderStates> {
   }
   componentDidMount(){
     window.addEventListener('scroll', this.bindHandleScroll.bind(this))
+    this.getNotices()
   }
   bindHandleScroll(event:any){
     // 滚动的高度
@@ -91,6 +97,15 @@ class Header extends React.Component<PropsType,HeaderStates> {
   }
   componentWillUnmount(){
     window.removeEventListener('scroll', this.bindHandleScroll.bind(this));
+  }
+  getNotices(){
+    GetPlatformNotice().then((res:any) =>{
+      if (res.data.length > 0) {
+        this.setState({
+          marquee:res.data[0]
+        })
+      }
+    })
   }
 }
 

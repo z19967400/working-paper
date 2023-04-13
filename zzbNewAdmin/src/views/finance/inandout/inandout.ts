@@ -7,6 +7,7 @@ import {
 } from '@/components/index'
 import * as Api from '@/api/finance'
 import * as Api2 from '@/api/business'
+import { thousandBitSeparator } from '@/utils/common'
 @Component({
   components: {
     comtable,
@@ -74,6 +75,7 @@ export default class About extends Vue {
       }
     ],
     dataType: [
+      { label: 'ID', prop: 'id', width: '80px' },
       { label: '支付编号', prop: 'pay_number', width: '180px' },
       { label: '委托类别', prop: 'business_type', width: '100px' },
       { label: '委托批次号', prop: 'relation_number', width: '180px' },
@@ -180,12 +182,18 @@ export default class About extends Vue {
       type: 'select',
       edit: true
     },
-    { label: '支付时间', value: '暂无', prop: 'pay_time', span: 1 },
+    {
+      label: '支付时间',
+      value: '暂无',
+      type: 'picker',
+      edit: true,
+      prop: 'pay_time'
+    },
     {
       label: '流水号',
       value: '',
       prop: 'pay_platform_number',
-      span: 3,
+      span: 2,
       type: 'input',
       edit: true
     },
@@ -269,9 +277,13 @@ export default class About extends Vue {
               item.business_type === 'Entrust_type_0' ? 'AI律师函' : '律师办案'
             item.pay_method = this.getPayStatusName(item.pay_method)
             item.pay_status =
-              item.pay_status === 'Pay_Status_1' ? '已支付' : item.pay_status === 'Pay_Status_2' ? '已退款' : '待支付'
+              item.pay_status === 'Pay_Status_1'
+                ? '已支付'
+                : item.pay_status === 'Pay_Status_2'
+                ? '已退款'
+                : '待支付'
             item.bill_number = item.bill_number || '未生成'
-            item.paid_amount = item.paid_amount.toLocaleString() + '.00'
+            item.paid_amount = this.thousandBitSeparator(item.paid_amount)
           })
         }
       })
@@ -316,7 +328,11 @@ export default class About extends Vue {
                   : '律师办案'
             } else if (item.prop === 'pay_status') {
               item.value =
-                res.data[item.prop] === 'Pay_Status_1' ? '已支付' : res.data[item.prop] === 'Pay_Status_2' ? '已退款' : '待支付'
+                res.data[item.prop] === 'Pay_Status_1'
+                  ? '已支付'
+                  : res.data[item.prop] === 'Pay_Status_2'
+                  ? '已退款'
+                  : '待支付'
             } else if (item.prop == 'create_name') {
               item.value = `${res.data[item.prop]}(ID:${res.data.member_id})`
             } else if (item.prop == 'bill_number') {
@@ -342,12 +358,13 @@ export default class About extends Vue {
             } else if (item.prop == 'create_name') {
               item.value = `${res.data[item.prop]}(ID:${res.data.member_id})`
             } else if (item.prop === 'pay_method') {
-              if (res.data.pay_platform_number) {
-                item.value = `${res.data[item.prop]}(${res.data.pay_platform_number
-                  })`
-              } else {
-                item.value = `${res.data[item.prop]}`
-              }
+              // if (res.data.pay_platform_number) {
+              //   item.value = `${res.data[item.prop]}(${
+              //     res.data.pay_platform_number
+              //   })`
+              // } else {
+              item.value = `${res.data[item.prop]}`
+              // }
             } else {
               item.value = res.data[item.prop]
             }
@@ -390,13 +407,14 @@ export default class About extends Vue {
     //待支付
     let parmas = {
       pay_id: this.pay_id,
-      paid_amount: parseInt(this.edit[8].value), //金额
-      pay_method: this.edit[10].value, //支付方式
-      currency_id: parseInt(this.edit[3].value), //币种
-      pay_status: this.edit[9].value, //支付状态
-      pay_platform_number: this.edit[12].value, //流水号
-      bill_remarks: this.edit[13].value, //备注
-      back_remarks: this.edit[14].value
+      paid_amount: parseInt(this.edit[10].value), //金额
+      pay_method: this.edit[12].value, //支付方式
+      currency_id: parseInt(this.edit[4].value), //币种
+      pay_status: this.edit[11].value, //支付状态
+      pay_platform_number: this.edit[14].value, //流水号
+      bill_remarks: this.edit[15].value, //备注
+      back_remarks: this.edit[16].value,
+      pay_time: this.edit[13].value //支付时间
     }
     if (parmas.paid_amount === null) {
       this.$message.warning('必要内容为空')
@@ -469,7 +487,7 @@ export default class About extends Vue {
     data.forEach((item: any) => {
       if (item.label == 'time') {
         // eslint-disable-next-line no-console
-        console.log(item.value);
+        console.log(item.value)
         params['start_time'] = item.value[0]
         params['end_time'] = item.value[1]
       } else {
@@ -532,5 +550,9 @@ export default class About extends Vue {
     } else {
       return val
     }
+  }
+  //千位符
+  thousandBitSeparator(val: any) {
+    return thousandBitSeparator(val)
   }
 }

@@ -1,5 +1,12 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
-import { MAINHOST, ISMOCK, conmomPrams } from '@/config'
+import {
+  MAINHOST,
+  ISMOCK,
+  conmomPrams,
+  QIANTAIHOST,
+  ONLINEHOST,
+  PAYHOST
+} from '@/config'
 import requestConfig from '@/config/requestConfig'
 import { getToken, removeToken } from '@/utils/common'
 import router from '@/router'
@@ -21,6 +28,7 @@ declare interface Datas {
 // @process.env.NODE_ENV = "production|development" 生产|研发
 export const baseURL =
   process.env.NODE_ENV === 'production' ? MAINHOST : location.origin
+export const pp = process.env.NODE_ENV
 // const baseURL = process.env.NODE_ENV === location.origin;
 const token = getToken()
 
@@ -118,12 +126,28 @@ const conbineOptions = (
   if (typeof opts === 'string') {
     opts = { url: opts }
   }
+  // eslint-disable-next-line no-console
+  console.log(opts.url)
+
+  let Bur = baseURL
+  if (process.env.NODE_ENV === 'production') {
+    Bur =
+      opts.url.indexOf('pt/') != -1
+        ? QIANTAIHOST
+        : opts.url.indexOf('zf/') != -1
+        ? PAYHOST
+        : ONLINEHOST
+    //去除接口前缀
+    opts.url = opts.url.replace('pt/', '')
+    opts.url = opts.url.replace('api/hd/', '')
+    opts.url = opts.url.replace('zf/', '')
+  }
   const _data = { ...conmomPrams, ...opts.data, ...data }
   const options = {
     method: opts.method || data.method || method || 'GET',
     url: opts.url,
     header: { admintokey: getToken() },
-    baseURL
+    baseURL: Bur
   }
   return options.method !== 'GET'
     ? Object.assign(options, { data: _data })

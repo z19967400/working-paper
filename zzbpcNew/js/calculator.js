@@ -58,41 +58,54 @@ $(function () {
     { time: '2020/10/20', halfYear: '3.85', oneYear: "3.85", threeYear: "3.85", fiveYear: "3.85", fiveAbove: "4.65" },
     { time: '2020/11/20', halfYear: '3.85', oneYear: "3.85", threeYear: "3.85", fiveYear: "3.85", fiveAbove: "4.65" }
   ]
+  //司法鉴定类别
+  const jd = [
+    [
+      { label: '早期尸表检验', value: '500/具', base: '死亡后24小时以内，含照相、录像' },
+      { label: '晚期尸表检验', value: '1000/具', base: '死亡后24小时以外，含照相、录像。高度腐败尸体加收50%' },
+      { label: '早期尸体解剖', value: '1000/具', base: '死亡后24小时以外，含照相、录像。高度腐败尸体加收50%' }
+    ]
+  ]
+
   $('.left .fenlei').click(function (e) {
     index = $('.left .fenlei').index(this)
     $('.left .fenlei').removeClass('act')
     $(this).addClass('act')
+    console.log(index);
+    $('.box>.left>.xian>.xian').css('top', index * 40 + "px")
+    $(`.right>div>div:nth-child(${index + 1})`).show()
+    $(`.right>div>div:nth-child(${index + 1})`).siblings().hide()
+    if (index > 2) {
+      $('.other').show()
+      $('#first1').hide()
+      $('#second2').hide()
+      $('#third3').hide()
+      $('#table').html('')
+      $('.qrm-input').val('')
+    }
     switch (index) {
       case 0:
-        $('.box>.left>.xian>.xian').css('top', '0')
-        $('#first').show()
         $('#first1').show()
-        $('#second').hide()
         $('#second2').hide()
-        $('#third').hide()
         $('#third3').hide()
+        $('.other').hide()
         break;
       case 1:
-        $('.box>.left>.xian>.xian').css('top', '40px')
-        $('#first').hide()
         $('#first1').hide()
-        $('#second').show()
         $('#second2').show()
-        $('#third').hide()
         $('#third3').hide()
+        $('.other').hide()
         break;
       case 2:
-        $('.box>.left>.xian>.xian').css('top', '80px')
-        $('#first').hide()
         $('#first1').hide()
-        $('#second').hide()
         $('#second2').hide()
-        $('#third').show()
         $('#third3').show()
+        $('.other').hide()
         break;
       default:
         break;
     }
+
   })
   //计算
   $('#start').click(function () {
@@ -156,7 +169,34 @@ $(function () {
           $('#zong').text(parseInt(interest(principal, Magnification, startTime1, startTime12)) + (parseInt(delay(principal, endTime1, endTime2)) || 0) + (parseInt(other) || 0) + parseInt(principal) + '元')
         }
         break;
+      case 3:
+        //司法鉴定
+        jianding()
+        break
+      case 4:
+        //公证
+        gongzheng()
+        break
+      case 5:
+        //仲裁
+        zhongcai()
+        break
+      case 6:
+        //房屋贷款
+        daikuang()
+        break
       default:
+      case 7:
+        paimai()
+        break
+      case 8:
+        yiliao()
+        break
+      case 9:
+        fangchan()
+        break
+      case 10:
+        weiyue()
         break;
     }
   })
@@ -312,7 +352,7 @@ $(function () {
   }
   //重置
   $('#reset').click(function () {
-    console.log('重置');
+    location.reload(true)
   })
   //民事案件
   function civil(val, province) {
@@ -480,4 +520,605 @@ function GetVal(obj) {
     $('.Criminal').show()
     $('.Crimina2').hide()
   }
+}
+//司法鉴定
+function jianding() {
+  let value1 = $('#province2').val()
+  let leibie = $('#leibie').val()
+  switch (leibie) {
+    case '法医类/法医病理鉴定':
+      let html = `<tbody>
+        <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+        <tr><td>早期尸表检验</td><td>750/具</td><td>死亡后24小时以内，含照相、录像</td></tr>
+        <tr><td>晚期尸表检验</td><td>1500/具</td><td>	死亡后24小时以外，含照相、录像。高度腐败尸体加收50%</td></tr>
+        <tr><td>早期尸体解剖</td><td>3750/具</td><td>	死亡后24小时以内，含照相、录像、尸表检验、死亡原因、死亡方式、死亡时间、生前伤死后伤、致伤（死）物鉴定，不含组织学检查和毒物分析</td></tr>
+        <tr><td>晚期尸体解剖</td><td>6000/具</td><td>	死亡后24小时以外，含照相、录像、尸表检验、死亡原因、死亡方式、死亡时间、生前伤死后伤、致伤（死）物鉴定，不含组织学检查和毒物分析</td></tr>
+        <tr><td>开棺验尸</td><td>9000/具</td><td>	含照相、录像、尸表检验、尸体解剖、死亡原因、死亡方式、死亡时间、生前伤死后伤、致伤（死）物鉴定，不含组织学检查和毒物分析</td></tr>
+        <tr><td>生前伤死后伤鉴别</td><td>1500/例</td><td>仅适用于单做此项鉴定</td></tr>
+        <tr><td>致伤(死)物认定</td><td>1500/例</td><td>仅适用于单做此项鉴定</td></tr>
+        <tr><td>脏体硅藻检查</td><td>750/例</td><td></td></tr>
+        <tr><td>单器官组织学检查与鉴定</td><td>750或1500/例</td><td>心、脑器官每例1000元，其他器官每例500元。</td></tr>
+        <tr><td>多器官组织学检查与鉴定</td><td>4500/例</td><td></td></tr>
+        <tr><td>病理组织切片检查</td><td>105/张</td><td></td></tr>
+        <tr><td>特殊染色技术</td><td>150/张</td><td>如特殊组织染色、组织化学染色、免疫组化染色、免疫荧光染色等。</td></tr>
+        <tr><td>电镜病理检查</td><td>450/标本</td><td>电镜、免疫电镜、扫描电镜等。</td></tr>
+        <tr><td>尸体X光检验</td><td>120/张</td><td></td></tr>
+        <tr><td>尸体CR检验</td><td>225/张</td><td></td></tr>
+        <tr><td>法医现场检查</td><td>1500/例</td><td>进行现场勘验、物证搜集和现场重建工作。</td></tr>
+        <tr><td>法医病理鉴定文证审查</td><td>1800/例</td><td></td></tr>
+      </tbody>`
+      $('#table').html(html)
+      break;
+    case '法医类/法医临床鉴定':
+      let html2 = `<tbody>
+        <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+        <tr><td>损伤程度鉴定</td><td>450或1050/例</td><td>只涉及体表损伤程度鉴定的，每例300元。含活体检验、活体照相，不含医学辅助检查费用</td></tr>
+        <tr><td>伤残程度评定</td><td>1050/例</td><td>	含活体检验、活体照相，不含医学辅助检查费用</td></tr>
+        <tr><td>伤病关系鉴定</td><td>1500/例</td><td>	</td></tr>
+        <tr><td>诈病、诈伤鉴定</td><td>2250/例</td><td>	</td></tr>
+        <tr><td>医疗纠纷鉴定</td><td>6450/例</td><td>	</td></tr>
+        <tr><td>劳动能力鉴定</td><td>1050/例</td><td></td></tr>
+        <tr><td>活体年龄鉴定</td><td>1200/例</td><td></td></tr>
+        <tr><td>男性性功能评定</td><td>1050/例</td><td></td></tr>
+        <tr><td>听觉功能评定</td><td>1050/例</td><td></td></tr>
+        <tr><td>视觉功能评定</td><td>1050/例</td><td></td></tr>
+        <tr><td>致伤物和致伤方式推断</td><td>1350/例</td><td></td></tr>
+        <tr><td>医疗费合理性评定</td><td>900/例</td><td></td></tr>
+        <tr><td>后期医疗费评定</td><td>900/例</td><td></td></tr>
+        <tr><td>医疗护理依赖程度评定</td><td>900/例</td><td></td></tr>
+        <tr><td>误工、护理、营养时限评定</td><td>900/例</td><td></td></tr>
+        <tr><td>治疗时限评定</td><td>900/例</td><td></td></tr>
+        <tr><td>法医临床鉴定文证审查</td><td>1200/例</td><td></td></tr>
+      </tbody>`
+      $('#table').html(html2)
+      break;
+    case '法医类/法医物证鉴定':
+      let html3 = `<tbody>
+        <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+        <tr><td>体液斑(精斑)的确证试验</td><td>一样本150元</td><td></td></tr>
+        <tr><td>种属的血清学检验</td><td>一样本150元</td><td>	</td></tr>
+        <tr><td>ABO血型的血清学检验</td><td>一样本225元</td><td>	</td></tr>
+        <tr><td>红细胞酶型的血清学检验</td><td>一样本225元</td><td>按照每个检验的酶型收取费用</td></tr>
+        <tr><td>白细胞血型的血清学检验</td><td>一样本1200元</td><td>	</td></tr>
+        <tr><td>血清蛋白的血清学检验</td><td>一样本225元</td><td>按照每个检验的酶型收取费用</td></tr>
+        <tr><td>ABO血型的DNA检验</td><td>一样本750元</td><td></td></tr>
+        <tr><td>常染色体DNA检验</td><td>一样本120元</td><td>对每个样本的检验应不少于15个基因座;单亲亲子鉴定加1倍收费;骨骼、牙齿、指甲要加收500元/样本;同时做性别检验不另收费用。</td></tr>
+        <tr><td>Y染色体DNA检验</td><td>一样本1800元</td><td>对每个样本的检验应不少于15个基因座;骨骼、牙齿、指甲要加收500元/样本。</td></tr>
+        <tr><td>X染色体DNA检验</td><td>一样本1800元</td><td>对每个样本的检验应不少于15个基因;骨骼、牙齿、指甲要加收500元/样本。</td></tr>
+        <tr><td>线粒体DNA检验</td><td>一样本2250元</td><td></td></tr>
+        <tr><td>种属的DNA检验</td><td>一样本1500元</td><td></td></tr>
+        <tr><td>性别的DNA检验</td><td>一样本750元</td><td></td></tr>
+        <tr><td>动植物的DNA检验</td><td>一样本3000元</td><td>不含人类。</td></tr>
+        <tr><td>其他法医DNA鉴定</td><td>一样本450元</td><td>其他未在试剂盒中包括的基因座;按每个检验的基因座计收。</td></tr>
+        <tr><td>法医物证鉴定文证审查</td><td>一例750元</td><td></td></tr>
+      </tbody>`
+      $('#table').html(html3)
+      break;
+    case '法医类/法医毒物鉴定':
+      let html4 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>人体体液中乙醇定性定量分析</td><td>一样本450元</td><td></td></tr>
+          <tr><td>血液中碳氧血红蛋白饱和度检测</td><td>一样本450元</td><td></td></tr>
+          <tr><td>毛发中滥用药物定性分析</td><td>一样本或目标物1800元</td><td>需定量分析，每样本或目标物加收50%。	</td></tr>
+          <tr><td>毒物、毒品定性分析(体外)</td><td>一样本或目标物1200元</td><td>需定量分析，每样本或目标物加收50%。</td></tr>
+          <tr><td>常见挥发性毒物分析</td><td>一样本或目标物1500元</td><td>需定量分析，每样本或目标物加收50%。	</td></tr>
+          <tr><td>常见有机毒物分析</td><td>一样本或目标物1500元</td><td>需定量分析，每样本或目标物加收50%。</td></tr>
+          <tr><td>常见无机毒物分析</td><td>一样本或目标物1500元</td><td>需定量分析，每样本或目标物加收50%。</td></tr>
+          <tr><td>常见动、植物有毒成分分析</td><td>一样本或目标物3150元</td><td>需定量分析，每样本或目标物加收50%。</td></tr>
+          <tr><td>法医毒物鉴定文证审查</td><td>一例1200元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html4)
+      break;
+    case '法医类/法医人类学鉴定':
+      let html5 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>颅像重合鉴定</td><td>一例1800元</td><td></td></tr>
+          <tr><td>颅像面貌画像</td><td>一例1500元</td><td></td></tr>
+          <tr><td>颅像面貌塑像</td><td>一例750元</td><td>	</td></tr>
+          <tr><td>尸骨个体识别</td><td>一例1500元</td><td></td></tr>
+          <tr><td>人类学骨龄鉴定</td>一例1500元<td></td></tr>
+          <tr><td>法医人类学鉴定文证审查</td><td>一例750元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html5)
+      break;
+    case '法医类/法医精神病鉴定':
+      let html6 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>精神状态鉴定</td><td>一例900元</td><td>包括智能障碍评定、精神疾病医学诊断等。</td></tr>
+          <tr><td>刑事能力评定</td><td>一例2250元</td><td>包括责任能力、服刑能力、性自卫能力等。</td></tr>
+          <tr><td>民事能力评定</td><td>一例2250元</td><td>包括民事行为能力、劳动能力等。</td></tr>
+          <tr><td>诉讼能力评定</td><td>一例1500元</td><td>包括受审能力、作证能力、诉讼行为能力等。</td></tr>
+          <tr><td>司法精神病因果关系鉴定</td>一例3000元<td>包括精神损失、精神伤残评定、精神伤病关系鉴定等。</td></tr>
+          <tr><td>多导心理生理检测评定</td><td>一例3000元</td><td></td></tr>
+          <tr><td>法医精神病鉴定文证审查</td><td>一例1500元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html6)
+      break;
+    case '物证类/文书鉴定':
+      let html7 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>笔迹鉴定</td><td>一项1500元</td><td>涉及财产案件，标的额不超过10万元的，按照本表左侧所列收费标准执行;超过10万元至50万元的部分，按照1%收取;超过50万元至100万元的部分，按照0.8%收取;超过100万元至200万元的部分，按照0.6%收取;超过200万元至500万元的部分，按照0.4%收取;超过500万元至1000万元的部分，按照0.2%收取;超过1000万元的部分，按照0.1%收取。</td></tr>
+          <tr><td>印章印文鉴定</td><td>一项1500元</td><td></td></tr>
+          <tr><td>印刷文件同一性、同源性鉴定</td><td>一项1800元</td><td></td></tr>
+          <tr><td>文件制作方法鉴定</td><td>一件1800元</td><td></td></tr>
+          <tr><td>印刷机具鉴定</td>一件1800元<td></td></tr>
+          <tr><td>文书形成时间鉴定</td><td>一项3300元</td><td></td></tr>
+          <tr><td>朱墨或文字时序鉴定</td><td>一例3300元</td><td></td></tr>
+          <tr><td>变造文件鉴定</td><td>一项1800元</td><td></td></tr>
+          <tr><td>污损文件鉴定</td><td>一项1800元</td><td></td></tr>
+          <tr><td>证件、证书、票据真伪鉴定</td><td>一项1800元</td><td></td></tr>
+          <tr><td>字迹压痕显现</td><td>一项1500元</td><td></td></tr>
+          <tr><td>文书物质材料鉴定</td><td>一项1500元</td><td></td></tr>
+          <tr><td>文书鉴定文证审查</td><td>一项1200元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html7)
+      break;
+    case '物证类/痕迹鉴定':
+      let html8 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>手印鉴定</td><td>一枚1200元</td><td>涉及财产案件，收费办法同上。痕迹鉴定均以检材数量为单位基数，不计样本数量。</td></tr>
+          <tr><td>足迹鉴定</td><td>一枚1020元</td><td>痕迹鉴定均以检材数量为单位基数，不计样本数量。</td></tr>
+          <tr><td>工具痕迹鉴定</td><td>一个1275元</td><td></td></tr>
+          <tr><td>弹头弹壳痕迹鉴定</td><td>一枚1320元</td><td></td></tr>
+          <tr><td>枪支性能及致伤力鉴定</td>一支1500元<td></td></tr>
+          <tr><td>弹道分析鉴定</td><td>一例1500元</td><td></td></tr>
+          <tr><td>枪弹检验建档</td><td>一支300元</td><td></td></tr>
+          <tr><td>动物蹄迹痕迹鉴定</td><td>一枚1170元</td><td></td></tr>
+          <tr><td>整体分离痕迹鉴定</td><td>一件945元</td><td></td></tr>
+          <tr><td>钥匙痕迹鉴定</td><td>一件960元</td><td></td></tr>
+          <tr><td>纺织品痕迹鉴定</td><td>一件975元</td><td></td></tr>
+          <tr><td>玻璃破碎痕迹鉴定</td><td>一件975元</td><td></td></tr>
+          <tr><td>牙齿痕迹鉴定</td><td>一件1275元</td><td></td></tr>
+
+          <tr><td>唇纹痕迹鉴定</td><td>一个975元</td><td></td></tr>
+          <tr><td>皮肤纹痕迹鉴定</td><td>一个1275元</td><td></td></tr>
+          <tr><td>耳廓痕迹鉴定</td>一个975元<td></td></tr>
+          <tr><td>车辆轮迹鉴定</td><td>一个1275元</td><td></td></tr>
+          <tr><td>车辆痕迹鉴定</td><td>一辆1500元</td><td></td></tr>
+          <tr><td>机动车辆号码化学显现</td><td>一组570元</td><td></td></tr>
+          <tr><td>痕迹显现</td><td>一件600元</td><td></td></tr>
+          <tr><td>实物照片与实物同一鉴定</td><td>一件900元</td><td></td></tr>
+          <tr><td>物体爆破(裂)痕迹鉴定</td><td>一件1500元</td><td></td></tr>
+          <tr><td>常见炸药鉴定</td><td>一项1500元</td><td></td></tr>
+          <tr><td>导火索、导爆索鉴定</td><td>一段1200元</td><td></td></tr>
+
+          <tr><td>火雷管、电雷管鉴定</td><td>一段1500元</td><td></td></tr>
+          <tr><td>制式手榴弹、手雷鉴定</td><td>一项1200元</td><td></td></tr>
+          <tr><td>爆炸装置鉴定</td><td>一项3000元</td><td></td></tr>
+          <tr><td>痕迹鉴定文证审查</td><td>一例1200元</td><td></td></tr>
+          <tr><td>扫描电镜/x射线能谱仪成分检验(定性)</td><td>一样本690元</td><td></td></tr>
+          <tr><td>扫描电镜/x射线能谱仪比对检验</td><td>一组1500元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html8)
+      break;
+    case '物证类/微量物证理化检验鉴定':
+      let html9 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>射击、爆炸残留物的扫描电镜/x射线能谱仪成分检验</td><td>一样本1800元</td><td></td></tr>
+          <tr><td>傅立叶(显微)显微红外光谱仪成分检验</td><td>一样本525元</td><td></td></tr>
+          <tr><td>傅立叶(显微)显微红外光谱仪成分比对检验</td><td>一组975元</td><td></td></tr>
+          <tr><td>偏振光显微镜检验</td><td>一样本300元</td><td></td></tr>
+          <tr><td>拉曼(激光)光谱仪检验</td>一样本600元<td></td></tr>
+          <tr><td>(激光)等离子发射光谱仪/质谱仪成分检验</td><td>一样本1050元</td><td>超过5个元素的，每增加一个元素加收100元。</td></tr>
+          <tr><td>(激光)等离子发射光谱仪/质谱仪成分比对检验</td><td>一元素450元</td><td>需定量检验，每元素加收50%</td></tr>
+          <tr><td>气相色谱/质谱仪检验</td><td>一样本600元</td><td>需定量检验，每样本·目标物加收50%。</td></tr>
+          <tr><td>裂解-气相色谱/质谱仪检验</td><td>一样本525元</td><td></td></tr>
+          <tr><td>气相色谱检验</td><td>一样本450元</td><td></td></tr>
+          <tr><td>热差、热重仪检验</td><td>一样本450元</td><td></td></tr>
+          <tr><td>X射线荧光光谱仪检验</td><td>一样本525元</td><td></td></tr>
+          <tr><td>X射线衍射仪检验</td><td>一样本600元</td><td></td></tr>
+          <tr><td>离子色谱或离子色谱/质谱仪检验</td><td>一样本525元</td><td></td></tr>
+          <tr><td>微量物证理化检验鉴定文证审查</td><td>一例1200元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html9)
+      break;
+    case '声像资料类/电子数据鉴定':
+      let html10 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>硬盘检验</td><td>1GB30元</td><td>包括台式机硬盘、笔记本硬盘、移动硬盘。</td></tr>
+          <tr><td>服务器检验</td><td>1GB45元</td><td>包括磁盘阵例柜、网络硬盘等。</td></tr>
+          <tr><td>CD及DVD光盘检测鉴定</td><td>一片300元</td><td></td></tr>
+          <tr><td>U盘及存储卡检测鉴定</td><td>一个450元</td><td>含SIM卡</td></tr>
+          <tr><td>软盘检测鉴定</td><td>一张150元</td><td></td></tr>
+          <tr><td>电子设备检验鉴定</td><td>一个900元</td><td>包括录音笔、传真机、电子秤等同类电子设备。</td></tr>
+          <tr><td>存储介质物理故障排除</td><td>一部件1350元</td><td>包括调换磁头、电机;更换PCB板;坏扇处理等。</td></tr>
+          <tr><td>手机机身检验</td><td>一个1350元</td><td></td></tr>
+          <tr><td>注册表检验鉴定</td><td>一个1500元</td><td></td></tr>
+          <tr><td>气相色谱检验</td><td>一样本450元</td><td></td></tr>
+          <tr><td>软件一致性检验鉴定</td><td>100个程序行180元</td><td></td></tr>
+          <tr><td>软件功能检验</td><td>一个2250元</td><td>按每个检验的软件收费。</td></tr>
+          <tr><td>文件一致性检验鉴定</td><td>一对1200元</td><td></td></tr>
+          <tr><td>数据库数据恢复</td><td>一个5250元</td><td></td></tr>
+          <tr><td>数据库一致性检验鉴定</td><td>一对6300元</td><td></td></tr>
+          <tr><td>其他电子数据检验鉴定</td><td>1MB7.5元</td><td>包括网络数据包等。</td></tr>
+          <tr><td>密码破解</td><td>一个2250元</td><td></td></tr>
+          <tr><td>现场数据获取</td><td>1GB12元</td><td></td></tr>
+          <tr><td>网络数据获取</td><td>接入一小时390元</td><td></td></tr>
+          <tr><td>光盘朔源检验</td><td>一片900元</td><td></td></tr>
+          <tr><td>光盘刻录机检验</td><td>一片1200元</td><td></td></tr>
+          <tr><td>电子物证鉴定文证复审</td><td>一例1800元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html10)
+      break;
+    case '声像资料类/声像资料鉴定':
+      let html11 = `<tbody>
+          <tr><th width="20%">收费项目</th><th width="20%">基准价(元)</th><th width="40%">备注</th></tr>
+          <tr><td>录音资料中话者同一认定</td><td>一人3300元</td><td></td></tr>
+          <tr><td>录音资料辨识</td><td>一件1800元</td><td>按每20分钟计收。</td></tr>
+          <tr><td>录音资料的真实性完整性鉴定</td><td>一件3000元</td><td>按每20分钟计收。</td></tr>
+          <tr><td>录音资料的降噪处理</td><td>一件2700元</td><td>按每20分钟计收。</td></tr>
+          <tr><td>语音分析检验</td><td>一件1200元</td><td>按每20分钟计收。</td></tr>
+          <tr><td>录音器材检验</td><td>一件900元</td><td></td></tr>
+          <tr><td>录像资料同一性认定</td><td>一件3300元</td><td></td></tr>
+          <tr><td>录像资料辨识</td><td>一件1350元</td><td></td></tr>
+          <tr><td>录像资料的真实性完整性鉴定</td><td>一件2250元</td><td>按每20分钟计收。</td></tr>
+          <tr><td>录像资料的模糊图像处理</td><td>一件2700元</td><td></td></tr>
+          <tr><td>图片资料同一性认定</td><td>一件2700元</td><td></td></tr>
+          <tr><td>图片资料辨识</td><td>一件1200元</td><td></td></tr>
+          <tr><td>图片资料的真实性完整性鉴定</td><td>一件2250元</td><td></td></tr>
+          <tr><td>图片资料的模糊图像处理</td><td>一件1500元</td><td></td></tr>
+          <tr><td>人像鉴定</td><td>一件1200元</td><td></td></tr>
+          <tr><td>特种光学技术检验</td><td>一件750元</td><td></td></tr>
+          <tr><td>多(超)光谱检验</td><td>一件1200元</td><td></td></tr>
+          <tr><td>计算机人像组合</td><td>一件750元</td><td></td></tr>
+          <tr><td>手工模拟画像</td><td>一件1200元</td><td></td></tr>
+          <tr><td>手工雕塑复原头像</td><td>一件3000元</td><td></td></tr>
+          <tr><td>计算机模拟复原头像</td><td>一件1500元</td><td></td></tr>
+          <tr><td>声像资料鉴定文证复审</td><td>一件1800元</td><td></td></tr>
+        </tbody>`
+      $('#table').html(html11)
+      break;
+    default:
+      break;
+  }
+}
+//公证
+function gongzheng() {
+  let leibie = $('#leibie1').val()
+  let value = $('#Subject3').val()
+  let value2 = ''
+
+  if (leibie == '证明法律行为/证明土地使用权、房屋、股权等出让、转让、买卖') {
+    if (!value) {
+      openToast("请填写标的", "warn")
+      return false
+    }
+    if (value <= 500000) {
+      value2 = value * 0.003 > 200 ? value * 0.003 : 200
+    } else if (value > 500000 && value <= 5000000) {
+      value2 = 1500 + (value - 500000) * 0.0025
+    } else if (value > 5000000 && value <= 10000000) {
+      value2 = 12750 + (value - 5000000) * 0.002
+    } else if (value > 10000000 && value <= 20000000) {
+      value2 = 22750 + (value - 10000000) * 0.0015
+    } else if (value > 20000000 && value <= 50000000) {
+      value2 = 37750 + (value - 20000000) * 0.001
+    } else if (value > 50000000 && value <= 100000000) {
+      value2 = 67750 + (value - 50000000) * 0.0005
+    } else if (value > 100000000) {
+      value2 = 92750 + (value - 100000000) * 0.0001
+    }
+  } else if (leibie == '证明法律行为/证明其他经济合同') {
+    if (!value) {
+      openToast("请填写标的", "warn")
+      return false
+    }
+    if (value <= 20000) {
+      value2 = value * 0.01
+    } else if (value > 20000 && value <= 50000) {
+      value2 = 200 + (value - 20000) * 0.08
+    } else if (value > 50000 && value <= 100000) {
+      value2 = 2600 + (value - 50000) * 0.06
+    } else if (value > 100000 && value <= 500000) {
+      value2 = 5600 + (value - 100000) * 0.05
+    } else if (value > 500000 && value <= 1000000) {
+      value2 = 25600 + (value - 500000) * 0.04
+    } else if (value > 1000000 && value <= 2000000) {
+      value2 = 45600 + (value - 1000000) * 0.03
+    } else if (value > 2000000 && value <= 3000000) {
+      value2 = 75600 + (value - 2000000) * 0.02
+    } else if (value > 3000000 && value <= 4000000) {
+      value2 = 95600 + (value - 3000000) * 0.01
+    } else if (value > 4000000) {
+      value2 = 105600 + (value - 4000000) * 0.005
+    }
+  } else if (leibie == '提存公证/提存公证' || leibie == '赋予债权文书具有强制执行效力/赋予债权文书具有强制执行效力') {
+    if (!value) {
+      openToast("请填写标的", "warn")
+      return false
+    }
+    value2 = value * 0.003 > 100 ? value * 0.003 : 100
+  } else if (leibie == '证明法律行为/证明民事协议（不涉及财产)' || leibie == '证明有法律意义的文书/证明其他有法律意义的文书') {
+    value2 = 100
+  } else if (leibie == '证明法律行为/证明民事协议（涉及财产)' || leibie == '证明有法律意义的事实/证明不可抗力事件' || leibie == '证明有法律意义的事实/其他物证保全' || leibie == '证明有法律意义的事实/制作票据拒绝证书') {
+    value2 = 400
+  } else if (leibie == '证明法律行为/证明收养关系.生父母单方送养' || leibie == '证明有法律意义的事实/证明法人和其他组织的资格、资信' || leibie == '证明有法律意义的文书/证明知识产权的享有、转让和使用许可文书' || leibie == '证明有法律意义的文书/证证明法人等的授权委托书、公司章程、会议决议等' || leibie == '其他民事法律行为的设立、变更、终止/公证监督类.商品抽样检测') {
+    value2 = 500
+  } else if (leibie == '证明法律行为/证明收养关系.其他监护人送养' || leibie == '证明有法律意义的事实/不动产保全' || leibie == '证明有法律意义的事实/侵权行为和事实证据保全' || leibie == '其他民事法律行为的设立、变更、终止/公证监督类.拍卖' || leibie == '其他民事法律行为的设立、变更、终止/公证监督类.评奖、开奖类公证') {
+    value2 = 1000
+  } else if (leibie == '证明法律行为/证明收养关系.其他监护人送养' || leibie == '证明有法律意义的事实/声像资料、电脑软件保全') {
+    value2 = 800
+  } else if (leibie == '证明法律行为/证明财产继承、赠与和遗赠') {
+    if (!value) {
+      openToast("请填写标的", "warn")
+      return false
+    }
+    value2 = value * 0.02 > 200 ? value * 0.02 : 200
+  } else if (leibie == '证明有法律意义的事实/证明出生、生存、死亡、身份、经历、学历、国籍等' || leibie == '证明有法律意义的事实/证明婚姻状况、亲属关系、未受(受过)刑事处分等') {
+    value2 = 80
+  } else if (leibie == '遗嘱相关/清点遗产') {
+    value2 = '300 ― 1000'
+  } else if (leibie == '遗嘱相关/确认遗嘱效力') {
+    if (!value) {
+      openToast("请填写标的", "warn")
+      return false
+    }
+    value2 = value * 0.015 > 200 ? value * 0.015 : 200
+  } else if (leibie == '遗嘱相关/保管遗产' || leibie == '其他/与公证事项相关的登记代办费') {
+    value2 = 300
+  } else if (leibie == '证明对财产的清点、清算、评估和估损/证明对财产的清点、清算.公民') {
+    value2 = "500 - 1000"
+  } else if (leibie == '证明对财产的清点、清算、评估和估损/证明对财产的清点、清算.法人') {
+    value2 = "1000 - 2000"
+  } else if (leibie == '证明对财产的清点、清算、评估和估损/证明对财产的评估、估损.公民') {
+    value2 = 500
+  } else if (leibie == '证明对财产的清点、清算、评估和估损/证明对财产的评估、估损.法人') {
+    value2 = 1000
+  } else if (leibie == '其他民事法律行为的设立、变更、终止/公证监督类.招、投标') {
+    value2 = 3000
+  } else if (leibie == '其他/与公证事项相关的登记代办费') {
+    value2 = 50
+  } else if (leibie == '其他/公证书副本.无译文的副本') {
+    value2 = 10
+  } else if (leibie == '其他/公证书副本.有译文的副本') {
+    value2 = '公证书翻译费每千字收费60'
+  } else {
+    value2 = 200
+  }
+
+  let html = `<tbody>
+    <tr><th width="50%">费用类别</th><th width="50%">金额</th></tr>
+    <tr><td>公证费</td><td>${value2}元</td></tr>
+  </tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
+}
+//仲裁
+function zhongcai() {
+  let lx = $('#province4').val()
+  let value = $('#Subject4').val()
+  let value2 = ''
+  if (!value) {
+    openToast("请填写标的", "warn")
+    return false
+  }
+  if (lx == '案件受理费') {
+    if (value <= 1000) {
+      value2 = 100
+    } else if (value > 1000 && value <= 50000) {
+      value2 = 100 + (value - 1000) * 0.05
+    } else if (value > 50000 && value <= 100000) {
+      value2 = 2550 + (value - 50000) * 0.04
+    } else if (value > 100000 && value <= 200000) {
+      value2 = 4550 + (value - 100000) * 0.03
+    } else if (value > 200000 && value <= 500000) {
+      value2 = 7550 + (value - 200000) * 0.02
+    } else if (value > 500000 && value <= 1000000) {
+      value2 = 13550 + (value - 500000) * 0.01
+    } else if (value > 1000000) {
+      value2 = 18550 + (value - 1000000) * 0.005
+    }
+  } else {
+    if (value <= 200000) {
+      if (value * 0.01 < 2000) {
+        value2 = '最低收费基数为：双方均在上海的1000元，一方在外地的1500元，双方均在外地的2000'
+      } else {
+        value2 = value * 0.01
+      }
+
+    } else if (value > 200000 && value <= 500000) {
+      value2 = 2000 + (value - 200000) * 0.0075
+    } else if (value > 500000 && value <= 1000000) {
+      value2 = 4250 + (value - 500000) * 0.04
+    } else if (value > 1000000) {
+      value2 = 6250 + (value - 1000000) * 0.03
+    }
+  }
+  let html = `<tbody>
+    <tr><th width="50%">费用类别</th><th width="50%">金额</th></tr>
+    <tr><td>仲裁费</td><td>${value2}元</td></tr>
+  </tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
+}
+//房屋贷款
+$('#province5').change(function () {
+  let val = $(this).val()
+  if (val == '公积金贷款') {
+    $('#Subject5-3').hide()
+    $('#Subject5-4').hide()
+    // $('.dk-2').hide()
+    $('#Subject5-2').val('3.25')
+  } else if (val == '商业贷款') {
+    $('#Subject5-3').hide()
+    $('#Subject5-4').show()
+    $('#Subject5').hide()
+    // $('#dk-2').show()
+    // $('#dk-2').value('100')
+    $('#Subject5-2').val('4.9')
+  } else {
+    // $('#dk-2').show()
+    $('#Subject5-3').show()
+    $('#Subject5-4').show()
+    $('#Subject5-2').val('3.25')
+    $('#Subject5-3').val('4.9')
+    // $('#dk-2').value('100')
+  }
+})
+function daikuang() {
+  let val = $('#province5').val() //贷款类型
+  let val2 = $('#Subject5').val() * 10000//本金
+  let val3 = $('#Subject5-1').val() * 12 //期限
+  let html = ''
+  if (val == '公积金贷款' || val == '商业贷款') {
+    let lilv = $('#Subject5-2').val() / 100 //年利率
+    //等额本息
+    let value = [val2 * (lilv / 12) * (1 + lilv / 12) ** val3] / [(1 + lilv / 12) ** val3 - 1]
+    //等额本金
+    let value2 = (val3 + 1) * val2 * (lilv / 12) / 2
+    html = `
+      <tbody >
+        <tr><th width="50%">等额本金</th><th width="50%"></th></tr>
+        <tr><td>还款月数</td><td>${val3}</td></tr>
+        <tr><td>总支付利息(元)</td><td>${value2.toFixed(2)}</td></tr>
+        <tr><td>本息合计(元)</td><td>${(value2 + val2).toFixed(2)}</td></tr>
+        <tr><th width="50%">等额本息</th><th width="50%"></th></tr>
+        <tr><td>每月还款</td><td>${value.toFixed(2)}</td></tr>
+        <tr><td>还款月数</td><td>${val3}</td></tr>
+        <tr><td>总支付利息(元)</td><td>${(value * val3 - val2).toFixed(2)}</td></tr>
+        <tr><td>本息合计(元)</td><td>${(value * val3).toFixed(2)}</td></tr>
+      </tbody>
+    `
+    $('#table').html(html)
+    $('#table').addClass('table')
+  }
+  //  else if (val == '商业贷款') {
+
+  // } 
+  else {
+    let val4 = $('#Subject5-4').val() * 10000  //商业贷款本金
+    let lilv = $('#Subject5-2').val() / 100 //年利率
+    let live2 = $('#Subject5-3').val() / 100 //年利率
+    //等额本息
+    let value = [val2 * (lilv / 12) * (1 + lilv / 12) ** val3] / [(1 + lilv / 12) ** val3 - 1] + [val4 * (live2 / 12) * (1 + live2 / 12) ** val3] / [(1 + live2 / 12) ** val3 - 1]
+    //等额本金
+    let value2 = (val3 + 1) * val2 * (lilv / 12) / 2 + (val3 + 1) * val4 * (live2 / 12) / 2
+    html = `
+      <tbody >
+        <tr><th width="50%">等额本金</th><th width="50%"></th></tr>
+        <tr><td>还款月数</td><td>${val3}</td></tr>
+        <tr><td>总支付利息(元)</td><td>${value2.toFixed(2)}</td></tr>
+        <tr><td>本息合计(元)</td><td>${(value2 + val2 + val4).toFixed(2)}</td></tr>
+        <tr><th width="50%">等额本息</th><th width="50%"></th></tr>
+        <tr><td>每月还款</td><td>${value.toFixed(2)}</td></tr>
+        <tr><td>还款月数</td><td>${val3}</td></tr>
+        <tr><td>总支付利息(元)</td><td>${(value * val3 - (val2 + val4)).toFixed(2)}</td></tr>
+        <tr><td>本息合计(元)</td><td>${(value * val3).toFixed(2)}</td></tr>
+      </tbody>
+    `
+    $('#table').html(html)
+    $('#table').addClass('table')
+  }
+}
+//拍卖
+function paimai() {
+  let val = $('#Subject6').val() //标的
+  let value = 0
+  if (val <= 2000000) {
+    value = val * 0.05
+  } else if (val > 2000000 && val <= 10000000) {
+    value = 100000 + (val - 2000000) * 0.03
+  } else if (val > 10000000 && val <= 50000000) {
+    value = 340000 + (val - 10000000) * 0.02
+  } else if (val > 50000000 && val <= 100000000) {
+    value = 1140000 + (val - 100000) * 0.01
+  } else if (val > 100000000) {
+    value = 1640000 + (val - 100000000) * 0.005
+  }
+  let html = `<tbody>
+    <tr><th width="50%">费用类别</th><th width="50%">金额</th></tr>
+    <tr><td>拍卖佣金</td><td>${value}元</td></tr>
+  </tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
+
+}
+//工伤赔偿
+function yiliao() {
+  let value1 = parseInt($('#Subject7-4').val())
+  let value2 = parseInt($('#Subject7-5').val())
+  let value3 = $('#Subject7-6').val() //停工留薪天数
+  let value4 = $('#Subject7-2').val() //月平均工资
+  let value5 = Number($('#Subject7-1').val()) //伤残级别
+  let value6 = 0
+  let value7 = value4 / 30 * value3 //误工费
+  let value8 = 0 //月补助津贴
+  switch (value5) {
+    case 1:
+      value6 = 27 * value4
+      value8 = 0.9 * value4
+      break;
+    case 2:
+      value6 = 25 * value4
+      value8 = 0.85 * value4
+      break
+    case 3:
+      value6 = 23 * value4
+      value8 = 0.8 * value4
+      break
+    case 4:
+      value6 = 21 * value4
+      value8 = 0.75 * value4
+      break
+    case 5:
+      value6 = 18 * value4
+      value8 = 0.7 * value4
+      break
+    case 6:
+      value6 = 16 * value4
+      value8 = 0.6 * value4
+      break
+    case 7:
+      value6 = 13 * value4
+      break
+    case 8:
+      value6 = 11 * value4
+      break
+    case 9:
+      value6 = 9 * value4
+      break
+    case 10:
+      value6 = 7 * value4
+      break
+    case 11:
+      value6 = 49300 * 20
+      break
+    default:
+      break;
+  }
+  let value = value1 + value2 + value6 + value7
+  let html = `<tbody>
+  <tr><th width="50%">费用类别</th><th width="50%">金额</th></tr>
+  <tr><td>医疗费用</td><td>${value1}元</td></tr>
+  <tr><td>辅助器材费</td><td>${value2}元</td></tr>
+  <tr><td>医赔偿费用</td><td>${value6}元</td></tr>
+  <tr><td>伤残津贴/月</td><td>${value8}元</td></tr>
+  <tr><td>总计</td><td>${value}元</td></tr>
+</tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
+}
+//房产分割
+function fangchan() {
+  let value1 = $('#Subject8-1').val() //结婚时房产价格
+  let value2 = $('#Subject8-2').val() //离婚时房产价格
+  let value3 = $('#Subject8-3').val() //共同已还利息
+  let value4 = $('#Subject8-4').val() //契税等其他费用
+  let value5 = $('#Subject8-5').val() //共同还贷部分
+  let html = `<tbody>
+  <tr><td>房产的升值率（%）</td><td>${33}%</td></tr>
+  <tr><td>婚后增值金额（万）</td><td>${33.33}</td></tr>
+</tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
+}
+//违约金
+function weiyue() {
+  let html = `<tbody>
+    <tr><td>逾期期限</td><td>${365}天</td></tr>
+    <tr><td>利率</td><td>${0.000139}每天</td></tr>
+    <tr><td>违约金</td><td>${50874.00}元</td></tr>
+  </tbody>`
+  $('#table').html(html)
+  $('#table').addClass('table')
 }

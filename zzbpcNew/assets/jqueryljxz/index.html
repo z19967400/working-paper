@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>级联选择器</title>
+    <link rel="stylesheet" href="css/qrm-pinming.css">
+
+</head>
+<body>
+<!--品名开始-->
+<div class="box">
+	<div class="qrm-pinming">
+	    <div class="qrm-input-border">
+	        <!--<span class="title">品名</span>-->
+	        <input type="text" placeholder="请选择" class="qrm-input" style="width: 250px">
+	    </div>
+	    <!--<div class="qrm-pinming-panel" style="display:none">-->
+	        <div class="qrm-border1" style="display:none">
+	            <ul class="qrm-lev-1 qrm-lev">
+	                <!--统料-->
+	                <li class="active">
+	                    <span>我是一级01</span><i class="qrm-arrow-right"></i>
+	                    <ul class="li-zi-1" style="display: none">
+	                        <li>
+	                            <span>我是二级01</span><i class="qrm-arrow-right"></i>
+	                            <ul class="li-zi-2" style="display: none">
+	                                <li>
+	                                    <span>我是三级1-1</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级1-2</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级1-3</span>
+	                                </li>
+	                            </ul>
+	                        </li>
+	                        <li>
+	                            <span>我是二级02</span><i class="qrm-arrow-right"></i>
+	                            <ul class="li-zi-2" style="display: none">
+	                                <li>
+	                                    <span>我是三级2-1</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级2-2</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级2-3</span>
+	                                </li>
+	                            </ul>
+	                        </li>
+	                        <li>
+	                            <span>我是二级03</span><i class="qrm-arrow-right"></i>
+	                            <ul class="li-zi-2" style="display: none">
+	                                <li>
+	                                    <span>我是三级3-1</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级3-2</span>
+	                                </li>
+	                                <li>
+	                                    <span>我是三级3-3</span>
+	                                </li>
+	                            </ul>
+	                        </li>
+	                        <li>
+	                            <span>我是二级04</span>
+	                        </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	            
+	        </div>
+	        <div class="qrm-border2" style="display:none">
+	            <ul class="qrm-lev-2 qrm-lev">
+	
+	            </ul>
+	      
+	        </div>
+	        <div class="qrm-border3" style="display:none">
+	            <ul class="qrm-lev-3 qrm-lev">
+	
+	            </ul>
+	        </div>
+	        <div class="qrm-border4" style="display:none">
+	            <ul class="qrm-lev-4 qrm-lev">
+	
+	            </ul>
+	        </div>
+	</div>
+</div>
+<!--品名结束-->
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="js/qrm-pinming.js"></script>
+
+</body>
+</html>

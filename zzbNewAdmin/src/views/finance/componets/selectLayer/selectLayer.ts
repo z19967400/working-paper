@@ -34,6 +34,14 @@ export default class selectLayer extends Vue {
     Api.GetLawyerListByIdOrName(this.getUser).then((res: any) => {
       if (res.state) {
         this.tableData = res.data
+        if (res.data.length > 0) {
+          this.data.UserId = res.data[0].id
+          let parmas: any = {
+            lawyer_id: res.data[0].id,
+            member_id: res.data[0].member_id
+          }
+          this.$emit('setUserId', parmas)
+        }
       } else {
         this.$message.warning(res.mg)
       }

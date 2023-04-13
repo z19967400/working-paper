@@ -56,6 +56,7 @@
             ></el-option>
           </el-select>
           <!-- 文本输入框 -->
+
           <el-input
             v-model="item.value"
             size="small"
@@ -72,6 +73,16 @@
             v-model="item.value"
           >
           </el-input>
+          <el-date-picker
+            value-format="yyyy-MM-dd HH:mm:ss"
+            size="small"
+            v-model="item.value"
+            type="datetime"
+            style="width:180px"
+            v-else-if="item.type === 'picker' && item.edit"
+            placeholder="选择日期时间"
+          >
+          </el-date-picker>
           <!-- 普通文本 -->
           <span v-else>
             <el-link

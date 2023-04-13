@@ -134,5 +134,10 @@ export default {
   GetAuthorizationTimes: "/api/pt/CreditorV2/GetAuthorizationTimes", //获取管理员授权次数
   UpdateCreditorAdmin: "/api/pt/CreditorV2/UpdateCreditorAdmin", //更新债权人管理员信息
   VerifyAdminInfoForUpdate: "/api/pt/CreditorV2/VerifyAdminInfoForUpdate", //更新管理员时验证手机号或登录名
-  UpdateCreditor: "/api/pt/CreditorV2/UpdateCreditor" //更新债权人信息
+  UpdateCreditor: "/api/pt/CreditorV2/UpdateCreditor", //更新债权人信息
+  GetPlatformNotice: "/api/pt/VipMember/GetPlatformNotice", //获取通知
+  UpdateDebtorInfo: "/api/pt/AILawyerLetter/UpdateDebtorInfo", //更新债务人信息
+  UpdateCollectionAccount: "/api/pt/AILawyerLetter/UpdateCollectionAccount", //更新收款信息
+  UpdateDebtordetails: "/api/pt/AILawyerLetter/UpdateDebtordetails", //更新债务明细信息
+  SendAuditNotice: "/api/pt/AILawyerLetter/SendAuditNotice" //发送再次审核通知
 };

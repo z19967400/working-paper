@@ -8,6 +8,7 @@ export default class selectAdmin extends Vue {
   @Prop({}) bill_number!: string
   @Prop({}) member_id!: string
   @Prop({}) selectList!: any
+  @Prop({}) name?: string
   data: any = {
     UserId: [],
     list: []

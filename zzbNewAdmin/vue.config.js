@@ -60,6 +60,31 @@ module.exports = {
     // host: '192.168.1.64:8081',
     port: 8081, // 端口
     // proxy: "http://localhost:63258/api"
-    proxy: 'http://api1.debteehelper.com/api'
+    proxy: {
+      "/api/pt": {
+        target: "https://api2.debteehelper.com",
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          "/api/pt": "/api/"
+        }
+      },
+      "/api/hd": {
+        target: "http://api1.debteehelper.com",
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          "/api/hd": "/api/"
+        }
+      },
+      "/api/zf": {
+        target: "https://pay.debteehelper.com",
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          "/api/zf": "/api/"
+        }
+      }
+    }
   }
 }

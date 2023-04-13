@@ -71,6 +71,7 @@ export const getDate = (fmt: any) => {
   let time = "";
   const date = new Date();
   const o: any = {
+    "Y+": date.getFullYear(), // 月份
     "M+": date.getMonth() + 1, // 月份
     "d+": date.getDate(), // 日
     "H+": date.getHours(), // 小时

@@ -163,7 +163,7 @@
           :action="burl + '/Upload/UploadImage?type=11'"
           list-type="picture-card"
           :file-list="data.editData.fileList2"
-          accept=“image/*”
+          accept="image/*"
         >
           <i slot="default" class="el-icon-plus"></i>
           <div slot="file" slot-scope="{ file }">
@@ -204,7 +204,7 @@
           multiple
           :limit="10"
           :on-exceed="handleExceed"
-          :file-list="data.editData.fileList"
+          :file-list="data.editData.fileList3"
           :on-success="updataFuc2"
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/pdf,application/msword,application/vnd.ms-works,aplication/zip"
         >

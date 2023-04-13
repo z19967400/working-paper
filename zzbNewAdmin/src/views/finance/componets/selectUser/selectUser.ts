@@ -37,6 +37,10 @@ export default class selectUser extends Vue {
     Api.GetMemberListByIdOrName(parmas).then((res: any) => {
       if (res.state) {
         this.tableData = res.data
+        if (res.data.length > 0) {
+          this.data.UserId = res.data[0].id
+          this.$emit('setUserId', res.data[0].id)
+        }
       } else {
         this.$message.warning(res.mg)
       }

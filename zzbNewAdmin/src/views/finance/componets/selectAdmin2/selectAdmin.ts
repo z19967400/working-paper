@@ -34,6 +34,9 @@ export default class selectAdmin extends Vue {
     this.$emit('close')
   }
   query() {
-    this.$emit('selectAdmin', this.data.adminID)
+    let row: any = this.data.list.filter((item: any) => {
+      return this.data.adminID == item.id
+    })
+    this.$emit('selectAdmin', this.data.adminID, row)
   }
 }

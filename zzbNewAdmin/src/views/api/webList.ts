@@ -31,24 +31,16 @@ export default class About extends Vue {
       },
       {
         label: '页面名称',
-        prop: 'view_name'
-      },
-      {
-        label: '页面类别',
-        prop: 'view_type'
+        prop: 'menu_name'
       },
       {
         label: '页面域名',
-        prop: 'view_domain',
+        prop: 'menu_domain',
         width: '250px'
       },
       {
         label: '页面地址',
-        prop: 'view_path'
-      },
-      {
-        label: '版本号',
-        prop: 'version_number'
+        prop: 'menu_path'
       },
       {
         label: '创建时间',
@@ -113,7 +105,7 @@ export default class About extends Vue {
     })
       .then(() => {
         self.data.loading = true
-        Api.webDelete(row.row.id).then((res: any) => {
+        Api.Delete(row.row.id).then((res: any) => {
           if (res.data == 1) {
             self.data.webList = self.data.webList.filter((item: any) => {
               return item.id != row.row.id
@@ -140,12 +132,12 @@ export default class About extends Vue {
   getWebList(params: any) {
     let self: any = this
     self.data.loading = true
-    Api.getWebList(params).then((res: any) => {
+    Api.GetAllMenuList().then((res: any) => {
       self.data.loading = false
       self.data.webList = res.data
       self.data.totalize = res.count
       res.data.forEach((item: any) => {
-        item.view_type = item.view_type == 2 ? '用户端' : '平台管理'
+        // item.view_type = item.view_type == 2 ? '用户端' : '平台管理'
         item.create_time = item.create_time.replace('T', ' ')
       })
     })

@@ -57,6 +57,9 @@
     & > .el-dialog{
       border-radius: 10px;
     }
+    & .el-upload-list {
+      width: 50%;
+    }
   }
   & .textarea{
     width: 100% !important;

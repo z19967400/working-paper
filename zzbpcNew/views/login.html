@@ -157,6 +157,9 @@
           <img src="/assets/imgs/login/Login-rafiki@2x.png" style="width: 604px; height: 504px;" alt="">
         </div>
         <div class="loginfromBox">
+          <div id="uploading" class="loading-bg">
+            <img src="../image/loading2.gif" alt="">
+          </div>
           <div class="headerimg"><img src="https://file.debteehelper.com/logo/logo.svg" alt=""></div>
           <ul class="changelogin">
             <li class="action">用户登录</li>
@@ -433,6 +436,17 @@
   async='async'>
   </script>
 <script>
+
+  $(window).resize(function () {
+    console.log(111);
+    var win = $(this).width();
+    if (win < 1920 && win > 960) { //宽度小于1493时，按1493和窗口实际宽度计算等比
+      $("body").css("zoom", win / 1920);
+    } else {
+      $("body").css("zoom", "normal");
+    }
+  }).trigger('resize');
+
   //明密文切换
   function switchPwd(name) {
     let path = $('.' + name).attr('src')
@@ -480,6 +494,7 @@
     })
     //登录
     $("#login1").click(function () {
+      $('#uploading').show()
       let userName = $("input[name='userName']").val()
       if (userName == "") {
         openToast("请输入登录名", "warn")
@@ -501,6 +516,7 @@
         }),
         headers: { 'Content-Type': 'application/json;charset=utf8' },
         success: function (val) {
+          $('#uploading').hide()
           if (val.state) {
             openToast(val.msg, "success")
             setCookie('token', val.data.tokey)
@@ -514,6 +530,10 @@
             // clickautohide(5, val.msg)
             openToast(val.msg, "err")
           }
+        },
+        error: function (err) {
+          $('#uploading').hide()
+          openToast('登录失败,请刷新后重试或联系客服', "err")
         }
       })
     })
@@ -1091,6 +1111,7 @@
     })
     //手机短信验证码登录
     $('#loginPhone').click(function () {
+      $('#uploading').show()
       let code = $('#phoneLoginCode').val()
       let phone_number = $('#phone_number2').val()
       let parmas = {
@@ -1103,6 +1124,7 @@
         type: "POST",
         headers: { 'Content-Type': 'application/json;charset=utf8' },
         success: function (res) {
+          $('#uploading').hide()
           if (res.state) {
             openToast(res.msg, "success")
             setCookie('token', res.data.tokey)
@@ -1115,6 +1137,10 @@
           } else {
             openToast(res.msg, 'warn')
           }
+        },
+        error: function (err) {
+          $('#uploading').hide()
+          openToast('登录失败,请刷新后重试或联系客服', 'warn')
         }
       })
     })

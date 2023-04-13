@@ -67,6 +67,7 @@ export default class About extends Vue {
     //债务类别
     Debt_type: [
       { dic_content: "企业应收账款", dic_code: "Debt_type_4", type: "any" },
+
       { dic_content: "逾期贷款", dic_code: "Debt_type_5", type: "any" },
       {
         dic_content: "信用卡逾期",
@@ -84,7 +85,17 @@ export default class About extends Vue {
         dic_code: "Debt_type_8",
         type: "Creditor_states_1"
       },
-      { dic_content: "不当得利", dic_code: "Debt_type_9", type: "any" }
+      { dic_content: "不当得利", dic_code: "Debt_type_9", type: "any" },
+      {
+        dic_content: "企业应收账款(English)",
+        dic_code: "Debt_type_13",
+        type: "any"
+      },
+      {
+        dic_content: "企业应收账款(繁體中文)",
+        dic_code: "Debt_type_14",
+        type: "any"
+      }
     ],
     //发函方式选择
     SendLetter: [
@@ -110,6 +121,7 @@ export default class About extends Vue {
     logo_type: "Logo_type_1",
     //增值服务 多选列表
     checkList: ["1", "2", "3"],
+    zengzhi: true,
     collsms: 1,
     collemail: 0,
     collphone: 0,
@@ -270,6 +282,9 @@ export default class About extends Vue {
   };
   @Watch("data.checkList", { deep: true, immediate: true })
   checkListChangeVal(newVal: any, oldVal: any) {
+    if (!this.data.flag) {
+      return false;
+    }
     if (newVal.indexOf("1") != -1) {
       this.data.collsms = 1;
     } else {
@@ -617,9 +632,16 @@ export default class About extends Vue {
   }
   // 根据债务人类别获取下载模板所需的路径
   async getTemplateType() {
-    // if (this.data.collection_scene == "Debt_type_7") {
-    //   this.data.Radio = "Creditor_states_1";
-    // }
+    if (
+      this.data.collection_scene == "Debt_type_13" ||
+      this.data.collection_scene == "Debt_type_14"
+    ) {
+      this.data.checkList = [];
+      this.data.zengzhi = false;
+    } else {
+      this.data.checkList = ["1", "2", "3"];
+      this.data.zengzhi = true;
+    }
     Api.getTemplateType(this.data.collection_scene, this.data.Radio, "AI").then(
       (res: any) => {
         this.data.user_code = res.data.data.use_code;
@@ -652,7 +674,7 @@ export default class About extends Vue {
             } else if (item.column_name.length < 5) {
               item.width = "220px";
             } else {
-              item.width = item.column_name.length * 16 + "px";
+              item.width = item.column_name.length * 20 + "px";
             }
           });
         }
@@ -701,6 +723,16 @@ export default class About extends Vue {
   gohistry() {
     this.loadingText = "上传中";
     this.data.flag = !this.data.flag;
+    this.data.checkList = [];
+    if (this.data.collsms == 1) {
+      this.data.checkList.push("1");
+    }
+    if (this.data.collphone == 1) {
+      this.data.checkList.push("2");
+    }
+    if (this.data.collemail == 1) {
+      this.data.checkList.push("3");
+    }
   }
   //下载催收模板
   downTempaly(url: string) {

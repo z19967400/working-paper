@@ -1,0 +1,186 @@
+
+.banner .bg{
+  background: url('../../img/banner/加入我们.png') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 350px;
+}
+@media screen and (min-width:750px) {
+  .fenge{
+    height: 150px;
+    position: relative;
+  }
+  .fenge h2{
+    font-weight: 700;
+    display: inline-block;
+    border-bottom: 5px solid #fb5527;
+    position: absolute;
+    top: 50%;
+    /* left: 50%; */
+    transform: translate(0%,-50%);
+    padding-bottom: 10px;
+  }
+  .section{
+    margin-bottom: 100px;
+  }
+  .first > p{
+    height: 100px;
+    line-height: 100px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .first > p:hover{
+    background-color: #eff0f0;
+  }
+  .first > p:nth-child(1){
+    border-top: 1px solid #e5e5e5;
+  }
+  .first > p > span:nth-child(1){
+    color: #666;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .first > p > span:nth-child(2){
+    position: absolute;
+    right: 20px;
+    font-size: 30px;
+    color: #666;
+  }
+  .second > .text{
+    margin-bottom: 50px;
+  }
+  .second > .text > h2{
+    color: #333;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .second > .text > p{
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .second > .btn-box{
+    /* margin-bottom: 100px; */
+    display: flex;
+  }
+  .second > .btn-box > .btn{
+    font-size: 14px;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .second > .btn-box > .btn:nth-child(1){
+    background-color: #fb5527;
+    color: white;
+    width: 280px;
+ 
+  }
+  .second > .btn-box > .btn:nth-child(1) > img{
+    width: 25px;
+    height: 25px;
+    transform: translateY(8px);
+  }
+  .second > .btn-box > .btn:nth-child(2){
+    background-color: #f2f2f2;
+    width: 180px;
+    color: #909399;
+    margin-left: 20px;
+  }
+}
+@media screen and (max-width:750px) {
+  .banner .bg{
+    height: 200px;
+  }
+  .fenge{
+    height: 100px;
+    position: relative;
+  }
+  .fenge h2{
+    font-weight: 700;
+    display: inline-block;
+    border-bottom: 5px solid #fb5527;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding-bottom: 10px;
+    font-size: 16px;
+  }
+  .section{
+    margin-bottom: 100px;
+  }
+  .first > p{
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .first > p:hover{
+    background-color: #eff0f0;
+  }
+  .first > p:nth-child(1){
+    border-top: 1px solid #e5e5e5;
+  }
+  .first > p > span:nth-child(1){
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .first > p > span:nth-child(2){
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    color: #666;
+  }
+  .second > .text{
+    margin-bottom: 20px;
+  }
+  .second > .text > h2{
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .second > .text > p{
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .second > .btn-box{
+    display: flex;
+    justify-content: space-around;
+  }
+  .second > .btn-box > .btn{
+    font-size: 12px;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .second > .btn-box > .btn:nth-child(1){
+    background-color: #fb5527;
+    color: white;
+    width: 250px;
+ 
+  }
+  .second > .btn-box > .btn:nth-child(1) > img{
+    width: 25px;
+    height: 25px;
+    transform: translateY(8px);
+  }
+  .second > .btn-box > .btn:nth-child(2){
+    background-color: #f2f2f2;
+    width: 100px;
+    color: #909399;
+    margin-left: 20px;
+  }
+}

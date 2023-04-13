@@ -7,7 +7,6 @@
     <div class="apiEdit-box">
       <el-form
         :model="data.edit"
-        :rules="data.rules"
         ref="ruleForm"
         label-width="100px"
         class="demo-ruleForm"
@@ -28,7 +27,11 @@
             <el-input v-model="data.edit.api_path"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="类别" prop="api_type">
+        <el-form-item
+          v-if="$route.query.type != 1"
+          label="类别"
+          prop="api_type"
+        >
           <el-col :span="6">
             <el-select
               v-model="data.edit.api_type"
@@ -52,7 +55,7 @@
           </el-col>
         </el-form-item>
         <el-form-item
-          v-if="$route.query.type == 0"
+          v-if="$route.query.type == 0 && $route.query.type != 1"
           label="请求方式"
           prop="request_way"
         >
@@ -66,12 +69,20 @@
             </el-select>
           </el-col>
         </el-form-item>
-        <el-form-item label="当前版本" prop="version_number">
+        <el-form-item
+          v-if="$route.query.type != 1"
+          label="当前版本"
+          prop="version_number"
+        >
           <el-col :span="2">
             <el-input v-model="data.edit.version_number"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="详情" prop="api_info">
+        <el-form-item
+          v-if="$route.query.type != 1"
+          label="详情"
+          prop="api_info"
+        >
           <el-col :span="12">
             <ueditor @getVal="ueditorVal" :value="data.edit.api_info"></ueditor>
           </el-col>
@@ -98,6 +109,7 @@ import { Getter, Action } from 'vuex-class'
 import * as Api from '../../api/api'
 import { ApiOptions } from '../../types/views/api.interface'
 import { ueditor } from '../../components/index'
+import { api } from '../../../../zzbPc/src/assets/js/api'
 @Component({
   components: {
     ueditor
@@ -180,7 +192,7 @@ export default class About extends Vue {
   getApiInfo(id: number) {
     let self: any = this
     let fn: any =
-      self.$route.query.type == 0 ? Api.apiGetByid(id) : Api.getWebInfo(id)
+      self.$route.query.type == 0 ? Api.apiGetByid(id) : Api.GetMenuInfoByid(id)
     fn.then((res: any) => {
       if (self.$route.query.type == 0) {
         res.data.request_way = res.data.request_way == 0 ? 'GET' : 'POST'
@@ -194,25 +206,18 @@ export default class About extends Vue {
         self.data.edit.request_way = res.data.request_way
         self.data.edit.version_number = res.data.version_number
       } else {
-        res.data.view_type = res.data.view_type == 1 ? '平台管理' : '用户端'
-        let edit: any = {
-          id: res.data.id,
-          api_type: res.data.view_type,
-          api_name: res.data.view_name,
-          api_domain: res.data.view_domain,
-          api_path: res.data.view_path,
-          request_way: res.data.request_way,
-          version_number: res.data.version_number,
-          api_info: res.data.view_info
-        }
-        self.data.class_three_id = res.data.class_three_id
-        self.data.edit = edit
+        // res.data.view_type = res.data.view_type == 1 ? '平台管理' : '用户端'
+        self.data.class_three_id = res.data.parent_id
+        self.data.edit.api_name = res.data.menu_name
+        self.data.edit.api_domain = res.data.menu_domain
+        self.data.edit.api_path = res.data.menu_path
+        self.data.edit.id = res.data.id
       }
     })
   }
   //获取页面内选择菜单
   GetTwoandThree() {
-    Api.GetTwoandThree().then((res: any) => {
+    Api.GetAllMenuList().then((res: any) => {
       this.data.menu = res.data
     })
   }
@@ -242,29 +247,39 @@ export default class About extends Vue {
         params.api_type = '2'
       }
     } else {
+      let self: any = this
       params = {
         id: self.data.edit.id,
-        view_type: self.data.edit.api_type,
-        view_name: self.data.edit.api_name,
-        view_domain: self.data.edit.api_domain,
-        view_path: self.data.edit.api_path,
-        request_way: Number(self.data.edit.request_way),
-        version_number: self.data.edit.version_number,
-        view_info: self.data.edit.api_info,
-        class_three_id: this.data.class_three_id
-      }
-      if (params.view_type == '平台管理') {
-        params.view_type = '1'
-      }
-      if (params.view_type == '用户端') {
-        params.view_type = '2'
+        parent_id: self.data.class_three_id,
+        menu_name: self.data.edit.api_name,
+        menu_domain: self.data.edit.api_domain,
+        menu_path: self.data.edit.api_path
       }
     }
+    // } else {
+    //   params = {
+    //     id: self.data.edit.id,
+    //     view_type: self.data.edit.api_type,
+    //     view_name: self.data.edit.api_name,
+    //     view_domain: self.data.edit.api_domain,
+    //     view_path: self.data.edit.api_path,
+    //     request_way: Number(self.data.edit.request_way),
+    //     version_number: self.data.edit.version_number,
+    //     view_info: self.data.edit.api_info,
+    //     class_three_id: this.data.class_three_id
+    //   }
+    //   if (params.view_type == '平台管理') {
+    //     params.view_type = '1'
+    //   }
+    //   if (params.view_type == '用户端') {
+    //     params.view_type = '2'
+    //   }
+    // }
     from.validate((valid: Boolean) => {
       if (valid) {
         this.data.submitType = true
         let fn: any =
-          self.$route.query.type == 0 ? Api.addApi(params) : Api.addWeb(params)
+          self.$route.query.type == 0 ? Api.addApi(params) : Api.insert(params)
         fn.then((res: any) => {
           if (res.data == 1) {
             self.$message({

@@ -16,8 +16,9 @@ import {
   }
 })
 export default class About extends Vue {
-  data: SettingsData['fromList'] = {
+  data: any = {
     loading: false,
+    dialogVisible: false,
     totalize: 0,
     dataType: [
       {
@@ -26,38 +27,61 @@ export default class About extends Vue {
         width: '80px'
       },
       {
-        label: '新闻标题',
-        prop: 'title',
-        width: '120px'
+        label: '类别',
+        prop: 'notice_category',
+        width: '80px'
       },
       {
-        label: '简介',
-        prop: 'introduction',
-        width: '120px'
+        label: '主题',
+        prop: 'notice_title',
+        width: '180px'
       },
       {
-        label: '链接',
-        prop: 'news_url',
-        width: '120px'
+        label: '内容',
+        prop: 'notice_content',
+        width: ''
       },
       {
-        label: '创建时间',
-        prop: 'create_time'
+        label: '开始时间',
+        prop: 'start_time',
+        width: '150px'
+      },
+      {
+        label: '结束时间',
+        prop: 'end_time',
+        width: '150px'
       }
     ],
     list: [],
     select: {},
     options: [
       {
-        value: 'title',
-        label: '新闻标题'
+        value: 'notice_category',
+        label: '类别'
       }
-    ]
+    ],
+    addData: {
+      notice_category: '0',
+      notice_title: '',
+      notice_content: '',
+      start_time: '',
+      end_time: ''
+    }
   }
-  getData: SettingsOptions['getNews'] = {
-    page: 1,
-    limit: this.$store.state.layout.limit,
-    title: ''
+  getData: any = {
+    // page: 1,
+    // limit: this.$store.state.layout.limit,
+    notice_category: '' || '-1'
+  }
+  handleClose(done: any) {
+    this.data.addData = {
+      notice_category: '0',
+      notice_title: '',
+      notice_content: '',
+      start_time: '',
+      end_time: ''
+    }
+    done()
   }
   created() {
     //
@@ -80,6 +104,16 @@ export default class About extends Vue {
     Api.getNews(data).then((res: any) => {
       self.data.loading = false
       self.data.list = res.data
+      self.data.list.forEach((item: any) => {
+        item.notice_category = item.notice_category == 1 ? 'H5' : 'PC'
+        item.start_time = item.start_time.replace('T', ' ')
+        item.start_time = item.start_time.substr(
+          0,
+          item.start_time.lastIndexOf(':')
+        )
+        item.end_time = item.end_time.replace('T', ' ')
+        item.end_time = item.end_time.substr(0, item.end_time.lastIndexOf(':'))
+      })
       self.data.totalize = res.data.length
     })
   }
@@ -105,18 +139,19 @@ export default class About extends Vue {
   }
   //添加
   add() {
-    this.$router.push({
-      path: '/settings/newEdit',
-      query: {
-        data: null
-      }
-    })
+    // this.$router.push({
+    //   path: '/settings/newEdit',
+    //   query: {
+    //     data: null
+    //   }
+    // })
+    this.data.dialogVisible = true
   }
   //搜索
   search(data: any) {
     let self: any = this
     self.data.loading = true
-    self.getData.page = 1
+    // self.getData.page = 1
     let params: any = Object.assign({}, self.getData)
     data.forEach((item: any) => {
       let name: string = item.label
@@ -140,5 +175,17 @@ export default class About extends Vue {
     params.limit = limit == null ? params.limit : limit
     self.data.loading = true
     this.init()
+  }
+  //新增通知
+  submit() {
+    Api.AddNotice(this.data.addData).then((res: any) => {
+      if (res.state) {
+        this.$message.success(res.msg)
+        this.data.dialogVisible = false
+        this.init()
+      } else {
+        this.$message.warning(res.msg)
+      }
+    })
   }
 }

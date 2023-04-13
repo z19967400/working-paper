@@ -77,7 +77,9 @@ export default class VipAdmin extends Vue {
     //债权人
     creditorList: [],
     //后台备注
-    back_remarks: ''
+    back_remarks: '',
+    admin_list2: [],
+    adminSelectData: {}
   }
   shenhe: any = {
     id: 0,
@@ -128,6 +130,7 @@ export default class VipAdmin extends Vue {
 
   mounted() {
     this.getKefu()
+    this.getAdminList2()
     let self: any = this
     // let height: number = document.body.offsetHeight - 110
     // self.data.rightH = height
@@ -159,7 +162,9 @@ export default class VipAdmin extends Vue {
   //获取客服下拉
   getKefu() {
     Api2.getKefu().then((res: any) => {
-      this.customers = res.data.filter((item: any, index: number) => { return index > 3 })
+      this.customers = res.data.filter((item: any, index: number) => {
+        return index > 2 && index < 7
+      })
     })
   }
   //设置客服
@@ -321,8 +326,8 @@ export default class VipAdmin extends Vue {
                   item2.audit_status == 'Audit_states_0'
                     ? '待审核'
                     : item2.audit_status == 'Audit_states_1'
-                      ? '未通过'
-                      : '已通过'
+                    ? '未通过'
+                    : '已通过'
               })
             }
           })
@@ -375,6 +380,20 @@ export default class VipAdmin extends Vue {
   //Vip管理员编辑
   VipAdminEdit(row: any) {
     this.adminEditType = true
+    if (row === 'add') {
+      let obj: any = {
+        admin_id: 0,
+        admin_name: '',
+        admin_phone_number: '',
+        admin_email: '',
+        admin_account: '',
+        id_number: '',
+        is_super: 0,
+        member_id: parseInt(this.$route.params.id)
+      }
+      this.adminEditData = obj
+      return false
+    }
     this.adminEditData = Object.assign({}, row)
     this.adminEditData.is_super =
       this.adminEditData.is_super == '普通管理员' ? 0 : 1
@@ -394,12 +413,29 @@ export default class VipAdmin extends Vue {
   //打开编辑债权人
   creditorEditFc(row: any) {
     this.creditorEditShow = true
+    this.data.adminSelectData = {}
+    if (row === 'add') {
+      let obj: any = {
+        id: 0,
+        audit_feedback: '',
+        audit_status: '',
+        create_name: '',
+        creditor_id: 0,
+        creditor_name: '',
+        detailed_address: '',
+        license_img_url: '',
+        license_no: '',
+        old_agent_authorization: ''
+      }
+      this.creditorEdit = obj
+      return false
+    }
     this.creditorEdit = Object.assign({}, row)
   }
   //债权人编辑提交
   creditorSubmit() {
     let parmas: any = {
-      id: this.creditorEdit.creditor_id || '',
+      id: this.creditorEdit.creditor_id || 0,
       creditor_name: this.creditorEdit.creditor_name || '',
       agent_name: this.creditorEdit.agent_name || '',
       agent_id_number: this.creditorEdit.agent_id_number || '',
@@ -413,7 +449,11 @@ export default class VipAdmin extends Vue {
       id_card_img_02: this.creditorEdit.id_card_img_02 || '',
       license_no: this.creditorEdit.license_no || '',
       license_img_url: this.creditorEdit.license_img_url || '',
-      detailed_address: this.creditorEdit.detailed_address || ''
+      detailed_address: this.creditorEdit.detailed_address || '',
+      member_id: this.data.adminSelectData.member_id || 0,
+      member_vip_account_id:
+        this.data.adminSelectData.member_vip_account_id || 0,
+      member_vip_admin_id: this.data.adminSelectData.id || 0
     }
     Api.UpdateCreditor(parmas).then((res: any) => {
       if (res.state) {
@@ -445,8 +485,8 @@ export default class VipAdmin extends Vue {
       row.row.audit_status == '待审核'
         ? 'Audit_states_0'
         : row.row.audit_status == '未通过'
-          ? 'Audit_states_1'
-          : 'Audit_states_2'
+        ? 'Audit_states_1'
+        : 'Audit_states_2'
     this.shenhe.audit_feedback = row.row.audit_feedback
     this.shenhe.back_remarks = row.row.back_remarks
     this.shenhe.authorization_file = row.row.authorization_file
@@ -461,10 +501,7 @@ export default class VipAdmin extends Vue {
   GetAllAuthorizationFileRecord(creditor_admin_id: number) {
     Api.GetAllAuthorizationFileRecord(creditor_admin_id).then((res: any) => {
       res.data.forEach((item: any) => {
-        item.create_time = item.create_time.replace(
-          'T',
-          ' '
-        )
+        item.create_time = item.create_time.replace('T', ' ')
         item.create_time = item.create_time.substring(
           0,
           item.create_time.lastIndexOf(':')
@@ -480,7 +517,6 @@ export default class VipAdmin extends Vue {
   }
   //审核确定
   shenheSubmit() {
-
     Api.CreditorAdminAudit(this.shenhe).then((res: any) => {
       if (res.state) {
         this.$message.success(res.msg)
@@ -618,5 +654,20 @@ export default class VipAdmin extends Vue {
         this.$message.warning(res.msg)
       }
     })
+  }
+  //获取管理员列表
+  getAdminList2() {
+    Api2.GetMemberVipAdminsByMmeberId(this.$route.params.id).then(
+      (res: any) => {
+        this.data.admin_list2 = res.data
+      }
+    )
+  }
+  //管理员选择
+  adminSelect(event: any) {
+    this.data.adminSelectData.member_id = event.member_id
+    this.data.adminSelectData.member_vip_account_id =
+      event.member_vip_account_id
+    this.data.adminSelectData.member_vip_admin_id = event.id
   }
 }

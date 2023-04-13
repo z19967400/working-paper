@@ -62,6 +62,16 @@ export const hasKey = (obj: any, key: string | number) => {
   }
 }
 
+//邮箱验证
+export const validateEmall = (rule: any, value: any, callback: any) => {
+  let vtf: any = verifyEmall(value)
+  if (!vtf.done) {
+    callback(new Error(vtf.errMsg))
+  } else {
+    callback()
+  }
+}
+
 /**
  * @msg: 获取系统当前时间
  * @param {string} fmt 时间格式 具体看代码

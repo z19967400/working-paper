@@ -28,7 +28,7 @@
     padding-top: 20px;
     position: relative;
     box-shadow: 2px 2px 5px #ccc;
-    height: 400px;
+    height: 520px;
   }
   .box>.left p{
     text-align: center;
@@ -45,7 +45,7 @@
   }
   .box>.left>.xian{
     width: 2px;
-    height: 80px;
+    height:480px;
     position: absolute;
     right: 20px;
     background: #f8d0d7;
@@ -143,11 +143,23 @@
     line-height: 50px!important;
     padding: 0 8px!important;
   }
+  .table2 tr{
+    height: 50px;
+  }
+  .table2 th{
+    background:#f9f9f9;
+  }
+  .table2 th,.table2 td{
+    /* width: 50%; */
+    line-height: 50px!important;
+    padding: 0 8px!important;
+  }
   .fenge{
     height: 1px;
     width: 100%;
     background: #f2f2f2;
     margin-top: 30px;
+    margin-bottom: 30px;
   }
   .footer {
     height: 600px;
@@ -158,7 +170,8 @@
   }
   
   .label {
-    width: 60px;
+    width: 100px;
+    text-align: right;
   }
   
   .date {
@@ -167,6 +180,13 @@
   }
   .Crimina2{
     display: none;
+  }
+  .row .value{
+    display: flex;
+    max-width: 500px;
+  }
+  .row .value input:nth-child(2){
+    margin-left: 20px;
   }
 }
 @media screen and (max-width:900px){

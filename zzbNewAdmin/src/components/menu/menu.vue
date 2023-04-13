@@ -41,6 +41,7 @@
             v-for="(item2, index2) in item.children"
             :key="index2 + 1"
             :index="item2.meta.index"
+            v-show="item2.ismenu == true"
           >
             <template slot="title">
               <div class="xian"></div>

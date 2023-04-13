@@ -185,3 +185,19 @@ export const CreateCasesByAI = (params: any) => {
 export const ExportExcel = (params: any) => {
   return Api.ExportExcel(params, "GET");
 };
+//更新债务人信息
+export const UpdateDebtorInfo = (params: any) => {
+  return Api.UpdateDebtorInfo(params, "POST");
+};
+//更新收款信息
+export const UpdateCollectionAccount = (params: any) => {
+  return Api.UpdateCollectionAccount(params, "POST");
+};
+//更新债务明细信息
+export const UpdateDebtordetails = (params: any) => {
+  return Api.UpdateDebtordetails(params, "POST");
+};
+//发送再次审核通知
+export const SendAuditNotice = (params: any) => {
+  return Api.SendAuditNotice(params, "GET");
+};

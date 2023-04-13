@@ -640,7 +640,10 @@ export default class About extends Vue {
           creditor_id: this.data.collid, //债权人id
           collection_scene: this.data.collection_scene, //债务类别
           debtor_type: this.data.Radio, //债务人类别
-          debtor: collTablelist //债务人 对应上传表格数据
+          debtor: collTablelist, //债务人 对应上传表格数据
+          member_id: 0,
+          member_vip_account_id: 0,
+          admin_id: 0
         };
         Api.establishCase(parmas).then((res: any) => {
           if (res.state) {

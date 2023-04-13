@@ -4,7 +4,13 @@
   width: 100%;
   height: 100%;
   background-color: $main-body-bgColor;
+  position: relative;
   // background-color: #f8f8f8;
+  & .qh{
+    position: absolute;
+    right: 30px;
+    top: -30px;
+  }
   & .time {
     text-align: center;
     color: #606266;

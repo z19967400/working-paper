@@ -6,6 +6,16 @@ function setCookie(name, value) {
   document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
 }
 
+// $(window).resize(function () {
+//   console.log(111);
+//   var win = $(this).width();
+//   if (win < 1920) { //宽度小于1493时，按1493和窗口实际宽度计算等比
+//     $("body").css("zoom", win / 1920);
+//   } else {
+//     $("body").css("zoom", "normal");
+//   }
+// }).trigger('resize');
+
 //获取cookie
 function getCookie(name) {
   var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");

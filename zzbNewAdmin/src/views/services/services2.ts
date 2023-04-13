@@ -59,7 +59,7 @@ export default class About extends Vue {
       },
       {
         label: '案件标的',
-        prop: 'case_amount	'
+        prop: 'case_amount'
       },
       {
         label: '案件阶段',

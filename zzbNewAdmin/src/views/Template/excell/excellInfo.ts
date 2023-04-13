@@ -23,12 +23,12 @@ export default class About extends Vue {
   }
   rules: any = {
     name: [
-      { required: true, message: '请输入名称', trigger: 'blur' },
-      { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
+      { required: true, message: '请输入名称', trigger: 'blur' }
+      // { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
     ],
     use_code: [
-      { required: true, message: '请输入调用吗', trigger: 'blur' },
-      { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
+      { required: true, message: '请输入调用吗', trigger: 'blur' }
+      // { max: 15, message: '长度不能超过15个字符', trigger: 'blur' }
     ],
     template_path: [
       { required: true, message: '请输入模板文件路径', trigger: 'blur' }
@@ -66,7 +66,44 @@ export default class About extends Vue {
   height: number = 0
   burl: string = ''
   btnLoad: boolean = false
-  debTypes: any = [] //债务类别列表
+  debTypes: any = [
+    {
+      dic_code: 'Debt_type_9',
+      dic_content: '不当得利'
+    },
+    {
+      dic_code: 'Debt_type_8',
+      dic_content: '物业/采暖欠费'
+    },
+    {
+      dic_code: 'Debt_type_7',
+      dic_content: '保险追偿'
+    },
+    {
+      dic_code: 'Debt_type_6',
+      dic_content: '信用卡逾期'
+    },
+    {
+      dic_code: 'Debt_type_5',
+      dic_content: '逾期贷款'
+    },
+    {
+      dic_code: 'Debt_type_4',
+      dic_content: '企业应收账款'
+    },
+    {
+      dic_code: 'Debt_type_0',
+      dic_content: '个人欠款'
+    },
+    {
+      dic_code: 'Debt_type_13',
+      dic_content: '企业应收款(English)'
+    },
+    {
+      dic_code: 'Debt_type_14',
+      dic_content: '企业应收款(繁體中文)'
+    }
+  ] //债务类别列表
   CreditorStates: any = [] //债务人列表
   created() {
     this.height = document.body.offsetHeight - 220
@@ -84,7 +121,7 @@ export default class About extends Vue {
     self.burl = baseURL
     let id: number = self.$route.query.id
     self.btnLoad = false
-    self.getDebType()
+    // self.getDebType()
     self.getCreditorStates()
     if (id == 0) {
       let from: any = self.$refs['ruleForm']

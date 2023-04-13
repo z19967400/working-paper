@@ -24,7 +24,8 @@
                 data.value == 'bill_status' ||
                 data.value == 'pay_method' ||
                 data.value == 'm_type' ||
-                data.value == 'pay_status'
+                data.value == 'pay_status' ||
+                data.value == 'notice_category'
             "
             size="small"
             v-model="data.input"
@@ -51,6 +52,8 @@
                 ? option.opt10
                 : data.value == 'pay_status'
                 ? option.opt11
+                : data.value == 'notice_category'
+                ? option.opt12
                 : option.opt2"
               :key="item.value"
               :label="item.label"
@@ -133,6 +136,9 @@
               </span>
               <span v-else-if="tag.label == 'bill_status'">
                 {{ extract6(tag.value) }}
+              </span>
+              <span v-else-if="tag.label == 'notice_category'">
+                {{ extract7(tag.value) }}
               </span>
               <span v-else>
                 {{ tag.value }}
@@ -323,6 +329,13 @@ export default class About extends Vue {
   //账单状态取值
   extract6(val: string) {
     let data: any = this.option.opt9.filter((item: any) => {
+      return item.value == val
+    })
+    return data[0].label
+  }
+  //通知类别取值
+  extract7(val: string) {
+    let data: any = this.option.opt12.filter((item: any) => {
       return item.value == val
     })
     return data[0].label

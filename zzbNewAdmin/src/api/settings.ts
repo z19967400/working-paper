@@ -153,3 +153,11 @@ export const problemDelete = (id: number) => {
 export const problemEdit = (params: SettingsOptions['newEdit']) => {
   return Api.problemEdit(params, 'POST')
 }
+//获取所有菜单
+export const GetAllMenuList = () => {
+  return Api.GetAllMenuList({}, 'GET')
+}
+//新增通知
+export const AddNotice = (params: any) => {
+  return Api.AddNotice(params, 'POST')
+}

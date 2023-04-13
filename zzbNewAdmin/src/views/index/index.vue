@@ -2,8 +2,15 @@
   <div class="index-wrap">
     <div class="index-box">
       <div class="box">
+        <el-link
+          v-show="data.is_super"
+          @click="daiban"
+          class="qh"
+          type="success"
+          >切换到待办工作</el-link
+        >
         <el-row :gutter="20">
-          <el-col :span="4">
+          <!-- <el-col :span="4">
             <div style="height:362px;" class="panl">
               <p class="header">待办工作</p>
               <div class="list-box">
@@ -17,8 +24,8 @@
                 </p>
               </div>
             </div>
-          </el-col>
-          <el-col :span="20">
+          </el-col> -->
+          <el-col :span="24">
             <el-row :gutter="20">
               <el-col :span="6">
                 <div style="height:170px;" class="panl">

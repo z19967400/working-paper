@@ -9,13 +9,5 @@ $(function () {
     console.log('中文');
     language()
   }
-  $('#language').click(function (e) {
-    if ($(e.target).text() == 'EN') {
-      setCookie('lan', 'en')
-      language()
-    } else {
-      setCookie('lan', 'cn')
-      language()
-    }
-  })
+
 })

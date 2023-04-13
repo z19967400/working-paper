@@ -68,3 +68,19 @@ export const fileEdit = (params: any) => {
 export const GetByid = (id: number) => {
   return Api.GetByid({ id }, 'GET')
 }
+//菜单设置添加||修改
+export const insert = (params: any) => {
+  return Api.insert(params, 'POST')
+}
+//获取编辑菜单信息
+export const GetMenuInfoByid = (id: any) => {
+  return Api.GetMenuInfoByid({ id }, 'GET')
+}
+//获取菜单列表
+export const GetAllMenuList = () => {
+  return Api.GetAllMenuList({}, 'GET')
+}
+//删除菜单
+export const Delete = (id: any) => {
+  return Api.Delete({ id }, 'GET')
+}

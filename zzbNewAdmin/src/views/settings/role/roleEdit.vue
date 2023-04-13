@@ -23,9 +23,9 @@
                 :data="Tree"
                 show-checkbox
                 :default-checked-keys="data.menu_ids"
-                :default-expanded-keys="data.menu_ids"
                 :default-expand-all="true"
                 node-key="id"
+                @check="check"
                 ref="tree"
                 highlight-current
                 :props="defaultProps"

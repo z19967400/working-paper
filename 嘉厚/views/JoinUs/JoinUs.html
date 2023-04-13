@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>上海嘉厚律师事务所</title>
+  <meta name="keywords"
+    content=" 催收 应收账款 应收账款催收 欠款 欠款催收 借款 借款催收 商账催收 债务催收 贷款 贷款催收 消费贷款催收 逾期催收 逾期贷款催收 信用卡催收 物业费催收 取暖费催收 催收律师函 催款律师函 催收函 催款函 要账 清账 讨账 清收 清欠 债务诉讼 代理执行 批量催收 物业费批量催收 怎样发催收律师函 律师函哪家最便宜 水费催收 电费催收 律师催收 催收律师 催收专家" />
+  <meta name="description"
+    content="上海嘉厚律师事务所是一家立足上海，覆盖全国的大型综合性律师事务所，分布在全国各地的律师团队不受地理位置的限制，通过协同、共享、创新向客户提供全方位、全领域、全地域的一站式现代法律服务" />
+  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="stylesheet" href="./JoinUs.css">
+  <!-- <link rel="stylesheet" href="../../assets/swiper.min.css"> -->
+  <link rel="icon" href="../../img/907(1).ico" />
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="content">
+        <a class="title" href="../../index.html">
+          <!-- 上海嘉厚律师事务所 -->
+          <img src="../../img/lg1.png" alt="">
+        </a>
+        <div class="nav pc">
+
+          <a href="../../index.html"><b data-locale="nav-1"></b><span></span></a>
+          <a href="../Specialty/Specialty.html"><b data-locale="nav-2"></b><span></span></a>
+          <a href="../Solution/Solution.html"><b data-locale="nav-3"></b><span></span></a>
+          <a href="../JoinUs/JoinUs.html"><b data-locale="nav-4"></b><span class="active"></span></a>
+          <span data-locale="language" class="language">EN</span>
+        </div>
+        <span data-locale="language" class="language mb">EN</span>
+        <img @click="navOpenRight" class="nav-right mb" src="../../img/daohang.png" alt="">
+      </div>
+    </div>
+    <div class="banner">
+      <!-- <img src="../../img/u851.jpg" alt=""> -->
+      <div class="bg"></div>
+      <p data-locale="banner-5" class="title">{{title}}</p>
+    </div>
+
+    <div class="content">
+
+      <div class="fenge">
+        <h2 data-locale="Join-title">加入我们</h2>
+      </div>
+
+      <div class="section">
+        <div v-show="active == 0" class="first">
+          <p @click="toSecond(1)">
+            <span data-locale="section-title-1">城市合伙人</span>
+            <span>→</span>
+          </p>
+          <p @click="toSecond(2)">
+            <span data-locale="section-title-2">事业合伙人</span>
+            <span>→</span>
+          </p>
+          <p @click="toSecond(3)">
+            <span data-locale="section-title-3">授薪律师</span>
+            <span>→</span>
+          </p>
+          <p @click="toSecond(4)">
+            <span data-locale="section-title-4">实习生</span>
+            <span>→</span>
+          </p>
+        </div>
+
+        <div v-show="active != 0" class="second">
+          <div v-for="(item,index) in list" class="text">
+            <h2>{{item.H2}}</h2>
+            <p v-for="(item2,index2) in item.p">{{item2}}</p>
+          </div>
+          <div class="btn-box">
+            <div class="btn">
+              <span>{{text1}}</span>
+              <img src="../../img/u177.svg" alt="">
+              <span>service@legallinks.net</span>
+            </div>
+            <div @click="active = 0;title='通过互联互通推进法律服务，更自由的律师、更满意的客户'" class="btn">
+              <span>{{text2}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div :class="{mskOpen:isRight}" class="right-mask mb">
+      <img @click="navCloseRight" class="close" src="http://www.debteehelper.com/image/closed.png" alt="">
+      <div class="logo"> <img src="../../img/logo2.png" alt=""></div>
+      <div class="content">
+        <a data-locale="nav-1" href="../../index.html">首页</a>
+        <a data-locale="nav-2" href="../../views/Specialty/Specialty.html">专业领域</a>
+        <a data-locale="nav-3" href="../../views/Solution/Solution.html">解决方案</a>
+        <a data-locale="nav-4" href="../../views/JoinUs/JoinUs.html">加入我们</a>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="content">
+        <img class="footer-logo" src="../../img/u338.png" alt="">
+        <div class="footer-text">
+          <p><img src="../../img/u171.svg" alt=""><b data-locale="footer-text">上海市徐汇区宜山路1009创新大楼18楼</b></p>
+          <p>
+            <span><img src="../../img/u177.svg" alt="">service@legallinks.net</span>
+            <span><img src="../../img/u173.svg" alt="">021-5426-4687</span>
+          </p>
+        </div>
+        <p><a style="color: #ccc;" href="https://beian.miit.gov.cn">沪ICP备19010278号-2</a>号 上海嘉厚律师事务所版权所有</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="../../assets/vue@2.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+<!-- <script src="../../assets/swiper.min.js"></script> -->
+<script src="../../assets/jquery.min.js"></script>
+<script src="../../assets/jquery.i18n.properties.min.js"></script>
+<script src="../../assets/js.js"></script>
+<script src="./JoinUs.js"></script>

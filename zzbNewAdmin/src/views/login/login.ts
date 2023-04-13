@@ -89,6 +89,7 @@ export default class About extends Vue {
       }
     })
   }
+
   //登录
   submitForm(formName: string | number) {
     let from: any = this.$refs[formName]
@@ -105,19 +106,24 @@ export default class About extends Vue {
               headImg: res.data.userInfo.head_img
             }
             let parmas = {
-              rouls: ['platform', 'user', 'business'],
+              rouls: [],
               Routers: []
             }
             setToken(token)
             setCookie('IuserName', res.data.userInfo.name)
             setCookie('IheadImg', res.data.userInfo.head_img)
             this.$store.commit('UPDATE_LOGIN_STATE', dta)
-            this.UPDATE_LAYOUY_STATE(parmas)
-            getAsyncRoute()
-            this.$message.success('登录成功')
-            setTimeout(() => {
-              this.$router.push({ path: '/index' })
-            }, 1000)
+            Api.GetMyMenu().then((res: any) => {
+              parmas.rouls = res.data
+              // let rouls: any = JSON.stringify(res.data)
+              // setCookie('rouls', rouls)
+              this.UPDATE_LAYOUY_STATE(parmas)
+              getAsyncRoute()
+              this.$message.success('登录成功')
+              setTimeout(() => {
+                this.$router.push({ path: '/index' })
+              }, 1000)
+            })
           } else {
             this.$message.warning(res.msg)
           }

@@ -112,7 +112,7 @@
         </el-col>
       </el-row> -->
       <!-- 增值服务 -->
-      <el-row type="flex" align="middle">
+      <el-row v-show="data.zengzhi" type="flex" align="middle">
         <el-col class="required" :span="2" align="left">增值服务</el-col>
         <el-col :span="9">
           <el-checkbox-group v-model="data.checkList">

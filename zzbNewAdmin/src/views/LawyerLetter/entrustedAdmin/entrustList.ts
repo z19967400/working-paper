@@ -257,6 +257,12 @@ export default class About extends Vue {
       this.load = false
     })
   }
+  //创建律师函
+  GetAILawyerLetter() {
+    this.$router.push({
+      name: 'LawyerLetter/createAIlawyer'
+    })
+  }
   //重置
   chongzhi() {
     this.getdaochu = {

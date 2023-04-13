@@ -77,8 +77,9 @@
             <el-table :data="adminData.notice" height="400" style="width: 100%">
               <el-table-column prop="send_name" label="发信人" width="80px">
               </el-table-column>
-              <el-table-column prop="title" label="主题"> </el-table-column>
-              <el-table-column prop="send_time" label="发送时间" width="180px">
+              <el-table-column prop="notice_title" label="主题">
+              </el-table-column>
+              <el-table-column prop="start_time" label="发送时间" width="180px">
               </el-table-column>
               <el-table-column prop="status" label="状态" width="80px">
               </el-table-column>
@@ -155,47 +156,17 @@
       :visible.sync="dialogVisible"
       width="30%"
     >
-      <div
-        style=" line-height: 1.5"
-        v-if="adminData.noticeInfo.title == '债主帮新版上线通知'"
-      >
-        <p style="margin-bottom:20px;">尊敬的各位用户，您好！</p>
-        <p style="text-indent: 29px;">
-          为不断提升您的使用体验，债主帮法催服务平台进行了全面升级。即日起，新版平台正式上线。具体注意事项如下：
-        </p>
-        <p>
-          1. 债主帮官网即新版平台访问链接变更为<span
-            style="color:#409EFF;cursor: pointer;"
-            @click="toWeb('https://www.debteehelper.com/')"
-            >(www.debteehelper.com)</span
-          >，您可使用已有的VIP账号密码登录后发起委托。
-        </p>
-        <p>
-          2. 新旧交替之际，已发起的委托仍需登录旧版平台<span
-            style="color:#409EFF;cursor: pointer;"
-            @click="toWeb('https://www.zzbang.vip/')"
-            >（www.zzbang.vip）</span
-          >查看或操作，后续会做统一的数据迁移，给您带来的不便，敬请谅解。
-        </p>
-        <p>3. 新旧交替工作完成后，债主帮旧版平台将会关闭，届时将另行通知</p>
-        <p style="margin-top:20px;text-indent: 29px;">
-          如有任何问题请拨打热线电话4006321918或联系您的专属客服。
-        </p>
-        <p style="margin-top:20px;margin-bottom:20px;text-indent: 29px;">
-          感谢您长久以来给予债主帮的支持！
-        </p>
-        <p style="text-align: right;">上海诚收信息科技有限公司</p>
-        <p style="text-align: right;">债主帮法催服务平台</p>
-        <p style="text-align: right;">2021年2月22日</p>
+      <div style=" line-height: 1.5">
+        <div v-html="adminData.noticeInfo.notice_content"></div>
       </div>
-      <div
-        style="line-height: 1.8"
-        v-else
-        v-html="adminData.noticeInfo.text"
-      ></div>
+
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handClose">取 消</el-button>
-        <el-button type="primary" @click="handClose">确 定</el-button>
+        <el-button @click="handClose(adminData.noticeInfo.index)"
+          >取 消</el-button
+        >
+        <el-button type="primary" @click="handClose(adminData.noticeInfo.index)"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
   </div>

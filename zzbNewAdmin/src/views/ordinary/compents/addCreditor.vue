@@ -208,7 +208,7 @@ export default class addCreditor extends Vue {
         res.data.FileUrl +
         res.data.FileExtension
       if (prop === 'license_img_url' || prop === 'id_card_img_01') {
-        self.myRecognition(self.data[prop])
+        self.myRecognition(self.data[prop], prop)
       }
     } else {
       this.$message.warning(res.msg)

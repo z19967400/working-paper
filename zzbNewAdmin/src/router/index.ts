@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { routes } from './router'
-import { getToken } from '@/utils/common'
+import { getToken, getCookie } from '@/utils/common'
 import store from '@/store'
 import { getAsyncRoute } from '@/router/pommies'
-
+import * as Api from '@/api/login'
 Vue.use(Router)
 
 const router = new Router({
@@ -35,20 +35,53 @@ router.beforeEach((to, from, next) => {
     next() // 跳转
   } else if (token && to.name === LOGIN_PAGE_NAME) {
     // 已登录且要跳转的页面是登录页
-    next({
-      name: 'index' // 跳转到 index 页
+    Api.GetMyAdminRole().then((res: any) => {
+      if (res.data) {
+        next({
+          name: 'index' // 跳转到 index 页
+        })
+      } else {
+        next({
+          name: 'work' // 跳转到 index 页
+        })
+      }
+    })
+  } else if (token && to.name === 'index/index') {
+    Api.GetMyAdminRole().then((res: any) => {
+      if (res.data) {
+        const state: any = store.state
+        if (state.layout.rouls.length === 0) {
+          //页面刷新
+          Api.GetMyMenu().then((res: any) => {
+            let parmas = {
+              rouls: res.data
+            }
+            store.dispatch('UPDATE_LAYOUY_STATE', parmas)
+            getAsyncRoute()
+            next()
+          })
+        } else {
+          next() // 跳转
+        }
+      } else {
+        next({
+          name: 'work' // 跳转到 index 页
+        })
+      }
     })
   } else {
     if (token) {
       const state: any = store.state
       if (state.layout.rouls.length === 0) {
         //页面刷新
-        let parmas = {
-          rouls: ['platform', 'user', 'business']
-        }
-        store.dispatch('UPDATE_LAYOUY_STATE', parmas)
-        getAsyncRoute()
-        next(to.path)
+        Api.GetMyMenu().then((res: any) => {
+          let parmas = {
+            rouls: res.data
+          }
+          store.dispatch('UPDATE_LAYOUY_STATE', parmas)
+          getAsyncRoute()
+          next(to.path)
+        })
       } else {
         next() // 跳转
       }

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getCookie } from '../utils/common'
-import { MAINHOST} from '../config/index'
-import { Toast } from 'antd-mobile';
+import { getCookie } from "../utils/common";
+import { MAINHOST } from "../config/index";
+import { Toast } from "antd-mobile";
 axios.defaults.timeout = 100000;
 axios.defaults.baseURL = MAINHOST;
 
@@ -9,19 +9,22 @@ axios.defaults.baseURL = MAINHOST;
  * http request 拦截器
  */
 axios.interceptors.request.use(
-  (config) => {
-    let token = getCookie("usertokey")
-    if (!token && config.url !== '/LawyerCase/UrlClicksCount') {
-      window.location.href = 'https://www.debteehelper.com/views/login.html'
+  config => {
+    let token = getCookie("usertokey");
+    if (!token && config.url !== "/LawyerCase/UrlClicksCount") {
+      window.location.href = "https://www.debteehelper.com/views/login.html";
     }
+    // if (config.url === "/VipMember/GetPlatformNotice") {
+    //   config.baseURL = "https://api2.debteehelper.com/api";
+    // }
     config.data = JSON.stringify(config.data);
     config.headers = {
       "Content-Type": "application/json",
-      "usertokey":token
+      usertokey: token
     };
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
@@ -30,13 +33,13 @@ axios.interceptors.request.use(
  * http response 拦截器
  */
 axios.interceptors.response.use(
-  (response) => {
+  response => {
     if (response.data.errCode === 2) {
       console.log("过期");
     }
     return response;
   },
-  (error) => {
+  error => {
     console.log("请求出错：", error);
   }
 );
@@ -47,15 +50,17 @@ axios.interceptors.response.use(
  * @param params  请求参数
  * @returns {Promise}
  */
-export function get(url:string, params = {}) {
+export function get(url: string, params = {}) {
   return new Promise((resolve, reject) => {
-    axios.get(url, {
-        params: params,
-      }).then((response) => {
+    axios
+      .get(url, {
+        params: params
+      })
+      .then(response => {
         landing(url, params, response.data);
         resolve(response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error);
       });
   });
@@ -68,14 +73,14 @@ export function get(url:string, params = {}) {
  * @returns {Promise}
  */
 
-export function post(url:string, data:any) {
+export function post(url: string, data: any) {
   return new Promise((resolve, reject) => {
     axios.post(url, data).then(
-      (response) => {
+      response => {
         //关闭进度条
         resolve(response.data);
       },
-      (err) => {
+      err => {
         reject(err);
       }
     );
@@ -88,13 +93,13 @@ export function post(url:string, data:any) {
  * @param data
  * @returns {Promise}
  */
-export function patch(url:string, data = {}) {
+export function patch(url: string, data = {}) {
   return new Promise((resolve, reject) => {
     axios.patch(url, data).then(
-      (response) => {
+      response => {
         resolve(response.data);
       },
-      (err) => {
+      err => {
         msag(err);
         reject(err);
       }
@@ -109,13 +114,13 @@ export function patch(url:string, data = {}) {
  * @returns {Promise}
  */
 
-export function put(url:string, data = {}) {
+export function put(url: string, data = {}) {
   return new Promise((resolve, reject) => {
     axios.put(url, data).then(
-      (response) => {
+      response => {
         resolve(response.data);
       },
-      (err) => {
+      err => {
         msag(err);
         reject(err);
       }
@@ -125,11 +130,11 @@ export function put(url:string, data = {}) {
 
 //统一接口处理，返回数据
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (fecth:any, url:string, param:any) {
+export default function (fecth: any, url: string, param: any) {
   // let _data:any = "";
 
-  if (url !== '/AILawyerLetter/GetTaskContentById') {
-    Toast.loading('loading...', 0)
+  if (url !== "/AILawyerLetter/GetTaskContentById") {
+    Toast.loading("loading...", 0);
   }
 
   return new Promise((resolve, reject) => {
@@ -137,25 +142,25 @@ export default function (fecth:any, url:string, param:any) {
       case "get":
         get(url, param)
           .then(function (response) {
-            Toast.hide()
+            Toast.hide();
             resolve(response);
           })
           .catch(function (error) {
             console.log("get request GET failed.", error);
-            Toast.hide()
+            Toast.hide();
             reject(error);
           });
         break;
       case "post":
         post(url, param)
           .then(function (response) {
-            Toast.hide()
+            Toast.hide();
             resolve(response);
           })
           .catch(function (error) {
             console.log("get request POST failed.", error);
-            Toast.hide()
-            reject(error);   
+            Toast.hide();
+            reject(error);
           });
         break;
       default:
@@ -165,7 +170,7 @@ export default function (fecth:any, url:string, param:any) {
 }
 
 //失败提示
-function msag(err:any) {
+function msag(err: any) {
   if (err && err.response) {
     switch (err.response.status) {
       case 400:
@@ -221,7 +226,7 @@ function msag(err:any) {
  * @param params
  * @param data
  */
-function landing(url:string, params:any, data:any) {
+function landing(url: string, params: any, data: any) {
   if (data.code === -1) {
   }
 }

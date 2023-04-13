@@ -366,13 +366,16 @@
               ></el-col
             >
           </el-row>
-          <el-row
+          <!-- <el-row
             v-if="
               data.info.run_status == '0' ||
                 data.info.run_status == '1' ||
                 data.info.run_status == '3' ||
                 data.info.run_status == '4'
             "
+          > -->
+          <el-row
+            v-if="data.info.lawyer_file == '' || data.info.lawyer_file == null"
           >
             <el-col :span="4">发送内容</el-col>
             <el-col :span="20"
