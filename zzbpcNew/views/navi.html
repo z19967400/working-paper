@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>案件云_法律导航</title>
+  <link rel="icon" href="../image/log3.png">
+  <!-- ws: 引入公共样式 -->
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="description"
+    content="案件云是国内领先的案件管理云平台，致力于为律师及公司法务提供优质的办公服务。围绕律师日常办案习惯，案件云打造了诉讼案件管理、非诉项目管理、日程管理、客户管理、法律人专用工具、律所一体化办公等一系列专业功能。">
+  <meta name="Keywords" content="案件云,案件管理系统,律师案件系统,律所案件系统,律所管理系统,法务案件管理系统">
+  <link rel="shortcut icon" href="../images/logo-gold.ico">
+  <link href="../assets/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="//at.alicdn.com/t/font_521396_dmb2kq9un5h.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/daohang/header.css">
+  <link rel="stylesheet" href="../css/daohang/footer.css">
+  <style>
+    @font-face {
+      font-family: 'iconfont';
+      /* project id 521396 */
+      src: url('//at.alicdn.com/t/font_521396_4gbynzyljhe.eot');
+      src: url('//at.alicdn.com/t/font_521396_4gbynzyljhe.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_521396_f9pgiujolrt.woff2?t=1649926709210') format('woff2'),
+        url('//at.alicdn.com/t/font_521396_f9pgiujolrt.woff?t=1649926709210') format('woff'),
+        url('//at.alicdn.com/t/font_521396_f9pgiujolrt.ttf?t=1649926709210') format('truetype'),
+        url('//at.alicdn.com/t/font_521396_4gbynzyljhe.svg#iconfont') format('svg');
+    }
+
+    .iconfont {
+      font-family: "iconfont" !important;
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #kf5-support-btn {
+      display: none;
+    }
+  </style>
+
+  <!-- Start GrowingIO -->
+  <!-- <script type='text/javascript'>
+!function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.giocdn.com/2.1/gio.js","gio");
+gio('init','9fe2966926d66801', {});
+gio('send');
+</script> -->
+  <!-- End GrowingIO -->
+
+  <!-- Start 百度营销 -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b39751b7239801b7ee6597be178ff5d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <!-- End 百度营销 -->
+
+  <script src="../css/daohang/es5-shim.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/json3/3.3.3/json3.min.js"></script> -->
+  <script src="../js/navi/swiper.js"> </script>
+
+
+  <link rel="stylesheet" href="../css/daohang/navi.css">
+  <link rel="stylesheet" href="../css/daohang/form.css">
+  <!-- we: 引入公共样式 -->
+
+</head>
+
+<body>
+
+  <!--引入header-->
+  <!--引入header-->
+  <div class="navi-page">
+    <div class="navi-banner">
+      <img class="navi-logo" src="https://file.debteehelper.com/logo/logo_zzbang_01.png" alt="">
+      <div class="navi-search-wrap clearfix">
+        <i class="iconfont icon-bottom">&#xe6d3;</i>
+        <!-- <select class="form-control search-select" id="searchSelect">
+                <option>百度搜索</option>
+                <option>案件检索</option>
+                <option>法条搜索</option>
+                <option>百度文库</option>
+                <option>搜微信</option>
+                <option>百度百科</option>
+                <option>淘宝</option>
+                <option>谷歌</option>
+                <option>知乎</option>
+            </select> -->
+        <div class="self-select" id="selfSelect">百度搜索</div>
+        <div class="self-option" id="selfOption">
+          <div class="option-item option-active">百度搜索</div>
+          <div class="option-item">案件检索</div>
+          <div class="option-item">法条搜索</div>
+          <div class="option-item">百度文库</div>
+          <div class="option-item">搜微信</div>
+          <div class="option-item">百度百科</div>
+          <div class="option-item">淘宝</div>
+          <div class="option-item">谷歌</div>
+          <div class="option-item">知乎</div>
+        </div>
+        <input type="text" class="search-input" id="searchInput" placeholder="请输入关键词搜索">
+        <i class="iconfont icon-search" id="searchBtn">&#xe60a;</i>
+      </div>
+      <div class="top-item-wrap clearfix">
+        <div class="top-item" data-type="百度搜索">百度</div>
+        <div class="top-item" data-type="案件检索">案件检索</div>
+        <div class="top-item" data-type="法条搜索">法条搜索</div>
+        <div class="top-item" data-type="百度文库">百度文库</div>
+        <div class="top-item" data-type="搜微信">搜微信</div>
+        <div class="top-item" data-type="百度百科">百度百科</div>
+        <div class="top-item" data-type="淘宝">淘宝</div>
+        <div class="top-item" data-type="谷歌">谷歌</div>
+        <div class="top-item" data-type="知乎">知乎</div>
+      </div>
+      <!-- <div class="top-txt">
+            <span>人生最大的快乐不在于占有什么，而在于追求什么的过程。</span>
+        </div> -->
+    </div>
+    <div class="navi-content">
+      <div class="content-title">
+        <i class="iconfont" style="color: #F0E570;">&#xe870;</i>
+        <span class="title-txt">企业公示系统</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="http://www.samr.gov.cn/fw/wyc/" target="_blank" class="content-item">企业公示系统</a>
+        <a href="https://www.creditchina.gov.cn/" target="_blank" class="content-item">信用中国</a>
+        <a href="http://www.ccgp.gov.cn/cr/list" target="_blank" class="content-item">政府采购违法失信记录</a>
+        <a href="https://www.tianyancha.com/" target="_blank" class="content-item">天眼查</a>
+        <a href="https://www.tianyancha.com/" target="_blank" class="content-item">企查查</a>
+        <a href="https://www.qixin.com/" target="_blank" class="content-item">启信宝</a>
+        <a href="http://www.neeq.com.cn/disclosure/announcement.html" target="_blank" class="content-item">新三板系统</a>
+        <a href="http://www.cninfo.com.cn/new/index" target="_blank" class="content-item">巨潮资信网</a>
+        <a href="https://xxgs.chinanpo.mca.gov.cn/gsxt/newList" target="_blank" class="content-item">全国社会组织查询</a>
+        <a href="https://www.amac.org.cn/" target="_blank" class="content-item">中基协</a>
+        <a href="https://www.icris.cr.gov.hk/csci/" target="_blank" class="content-item">香港企业信息</a>
+        <a href="http://www.gsxt.gov.cn/index.html" target="_blank" class="content-item">企业信用信息公示系统</a>
+        <a href="http://xwqy.gsxt.gov.cn/" target="_blank" class="content-item">小微企业名录</a>
+        <a href="http://app.gjzwfw.gov.cn/jmopen/webapp/html5/swbpmqycx/index.html" target="_blank"
+          class="content-item">拍卖企业查询</a>
+        <a href="https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx" target="_blank"
+          class="content-item">深圳商事主体信用监管公示平台</a>
+        <a href="http://qyxy.scjgj.beijing.gov.cn/home" target="_blank" class="content-item">北京企业信用信息网</a>
+        <a href="http://credit.scjg.tj.gov.cn/gsxt/" target="_blank" class="content-item">天津市市场主体信用信息公示系统</a>
+        <a href="http://app.gjzwfw.gov.cn/jmopen/webapp/html5/qgshttcx/index.html" target="_blank"
+          class="content-item">全国社会团体查询</a>
+        <a href="http://www.pbccrc.org.cn/" target="_blank" class="content-item">中国人民银行征信中心 </a>
+        <a href="http://credit.customs.gov.cn/ccppwebserver/pages/ccpp/html/ccppindex.html" target="_blank"
+          class="content-item">中国海关企业进出口信用信息公示平台 </a>
+        <a href="http://www.innocom.gov.cn/" target="_blank" class="content-item">高新技术企业资格认定管理 </a>
+        <a href="https://www.gov.uk/government/organisations/companies-house" target="_blank"
+          class="content-item">英国企业信息</a>
+        <a href="https://www.sec.gov/" target="_blank" class="content-item">美国上市公司信息</a>
+      </div>
+      <div class="content-title">
+        <i class="iconfont" style="color: #7CAAFF;">&#xe86b;</i>
+        <span class="title-txt">审批/许可</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="http://www.gsxt.gov.cn/index.html" target="_blank" class="content-item"
+          style="line-height: 20px;padding-top: 12px;">国监局-登记/质安/食品/<br>直销/动产抵押/召回/特种设备</a>
+        <a href="http://jzsc.mohurd.gov.cn/home" target="_blank" class="content-item">建筑行业各类资质查询</a>
+        <a href="http://www.landchina.com/" target="_blank" class="content-item">土地市场信息查询</a>
+        <a href="http://wcjs.sbj.cnipa.gov.cn/txnT01.do" target="_blank" class="content-item">商标查询</a>
+        <a href="http://pss-system.cnipa.gov.cn/" target="_blank" class="content-item">专利查询</a>
+        <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" class="content-item">网站备案查询</a>
+        <a href="http://www.qszt.net/" target="_blank" class="content-item">工业产品生产许可</a>
+        <a href="http://www.chinamoney.com.cn/chinese/index.html" target="_blank" class="content-item">中国货币网</a>
+        <a href="http://www.wipo.int/branddb/en/" target="_blank" class="content-item">WIPO品牌数据库</a>
+        <a href="http://www.ccopyright.com/" target="_blank" class="content-item">中国版权保护中心</a>
+        <a href="https://tsm.miit.gov.cn/dxxzsp/" target="_blank" class="content-item">电信类经营许可</a>
+        <a href="https://www.zhongdengwang.org.cn/" target="_blank" class="content-item">动产融资统一登记公示系统</a>
+        <a href="http://www.sbfl.cn/" target="_blank" class="content-item">商标分类</a>
+        <a href="http://epub.cnipa.gov.cn/" target="_blank" class="content-item">中国专利公布公告</a>
+        <a href="https://zscq.creditchina.gov.cn/" target="_blank" class="content-item">全国知识产权质押信息查询</a>
+        <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" class="content-item">工信部ICP域名查询</a>
+        <a href="https://credit.acla.org.cn/" target="_blank" class="content-item">全国律师执业诚信信息公示平台</a>
+        <a href="http://dcdy.gsxt.gov.cn/" target="_blank" class="content-item">全国市场监管动产抵押登记业务系统</a>
+        <a href="https://www.zhongdengwang.org.cn/" target="_blank" class="content-item">动态融资统一征信平台</a>
+        <a href="http://www.shtdsc.com/" target="_blank" class="content-item">上海土地市场</a>
+        <a href="http://www.mnr.gov.cn/sj/sjfw/td_19262/djjcbg/" target="_blank" class="content-item">全国主要城市地价监测报告</a>
+        <a href="https://tdgj.mnr.gov.cn/" target="_blank" class="content-item">全国土地估价监管系统</a>
+        <a href="http://z.mnr.gov.cn/" target="_blank" class="content-item">全国征地信息共享平台</a>
+        <a href="http://gujia.mnr.gov.cn/JGPublish/Publish/Index" target="_blank" class="content-item">土地估价行业信息公示系统</a>
+        <a href="http://www.szreorc.com/" target="_blank" class="content-item">深圳不动产登记中心</a>
+        <a href="https://zjw.sh.gov.cn/qyzz/index.html" target="_blank" class="content-item">上海住建委企业资质</a>
+        <a href="http://zjw.beijing.gov.cn/bjjs/zwfw/cxzx/index.shtml" target="_blank"
+          class="content-item">北京住建委查询中心</a>
+        <a href="http://jzsc.mohurd.gov.cn/data/elePermit" target="_blank" class="content-item">建筑工程施工许可证电子证照查询</a>
+        <a href="http://jzsc.mohurd.gov.cn/data/project" target="_blank" class="content-item">全国建筑市场监管公共服务平台</a>
+        <a href="https://www.rerc.com.cn/" target="_blank" class="content-item">自然资源确权登记网</a>
+        <a href="https://kyqgs.mnr.gov.cn/index.jhtml" target="_blank" class="content-item">全国矿业权入勘查开采信息公示系统</a>
+        <a href="https://www.miit.gov.cn/datainfo/zzsjk/pzkchjkcsqqymd/index.html" target="_blank"
+          class="content-item">批准开采黄金矿 产的企业名单</a>
+        <a href="https://geocloud.cgs.gov.cn/#/home" target="_blank" class="content-item">地质云</a>
+        <a href="http://ngac.org.cn/Kuangchandi/index.html" target="_blank" class="content-item">全国矿产地数据库</a>
+        <a href="https://www.ngac.cn/125cms/c/qggnew/index.htm" target="_blank" class="content-item">全国地质资料馆</a>
+        <a href=" https://pccz.court.gov.cn/pcajxxw/pctzr/tzrdh?lx=1" target="_blank"
+          class="content-item">全国企业破产重整案件信息网</a>
+        <a href="http://www.chinatax.gov.cn/chinatax/c101249/n2020011502/index.html" target="_blank"
+          class="content-item">全国重大税收违法案件信息公布栏</a>
+        <a href="http://www.ccgp.gov.cn/search/cr/" target="_blank" class="content-item">政府采购严重违法失信行为记录名单</a>
+        <a href="https://cfws.samr.gov.cn/" target="_blank" class="content-item">中国市场监管行政处罚文书网</a>
+        <a href="https://www.cbirc.gov.cn/cn/view/pages/index/index.html" target="_blank"
+          class="content-item">中国银行保险监督管理委员会</a>
+        <a href="https://neris.csrc.gov.cn/shixinchaxun/" target="_blank" class="content-item">证券期货市场失信记录查询平台</a>
+        <a href="http://kjs.mof.gov.cn/zt/kjzzss/kuaijizhunzeshishi/" target="_blank" class="content-item">财政部
+          -企业会计准则</a>
+        <a href="http://cfdacx.com/rules_list.aspx?category_id=0" target="_blank" class="content-item">中食药监管信息查询平台</a>
+        <a href=" https://www.mee.gov.cn/ywgz/fgbz/bz/" target="_blank" class="content-item">生态环境标准</a>
+        <a href=" https://www.cqc.com.cn/www/chinese/zscx/" target="_blank" class="content-item">中国质量认证中心证书查询</a>
+        <a href=" http://zscx.osta.org.cn/" target="_blank" class="content-item">技能人才评价证书全国联网查询</a>
+        <a href=" http://spscxkcx.gsxt.gov.cn/spscxk/spscxkindex.xhtml" target="_blank" class="content-item">食品生产许可证</a>
+        <a href=" https://spjyxk.gsxt.gov.cn/cfdaPub/index/page/" target="_blank" class="content-item">食品经营许可证</a>
+        <a href=" https://xkz.cbirc.gov.cn/" target="_blank" class="content-item">金融、保险及保险专业中介许可证</a>
+        <a href=" http://std.samr.gov.cn/" target="_blank" class="content-item">全国标准目录信息查询</a>
+      </div>
+      <div class="content-title">
+        <i class="iconfont" style="color: #F77484;">&#xe86a;</i>
+        <span class="title-txt">律师工具</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="http://www.court.gov.cn/susongyangshi-75.html" target="_blank" class="content-item">文书样式</a>
+        <a href="https://www.fatianshi.cn/templates?p=0&m=0&g=0&ccd=null" target="_blank" class="content-item">法天使合同</a>
+        <a href="https://www.tsa.cn/html/index.html" target="_blank" class="content-item">联合信任时间戳服务中心</a>
+        <a href="http://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125440/125838/index.html" target="_blank"
+          class="content-item">现行利率</a>
+        <a href="https://www.cnado.com/" target="_blank" class="content-item">诉讼费计算</a>
+        <a href="https://wannianli.tianqi.com/jisuanqi/" target="_blank" class="content-item">天数计算</a>
+        <a href="https://shijisuishu.51240.com/" target="_blank" class="content-item">年龄计算</a>
+        <a href="http://hl.anseo.cn/cal_USD_To_CNY.aspx" target="_blank" class="content-item">汇率换算</a>
+        <a href="http://www.jsq886.com/index.html" target="_blank" class="content-item">房贷计算器</a>
+        <a href="http://geshui.ttvz.com/" target="_blank" class="content-item">个税计算器</a>
+        <a href="https://id.weixingmap.com/" target="_blank" class="content-item">身份证号查询</a>
+        <a href="https://tool.lu/mobile/" target="_blank" class="content-item">手机号归属</a>
+        <a href="http://www.atool9.com/bank.php" target="_blank" class="content-item">银行卡归属</a>
+        <a href="https://www.court.gov.cn/fabu-xiangqing-282031.html" target="_blank" class="content-item">民事案由</a>
+        <a href="http://www.xbhao.net/changshi/603.html" target="_blank" class="content-item">刑事罪名</a>
+        <a href="https://rmfygg.court.gov.cn/" target="_blank" class="content-item">公告查询</a>
+        <a href="http://zxgk.court.gov.cn/" target="_blank" class="content-item">执行信息公开网</a>
+        <a href="http://zxgk.court.gov.cn/zhixing/" target="_blank" class="content-item">被执行人信息查询</a>
+        <a href="http://jxjs.court.gov.cn/" target="_blank" class="content-item">减刑/假释/暂予监外执行</a>
+        <a href="http://pccz.court.gov.cn/pcajxxw/index/xxwsy" target="_blank" class="content-item">破产重整信息</a>
+        <a href="https://www.court.gov.cn/fabu-xiangqing-282681.html" target="_blank" class="content-item">行政案由</a>
+        <a href="https://cont.12315.cn/" target="_blank" class="content-item">合同示范文本库</a>
+        <a href="http//www.law-lib.com/htfb/" target="_blank" class="content-item">合同范本</a>
+        <a href="https://app.autodocs.cn/apdc/173?dl=f1eff446cba2a279" target="_blank"
+          class="content-item">保密协议自动生成器</a>
+        <a href="https://app.autodocs.cn/apdc/318?dl=f1eff446cba2a279" target="_blank" class="content-item">专项法律协议自动生成器
+          （融资交易类）</a>
+        <a href="https://app.autodocs.cn/apdc/319?dl=f1eff446cba2a279" target="_blank" class="content-item">员工入职全套文件生成
+        </a>
+        <a href="https://www.onecle.com/" target="_blank" class="content-item">Onecle英文合同模板</a>
+        <a href="https://www.fabao365.com/flws/" target="_blank" class="content-item">法律文书范本</a>
+        <a href="http://www.lawyouknow.com/product/gs.html" target="_blank" class="content-item">工伤赔偿</a>
+        <a href="http://www.lawyouknow.com/product/jt.html" target="_blank" class="content-item">交通事故赔偿</a>
+        <a href="https://wannianli.tianqi.com/jisuanqi/daxie/" target="_blank" class="content-item">金额大小写转换</a>
+        <a href="http://shenfenzheng.293.net/" target="_blank" class="content-item">身份证归属地查询</a>
+        <a href="http://www.lawyouknow.com/product/jt.html" target="_blank" class="content-item">交通事故赔偿</a>
+      </div>
+      <div class="content-title">
+        <i class="iconfont" style="color: #CE76E7;">&#xe86e;</i>
+        <span class="title-txt">法律/案例</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="https://www.itslaw.com/home" target="_blank" class="content-item">无讼案例</a>
+        <a href="http://www.xue338.com/" target="_blank" class="content-item">法律数据库</a>
+        <a href="http://www.pkulaw.com/" target="_blank" class="content-item">北大法宝</a>
+        <a href="http://www.wk-china.com/" target="_blank" class="content-item">威科先行</a>
+        <a href="https://wenshu.court.gov.cn/" target="_blank" class="content-item">裁判文书网</a>
+        <a href="https://www.jufaanli.com/" target="_blank" class="content-item">聚法案例</a>
+        <a href="http://www.faxin.cn/index.aspx" target="_blank" class="content-item">法信</a>
+        <a href="http://search.chinalaw.gov.cn/search2.html" target="_blank" class="content-item">法律法规数据库</a>
+        <a href="http://policy.mofcom.gov.cn/law/index.shtml" target="_blank" class="content-item">全球法律</a>
+        <a href="http://www.law-lib.com/" target="_blank" class="content-item">法律图书馆</a>
+        <a href="https://www.chinacourt.org/law.shtml" target="_blank" class="content-item">最高院法律文库</a>
+        <a href="http://search.chinalaw.gov.cn/search2.html" target="_blank" class="content-item">国务院法规检索</a>
+        <a href="https://www.lawsdata.com/#/home" target="_blank" class="content-item">把手案例</a>
+        <a href="http://www.pbc.gov.cn/tiaofasi/144941/index.html" target="_blank" class="content-item">中国人民银行条法司</a>
+        <a href="https://ipc.court.gov.cn/zh-cn/index.html" target="_blank" class="content-item">最高人民法院知识产权法庭</a>
+        <a href="https://www.spp.gov.cn/spp/jczdal/index.shtml" target="_blank" class="content-item">最高人民检察院指导案例</a>
+        <a href="https://www.court.gov.cn/fabu-gengduo-77.html" target="_blank" class="content-item">最高人民法院指导案例</a>
+        <a href="https://splcgk.court.gov.cn/gzfwww/" target="_blank" class="content-item">中国审判流程信息公开网</a>
+        <a href="https://rmfygg.court.gov.cn/" target="_blank" class="content-item">人民法院公告网</a>
+        <a href="http://tingshen.court.gov.cn/" target="_blank" class="content-item">中国庭审公开网</a>
+        <a href="https://songda.court.gov.cn/" target="_blank" class="content-item">人民法院送达平台</a>
+        <a href="https://www.chinacourt.org/index.shtml" target="_blank" class="content-item">中国法院网 </a>
+        <a href="https://rmft.court.gov.cn/0/index.jhtml" target="_blank" class="content-item">全国人民法庭信息网 </a>
+        <a href="https://www.12309.gov.cn/12309/index.shtml" target="_blank" class="content-item">中国检察网 </a>
+        <a href="https://www.spp.gov.cn/" target="_blank" class="content-item">最高人民检察院 </a>
+        <a href="https://flk.npc.gov.cn/index.html" target="_blank" class="content-item">国家法规数据库</a>
+        <a href="https://www.spp.gov.cn/spp/flfgk/" target="_blank" class="content-item">检察法律法规库</a>
+        <a href="https://www.elegislation.gov.hk/" target="_blank" class="content-item">香港法例</a>
+        <a href="https://www.mee.gov.cn/ywgz/fgbz/bz/" target="_blank" class="content-item">生态环境标准</a>
+      </div>
+      <div class="content-title">
+        <i class="iconfont" style="color: #58CF6C;">&#xe86f;</i>
+        <span class="title-txt">知识/资讯</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="https://www.zhihu.com/" target="_blank" class="content-item">知乎</a>
+        <a href="https://www.jianshu.com/" target="_blank" class="content-item">简书</a>
+        <a href="https://book.douban.com/" target="_blank" class="content-item">豆瓣读书</a>
+        <a href="https://scholar.chongbuluo.com/" target="_blank" class="content-item">学术搜索</a>
+        <a href="https://www.cnki.net/" target="_blank" class="content-item">知网</a>
+        <a href="https://www.ixueshu.com/" target="_blank" class="content-item">爱学术</a>
+        <a href="https://baike.baidu.com/" target="_blank" class="content-item">百度百科</a>
+        <a href="http://www.moj.gov.cn/" target="_blank" class="content-item">司法部</a>
+        <a href="http://legalinfo.moj.gov.cn/pub/sfbzhfx/index.html" target="_blank" class="content-item">普法网</a>
+        <a href="http://tingshen.court.gov.cn/" target="_blank" class="content-item">庭审直播</a>
+        <a href="http://www.cicpa.org.cn/" target="_blank" class="content-item">CPA</a>
+        <a href="https://open.163.com/" target="_blank" class="content-item">网易公开课</a>
+        <a href="https://www.ted.com/" target="_blank" class="content-item">TED</a>
+        <a href="http://club.topsage.com/" target="_blank" class="content-item">大家论坛</a>
+        <a href="https://bbs.esnai.com/forum-16-1.html" target="_blank" class="content-item">视野论坛</a>
+      </div>
+      <div class="content-title">
+        <i class="iconfont" style="color: #7CAAFF;">&#xe86c;</i>
+        <span class="title-txt">常用</span>
+      </div>
+      <div class="content-item-wrap clearfix">
+        <a href="https://mail.qq.com/" target="_blank" class="content-item">QQ邮箱</a>
+        <a href="https://exmail.qq.com/login" target="_blank" class="content-item">腾讯企业邮箱</a>
+        <a href="https://email.163.com/" target="_blank" class="content-item">网易邮箱</a>
+        <a href="http://mail.google.com/" target="_blank" class="content-item">Gmail</a>
+        <a href="https://pan.baidu.com/" target="_blank" class="content-item">百度网盘</a>
+        <a href="https://map.baidu.com/" target="_blank" class="content-item">百度地图</a>
+        <a href="https://fanyi.baidu.com/" target="_blank" class="content-item">百度翻译</a>
+        <a href="https://www.kuaidi100.com/" target="_blank" class="content-item">快递查询</a>
+        <a href="https://naotu.baidu.com/" target="_blank" class="content-item">百度脑图</a>
+        <a href="https://www.processon.com/" target="_blank" class="content-item">Processon</a>
+        <a href="https://www.alltoall.net/amr_mp3/" target="_blank" class="content-item">视频/音频格式转换</a>
+        <a href="https://smallpdf.com/cn" target="_blank" class="content-item">PDF全格式转换</a>
+        <a href="https://www.yasuotu.com/" target="_blank" class="content-item">图片压缩</a>
+        <a href="https://shimo.im/welcome" target="_blank" class="content-item">石墨文档</a>
+        <a href="https://web.baimiaoapp.com/" target="_blank" class="content-item">白描OCR文字识别</a>
+        <a href="https://uutool.cn/ocr/" target="_blank" class="content-item">UU工具在线OCR文字识别</a>
+        <a href="https://www.pdfpai.com/" target="_blank" class="content-item">pdf全格式转换</a>
+        <a href="https://www.cleverpdf.com/cn" target="_blank" class="content-item">pdf全格式转换 </a>
+        <a href="https://www.ilovepdf.com/zh-cn" target="_blank" class="content-item">PDF全格式转换 </a>
+        <a href="https://pdfcandy.com/cn/" target="_blank" class="content-item">PDF全格式转换 </a>
+        <a href="https://online.easyscreenocr.com/ZH" target="_blank" class="content-item">EasyScreenOCR </a>
+        <a href="https://www.chsi.com.cn/" target="_blank" class="content-item">学信网查询</a>
+        <a href="https://fonts.safe.360.cn/" target="_blank" class="content-item">360查字体版权</a>
+        <a href="https://www.cuobiezi.net/difu/index" target="_blank" class="content-item">文档差异对比 </a>
+        <a href="https://www.luyinzhushou.com/voice2text/" target="_blank" class="content-item">语音转文字(限定20M以内） </a>
+        <a href="https://jianwai.youdao.com/" target="_blank" class="content-item">语音转文字(限定2小时以内）</a>
+      </div>
+    </div>
+  </div>
+  <!--ws: 公共Script -->
+
+  <script src="../css/daohang/require.min.js"></script>
+  <script src="../css/daohang/require.config.js"></script>
+  <!-- <script src="../conf/require.config.js"></script>  -->
+  <script src="../js/jquery.min.js"></script>
+  <!-- <script src="../vendor/jquery/jquery.lazyload.js"> -->
+  </script>
+  <!-- <script>
+    $(function () {
+      $("img").lazyload({ effect: "fadeIn" });
+      console.log($("img").lazyload)
+    });
+  </script> -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177094756-1"></script>
+  <script type="text/javascript">
+    document.write('<script src="https:\/\/assets-cdn.kf5.com\/supportbox\/main.js?' + (new Date).getDay() + '" id="kf5-provide-supportBox" kchat-id="1040563" kf5-domain="law086.kf5.com" charset="utf-8"><\/script>');
+
+
+    var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+    var browser = navigator.userAgent.toLowerCase();
+    var isMobile = false;
+    for (var i = 0; i < mobileAgent.length; i++) {
+      if (browser.indexOf(mobileAgent[i]) != -1) {
+        isMobile = true;
+        location.href = 'http://m.law086.com';
+        break;
+      }
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-177094756-1');
+  </script>
+  <script>
+    setTimeout(function () {
+      window.KF5SupportBoxAPI.ready(function () {
+        window.KF5SupportBoxAPI.removeButton();
+      });
+    }, 500)
+  </script>
+
+  <!--we: 公共Script -->
+  <script>
+    //通过require的方式来引入需要的js
+    require(['navi'], function () { })
+  </script>
+</body>
+
+</html>

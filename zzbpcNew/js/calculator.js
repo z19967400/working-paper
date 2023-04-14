@@ -71,10 +71,14 @@ $(function () {
     index = $('.left .fenlei').index(this)
     $('.left .fenlei').removeClass('act')
     $(this).addClass('act')
-    console.log(index);
+    console.log($('.left .fenlei').length);
     $('.box>.left>.xian>.xian').css('top', index * 40 + "px")
     $(`.right>div>div:nth-child(${index + 1})`).show()
     $(`.right>div>div:nth-child(${index + 1})`).siblings().hide()
+    if (index == $('.left .fenlei').length - 1) {
+      // window.location.href = '../views/navi.html'
+      window.open('../views/navi.html')
+    }
     if (index > 2) {
       $('.other').show()
       $('#first1').hide()
