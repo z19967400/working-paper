@@ -1103,25 +1103,51 @@ function yiliao() {
   $('#table').addClass('table')
 }
 //房产分割
+function calculatePropertyData(currentPrice, marriagePrice, jointRepayment, interestPaid, otherFees) {
+  let appreciationRate = currentPrice / (marriagePrice + interestPaid + otherFees) * 100;
+  let postMarriageValueIncrease = (currentPrice - marriagePrice) / 10000;
+  return { appreciationRate: appreciationRate.toFixed(2), postMarriageValueIncrease: postMarriageValueIncrease.toFixed(2) };
+}
 function fangchan() {
-  let value1 = $('#Subject8-1').val() //结婚时房产价格
-  let value2 = $('#Subject8-2').val() //离婚时房产价格
-  let value3 = $('#Subject8-3').val() //共同已还利息
-  let value4 = $('#Subject8-4').val() //契税等其他费用
-  let value5 = $('#Subject8-5').val() //共同还贷部分
+  let value1 = $('#Subject8-1').val() * 10000 //结婚时房产价格
+  let value2 = $('#Subject8-2').val() * 10000//离婚时房产价格
+  let value3 = $('#Subject8-3').val() * 10000//共同已还利息
+  let value4 = $('#Subject8-4').val() * 10000//契税等其他费用
+  let value5 = $('#Subject8-5').val() * 10000//共同还贷部分
+  let arr = calculatePropertyData(value2, value1, value5, value3, value4)
+  console.log(arr);
   let html = `<tbody>
-  <tr><td>房产的升值率（%）</td><td>${33}%</td></tr>
-  <tr><td>婚后增值金额（万）</td><td>${33.33}</td></tr>
+  <tr><td>房产的升值率（%）</td><td>${arr.appreciationRate}%</td></tr>
+  <tr><td>婚后增值金额（万）</td><td>${arr.postMarriageValueIncrease}元</td></tr>
 </tbody>`
   $('#table').html(html)
   $('#table').addClass('table')
 }
 //违约金
+function calculatePenalty(amount, startDate, endDate, interestRate, interestRateCalculationMethod) {
+  let dailyInterestRate;
+  if (interestRateCalculationMethod === '日') {
+    dailyInterestRate = interestRate;
+  } else if (interestRateCalculationMethod === '月') {
+    dailyInterestRate = interestRate / 30;
+  } else if (interestRateCalculationMethod === '年') {
+    dailyInterestRate = interestRate / 365;
+  }
+  let duration = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24);
+  let penalty = amount * dailyInterestRate * duration;
+  return { dailyInterestRate: dailyInterestRate, penalty: penalty, duration: duration };
+}
 function weiyue() {
+  let val1 = $('#Subject9-1').val() //标的
+  let val2 = $('#Subject9-2').val() //逾期时间(开始)
+  let val3 = $('#Subject9-3').val()//逾期时间(结束)
+  let val4 = $('#Subject9-4').val() //利率方式
+  let val5 = $('#Subject9-5').val() / 100 //利率
+  let arr = calculatePenalty(val1, val2, val3, val5, val4)
   let html = `<tbody>
-    <tr><td>逾期期限</td><td>${365}天</td></tr>
-    <tr><td>利率</td><td>${0.000139}每天</td></tr>
-    <tr><td>违约金</td><td>${50874.00}元</td></tr>
+    <tr><td>逾期期限</td><td>${arr.duration}天</td></tr>
+    <tr><td>利率</td><td>${arr.dailyInterestRate}每天</td></tr>
+    <tr><td>违约金</td><td>${arr.penalty}</td></tr>
   </tbody>`
   $('#table').html(html)
   $('#table').addClass('table')
