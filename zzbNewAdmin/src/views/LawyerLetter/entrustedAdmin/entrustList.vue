@@ -62,6 +62,28 @@
             v-model="getdaochu.creditor_name"
             placeholder="债权人名称"
           ></el-input>
+          <el-date-picker
+            style="width:180px;margin-left:20px;"
+            size="small"
+            v-model="getdaochu.start_time"
+            align="right"
+            value-format="yyyy-MM-dd"
+            type="date"
+            placeholder="选择日期"
+            :picker-options="pickerOptions"
+          >
+          </el-date-picker>
+          <el-date-picker
+            style="width:180px;margin-left:20px;"
+            size="small"
+            v-model="getdaochu.end_time"
+            value-format="yyyy-MM-dd"
+            align="right"
+            type="date"
+            placeholder="选择日期"
+            :picker-options="pickerOptions"
+          >
+          </el-date-picker>
           <el-button
             type="primary"
             size="small"

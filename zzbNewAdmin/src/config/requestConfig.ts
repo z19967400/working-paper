@@ -441,6 +441,7 @@ export default {
   GetMyAdminRole: '/api/hd/Admin/GetMyAdminRole', //获取当前管理员角色
   GetToDoList: '/api/hd/ToDoList/GetToDoList', //获取待办列表
   AddNotice: '/api/hd/PlatformNotice/AddNotice', //新增通知
+  DownloadAILawyerLetter: '/api/hd/AILawyerLetter/DownloadAILawyerLetter', //下载pdf
 
   //部分后台使用钱前台接口
   SendLawyersLetter: '/api/pt/Dictionary/Lawyerletter', // 发律师函

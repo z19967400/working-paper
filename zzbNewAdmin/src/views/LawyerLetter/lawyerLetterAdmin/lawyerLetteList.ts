@@ -504,9 +504,26 @@ export default class About extends Vue {
     window.open(downloadFil)
   }
   //单项下载
-  goDownload(row: any) {
-    window.open(row.lawyer_file)
+  async goDownload(row: any) {
+    // Api.DownloadAILawyerLetter(row.lawyer_file, 'blob').then((res: any) => {
+    //   const response = res
+    //   const url: any = window.URL.createObjectURL(response)
+    //   const a: any = document.createElement('a')
+    //   a.style.display = 'none'
+    //   a.href = url
+    //   a.setAttribute('download', row.debtor_number + '.pdf')
+    //   document.body.appendChild(a)
+    //   a.click()
+    //   document.body.removeChild(a)
+    const a: any = document.createElement('a')
+    a.style.display = 'none'
+    a.href = `http://api1.debteehelper.com/api/AILawyerLetter/DownloadAILawyerLetter?file_address=${row.lawyer_file}`
+    a.setAttribute('download', row.debtor_number + '.pdf')
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   }
+
   //扫码枪扫码回调
   saomaQ(index: number) {
     let length: any = this.slectList.length

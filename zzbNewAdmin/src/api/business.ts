@@ -1,5 +1,6 @@
 import Api from '@/utils/request'
 import { businessOptions } from '@/types/index'
+import { ResponseType } from 'axios'
 
 //获取债权人列表
 export const getCreditorList = (params: businessOptions['getCreditor']) => {
@@ -568,4 +569,11 @@ export const CaseMattersSort = (parmas: any) => {
 //获取AI律师函导出数据
 export const GetAILawyerLetterExportData = (parmas: any) => {
   return Api.GetAILawyerLetterExportData(parmas, 'GET')
+}
+//下载pdf文件
+export const DownloadAILawyerLetter = (
+  file_address: string,
+  responseType?: ResponseType
+) => {
+  return Api.DownloadAILawyerLetter({ file_address }, 'GET', responseType)
 }

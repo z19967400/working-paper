@@ -28,7 +28,9 @@ export default class About extends Vue {
   getdaochu: any = {
     member_id: '',
     create_name: '',
-    creditor_name: ''
+    creditor_name: '',
+    start_time: '',
+    end_time: ''
   }
   load: boolean = false
   data: any = {
@@ -132,6 +134,35 @@ export default class About extends Vue {
   }
   list: any = []
   visible: boolean = false
+  pickerOptions: any = {
+    disabledDate(time: any) {
+      return time.getTime() > Date.now()
+    },
+    shortcuts: [
+      {
+        text: '今天',
+        onClick(picker: any) {
+          picker.$emit('pick', new Date())
+        }
+      },
+      {
+        text: '昨天',
+        onClick(picker: any) {
+          const date = new Date()
+          date.setTime(date.getTime() - 3600 * 1000 * 24)
+          picker.$emit('pick', date)
+        }
+      },
+      {
+        text: '一周前',
+        onClick(picker: any) {
+          const date = new Date()
+          date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+          picker.$emit('pick', date)
+        }
+      }
+    ]
+  }
   created() {
     setTimeout(() => {
       this.init()
@@ -242,11 +273,25 @@ export default class About extends Vue {
   GetAILawyerLetterExportData() {
     this.load = true
     this.dialogVisible = true
+    let today = new Date()
+    let lastWeek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7
+    )
+    let todayFormatted = today.toISOString().slice(0, 10)
+    let lastWeekFormatted = lastWeek.toISOString().slice(0, 10)
+
+    this.getdaochu.start_time = lastWeekFormatted
+    this.getdaochu.end_time = todayFormatted
     let parmas: any = {
       member_id: this.getdaochu.member_id || 0,
       create_name: this.getdaochu.create_name,
-      creditor_name: this.getdaochu.creditor_name
+      creditor_name: this.getdaochu.creditor_name,
+      start_time: lastWeekFormatted,
+      end_time: todayFormatted
     }
+
     Api.GetAILawyerLetterExportData(parmas).then((res: any) => {
       if (res.state) {
         this.tableData = res.data
@@ -268,7 +313,9 @@ export default class About extends Vue {
     this.getdaochu = {
       member_id: '',
       create_name: '',
-      creditor_name: ''
+      creditor_name: '',
+      start_time: '',
+      end_time: ''
     }
     this.GetAILawyerLetterExportData()
   }
@@ -277,7 +324,9 @@ export default class About extends Vue {
     this.getdaochu = {
       member_id: '',
       create_name: '',
-      creditor_name: ''
+      creditor_name: '',
+      start_time: '',
+      end_time: ''
     }
     this.dialogVisible = false
   }
@@ -286,7 +335,9 @@ export default class About extends Vue {
     let params: any = {
       member_id: this.getdaochu.member_id || 0,
       create_name: this.getdaochu.create_name,
-      creditor_name: this.getdaochu.creditor_name
+      creditor_name: this.getdaochu.creditor_name,
+      start_time: this.getdaochu.start_time,
+      end_time: this.getdaochu.end_time
     }
     const baseURL: string = 'https://api1.debteehelper.com'
     let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportAILawyerLetterExcel?member_id=${params.member_id}&create_name=${params.create_name}&creditor_name=${params.creditor_name}`

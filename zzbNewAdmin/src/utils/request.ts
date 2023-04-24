@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig, ResponseType } from 'axios'
 import {
   MAINHOST,
   ISMOCK,
@@ -120,15 +120,13 @@ const requestFail = (res: AxiosResponse) => {
 const conbineOptions = (
   _opts: any,
   data: Datas,
-  method: Methods
+  method: Methods,
+  responseType?: ResponseType
 ): AxiosRequestConfig => {
   let opts = _opts
   if (typeof opts === 'string') {
     opts = { url: opts }
   }
-  // eslint-disable-next-line no-console
-  console.log(opts.url)
-
   let Bur = baseURL
   if (process.env.NODE_ENV === 'production') {
     Bur =
@@ -147,7 +145,8 @@ const conbineOptions = (
     method: opts.method || data.method || method || 'GET',
     url: opts.url,
     header: { admintokey: getToken() },
-    baseURL: Bur
+    baseURL: Bur,
+    responseType
   }
   return options.method !== 'GET'
     ? Object.assign(options, { data: _data })
@@ -163,13 +162,17 @@ const Api = (() => {
   const apiObj: any = {}
   const requestList: any = requestConfig
   const fun = (opts: AxiosRequestConfig | string) => {
-    return async (data = {}, method: Methods = 'GET') => {
+    return async (
+      data = {},
+      method: Methods = 'GET',
+      responseType?: ResponseType
+    ) => {
       // if (!token) {
       // eslint-disable-next-line no-console
       // console.error("No Token");
       // return router.replace({ name: "login" });
       // }
-      const newOpts = conbineOptions(opts, data, method)
+      const newOpts = conbineOptions(opts, data, method, responseType)
       // eslint-disable-next-line no-console
       const res = await HTTP.request(newOpts)
       return res
