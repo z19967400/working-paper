@@ -29,8 +29,8 @@ export default class About extends Vue {
     member_id: '',
     create_name: '',
     creditor_name: '',
-    start_time: '',
-    end_time: ''
+    start_time: this.getNewDay().lastWeekFormatted,
+    end_time: this.getNewDay().todayFormatted
   }
   load: boolean = false
   data: any = {
@@ -273,23 +273,12 @@ export default class About extends Vue {
   GetAILawyerLetterExportData() {
     this.load = true
     this.dialogVisible = true
-    let today = new Date()
-    let lastWeek = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 7
-    )
-    let todayFormatted = today.toISOString().slice(0, 10)
-    let lastWeekFormatted = lastWeek.toISOString().slice(0, 10)
-
-    this.getdaochu.start_time = lastWeekFormatted
-    this.getdaochu.end_time = todayFormatted
     let parmas: any = {
       member_id: this.getdaochu.member_id || 0,
       create_name: this.getdaochu.create_name,
       creditor_name: this.getdaochu.creditor_name,
-      start_time: lastWeekFormatted,
-      end_time: todayFormatted
+      start_time: this.getdaochu.start_time,
+      end_time: this.getdaochu.end_time
     }
 
     Api.GetAILawyerLetterExportData(parmas).then((res: any) => {
@@ -314,10 +303,21 @@ export default class About extends Vue {
       member_id: '',
       create_name: '',
       creditor_name: '',
-      start_time: '',
-      end_time: ''
+      start_time: this.getNewDay().lastWeekFormatted,
+      end_time: this.getNewDay().todayFormatted
     }
     this.GetAILawyerLetterExportData()
+  }
+  getNewDay() {
+    let today = new Date()
+    let lastWeek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7
+    )
+    let todayFormatted = today.toISOString().slice(0, 10)
+    let lastWeekFormatted = lastWeek.toISOString().slice(0, 10)
+    return { todayFormatted, lastWeekFormatted }
   }
   //导出弹窗关闭
   handleClose() {
@@ -325,8 +325,8 @@ export default class About extends Vue {
       member_id: '',
       create_name: '',
       creditor_name: '',
-      start_time: '',
-      end_time: ''
+      start_time: this.getNewDay().lastWeekFormatted,
+      end_time: this.getNewDay().todayFormatted
     }
     this.dialogVisible = false
   }
@@ -340,7 +340,7 @@ export default class About extends Vue {
       end_time: this.getdaochu.end_time
     }
     const baseURL: string = 'https://api1.debteehelper.com'
-    let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportAILawyerLetterExcel?member_id=${params.member_id}&create_name=${params.create_name}&creditor_name=${params.creditor_name}`
+    let downloadFileUrl = `${baseURL}/api/AILawyerLetter/ExportAILawyerLetterExcel?member_id=${params.member_id}&create_name=${params.create_name}&creditor_name=${params.creditor_name}&start_time=${params.start_time}&end_time=${params.end_time}`
 
     var elemIF = document.createElement('iframe')
     elemIF.src = downloadFileUrl
